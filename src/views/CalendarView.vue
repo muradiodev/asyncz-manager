@@ -31,7 +31,7 @@
           :events="calendar"
           :screen-width="screenWidth"
           :screen-height="screenHeight"
-          v-if="view==='vertical'"/>
+          v-if="view===VIEW_VERTICAL"/>
 
     </div>
 
@@ -44,14 +44,16 @@
 
 import {getCalendarInfo, getSchedules} from "@/repositories/GeneralDataRepository.js";
 import CalendarVerticalLayout from "@/components/calendar/layouts/CalendarVerticalLayout.vue";
+import {VIEW_VERTICAL} from "@/Constants.js";
+import {useAuthStore} from "@/stores/auth.js";
+import {mapState} from "pinia";
 
 export default {
   name: 'CalendarView',
   components: {CalendarVerticalLayout},
   data() {
     return {
-      token: 't_XKNJ2KWi451Tlf6TZBZp3BHnN4uyWD',
-      view: 'vertical', //horizontal, month, vertical
+      view: VIEW_VERTICAL, //horizontal, month, vertical
       dayCount: 4,
       startDate: null,
       currentDate: null,
@@ -93,6 +95,8 @@ export default {
   },
   computed: {
 
+    ...mapState(useAuthStore, ['token']),
+
     readyToBuildLayout() {
       return this.startDate && this.endDate && this.currentDate;
     },
@@ -113,7 +117,12 @@ export default {
         return this.startDate.format('DD MMMM') + ' - ' + this.endDate.format('DD MMMM YYYY');
       }
       return this.startDate.format('DD MMMM YYYY') + ' - ' + this.endDate.format('DD MMMM YYYY');
-    }
+    },
+
+    VIEW_VERTICAL() {
+      return VIEW_VERTICAL;
+    },
+
   },
   methods: {
 
@@ -170,7 +179,7 @@ export default {
 
     onResize() {
       this.screenWidth = this.$el.offsetWidth;
-      this.screenHeight = window.innerHeight *2;
+      this.screenHeight = window.innerHeight * 2;
     },
 
   },

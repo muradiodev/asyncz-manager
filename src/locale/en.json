@@ -1,0 +1,37 @@
+{
+  "general": {
+    "loading": "Loading...",
+    "dashboard": "Dashboard",
+    "attention": "Attention",
+    "ok": "OK",
+    "error": "Error",
+    "success": "Success",
+    "continue": "Continue",
+    "submit": "Submit"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "login": {
+    "welcome": "Welcome!",
+    "emailAddress": "Email address",
+    "noShare": "We'll never share your email with anyone else.",
+    "welcomeBack": "Welcome back!",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "forgotPasswordTitle": "Forgot password!",
+    "getVerificationCode": "Get verification code",
+    "verificationCode": "Verification code",
+    "newPassword": "New password",
+    "setMyNewPassword": "Set my new password",
+    "verificationCodeSent": "Verification code sent to your email",
+    "passwordUpdated": "Your password updated successfully"
+  },
+  "language": {
+    "current": "English",
+    "list": {
+        "en": "English"
+    }
+  }
+}

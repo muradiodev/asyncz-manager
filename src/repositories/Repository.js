@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseDomain = 'https://termin.zahnarzt-mustafayev.de'
+const baseDomain = 'http://localhost:8082'
 const photoBase = 'https://contentapps.net'
 
 export const customHeaders = {
