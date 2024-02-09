@@ -107,14 +107,14 @@ export default {
         top: this.startCoordinate.start + 'px',
         width: this.columnWidth + 'px',
         left: (this.columnWidth * this.listOrder) + 'px',
-        backgroundColor: this.schedule.doctor.color
+        backgroundColor: this.schedule.expert.color
       }
     },
 
 
     resourceEvents() {
       return this.events.filter(event => {
-        return event.doctor.id === this.schedule.doctor.id;
+        return event.expert.id === this.schedule.expert.id;
       });
     }
 
@@ -126,7 +126,7 @@ export default {
     onDrop(event) {
       const itemData = JSON.parse(event.dataTransfer.getData('application/json'));
 
-      console.log("doctor : " + itemData.doctor.fullName + " to " + this.schedule.doctor.name);
+      console.log("expert : " + itemData.expert.fullName + " to " + this.schedule.expert.name);
 
       let bounds = this.$refs.scheduleColumn.getBoundingClientRect();
       let droppedTop = event.clientY -itemData.layoutY;

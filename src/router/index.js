@@ -38,6 +38,29 @@ const router = createRouter({
                     path: 'calendar',
                     name: 'calendar',
                     component: () => import('../views/CalendarView.vue')
+                },
+                {
+                    path: 'experts',
+                    name: 'experts',
+                    component: () => import('../views/ExpertsView.vue')
+                },
+
+                {
+                    path: 'expert/:id',
+                    name: 'expert',
+                    component: () => import('../views/ExpertView.vue')
+                },
+
+                {
+                    path: 'procedures',
+                    name: 'procedures',
+                    component: () => import('../views/ProceduresView.vue')
+                },
+
+                {
+                    path: 'procedure/:id',
+                    name: 'procedure',
+                    component: () => import('../views/ProcedureView.vue')
                 }
             ]
         }

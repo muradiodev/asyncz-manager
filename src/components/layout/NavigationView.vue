@@ -8,9 +8,7 @@ export default {
     return {};
   },
   computed: {
-
     ...mapState(useAuthStore, ["token", "user"]),
-
   },
 }
 </script>
@@ -30,6 +28,12 @@ export default {
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'calendar'}">Calendar</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name: 'experts'}">Experts</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name: 'procedures'}">Procedures</router-link>
           </li>
         </ul>
       </div>

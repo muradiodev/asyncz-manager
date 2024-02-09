@@ -11,7 +11,7 @@
         :pixel-per-minute="pixelPerMinute"/>
 
     <ResourceScheduleColumn
-        v-for="(schedule, listOrder) in schedules" :key="schedule.doctor.id"
+        v-for="(schedule, listOrder) in schedules" :key="schedule.expert.id"
         :schedule="schedule"
         :events = "columnEvents"
         :day="day"
