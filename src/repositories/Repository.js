@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseDomain = 'http://localhost:8082'
+const baseDomain = 'https://terminapi.azinweb.net'
 const photoBase = 'https://contentapps.net'
 
 export const customHeaders = {

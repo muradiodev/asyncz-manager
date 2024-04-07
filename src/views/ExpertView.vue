@@ -38,13 +38,24 @@
 
       <div class="row mt-4">
 
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
           <div class="card">
+            <div class="card-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                  {{ expert.fullName }}
+                </h5>
+                <button class="btn btn-sm btn-outline-dark"
+                        v-if="!editing"
+                        @click.prevent="editing = true">
+                  edit
+                </button>
+              </div>
+            </div>
             <div class="card-body" v-if="!editing">
 
               <p>
-                <strong>About: </strong> <br>
-                {{ expert.about }}
+                {{ expert.about || '-' }}
               </p>
               <p>
                 <strong>Color: </strong>
@@ -55,11 +66,6 @@
                 <strong>Status: </strong>
                 <StatusBadge :status="expert.status" />
               </p>
-
-              <button class="btn btn-sm btn-outline-dark" @click.prevent="editing = true">
-                edit
-              </button>
-
             </div>
             <div class="card-body" v-else>
 
@@ -125,6 +131,19 @@
 
             </div>
           </div>
+        </div>
+
+
+        <div class="col-md-6 mb-3">
+
+          <ExpertProcedures :expert-id="expertId" />
+
+        </div>
+
+        <div class="col-md-12">
+
+          <ExpertSchedules :expert-id="expertId" />
+
         </div>
 
 
@@ -199,12 +218,14 @@ import DataTablesLib from 'datatables.net-bs5'
 import 'datatables.net-select'
 import 'datatables.net-responsive'
 import 'datatables.net-select-bs5'
-import { createExpert, getExpert, saveExpert } from '@/repositories/ExpertsRepository.js'
+import { getExpert, saveExpert } from '@/repositories/ExpertsRepository.js'
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import StatusBadge from '@/views/StatusBadge.vue'
 import ColorComponent from '@/views/ColorComponent.vue'
+import ExpertProcedures from '@/views/ExpertProcedures.vue'
+import ExpertSchedules from '@/views/ExpertSchedules.vue'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -303,6 +324,8 @@ export default {
     this.getExpert()
   },
   components: {
+    ExpertSchedules,
+    ExpertProcedures,
     ColorComponent,
     StatusBadge,
     ModalComponent,

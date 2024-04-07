@@ -12,6 +12,9 @@ dayjs.extend(plugin)
 import VueSweetAlert from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 
+import Vue3Toastify from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 
 import Popper from "vue3-popper";
 
@@ -32,11 +35,16 @@ const i18n = createI18n({
 })
 
 
+
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
 app.use(VueSweetAlert)
+app.use(Vue3Toastify, {
+    autoClose: 3000,
+});
+
 app.use(i18n)
 app.component("PopperWidget", Popper);
 
