@@ -7,6 +7,16 @@
         <div class="text-center">
           {{ day.format('DD MMM, ddd') }}
         </div>
+        <div class="position-relative w-100 d-flex doctor-name-list">
+
+          <div v-for="sc in schedules" :key="sc.expert.id"
+               :title="sc.expert.name"
+               class="text-center flex-grow-1"
+               :style="{'background':sc.expert.color}">
+            {{ sc.expert.name}}
+          </div>
+
+        </div>
       </div>
     </div>
     <div class="calendar-content">
@@ -29,6 +39,8 @@
             :options="options"
             :schedules="schedules"
             :events="events"
+            @hourSlotClicked="$emit('hourSlotClicked', $event)"
+            @hourSlotDropped="$emit('hourSlotDropped', $event)"
         />
       </div>
 
@@ -120,7 +132,8 @@ export default {
   methods: {},
   mounted() {
 
-  }
+  },
+  emits: ['hourSlotClicked', 'hourSlotDropped']
 }
 </script>
 
@@ -131,13 +144,26 @@ export default {
   border: 1px solid #ccc;
 
   .calendar-vertical-view-date-row {
-    height: 30px;
+    height: 50px;
     border-bottom: 1px solid #ccc;
+
+    .doctor-name-list{
+      height: 100%;
+      overflow: hidden;
+      font-size: 12px;
+      //truncate
+      div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 3px;
+      }
+    }
   }
 
   .calendar-content {
     position: absolute;
-    top: 30px;
+    top: 50px;
     left: 0;
     right: 0;
     bottom: 0;

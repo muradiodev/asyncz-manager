@@ -89,7 +89,6 @@
                       class="form-control"
                       id="about"
                       v-model="expert.about"
-                      required
                     ></textarea>
                   </div>
 

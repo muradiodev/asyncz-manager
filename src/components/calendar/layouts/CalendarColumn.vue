@@ -4,11 +4,6 @@
       :class="{'current-day': isCurrentDay}"
       :style="columnStyle">
 
-    <VerticalHourGrid
-        :day="day"
-        :width="columnWidth"
-        :options="options"
-        :pixel-per-minute="pixelPerMinute"/>
 
     <ResourceScheduleColumn
         v-for="(schedule, listOrder) in schedules" :key="schedule.expert.id"
@@ -18,18 +13,20 @@
         :listOrder="listOrder"
         :column-width="resourceWidth"
         :pixel-per-minute="pixelPerMinute"
-        :options="options"/>
+        :options="options"
+        @hourSlotClicked="$emit('hourSlotClicked', $event)"
+        @hourSlotDropped="$emit('hourSlotDropped', $event)"
+    />
 
   </div>
 </template>
 <script>
-import VerticalHourGrid from "@/components/calendar/layouts/VerticalHourGrid.vue";
 import ResourceScheduleColumn from "@/components/calendar/layouts/ResourceScheduleColumn.vue";
 import {Dayjs} from "dayjs";
 
 export default {
   name: 'CalendarColumn',
-  components: {ResourceScheduleColumn, VerticalHourGrid},
+  components: {ResourceScheduleColumn},
   props: {
     day: {
       type: Dayjs,
@@ -67,7 +64,7 @@ export default {
 
   computed: {
     isCurrentDay() {
-      return this.day.isSame(this.currentDate, 'day');
+      return this.day.isSame(this.$dayjs(), 'day');
     },
 
     columnStyle() {
@@ -98,7 +95,8 @@ export default {
 
 
 
-  }
+  },
+  emits: ['hourSlotClicked', 'hourSlotDropped']
 }
 </script>
 

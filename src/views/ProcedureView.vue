@@ -83,7 +83,6 @@
                       class="form-control"
                       id="about"
                       v-model="procedure.about"
-                      required
                     ></textarea>
                   </div>
 
