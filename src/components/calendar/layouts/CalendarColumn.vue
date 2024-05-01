@@ -16,6 +16,7 @@
         :options="options"
         @hourSlotClicked="$emit('hourSlotClicked', $event)"
         @hourSlotDropped="$emit('hourSlotDropped', $event)"
+        @eventClicked="$emit('eventClicked', $event)"
     />
 
   </div>

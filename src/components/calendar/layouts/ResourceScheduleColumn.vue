@@ -31,6 +31,7 @@
     :column-width="columnWidth"
     :schedule-list-order="listOrder"
     :options="options"
+    @eventClicked="$emit('eventClicked', e)"
 
   />
 

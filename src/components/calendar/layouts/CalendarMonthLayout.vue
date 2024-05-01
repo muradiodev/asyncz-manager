@@ -28,10 +28,12 @@
       }"
          v-for="(day, column) in dayList"
          :key="day.format('YYYY-MM-DD')">
-      <div class="text-center">
-        {{ day.format('DD') }}
-      </div>
-
+      <MonthlyViewDay
+        :day="day"
+        :events="events"
+        @dayClicked="$emit('dayClicked', $event)"
+        @eventClicked="$emit('eventClicked', $event)"
+      />
     </div>
 
 
@@ -39,10 +41,11 @@
 </template>
 <script>
 import { Dayjs } from 'dayjs'
+import MonthlyViewDay from '@/components/calendar/layouts/MonthlyViewDay.vue'
 
 export default {
   name: 'CalendarMonthWeekView',
-  components: {},
+  components: { MonthlyViewDay },
   props: {
     dayCount: {
       type: Number,
@@ -91,7 +94,7 @@ export default {
       return this.startDate.day()
     },
     columnWidth() {
-      return (this.screenWidth -20) / 7
+      return (this.screenWidth - 20) / 7
     },
     columnWidthPx() {
       return this.columnWidth + 'px'

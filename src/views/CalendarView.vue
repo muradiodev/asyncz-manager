@@ -85,10 +85,12 @@
             @hourSlotClicked="openNewAppointmentModal"
             @hourSlotDropped="updateAppointmentTime"
 
+            @dayClicked="openDayDailyView"
+            @eventClicked="showAppointmentDetails"
           />
 
 
-          <CalendarMonthWeekView
+          <CalendarMonthLayout
             :current-date="currentDate"
             :start-date="startDate"
             :end-date="endDate"
@@ -98,7 +100,10 @@
             :events="visibleEvents"
             :screen-width="screenWidth"
             :screen-height="screenHeight"
-            v-if="view===VIEW_MONTH" />
+            v-if="view===VIEW_MONTH"
+            @dayClicked="openDayDailyView"
+            @eventClicked="showAppointmentDetails"
+          />
 
 
         </div>
@@ -239,6 +244,62 @@
     </form>
   </ModalComponent>
 
+  <ModalComponent title="Appointment details" v-if="activeAppointment" @modalClose="activeAppointment = null">
+
+    <div class="row">
+
+      <div class="col-md-6 mb-3">
+        <div class="mb-1">
+          <span class="small text-secondary">Expert:</span> <br>
+          <strong>{{ activeAppointment.expert.fullName }}</strong>
+        </div>
+
+        <div class="mb-1">
+          <span class="small text-secondary">Procedure:</span> <br>
+          <strong>{{ activeAppointment.procedure.name }}</strong>
+        </div>
+
+        <div class="mb-1">
+          <span class="small text-secondary">Starts:</span> <br>
+          <strong>{{ formatTime(activeAppointment.reservationStartTime.date) }}</strong>
+        </div>
+
+        <div class="mb-1">
+          <span class="small text-secondary">Duration:</span> <br>
+          <strong>{{ activeAppointment.reservationLength }} minute</strong>
+          <span class="text-danger small" v-if="activeAppointment.reservationLength!==activeAppointment.procedure['length']">
+             (originaly was {{ activeAppointment.procedure['length']}} minute)
+          </span>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <div class="mb-1">
+          <span class="small text-secondary">Customer:</span> <br>
+          <strong>{{ activeAppointment.name }} {{ activeAppointment.surname }} </strong>
+        </div>
+        <div class="mb-1">
+          <span class="small text-secondary">Phone:</span> <br>
+          <strong>{{ activeAppointment.phone }} </strong>
+        </div>
+        <div class="mb-1">
+          <span class="small text-secondary">Email:</span> <br>
+          <strong>{{ activeAppointment.email }} </strong>
+        </div>
+        <div class="mb-1">
+          <span class="small text-secondary">Notes:</span> <br>
+          <strong>{{ activeAppointment.notes || '-' }} </strong>
+        </div>
+        <div class="mb-1">
+          <span class="small text-secondary">Requested at :</span> <br>
+          <strong>{{formatTime( activeAppointment.requestTime.date) }} </strong>
+        </div>
+      </div>
+    </div>
+
+
+  </ModalComponent>
+
 
 </template>
 
@@ -250,14 +311,14 @@ import { VIEW_MONTH, VIEW_VERTICAL } from '@/Constants.js'
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import { FontAwesomeIcon as FaIcon } from '@fortawesome/vue-fontawesome'
-import CalendarMonthWeekView from '@/components/calendar/layouts/CalendarMonthLayout.vue'
+import CalendarMonthLayout from '@/components/calendar/layouts/CalendarMonthLayout.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getProcedures } from '@/repositories/ProceduresRepository.js'
 import { createAppointment, setTime } from '@/repositories/AppointmentRepository.js'
 
 export default {
   name: 'CalendarView',
-  components: { ModalComponent, CalendarMonthWeekView, FaIcon, CalendarVerticalLayout },
+  components: { ModalComponent, CalendarMonthLayout, FaIcon, CalendarVerticalLayout },
   data() {
     return {
       view: VIEW_MONTH, //horizontal, month, vertical
@@ -300,7 +361,9 @@ export default {
       newItemDetails: {
         expert: '',
         time: ''
-      }
+      },
+
+      activeAppointment: null
     }
   },
   watch: {
@@ -426,7 +489,7 @@ export default {
 
       if (!this.startDate || !this.endDate) return ''
 
-      if (this.startDate === this.endDate) {
+      if (this.startDate.isSame(this.endDate, 'day')) {
         return this.startDate.format('DD MMMM YYYY')
       }
       // if same year
@@ -562,20 +625,29 @@ export default {
       this.dayStep = config.dayStep
       this.view = config.type
 
+      if (!this.currentDate) {
+        this.currentDate = this.$dayjs()
+      }
+
       if (config.type === VIEW_MONTH) {
-        this.currentDate = this.$dayjs().startOf('month')
+        this.currentDate = this.currentDate.startOf('month')
         this.dayStep = this.currentDate.daysInMonth()
         this.dayCount = this.dayStep
       } else if (view === 'week') {
-        this.currentDate = this.$dayjs().startOf('week').add(4, 'day')
+        this.currentDate = this.currentDate.startOf('week')
       } else {
-        this.currentDate = this.$dayjs().startOf('day')
+        this.currentDate = this.currentDate.startOf('day')
       }
 
     },
 
     calendarDayClick(day) {
       this.currentDate = this.$dayjs(day.id).startOf(this.activeView)
+    },
+
+    openDayDailyView(day) {
+      this.currentDate = day.startOf('day')
+      this.activateView('day')
     },
 
     openNewAppointmentModal(details) {
@@ -665,6 +737,15 @@ export default {
       })
 
 
+    },
+
+    showAppointmentDetails(event) {
+
+      this.activeAppointment = event
+
+    },
+    formatTime(time) {
+      return this.$dayjs(time).format('DD.MM.YYYY HH:mm')
     }
   },
   mounted() {

@@ -4,7 +4,7 @@
       <div class="position-absolute" :style="{width: columnWidth+'px', left: (columnWidth * column +50)+'px' }"
            v-for="(day, column) in dayList"
            :key="day.format('YYYY-MM-DD')">
-        <div class="text-center">
+        <div class="text-center week-day" @click.prevent="$emit('dayClicked',day)">
           {{ day.format('DD MMM, ddd') }}
         </div>
         <div class="position-relative w-100 d-flex doctor-name-list">
@@ -41,6 +41,7 @@
             :events="events"
             @hourSlotClicked="$emit('hourSlotClicked', $event)"
             @hourSlotDropped="$emit('hourSlotDropped', $event)"
+            @eventClicked="$emit('eventClicked', $event)"
         />
       </div>
 
@@ -142,6 +143,10 @@ export default {
 .calendar-vertical-view {
   position: relative;
   border: 1px solid #ccc;
+
+  .week-day{
+    cursor: pointer;
+  }
 
   .calendar-vertical-view-date-row {
     height: 50px;

@@ -6,41 +6,11 @@
       data-bs-placement="top"
       data-bs-html="true"
       :title="tooltipTitle"
-      @dblclick="showEventDetails"
+      @dblclick="$emit('eventClicked', event)"
       draggable="true"
       v-on:dragstart="onDragStart($event, event)"
   >
     <span v-html="label"></span>
-  </div>
-
-
-  <div class="modal"
-       :id="`eventDetails_${event.id}`"
-       role="dialog"
-       aria-labelledby="statementDetails"
-       aria-hidden="true"
-       :ref="`eventDetails_${event.id}`"
-       data-backdrop="false"
-  >
-    <div class=" modal-dialog modal-dialog-centered modal-xl" role="document">
-      <div class="modal-content border border-secondary  shadow">
-
-        <div class="modal-header">
-          <h5 class="modal-title">
-            #{{ event.id }} {{ event.procedure.name }}
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          {{ event }}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-
-
-      </div>
-    </div>
   </div>
 
 </template>
@@ -149,9 +119,6 @@ export default {
   },
 
   methods: {
-    showEventDetails() {
-      this.modal.show();
-    },
 
     onDragStart(event, eventData) {
       eventData.layoutX = event.layerX;
@@ -164,8 +131,6 @@ export default {
     new Tooltip(document.body, {
       selector: "[data-bs-toggle='tooltip']",
     });
-
-    this.modal = new Modal(this.$refs[`eventDetails_${this.event.id}`]);
   },
   emits: ['dragging']
 }
@@ -175,15 +140,16 @@ export default {
 .event {
   position: absolute;
   background-color: red;
+  opacity: 0.8;
   font-size: 10px;
   overflow: hidden;
-  border-radius: 5px;
-  padding: 3px;
+  border-radius: 3px;
+  padding: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 0 5px #000;
+    opacity: 1;
   }
 
   &.dark {
