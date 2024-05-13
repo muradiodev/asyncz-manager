@@ -1,5 +1,6 @@
 <template>
   <div
+    :ref="`eventItem_${event.id}`"
     class="event" :class="{dark: isColorDark}"
     :style="style"
     data-bs-toggle="tooltip"
@@ -128,6 +129,8 @@ export default {
       eventData.layoutX = event.layerX
       eventData.layoutY = event.layerY
       event.dataTransfer.setData('application/json', JSON.stringify(eventData))
+      //set cursor position to the top left corner of the dragged element
+      event.dataTransfer.setDragImage( this.$refs[`eventItem_${this.event.id}`] , 0, 0)
     },
 
 
