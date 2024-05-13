@@ -3,7 +3,13 @@
     <div class="text-center day-title" @click.prevent="dayClicked">
       {{ day.format('D') }}
     </div>
-    <div class="month-event" v-for="ev in dayEvents" :key="ev.id" @click.prevent="$emit('eventClicked',ev)">
+    <div class="month-event"
+         data-bs-toggle="tooltip"
+         data-bs-placement="top"
+         data-bs-html="true"
+         :title="tooltipTitle(ev)"
+         v-for="ev in dayEvents" :key="ev.id"
+         @click.prevent="$emit('eventClicked',ev)">
       <span class="event-dot" :style="{
         'background': ev.expert.color
       }"></span>
@@ -14,6 +20,9 @@
 </template>
 <script>
 import { Dayjs } from 'dayjs'
+
+import { Tooltip } from 'bootstrap'
+
 
 export default {
   name: 'MonthlyViewDay',
@@ -46,7 +55,22 @@ export default {
   methods: {
     dayClicked() {
       this.$emit('dayClicked', this.day)
-    }
+    },
+    tooltipTitle(event) {
+      let text = '<span style=\'text-align: left\'>'
+      text += event.id + ' <b>' + event.procedure.name + '</b>  <br>'
+      text += '<b>' + this.$dayjs(event.reservationStartTime.date).format('HH:mm') + '</b> '
+      text += event.name + ' ' + event.surname + ' <br>'
+      text += 'lenght: ' + event.reservationLength + ' min <br>'
+      text += 'status: ' + event.status + ' <br>'
+      text += '</span>'
+      return text
+    },
+  },
+  mounted() {
+    new Tooltip(document.body, {
+      selector: '[data-bs-toggle=\'tooltip\']'
+    })
   },
   emits: ['dayClicked']
 }
