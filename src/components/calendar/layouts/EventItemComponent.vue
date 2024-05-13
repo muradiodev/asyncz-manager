@@ -16,7 +16,7 @@
 </template>
 <script>
 
-import {Tooltip, Modal} from 'bootstrap'
+import {Tooltip} from 'bootstrap'
 
 export default {
   name: 'EventItemComponent',

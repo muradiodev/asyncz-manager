@@ -6,6 +6,21 @@
     <div class="row">
       <div class="col-md-3">
 
+        <div class="mb-3">
+
+          <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Create new
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#"  @click.prevent="startNewEventFromScratch">Appointment</a></li>
+              <li><a class="dropdown-item" href="#">Time syncer</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+
         <div class="card mb-4">
           <div class="card-body">
             <VCalendar
@@ -244,6 +259,138 @@
     </form>
   </ModalComponent>
 
+
+  <ModalComponent title="edit appointment" v-if="editingAppointment" @modalClose="editingAppointment = null">
+    <form @submit.prevent="updateAppointment">
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+
+          <label for="updateExpert" class="form-label">Expert</label>
+          <select
+            class="form-select"
+            id="updateExpert"
+            v-model="editingAppointment.expert.id"
+            required
+          >
+            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
+              {{ expert.name }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+
+          <label for="updateProcedure" class="form-label">Procedure</label>
+          <select
+            class="form-select"
+            id="updateProcedure"
+            v-model="editingAppointment.procedure.id"
+            required
+          >
+            <option v-for="procedure in selectedExpertProcedureListUpdate" :key="procedure.id" :value="procedure.id">
+              {{ procedure.name }} ({{ procedure.length }} minutes)
+            </option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-3">
+
+          <label for="updateDate" class="form-label">Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="updateDate"
+            v-model="editingAppointment.date"
+            required>
+        </div>
+        <div class="col-md-4 mb-3">
+
+          <label for="updateTime" class="form-label">Time</label>
+          <input
+            type="time"
+            class="form-control"
+            id="updateTime"
+            v-model="editingAppointment.time"
+            required>
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+          <label for="updateLength" class="form-label">Length</label>
+          <div class="input-group">
+            <input
+              type="number"
+              class="form-control"
+              id="updateLength"
+              v-model="editingAppointment.reservationLength"
+              required>
+            <span class="input-group-text">minutes</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+          <label for="updateName" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="updateName"
+            v-model="editingAppointment.name"
+            required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+          <label for="updateSurname" class="form-label">Surname</label>
+          <input
+            type="text"
+            class="form-control"
+            id="updateSurname"
+            v-model="editingAppointment.surname"
+            required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+          <label for="updatePhone" class="form-label">Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            id="updatePhone"
+            v-model="editingAppointment.phone"
+            required>
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+          <label for="updateEmail" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="updateEmail"
+            v-model="editingAppointment.email"
+          >
+        </div>
+
+
+        <div class="col-md-12 mb-3">
+
+          <label for="updateNotes" class="form-label">Notes</label>
+          <textarea
+            class="form-control"
+            id="updateNotes"
+            v-model="editingAppointment.notes"
+          >
+          </textarea>
+        </div>
+
+
+        <div class="col-md-12">
+          <button class="btn btn-success">Update</button>
+        </div>
+      </div>
+    </form>
+  </ModalComponent>
+
   <ModalComponent title="Appointment details" v-if="activeAppointment" @modalClose="activeAppointment = null">
 
     <div class="row">
@@ -267,8 +414,9 @@
         <div class="mb-1">
           <span class="small text-secondary">Duration:</span> <br>
           <strong>{{ activeAppointment.reservationLength }} minute</strong>
-          <span class="text-danger small" v-if="activeAppointment.reservationLength!==activeAppointment.procedure['length']">
-             (originaly was {{ activeAppointment.procedure['length']}} minute)
+          <span class="text-danger small"
+                v-if="activeAppointment.reservationLength!==activeAppointment.procedure['length']">
+             (originaly was {{ activeAppointment.procedure['length'] }} minute)
           </span>
         </div>
 
@@ -292,7 +440,14 @@
         </div>
         <div class="mb-1">
           <span class="small text-secondary">Requested at :</span> <br>
-          <strong>{{formatTime( activeAppointment.requestTime.date) }} </strong>
+          <strong>{{ formatTime(activeAppointment.requestTime.date) }} </strong>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="mt-3">
+          <button class="btn btn-sm btn-primary" @click.prevent="editAppointment(activeAppointment) ">
+            Update appointment
+          </button>
         </div>
       </div>
     </div>
@@ -314,7 +469,7 @@ import { FontAwesomeIcon as FaIcon } from '@fortawesome/vue-fontawesome'
 import CalendarMonthLayout from '@/components/calendar/layouts/CalendarMonthLayout.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getProcedures } from '@/repositories/ProceduresRepository.js'
-import { createAppointment, setTime } from '@/repositories/AppointmentRepository.js'
+import { createAppointment, setTime, updateAppointment } from '@/repositories/AppointmentRepository.js'
 
 export default {
   name: 'CalendarView',
@@ -362,6 +517,8 @@ export default {
         expert: '',
         time: ''
       },
+
+      editingAppointment: null,
 
       activeAppointment: null
     }
@@ -530,7 +687,24 @@ export default {
 
       return []
 
+    },
+
+    selectedExpertProcedureListUpdate() {
+
+      let expert = this.schedules.find(s => s.expert.id === this.editingAppointment.expert.id)
+
+      if (expert) {
+
+        return this.procedures.filter(p => expert.procedures.includes(p.id)).map(p => {
+          return { id: p.id, name: p.name, length: p.length }
+        })
+      }
+
+
+      return []
+
     }
+
 
   },
   methods: {
@@ -666,6 +840,28 @@ export default {
         color: '#387f94'
       }
     },
+    startNewEventFromScratch() {
+      this.newAppointmentIsOpen = true
+      this.newItemDetails = {
+        expert: null,
+        date: null,
+        time: null,
+        procedure: 0,
+        length: 0,
+        name: '',
+        surname: '',
+        phone: '',
+        email: '',
+        notes: '',
+        color: '#387f94'
+      }
+    },
+
+    editAppointment(appointment) {
+      this.editingAppointment =  JSON.parse(JSON.stringify(appointment));
+      this.editingAppointment.date = this.$dayjs(appointment.reservationStartTime.date).format('YYYY-MM-DD')
+      this.editingAppointment.time = this.$dayjs(appointment.reservationStartTime.date).format('HH:mm')
+    },
 
     createNewAppointment() {
 
@@ -689,6 +885,43 @@ export default {
             showConfirmButton: true
           })
           this.newAppointmentIsOpen = false
+          this.getCalendar()
+        } else {
+          this.$swal({
+            title: 'Error',
+            text: response.message,
+            icon: 'error',
+            showConfirmButton: true
+          })
+        }
+      })
+
+    },
+
+    updateAppointment() {
+
+      updateAppointment(this.token,
+        this.editingAppointment.id,
+        this.editingAppointment.expert.id,
+        this.editingAppointment.procedure.id,
+        this.editingAppointment.date + ' ' + this.editingAppointment.time,
+        this.editingAppointment.reservationLength,
+        this.editingAppointment.name,
+        this.editingAppointment.surname,
+        this.editingAppointment.phone,
+        this.editingAppointment.email,
+        this.editingAppointment.notes,
+        this.editingAppointment.color
+      ).then(response => {
+        if (response.code === 200) {
+          this.$swal({
+            title: 'Success',
+            text: 'Appointment updated',
+            icon: 'success',
+            showConfirmButton: true
+          })
+          this.editingAppointment = null
+          //todo get active appointment one more time to update the view
           this.getCalendar()
         } else {
           this.$swal({
