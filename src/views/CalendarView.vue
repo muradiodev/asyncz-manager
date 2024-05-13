@@ -102,6 +102,7 @@
 
             @dayClicked="openDayDailyView"
             @eventClicked="showAppointmentDetails"
+            @appResized="updateAppointmentLength"
           />
 
 
@@ -469,7 +470,7 @@ import { FontAwesomeIcon as FaIcon } from '@fortawesome/vue-fontawesome'
 import CalendarMonthLayout from '@/components/calendar/layouts/CalendarMonthLayout.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getProcedures } from '@/repositories/ProceduresRepository.js'
-import { createAppointment, setTime, updateAppointment } from '@/repositories/AppointmentRepository.js'
+import { createAppointment, setLength, setTime, updateAppointment } from '@/repositories/AppointmentRepository.js'
 
 export default {
   name: 'CalendarView',
@@ -953,6 +954,46 @@ export default {
               this.$swal({
                 title: 'Success',
                 text: 'Appointment time updated',
+                icon: 'success',
+                showConfirmButton: true
+              })
+              this.getCalendar()
+            } else {
+              this.$swal({
+                title: 'Error',
+                text: response.message,
+                icon: 'error',
+                showConfirmButton: true
+              })
+            }
+          }
+        )
+      })
+
+
+    },
+
+    updateAppointmentLength(event) {
+
+
+      this.$swal({
+        title: 'Update appointment length',
+        text: 'Are you sure you want to update the appointment?',
+        html: '<p>Lenght:' + event.newLength + ' minutes</p>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (!result.isConfirmed) {
+          this.getCalendar();
+          return
+        }
+        setLength(this.token, event.event.id,event.newLength).then(response => {
+            if (response.code === 200) {
+              this.$swal({
+                title: 'Success',
+                text: 'Appointment updated',
                 icon: 'success',
                 showConfirmButton: true
               })

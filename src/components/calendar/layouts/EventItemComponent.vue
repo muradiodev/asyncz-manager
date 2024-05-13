@@ -1,14 +1,16 @@
 <template>
   <div
-      class="event" :class="{dark: isColorDark}"
-      :style="style"
-      data-bs-toggle="tooltip"
-      data-bs-placement="top"
-      data-bs-html="true"
-      :title="tooltipTitle"
-      @dblclick="$emit('eventClicked', event)"
-      draggable="true"
-      v-on:dragstart="onDragStart($event, event)"
+    class="event" :class="{dark: isColorDark}"
+    :style="style"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    data-bs-html="true"
+    :title="tooltipTitle"
+    @dblclick="$emit('eventClicked', event)"
+    draggable="true"
+    v-on:dragstart="onDragStart($event, event)"
+    v-resizable.b
+    @resize="onResize"
   >
     <span v-html="label"></span>
   </div>
@@ -16,7 +18,7 @@
 </template>
 <script>
 
-import {Tooltip} from 'bootstrap'
+import { Tooltip } from 'bootstrap'
 
 export default {
   name: 'EventItemComponent',
@@ -44,50 +46,52 @@ export default {
     options: {
       type: Object,
       required: true
-    },
+    }
   },
 
   data() {
     return {
-      modal: null
+      modal: null,
+
+      resizeTimeout: null
     }
   },
 
   computed: {
 
     label() {
-      let text = '';
+      let text = ''
 
-      text += this.event.id + " <b>" + this.event.procedure.name + "</b>  <br>";
+      text += this.event.id + ' <b>' + this.event.procedure.name + '</b>  <br>'
 
-      text += '<b>' + this.$dayjs(this.event.reservationStartTime.date).format('HH:mm') + '</b> ';
+      text += '<b>' + this.$dayjs(this.event.reservationStartTime.date).format('HH:mm') + '</b> '
 
-      text += this.event.name + ' ' + this.event.surname + ' <br>';
+      text += this.event.name + ' ' + this.event.surname + ' <br>'
 
-      return text;
+      return text
     },
 
     tooltipTitle() {
-      let text = '<span style=\'text-align: left\'>';
-      text += this.event.id + " <b>" + this.event.procedure.name + "</b>  <br>";
-      text += '<b>' + this.$dayjs(this.event.reservationStartTime.date).format('HH:mm') + '</b> ';
-      text += this.event.name + ' ' + this.event.surname + ' <br>';
-      text += 'lenght: ' + this.event.reservationLength + ' min <br>';
-      text += 'status: ' + this.event.status + ' <br>';
-      text += '</span>';
-      return text;
+      let text = '<span style=\'text-align: left\'>'
+      text += this.event.id + ' <b>' + this.event.procedure.name + '</b>  <br>'
+      text += '<b>' + this.$dayjs(this.event.reservationStartTime.date).format('HH:mm') + '</b> '
+      text += this.event.name + ' ' + this.event.surname + ' <br>'
+      text += 'lenght: ' + this.event.reservationLength + ' min <br>'
+      text += 'status: ' + this.event.status + ' <br>'
+      text += '</span>'
+      return text
     },
 
     coordinates() {
 
-      let timeParts = this.options.dayStartHour.split(':');
-      let dayStart = this.day.clone().hour(timeParts[0]).minute(timeParts[1]);
+      let timeParts = this.options.dayStartHour.split(':')
+      let dayStart = this.day.clone().hour(timeParts[0]).minute(timeParts[1])
 
 
-      let scheduleStart = this.$dayjs(this.event.reservationStartTime.date);
+      let scheduleStart = this.$dayjs(this.event.reservationStartTime.date)
       let scheduleHeight = this.event.reservationLength * this.pixelPerMinute
 
-      let start = scheduleStart.diff(dayStart, 'minutes') * this.pixelPerMinute;
+      let start = scheduleStart.diff(dayStart, 'minutes') * this.pixelPerMinute
 
       return {
         start: start,
@@ -97,13 +101,13 @@ export default {
 
     isColorDark() {
       //detect if this color is dark or light
-      let hexCode = this.event.color;
-      hexCode.replace('#', '');
-      let r = parseInt(hexCode.substr(1, 2), 16);
-      let g = parseInt(hexCode.substr(3, 2), 16);
-      let b = parseInt(hexCode.substr(5, 2), 16);
-      let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-      return yiq <= 128;
+      let hexCode = this.event.color
+      hexCode.replace('#', '')
+      let r = parseInt(hexCode.substr(1, 2), 16)
+      let g = parseInt(hexCode.substr(3, 2), 16)
+      let b = parseInt(hexCode.substr(5, 2), 16)
+      let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
+      return yiq <= 128
     },
 
     style() {
@@ -112,7 +116,7 @@ export default {
         height: this.coordinates.height + 'px',
         width: this.columnWidth + 'px',
         left: this.scheduleListOrder * this.columnWidth + 'px',
-        'background-color': this.event.color || 'red',
+        'background-color': this.event.color || 'red'
       }
     }
 
@@ -121,16 +125,32 @@ export default {
   methods: {
 
     onDragStart(event, eventData) {
-      eventData.layoutX = event.layerX;
-      eventData.layoutY = event.layerY;
-      event.dataTransfer.setData("application/json", JSON.stringify(eventData));
+      eventData.layoutX = event.layerX
+      eventData.layoutY = event.layerY
+      event.dataTransfer.setData('application/json', JSON.stringify(eventData))
     },
+
+
+    onResize(event) {
+      let newLength = event.target.offsetHeight
+      let newLengthInMinutes = Math.round((newLength / this.pixelPerMinute) / this.options.hourGridMinutes) * this.options.hourGridMinutes
+
+      if (this.resizeTimeout) {
+        clearTimeout(this.resizeTimeout)
+      }
+
+      this.resizeTimeout = setTimeout(() => {
+        this.$emit('appResized', { event: this.event, newLength: newLengthInMinutes })
+      }, 1000)
+    }
+
+
   },
 
   mounted() {
     new Tooltip(document.body, {
-      selector: "[data-bs-toggle='tooltip']",
-    });
+      selector: '[data-bs-toggle=\'tooltip\']'
+    })
   },
   emits: ['dragging']
 }

@@ -19,6 +19,7 @@ import 'vue3-toastify/dist/index.css'
 import VCalendar from 'v-calendar'
 import 'v-calendar/style.css'
 
+import VResizable from 'v-resizable'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -55,6 +56,8 @@ app.use(Vue3Toastify, {
 })
 
 app.use(VCalendar, {})
+
+app.use(VResizable)
 
 app.use(i18n)
 app.component('PopperWidget', Popper)

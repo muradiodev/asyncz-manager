@@ -17,6 +17,7 @@
         @hourSlotClicked="$emit('hourSlotClicked', $event)"
         @hourSlotDropped="$emit('hourSlotDropped', $event)"
         @eventClicked="$emit('eventClicked', $event)"
+        @appResized="$emit('appResized',$event)"
     />
 
   </div>
