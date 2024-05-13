@@ -51,6 +51,10 @@
 
         <div class="d-flex justify-content-between mb-3">
           <div>
+            <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="goToToday">
+              Today
+            </a>
+
             <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="prevView">
               <fa-icon :icon="['fas', 'chevron-left']" />
             </a>
@@ -784,6 +788,10 @@ export default {
       return false
     },
 
+    goToToday(){
+      this.currentDate = this.$dayjs();
+      this.activateView(this.activeView);
+    },
     onResize() {
       this.screenWidth = window.document.getElementById('calendarView').offsetWidth - 10
       this.screenHeight = window.innerHeight * 2
