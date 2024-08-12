@@ -9,11 +9,12 @@
         <div class="mb-3">
 
           <div class="dropdown">
-            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
               Create new
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#"  @click.prevent="startNewEventFromScratch">Appointment</a></li>
+              <li><a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">Appointment</a></li>
               <li><a class="dropdown-item" href="#">Time syncer</a></li>
             </ul>
           </div>
@@ -27,6 +28,7 @@
               expanded
               borderless
               @dayclick="calendarDayClick"
+              :attributes="smallCalendarEvents"
             />
           </div>
         </div>
@@ -488,6 +490,7 @@ export default {
       currentDate: null,
       endDate: null,
       eventList: [],
+      eventDays:[],
       screenWidth: 0,
       screenHeight: 0,
       minDate: null,
@@ -708,8 +711,25 @@ export default {
 
       return []
 
-    }
+    },
 
+    smallCalendarEvents() {
+
+      let list = []
+
+      this.eventDays.forEach(ev => {
+
+          list.push({
+            key: ev,
+            bar: "red",
+            dates: ev,
+            order: 1
+          })
+      })
+
+      return list
+
+    }
 
   },
   methods: {
@@ -718,7 +738,8 @@ export default {
       if (this.startDate && this.endDate) {
         getCalendarInfo(this.token, this.startDate.format('YYYY-MM-DD'), this.endDate.endOf('day').format('YYYY-MM-DD HH:mm:ss')).then((response) => {
           if (response.code === 200) {
-            this.eventList = response.appointments
+            this.eventList = response.appointments;
+            this.eventDays = response.calendar;
           } else {
             this.$swal({
               title: 'Error',
@@ -788,9 +809,9 @@ export default {
       return false
     },
 
-    goToToday(){
-      this.currentDate = this.$dayjs();
-      this.activateView(this.activeView);
+    goToToday() {
+      this.currentDate = this.$dayjs()
+      this.activateView(this.activeView)
     },
     onResize() {
       this.screenWidth = window.document.getElementById('calendarView').offsetWidth - 10
@@ -867,7 +888,7 @@ export default {
     },
 
     editAppointment(appointment) {
-      this.editingAppointment =  JSON.parse(JSON.stringify(appointment));
+      this.editingAppointment = JSON.parse(JSON.stringify(appointment))
       this.editingAppointment.date = this.$dayjs(appointment.reservationStartTime.date).format('YYYY-MM-DD')
       this.editingAppointment.time = this.$dayjs(appointment.reservationStartTime.date).format('HH:mm')
     },
@@ -994,10 +1015,10 @@ export default {
         cancelButtonText: 'No'
       }).then((result) => {
         if (!result.isConfirmed) {
-          this.getCalendar();
+          this.getCalendar()
           return
         }
-        setLength(this.token, event.event.id,event.newLength).then(response => {
+        setLength(this.token, event.event.id, event.newLength).then(response => {
             if (response.code === 200) {
               this.$swal({
                 title: 'Success',
