@@ -15,7 +15,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">Appointment</a></li>
-              <li><a class="dropdown-item" href="#">Time syncer</a></li>
+              <li><a class="dropdown-item" target="_blank" href="https://scheduler.asyncz.com/">Time syncer</a></li>
             </ul>
           </div>
 
@@ -38,13 +38,24 @@
             Experts
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" v-for="sh in schedules" :key="sh.expert.id">
-              <label>
-                <input class="form-check-input me-1" type="checkbox" :value="sh.expert.id" v-model="selectedSchedules"
-                       aria-label="...">
-                {{ sh.expert.name }}
-              </label>
-            </li>
+            <template v-for="b in expertMap" :key="b.branch.id">
+              <li class="list-group-item bg-light">
+                <label>
+                  <input class="form-check-input me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
+                         :checked="branchSelected[b.branch.id]"
+                         :indeterminate="branchSelected[b.branch.id]===null"
+                         aria-label="...">
+                  <strong>{{ b.branch.name }}</strong>
+                </label>
+              </li>
+              <li class="list-group-item ps-5" v-for="sh in b.experts" :key="sh.id">
+                <label>
+                  <input class="form-check-input me-1" type="checkbox" :value="sh.id" v-model="selectedSchedules"
+                         aria-label="...">
+                  {{ sh.name }}
+                </label>
+              </li>
+            </template>
           </ul>
         </div>
 
@@ -490,7 +501,7 @@ export default {
       currentDate: null,
       endDate: null,
       eventList: [],
-      eventDays:[],
+      eventDays: [],
       screenWidth: 0,
       screenHeight: 0,
       minDate: null,
@@ -675,12 +686,51 @@ export default {
       return VIEW_MONTH
     },
 
+
     expertList() {
       return this.schedules.map(s => {
-        return { id: s.expert.id, name: s.expert.name }
+        return { id: s.expert.id, name: s.expert.name, branch: s.expert.branch }
       })
     },
 
+    expertMap() {
+
+      let uniqueBranches = this.expertList.map(e => e.branch).filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i)
+
+      let map = []
+      uniqueBranches.forEach(b => {
+        map.push(
+          {
+            branch: b,
+            experts: this.expertList.filter(e => e.branch.id === b.id)
+          }
+        )
+      })
+
+      return map
+
+    },
+
+    branchSelected() {
+
+      let map = {}
+      this.expertMap.forEach(b => {
+        let branch = b.branch;
+        let experts = b.experts;
+        let selectedCount = this.selectedSchedules.filter(s => experts.map(ex=>ex.id).indexOf(s)>-1).length
+        if (selectedCount === experts.length) {
+          map[branch.id] = true
+        } else if (selectedCount === 0) {
+          map[branch.id] = false
+        } else {
+          map[branch.id] = null
+        }
+
+        console.log(map)
+      })
+      console.log(map)
+      return map
+    },
     selectedExpertProcedureList() {
 
       let expert = this.schedules.find(s => s.expert.id === this.newItemDetails.expert)
@@ -719,12 +769,12 @@ export default {
 
       this.eventDays.forEach(ev => {
 
-          list.push({
-            key: ev,
-            bar: "red",
-            dates: ev,
-            order: 1
-          })
+        list.push({
+          key: ev,
+          bar: 'red',
+          dates: ev,
+          order: 1
+        })
       })
 
       return list
@@ -738,8 +788,8 @@ export default {
       if (this.startDate && this.endDate) {
         getCalendarInfo(this.token, this.startDate.format('YYYY-MM-DD'), this.endDate.endOf('day').format('YYYY-MM-DD HH:mm:ss')).then((response) => {
           if (response.code === 200) {
-            this.eventList = response.appointments;
-            this.eventDays = response.calendar;
+            this.eventList = response.appointments
+            this.eventDays = response.calendar
           } else {
             this.$swal({
               title: 'Error',
@@ -784,6 +834,21 @@ export default {
     calculateDates() {
       this.startDate = this.currentDate
       this.endDate = this.startDate.add(this.dayCount - 1, 'day')
+    },
+
+    branchClicked(branchId, event) {
+
+      console.log(branchId)
+
+      let expertList = this.expertList.filter(e => e.branch.id === branchId)
+      let selected = expertList.map(e => e.id)
+
+      if (event.target.checked) {
+        this.selectedSchedules = this.selectedSchedules.concat(selected)
+      } else {
+        this.selectedSchedules = this.selectedSchedules.filter(s => !selected.includes(s))
+      }
+
     },
 
     prevView() {

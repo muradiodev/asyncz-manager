@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const baseDomain = 'https://terminapi.azinweb.net'
-const photoBase = 'https://contentapps.net'
+const baseDomain = 'https://api.asyncz.com'
+const photoBase = 'https://api.asyncz.com'
 
 export const customHeaders = {
   'Content-Type': 'application/json',

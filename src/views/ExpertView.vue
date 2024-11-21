@@ -57,11 +57,14 @@
               <p>
                 {{ expert.about || '-' }}
               </p>
-              <p>
+              <p class="mb-1">
                 <strong>Color: </strong>
                 <ColorComponent :expert="expert" />
               </p>
-
+              <p class="mb-1">
+                <strong>Branch: </strong>
+                {{ expert.branch ? expert.branch.name : '-' }}
+              </p>
               <p>
                 <strong>Status: </strong>
                 <StatusBadge :status="expert.status" />
@@ -72,6 +75,18 @@
               <form @submit.prevent="saveExpert">
 
                 <div class="row">
+                  <div class="col-md-12 mb-3">
+                    <label for="branch" class="form-label">Branch</label>
+                    <select
+                      type="text"
+                      class="form-control"
+                      id="fullName"
+                      v-model="branchId"
+                      required
+                    >
+                      <option v-for="branch in branches" :value="branch.id">{{ branch.name }}</option>
+                    </select>
+                  </div>
                   <div class="col-md-12 mb-3">
                     <label for="fullName" class="form-label">Full name</label>
                     <input
@@ -225,6 +240,7 @@ import StatusBadge from '@/views/StatusBadge.vue'
 import ColorComponent from '@/views/ColorComponent.vue'
 import ExpertProcedures from '@/views/ExpertProcedures.vue'
 import ExpertSchedules from '@/views/ExpertSchedules.vue'
+import { getBranches } from '@/repositories/BranchRepository.js'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -238,6 +254,7 @@ export default {
 
       editing: false,
 
+      branches: [],
 
       addNewItem: false,
       newItemDetails: {
@@ -287,9 +304,26 @@ export default {
       set(value) {
         this.$router.push({ name: 'expert', params: { id: value } })
       }
+    },
+    branchId:{
+      get() {
+        return this.expert.branch ? this.expert.branch.id : null
+      },
+      set(value) {
+        if(!this.expert.branch){
+          this.expert.branch = {}
+        }
+        this.expert.branch.id = value
+      }
     }
   },
   methods: {
+
+    getBranches() {
+      getBranches(this.token).then(response => {
+        this.branches = response
+      })
+    },
 
     getExpert() {
       getExpert(this.token, this.expertId).then(response => {
@@ -306,7 +340,7 @@ export default {
     },
 
     saveExpert() {
-      saveExpert(this.token, this.expertId, this.expert.fullName, this.expert.about, this.expert.color, this.expert.status ? 1 : 0).then(response => {
+      saveExpert(this.token, this.expertId, this.branchId, this.expert.fullName, this.expert.about, this.expert.color, this.expert.status ? 1 : 0).then(response => {
         if (response.code === 200) {
           this.editing = false
         } else {
@@ -320,7 +354,8 @@ export default {
     }
   },
   mounted() {
-    this.getExpert()
+    this.getExpert();
+    this.getBranches();
   },
   components: {
     ExpertSchedules,

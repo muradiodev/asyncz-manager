@@ -8,14 +8,14 @@
         <li class="breadcrumb-item">
           <router-link :to="{name: 'home'}">Home</router-link>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Experts</li>
+        <li class="breadcrumb-item active" aria-current="page">Users</li>
       </ol>
     </nav>
 
 
 
     <div class="d-flex align-items-center">
-      <span class="h2 mb-0"> Experts</span>
+      <span class="h2 mb-0"> Users</span>
       <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
         + Add new
       </button>
@@ -33,7 +33,7 @@
 
   </div>
 
-  <ModalComponent title="new expert" v-if="addNewItem" @modalClose="addNewItem = false">
+  <ModalComponent title="new user" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
         <div class="col-md-12">
@@ -102,17 +102,18 @@ import DataTablesLib from 'datatables.net-bs5';
 import 'datatables.net-select';
 import 'datatables.net-responsive';
 import 'datatables.net-select-bs5';
-import { createExpert, getExperts } from '@/repositories/ExpertsRepository.js'
+import { createExpert } from '@/repositories/ExpertsRepository.js'
 import {useAuthStore} from "@/stores/auth.js";
 import {mapState} from "pinia";
 import ModalComponent from '@/components/ModalComponent.vue'
+import { createUser, getUsers } from '@/repositories/AdminUserRepository.js'
 import { getBranches } from '@/repositories/BranchRepository.js'
 
 DataTable.use(DataTablesLib);
 DataTable.use(DataTablesCore);
 
 export default {
-  name: 'ExpertsView',
+  name: 'UsersView',
   data() {
     return {
 
@@ -123,8 +124,9 @@ export default {
         password: '',
         branchId: null
       },
+
       branchList: [],
-      expertList: [],
+      userList: [],
       columns: [
         {title: 'ID', data: 'id', orderable: true},
         {
@@ -136,7 +138,17 @@ export default {
             }
           }
         },
-        {title: 'Name', data: 'fullName', orderable: true},
+        {title: 'Name', data: 'name', orderable: true},
+
+        {
+          title: 'Expert', data: (row) => {
+            if(row.expert){
+              return row.expert.name;
+            } else {
+              return '-';
+            }
+          }
+        },
         {
           title: 'Status', data: (row) => {
             if (row.status) {
@@ -148,7 +160,11 @@ export default {
         },
         {
           title: 'Action', data: (row) => {
-            return `<a href="./expert/${row.id}">manage</a>`;
+            if(row.expert) {
+              return `<a href="./expert/${row.id}">manage</a>`;
+            } else {
+              return `<a href="./user/${row.id}">manage</a>`;
+            }
           }
         },
       ],
@@ -158,35 +174,36 @@ export default {
   computed: {
     ...mapState(useAuthStore, ["token", "user"]),
     data() {
-      return this.expertList;
+      return this.userList;
     }
   },
   methods: {
 
-    getExperts() {
-      getExperts(this.token).then(response => {
-        this.expertList = response;
+    getUsers() {
+      getUsers(this.token).then(response => {
+        this.userList = response;
       });
     },
 
-    getBranches() {
+    getBranches(){
       getBranches(this.token).then(response => {
         this.branchList = response;
       });
     },
 
     createNewItem(){
-      createExpert(this.token, this.newItemDetails.branchId, this.newItemDetails.fullName, this.newItemDetails.email, this.newItemDetails.password).then(response => {
+      createUser(this.token, this.newItemDetails.branchId, this.newItemDetails.fullName, this.newItemDetails.email, this.newItemDetails.password).then(response => {
         if(response.code === 200){
-          this.getExperts();
+          this.getUsers();
           this.addNewItem = false;
           this.newItemDetails = {
+            branchId: null,
             fullName: '',
             email: '',
             password: ''
           };
 
-          this.$router.push({name: 'expert', params: {id: response.id}});
+          this.$router.push({name: 'user', params: {id: response.id}});
         } else {
           this.$swal({
             title: 'Error',
@@ -198,7 +215,7 @@ export default {
     }
   },
   mounted() {
-    this.getExperts();
+    this.getUsers();
     this.getBranches();
   },
   components: {

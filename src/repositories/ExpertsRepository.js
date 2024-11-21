@@ -30,8 +30,9 @@ export async function getExpert(token, id) {
     })
 }
 
-export async function createExpert(token, name, email, password) {
+export async function createExpert(token,branch, name, email, password) {
   return await Repository.postForm(`${baseUrl}/admin/expert?token=${token}`, {
+    branch,
     name,
     email,
     password
@@ -48,12 +49,13 @@ export async function createExpert(token, name, email, password) {
     })
 }
 
-export async function saveExpert(token, id, name, about, color, status) {
+export async function saveExpert(token, id, branch, name, about, color, status) {
   return await Repository.postForm(`${baseUrl}/admin/expert/${id}?token=${token}`, {
     name,
     about,
     color,
-    status
+    status,
+    branch
   })
     .then((response) => {
       if (response.data) {

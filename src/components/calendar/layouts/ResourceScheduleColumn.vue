@@ -195,7 +195,7 @@ export default {
       })
     }
   },
-  emits: ['hourSlotClicked', 'hourSlotDropped']
+  emits: ['hourSlotClicked', 'hourSlotDropped', 'eventClicked', 'appResized']
 
 }
 </script>

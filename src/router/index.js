@@ -50,6 +50,23 @@ const router = createRouter({
                     name: 'expert',
                     component: () => import('../views/ExpertView.vue')
                 },
+                {
+                    path: 'users',
+                    name: 'users',
+                    component: () => import('../views/UsersView.vue')
+                },
+
+                {
+                    path: 'user/:id',
+                    name: 'user',
+                    component: () => import('../views/UserView.vue')
+                },
+                {
+                    path: 'branches',
+                    name: 'branches',
+                    component: () => import('../views/BranchesView.vue')
+                },
+
 
                 {
                     path: 'procedures',

@@ -135,7 +135,7 @@ export default {
   mounted() {
 
   },
-  emits: ['hourSlotClicked', 'hourSlotDropped']
+  emits: ['hourSlotClicked', 'hourSlotDropped','dayClicked','eventClicked','appResized']
 }
 </script>
 
