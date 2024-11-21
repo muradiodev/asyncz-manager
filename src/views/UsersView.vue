@@ -45,6 +45,7 @@
               v-model="newItemDetails.branchId"
               required
             >
+              <option value="0" >-all branches-</option>
               <option v-for="branch in branchList" :value="branch.id" :key="branch.id">{{ branch.name }}</option>
             </select>
           </div>

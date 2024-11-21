@@ -77,6 +77,8 @@
                       v-model="branchId"
                       required
                     >
+
+                      <option :value="0" >-all branches-</option>
                       <option v-for="branch in branches" :key="branch.id" :value="branch.id">{{ branch.name }}</option>
                     </select>
                   </div>
@@ -192,7 +194,7 @@ export default {
     },
     branchId: {
       get() {
-        return this.user.branch ? this.user.branch.id : null
+        return this.user.branch ? this.user.branch.id : 0
       },
       set(value) {
         if (!this.user.branch) {
