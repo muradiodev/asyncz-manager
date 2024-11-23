@@ -1,7 +1,7 @@
 import Repository, {baseUrl} from './Repository'
 
 export async function getCalendarInfo(token, startDate, endDate) {
-    return await Repository.get(`${baseUrl}/admin/appointmentCalendar?start=${startDate}&end=${endDate}&token=${token}`)
+    return await Repository.get(`${baseUrl}/manager/appointmentCalendar?start=${startDate}&end=${endDate}&token=${token}`)
         .then((response) => {
             if (response.data) {
                 return response.data
@@ -16,7 +16,7 @@ export async function getCalendarInfo(token, startDate, endDate) {
 }
 
 export async function getSchedules(token) {
-    return await Repository.get(`${baseUrl}/admin/getSchedules?token=${token}`)
+    return await Repository.get(`${baseUrl}/manager/getSchedules?token=${token}`)
         .then((response) => {
             if (response.data) {
                 return response.data
@@ -30,4 +30,3 @@ export async function getSchedules(token) {
         })
 }
 
- 

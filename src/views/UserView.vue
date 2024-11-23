@@ -11,14 +11,14 @@
         <li class="breadcrumb-item">
           <router-link :to="{name: 'users'}">Users</router-link>
         </li>
-        <li class="breadcrumb-item active" aria-current="page" v-if="user">
-          {{ user.name }}
+        <li class="breadcrumb-item active" aria-current="page" v-if="companyUser">
+          {{ companyUser.name }}
         </li>
       </ol>
     </nav>
 
 
-    <div v-if="!user">
+    <div v-if="!companyUser">
       <!-- loading-->
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="spinner-border" role="status">
@@ -31,7 +31,7 @@
 
       <div class="d-flex align-items-center">
         <span class="h2 mb-0">
-          {{ user.name }}
+          {{ companyUser.name }}
         </span>
       </div>
 
@@ -43,7 +43,7 @@
             <div class="card-header">
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">
-                  {{ user.name }}
+                  {{ companyUser.name }}
                 </h5>
                 <button class="btn btn-sm btn-outline-dark"
                         v-if="!editing"
@@ -56,14 +56,18 @@
 
               <p class="mb-1">
                 <strong>Branch: </strong>
-                {{ user.branch ? user.branch.name : '-' }}
+                {{ companyUser.branch ? companyUser.branch.name : '-' }}
               </p>
               <p>
                 <strong>Status: </strong>
-                <StatusBadge :status="user.status" />
+                <StatusBadge :status="companyUser.status" />
               </p>
             </div>
             <div class="card-body" v-else>
+
+              <div class="alert alert-warning" v-if="user.id === companyUser.id">
+                This user is currently logged in.  Please be careful when editing.
+              </div>
 
               <form @submit.prevent="saveUser">
 
@@ -76,6 +80,7 @@
                       id="fullName"
                       v-model="branchId"
                       required
+                      :disabled="user.id === companyUser.id"
                     >
 
                       <option :value="0" >-all branches-</option>
@@ -88,7 +93,7 @@
                       type="text"
                       class="form-control"
                       id="fullName"
-                      v-model="user.name"
+                      v-model="companyUser.name"
                       required
                     />
                   </div>
@@ -98,7 +103,7 @@
                       type="email"
                       class="form-control"
                       id="email"
-                      v-model="user.email"
+                      v-model="companyUser.email"
                       required
                     />
                   </div>
@@ -107,7 +112,7 @@
                     <select
                       class="form-control"
                       id="color"
-                      v-model="user.status"
+                      v-model="companyUser.status"
                       required
                     >
                       <option :value="1">Active</option>
@@ -153,7 +158,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import StatusBadge from '@/views/StatusBadge.vue'
 import { getBranches } from '@/repositories/BranchRepository.js'
-import { getUser, saveUser } from '@/repositories/AdminUserRepository.js'
+import { getUser, saveUser } from '@/repositories/CompanyUserRepository.js'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -163,7 +168,7 @@ export default {
   data() {
     return {
 
-      user: null,
+      companyUser: null,
 
       editing: false,
 
@@ -194,13 +199,13 @@ export default {
     },
     branchId: {
       get() {
-        return this.user.branch ? this.user.branch.id : 0
+        return this.companyUser.branch ? this.companyUser.branch.id : 0
       },
       set(value) {
-        if (!this.user.branch) {
-          this.user.branch = {}
+        if (!this.companyUser.branch) {
+          this.companyUser.branch = {}
         }
-        this.user.branch.id = value
+        this.companyUser.branch.id = value
       }
     }
   },
@@ -215,7 +220,7 @@ export default {
     getUser() {
       getUser(this.token, this.userId).then(response => {
         if (response.code === 200) {
-          this.user = response.user
+          this.companyUser = response.user
         } else {
           this.$swal({
             title: 'Error',
@@ -227,7 +232,7 @@ export default {
     },
 
     saveUser() {
-      saveUser(this.token, this.userId, this.branchId, this.user.name, this.user.email, this.user.status).then(response => {
+      saveUser(this.token, this.userId, this.branchId, this.companyUser.name, this.companyUser.email, this.companyUser.status).then(response => {
         if (response.code === 200) {
           this.editing = false
         } else {

@@ -2,7 +2,7 @@ import Repository, { baseUrl } from './Repository'
 
 
 export async function getUsers(token) {
-  return await Repository.get(`${baseUrl}/admin/users?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/users?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.data
@@ -17,7 +17,7 @@ export async function getUsers(token) {
 }
 
 export async function getUser(token, id) {
-  return await Repository.get(`${baseUrl}/admin/user/${id}?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/user/${id}?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data
@@ -31,7 +31,7 @@ export async function getUser(token, id) {
 }
 
 export async function createUser(token, branch, name, email, password) {
-  return await Repository.postForm(`${baseUrl}/admin/user?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/user?token=${token}`, {
     branch,
     name,
     email,
@@ -50,7 +50,7 @@ export async function createUser(token, branch, name, email, password) {
 }
 
 export async function saveUser(token, id, branch, name, email,  status) {
-  return await Repository.postForm(`${baseUrl}/admin/user/${id}?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/user/${id}?token=${token}`, {
     name,
     email,
     branch,

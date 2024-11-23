@@ -103,11 +103,10 @@ import DataTablesLib from 'datatables.net-bs5';
 import 'datatables.net-select';
 import 'datatables.net-responsive';
 import 'datatables.net-select-bs5';
-import { createExpert } from '@/repositories/ExpertsRepository.js'
 import {useAuthStore} from "@/stores/auth.js";
 import {mapState} from "pinia";
 import ModalComponent from '@/components/ModalComponent.vue'
-import { createUser, getUsers } from '@/repositories/AdminUserRepository.js'
+import { createUser, getUsers } from '@/repositories/CompanyUserRepository.js'
 import { getBranches } from '@/repositories/BranchRepository.js'
 
 DataTable.use(DataTablesLib);
@@ -162,7 +161,7 @@ export default {
         {
           title: 'Action', data: (row) => {
             if(row.expert) {
-              return `<a href="./expert/${row.id}">manage</a>`;
+              return `<a href="./expert/${row.expert.id}">manage</a>`;
             } else {
               return `<a href="./user/${row.id}">manage</a>`;
             }

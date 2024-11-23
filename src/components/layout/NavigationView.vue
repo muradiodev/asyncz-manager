@@ -38,9 +38,9 @@ export default {
             <router-link class="nav-link" :to="{name: 'experts'}" v-if="user.role!=='expert'">Experts</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'users'}" v-if="user.role==='admin'">Users</router-link>
+            <router-link class="nav-link" :to="{name: 'users'}" v-if="user.role==='manager'">Users</router-link>
           </li>
-          <li class="nav-item" v-if="user.role==='admin'">
+          <li class="nav-item" v-if="user.role==='manager'">
             <router-link class="nav-link" :to="{name: 'procedures'}">Procedures</router-link>
           </li>
         </ul>

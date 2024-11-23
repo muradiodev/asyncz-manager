@@ -4,7 +4,7 @@ import Repository, { baseUrl } from './Repository'
 export async function createAppointment(token, expertId, procedureId, datetime, length, name, surname, phone, email, notes, color) {
 
   {
-    return await Repository.postForm(`${baseUrl}/admin/appointment?token=${token}`, {
+    return await Repository.postForm(`${baseUrl}/manager/appointment?token=${token}`, {
       expert: expertId,
       procedure: procedureId,
       name: name,
@@ -32,7 +32,7 @@ export async function createAppointment(token, expertId, procedureId, datetime, 
 export async function updateAppointment(token, id, expertId, procedureId, datetime, length, name, surname, phone, email, notes, color) {
 
   {
-    return await Repository.postForm(`${baseUrl}/admin/appointment/${id}?token=${token}`, {
+    return await Repository.postForm(`${baseUrl}/manager/appointment/${id}?token=${token}`, {
       expert: expertId,
       procedure: procedureId,
       name: name,
@@ -59,7 +59,7 @@ export async function updateAppointment(token, id, expertId, procedureId, dateti
 
 
 export async function setTime(token, id, datetime, expertId) {
-  return await Repository.postForm(`${baseUrl}/admin/appointment/${id}/setTime?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/appointment/${id}/setTime?token=${token}`, {
     time: datetime,
     expert: expertId
   })
@@ -76,7 +76,7 @@ export async function setTime(token, id, datetime, expertId) {
 }
 
 export async function setLength(token, id, length) {
-  return await Repository.postForm(`${baseUrl}/admin/appointment/${id}/setLength?token=${token}`,
+  return await Repository.postForm(`${baseUrl}/manager/appointment/${id}/setLength?token=${token}`,
     {
       time: length
     })

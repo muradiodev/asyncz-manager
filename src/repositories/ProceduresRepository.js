@@ -2,7 +2,7 @@ import Repository, { baseUrl } from './Repository'
 
 
 export async function getProcedures(token) {
-  return await Repository.get(`${baseUrl}/admin/procedures?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/procedures?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.procedures
@@ -17,7 +17,7 @@ export async function getProcedures(token) {
 }
 
 export async function getProcedure(token, id) {
-  return await Repository.get(`${baseUrl}/admin/procedure/${id}?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/procedure/${id}?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data
@@ -31,7 +31,7 @@ export async function getProcedure(token, id) {
 }
 
 export async function createProcedure(token, name, length) {
-  return await Repository.postForm(`${baseUrl}/admin/procedure?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/procedure?token=${token}`, {
     name,
     length
   })
@@ -50,7 +50,7 @@ export async function createProcedure(token, name, length) {
 
 
 export async function saveProcedure(token,id,  name, about, length, status) {
-  return await Repository.postForm(`${baseUrl}/admin/procedure/${id}?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/procedure/${id}?token=${token}`, {
     name,
     about,
     length,

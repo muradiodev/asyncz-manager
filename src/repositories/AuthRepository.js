@@ -1,7 +1,7 @@
 import Repository, {baseUrl} from './Repository'
 
 export async function login(email, password) {
-    return await Repository.postForm(`${baseUrl}/admin/login`, {
+    return await Repository.postForm(`${baseUrl}/manager/login`, {
         email: email,
         password: password
     })
@@ -19,7 +19,7 @@ export async function login(email, password) {
 }
 
 export async function getProfile(token) {
-    return await Repository.get(`${baseUrl}/admin/me?token=${token}`)
+    return await Repository.get(`${baseUrl}/manager/me?token=${token}`)
         .then((response) => {
             if (response.data) {
                 return response.data

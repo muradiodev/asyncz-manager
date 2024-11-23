@@ -2,7 +2,7 @@ import Repository, { baseUrl } from './Repository'
 
 
 export async function getExperts(token) {
-  return await Repository.get(`${baseUrl}/admin/experts?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/experts?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.experts
@@ -17,7 +17,7 @@ export async function getExperts(token) {
 }
 
 export async function getExpert(token, id) {
-  return await Repository.get(`${baseUrl}/admin/expert/${id}?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/expert/${id}?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data
@@ -31,7 +31,7 @@ export async function getExpert(token, id) {
 }
 
 export async function createExpert(token,branch, name, email, password) {
-  return await Repository.postForm(`${baseUrl}/admin/expert?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/expert?token=${token}`, {
     branch,
     name,
     email,
@@ -50,7 +50,7 @@ export async function createExpert(token,branch, name, email, password) {
 }
 
 export async function saveExpert(token, id, branch, name, about, color, status) {
-  return await Repository.postForm(`${baseUrl}/admin/expert/${id}?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/expert/${id}?token=${token}`, {
     name,
     about,
     color,
@@ -71,7 +71,7 @@ export async function saveExpert(token, id, branch, name, about, color, status) 
 
 
 export async function getExpertProcedures(token, id) {
-  return await Repository.get(`${baseUrl}/admin/expertProcedures?token=${token}&expert=${id}`)
+  return await Repository.get(`${baseUrl}/manager/expertProcedures?token=${token}&expert=${id}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.procedures
@@ -86,7 +86,7 @@ export async function getExpertProcedures(token, id) {
 
 
 export async function addExpertProcedure(token, expertId, procedureId) {
-  return await Repository.postForm(`${baseUrl}/admin/expertProcedure?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/expertProcedure?token=${token}`, {
     expert: expertId,
     procedure: procedureId
   })
@@ -104,7 +104,7 @@ export async function addExpertProcedure(token, expertId, procedureId) {
 
 
 export async function removeExpertProcedure(token, expertProcedureId) {
-  return await Repository.postForm(`${baseUrl}/admin/expertProcedure/${expertProcedureId}/delete?token=${token}`, {})
+  return await Repository.postForm(`${baseUrl}/manager/expertProcedure/${expertProcedureId}/delete?token=${token}`, {})
     .then((response) => {
       if (response.data) {
         return response.data
@@ -120,7 +120,7 @@ export async function removeExpertProcedure(token, expertProcedureId) {
 
 
 export async function getExpertSchedules(token, id) {
-  return await Repository.get(`${baseUrl}/admin/schedules?token=${token}&expert=${id}`)
+  return await Repository.get(`${baseUrl}/manager/schedules?token=${token}&expert=${id}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.schedules
@@ -135,7 +135,7 @@ export async function getExpertSchedules(token, id) {
 
 
 export async function updateExpertSchedule(token, expertId, data) {
-  return await Repository.postForm(`${baseUrl}/admin/schedule?token=${token}`, {
+  return await Repository.postForm(`${baseUrl}/manager/schedule?token=${token}`, {
     expert: expertId,
     dayData: data
   })

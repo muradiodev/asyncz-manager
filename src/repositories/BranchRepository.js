@@ -2,7 +2,7 @@ import Repository, { baseUrl } from './Repository'
 
 
 export async function getBranches(token) {
-  return await Repository.get(`${baseUrl}/admin/branches?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/branches?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.branches
@@ -17,7 +17,7 @@ export async function getBranches(token) {
 }
 
 export async function getBranch(token, id) {
-  return await Repository.get(`${baseUrl}/admin/branch/${id}?token=${token}`)
+  return await Repository.get(`${baseUrl}/manager/branch/${id}?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data
