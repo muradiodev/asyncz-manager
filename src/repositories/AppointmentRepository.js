@@ -91,3 +91,39 @@ export async function setLength(token, id, length) {
       return { code: 501, message: error }
     })
 }
+
+
+
+export async function searchAppointment(token, keyword) {
+
+  {
+    return await Repository.get(`${baseUrl}/manager/appointment/search?token=${token}&keywords=${keyword}`)
+      .then((response) => {
+        if (response.data && response.data.code === 200) {
+          return response.data.appointments
+        } else {
+          return  [];
+        }
+      })
+      .catch(() => {
+        return [];
+      })
+  }
+}
+
+export async function getAppointment(token, id) {
+
+  {
+    return await Repository.get(`${baseUrl}/manager/appointment/${id}?token=${token}`)
+      .then((response) => {
+        if (response.data ) {
+          return response.data
+        } else {
+          return { code: 500, message: 'Internal Server Error' }
+        }
+      })
+      .catch(() => {
+        return { code: 501, message: 'Internal Server Error' }
+      })
+  }
+}

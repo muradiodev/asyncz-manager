@@ -102,6 +102,46 @@
         </div>
 
 
+        <div v-if="copyingAppointment">
+          <div class="alert alert-warning">
+            <div class="d-flex justify-content-between w-100">
+              <div>
+                <strong>Click any available slot to create a copy of appointment</strong> <br>
+                <div class="small">
+                  <strong>Customer:</strong> <span>{{ copyingAppointment.name }} {{ copyingAppointment.surname }} </span>
+                  <br>
+                  <strong>Phone:</strong> <span>{{ copyingAppointment.phone }} </span>
+                  <br>
+                  <strong>Email:</strong> <span>{{ copyingAppointment.email }} </span>
+                  <br>
+                  <strong>Procedure:</strong> <span>{{copyingAppointment.procedure.name}}</span>
+                  <br>
+                  <strong>Expert:</strong> <span>{{copyingAppointment.expert.fullName}}</span>
+
+                  <br>
+
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           v-model="showAllExperts" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Copy to another expert
+                    </label>
+                  </div>
+                </div>
+
+
+
+              </div>
+              <div>
+                <a href="#" @click.prevent="copyingAppointment=null" class="text-secondary" >
+                <fa-icon :icon="['fas','times']"></fa-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div v-if="readyToBuildLayout">
           <CalendarVerticalLayout
             :current-date="currentDate"
@@ -463,8 +503,11 @@
       </div>
       <div class="col-12">
         <div class="mt-3">
-          <button class="btn btn-sm btn-primary" @click.prevent="editAppointment(activeAppointment) ">
+          <button class="btn btn-sm btn-primary me-2" @click.prevent="editAppointment(activeAppointment) ">
             Update appointment
+          </button>
+          <button class="btn btn-sm btn-outline-primary" @click.prevent="copyAppointment(activeAppointment) ">
+            Copy
           </button>
         </div>
       </div>
@@ -487,7 +530,13 @@ import { FontAwesomeIcon as FaIcon } from '@fortawesome/vue-fontawesome'
 import CalendarMonthLayout from '@/components/calendar/layouts/CalendarMonthLayout.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getProcedures } from '@/repositories/ProceduresRepository.js'
-import { createAppointment, setLength, setTime, updateAppointment } from '@/repositories/AppointmentRepository.js'
+import {
+  createAppointment,
+  getAppointment,
+  setLength,
+  setTime,
+  updateAppointment
+} from '@/repositories/AppointmentRepository.js'
 
 export default {
   name: 'CalendarView',
@@ -538,7 +587,8 @@ export default {
       },
 
       editingAppointment: null,
-
+      copyingAppointment: null,
+      showAllExperts: false,
       activeAppointment: null
     }
   },
@@ -560,7 +610,9 @@ export default {
       this.calculateDates()
     },
     'newItemDetails.expert': function() {
-      this.newItemDetails.procedure = 0
+      if(!this.copyingAppointment) {
+        this.newItemDetails.procedure = 0
+      }
     },
     'newItemDetails.procedure': function() {
       let procedure = this.procedures.find(p => p.id === this.newItemDetails.procedure)
@@ -575,8 +627,19 @@ export default {
         localStorage.setItem('selectedSchedules', JSON.stringify(this.selectedSchedules))
       },
       deep: true
-    }
+    },
 
+    '$route'(){
+      this.checkUrlForAppointmentId()
+    },
+
+    activeAppointment(){
+      if(this.activeAppointment){
+        this.$router.push({query: {open: 'appointment', appointment: this.activeAppointment.id}})
+      } else {
+        this.$router.push({query: {}})
+      }
+    }
   },
   computed: {
 
@@ -619,7 +682,13 @@ export default {
 
     visibleSchedules() {
       if (this.selectedSchedules.length === 0) return []
-      return this.schedules.filter(s => this.selectedSchedules.includes(s.expert.id))
+      let selectionFilter = this.schedules.filter(s => this.selectedSchedules.includes(s.expert.id));
+
+      if(this.copyingAppointment && !this.showAllExperts){
+        return selectionFilter.filter(s => s.expert.id === this.copyingAppointment.expert.id)
+      }
+      return selectionFilter;
+
     },
 
     visibleEvents() {
@@ -726,9 +795,7 @@ export default {
           map[branch.id] = null
         }
 
-        console.log(map)
       })
-      console.log(map)
       return map
     },
     selectedExpertProcedureList() {
@@ -783,6 +850,26 @@ export default {
 
   },
   methods: {
+
+    checkUrlForAppointmentId(){
+      if(this.$route.query['open']==='appointment'){
+        let appointment = this.$route.query['appointment'];
+
+        getAppointment(this.token, appointment).then(response => {
+          if(response.code === 200){
+            this.activeAppointment = response.appointment
+          } else {
+            this.$swal({
+              title: 'Error',
+              text: response.message,
+              icon: 'error',
+              showConfirmButton: true
+            })
+          }
+        })
+
+      }
+    },
 
     getCalendar() {
       if (this.startDate && this.endDate) {
@@ -921,18 +1008,37 @@ export default {
 
     openNewAppointmentModal(details) {
       this.newAppointmentIsOpen = true
-      this.newItemDetails = {
-        expert: details.expert.id,
-        date: details.time.format('YYYY-MM-DD'),
-        time: details.time.format('HH:mm:00'),
-        procedure: 0,
-        length: 0,
-        name: '',
-        surname: '',
-        phone: '',
-        email: '',
-        notes: '',
-        color: '#387f94'
+
+      if(this.copyingAppointment){
+
+        this.newItemDetails = {
+          expert: details.expert.id,
+          date: details.time.format('YYYY-MM-DD'),
+          time: details.time.format('HH:mm:00'),
+          procedure: this.copyingAppointment.procedure.id,
+          length: this.copyingAppointment.reservationLength,
+          name: this.copyingAppointment.name,
+          surname: this.copyingAppointment.surname,
+          phone: this.copyingAppointment.phone,
+          email: this.copyingAppointment.email,
+          notes: '',
+          color: this.copyingAppointment.color
+        }
+      } else {
+
+        this.newItemDetails = {
+          expert: details.expert.id,
+          date: details.time.format('YYYY-MM-DD'),
+          time: details.time.format('HH:mm:00'),
+          procedure: 0,
+          length: 0,
+          name: '',
+          surname: '',
+          phone: '',
+          email: '',
+          notes: '',
+          color: '#387f94'
+        }
       }
     },
     startNewEventFromScratch() {
@@ -958,6 +1064,11 @@ export default {
       this.editingAppointment.time = this.$dayjs(appointment.reservationStartTime.date).format('HH:mm')
     },
 
+    copyAppointment(appointment){
+      this.activeAppointment = null;
+      this.copyingAppointment = JSON.parse(JSON.stringify(appointment));
+    },
+
     createNewAppointment() {
 
       createAppointment(this.token,
@@ -980,6 +1091,7 @@ export default {
             showConfirmButton: true
           })
           this.newAppointmentIsOpen = false
+          this.copyingAppointment = null;
           this.getCalendar()
         } else {
           this.$swal({
@@ -1130,7 +1242,9 @@ export default {
 
     this.getSchedules()
 
-    this.getProcedures()
+    this.getProcedures();
+
+    this.checkUrlForAppointmentId();
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)

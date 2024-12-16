@@ -90,13 +90,16 @@ router.beforeResolve((to, from, next) => {
 
     if (token) {
         //decoding token
-
         getProfile(token).then(({code, data}) => {
             if (code === 200) {
                 const auth = useAuthStore()
                 auth.setUser(data)
                 auth.setToken(token)
                 next();
+            } else {
+                localStorage.removeItem('token');
+                //reload page
+                window.location.reload();
             }
         });
     } else {
