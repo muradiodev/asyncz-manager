@@ -108,15 +108,16 @@
               <div>
                 <strong>Click any available slot to create a copy of appointment</strong> <br>
                 <div class="small">
-                  <strong>Customer:</strong> <span>{{ copyingAppointment.name }} {{ copyingAppointment.surname }} </span>
+                  <strong>Customer:</strong> <span>{{ copyingAppointment.name }} {{ copyingAppointment.surname
+                  }} </span>
                   <br>
                   <strong>Phone:</strong> <span>{{ copyingAppointment.phone }} </span>
                   <br>
                   <strong>Email:</strong> <span>{{ copyingAppointment.email }} </span>
                   <br>
-                  <strong>Procedure:</strong> <span>{{copyingAppointment.procedure.name}}</span>
+                  <strong>Procedure:</strong> <span>{{ copyingAppointment.procedure.name }}</span>
                   <br>
-                  <strong>Expert:</strong> <span>{{copyingAppointment.expert.fullName}}</span>
+                  <strong>Expert:</strong> <span>{{ copyingAppointment.expert.fullName }}</span>
 
                   <br>
 
@@ -130,11 +131,10 @@
                 </div>
 
 
-
               </div>
               <div>
-                <a href="#" @click.prevent="copyingAppointment=null" class="text-secondary" >
-                <fa-icon :icon="['fas','times']"></fa-icon>
+                <a href="#" @click.prevent="copyingAppointment=null" class="text-secondary">
+                  <fa-icon :icon="['fas','times']"></fa-icon>
                 </a>
               </div>
             </div>
@@ -504,10 +504,16 @@
       <div class="col-12">
         <div class="mt-3">
           <button class="btn btn-sm btn-primary me-2" @click.prevent="editAppointment(activeAppointment) ">
+            <fa-icon :icon="['fas','pencil']"></fa-icon>
             Update appointment
           </button>
-          <button class="btn btn-sm btn-outline-primary" @click.prevent="copyAppointment(activeAppointment) ">
+          <button class="btn btn-sm btn-outline-primary me-2" @click.prevent="copyAppointment(activeAppointment) ">
+            <fa-icon :icon="['fas','copy']"></fa-icon>
             Copy
+          </button>
+          <button class="btn btn-sm btn-outline-dark" @click.prevent="printAppointment(activeAppointment) ">
+            <fa-icon :icon="['fas','print']"></fa-icon>
+            Print
           </button>
         </div>
       </div>
@@ -610,7 +616,7 @@ export default {
       this.calculateDates()
     },
     'newItemDetails.expert': function() {
-      if(!this.copyingAppointment) {
+      if (!this.copyingAppointment) {
         this.newItemDetails.procedure = 0
       }
     },
@@ -629,15 +635,15 @@ export default {
       deep: true
     },
 
-    '$route'(){
+    '$route'() {
       this.checkUrlForAppointmentId()
     },
 
-    activeAppointment(){
-      if(this.activeAppointment){
-        this.$router.push({query: {open: 'appointment', appointment: this.activeAppointment.id}})
+    activeAppointment() {
+      if (this.activeAppointment) {
+        this.$router.push({ query: { open: 'appointment', appointment: this.activeAppointment.id } })
       } else {
-        this.$router.push({query: {}})
+        this.$router.push({ query: {} })
       }
     }
   },
@@ -682,12 +688,12 @@ export default {
 
     visibleSchedules() {
       if (this.selectedSchedules.length === 0) return []
-      let selectionFilter = this.schedules.filter(s => this.selectedSchedules.includes(s.expert.id));
+      let selectionFilter = this.schedules.filter(s => this.selectedSchedules.includes(s.expert.id))
 
-      if(this.copyingAppointment && !this.showAllExperts){
+      if (this.copyingAppointment && !this.showAllExperts) {
         return selectionFilter.filter(s => s.expert.id === this.copyingAppointment.expert.id)
       }
-      return selectionFilter;
+      return selectionFilter
 
     },
 
@@ -784,9 +790,9 @@ export default {
 
       let map = {}
       this.expertMap.forEach(b => {
-        let branch = b.branch;
-        let experts = b.experts;
-        let selectedCount = this.selectedSchedules.filter(s => experts.map(ex=>ex.id).indexOf(s)>-1).length
+        let branch = b.branch
+        let experts = b.experts
+        let selectedCount = this.selectedSchedules.filter(s => experts.map(ex => ex.id).indexOf(s) > -1).length
         if (selectedCount === experts.length) {
           map[branch.id] = true
         } else if (selectedCount === 0) {
@@ -851,12 +857,12 @@ export default {
   },
   methods: {
 
-    checkUrlForAppointmentId(){
-      if(this.$route.query['open']==='appointment'){
-        let appointment = this.$route.query['appointment'];
+    checkUrlForAppointmentId() {
+      if (this.$route.query['open'] === 'appointment') {
+        let appointment = this.$route.query['appointment']
 
         getAppointment(this.token, appointment).then(response => {
-          if(response.code === 200){
+          if (response.code === 200) {
             this.activeAppointment = response.appointment
           } else {
             this.$swal({
@@ -1009,7 +1015,7 @@ export default {
     openNewAppointmentModal(details) {
       this.newAppointmentIsOpen = true
 
-      if(this.copyingAppointment){
+      if (this.copyingAppointment) {
 
         this.newItemDetails = {
           expert: details.expert.id,
@@ -1064,9 +1070,37 @@ export default {
       this.editingAppointment.time = this.$dayjs(appointment.reservationStartTime.date).format('HH:mm')
     },
 
-    copyAppointment(appointment){
-      this.activeAppointment = null;
-      this.copyingAppointment = JSON.parse(JSON.stringify(appointment));
+    copyAppointment(appointment) {
+      this.activeAppointment = null
+      this.copyingAppointment = JSON.parse(JSON.stringify(appointment))
+    },
+
+    printAppointment(appointment) {
+
+      let html = '<!doctype>' +
+        '<html lang="en">' +
+        '<head>' +
+        '<title>Print</title>' +
+        '</head>' +
+        '<body>' +
+        '<div style="font-family: Arial; font-size: 12px;">' +
+        '<h3>Appointment details</h3>' +
+        '<p><strong>Expert:</strong> ' + appointment.expert.fullName + '</p>' +
+        '<p><strong>Procedure:</strong> ' + appointment.procedure.name + '</p>' +
+        '<p><strong>Starts:</strong> ' + this.formatTime(appointment.reservationStartTime.date) + '</p>' +
+        '<p><strong>Duration:</strong> ' + appointment.reservationLength + ' minute</p>' +
+        '<p><strong>Customer:</strong> ' + appointment.name + ' ' + appointment.surname + '</p>' +
+        '<p><strong>Phone:</strong> ' + appointment.phone + '</p>' +
+        '<p><strong>Email:</strong> ' + appointment.email + '</p>' +
+        '</div>' +
+        '</body>' +
+        '</html>'
+
+      let w = window.open()
+      w.document.write(html)
+      w.print()
+      w.close()
+
     },
 
     createNewAppointment() {
@@ -1091,7 +1125,7 @@ export default {
             showConfirmButton: true
           })
           this.newAppointmentIsOpen = false
-          this.copyingAppointment = null;
+          this.copyingAppointment = null
           this.getCalendar()
         } else {
           this.$swal({
@@ -1242,9 +1276,9 @@ export default {
 
     this.getSchedules()
 
-    this.getProcedures();
+    this.getProcedures()
 
-    this.checkUrlForAppointmentId();
+    this.checkUrlForAppointmentId()
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)

@@ -1,17 +1,18 @@
 <template>
-  <div
-    :ref="`eventItem_${event.id}`"
-    class="event" :class="{dark: isColorDark}"
-    :style="style"
-    data-bs-toggle="tooltip"
-    data-bs-placement="top"
-    data-bs-html="true"
-    :title="tooltipTitle"
-    @dblclick="$emit('eventClicked', event)"
-    draggable="true"
-    v-on:dragstart="onDragStart($event, event)"
-    v-resizable.b
-    @resize="onResize"
+  <div :id="`eventItem_${event.id}`"
+       :ref="`eventItem_${event.id}`"
+       class="event" :class="{dark: isColorDark, 'isDragging': isDragging}"
+       :style="style"
+       data-bs-toggle="tooltip"
+       data-bs-placement="top"
+       data-bs-html="true"
+       :title="tooltipTitle"
+       @dblclick="$emit('eventClicked', event)"
+       draggable="true"
+       v-on:dragstart="onDragStart($event, event)"
+       v-on:dragend="isDragging = false"
+       v-resizable.b
+       @resize="onResize"
   >
     <span v-html="label"></span>
   </div>
@@ -53,7 +54,7 @@ export default {
   data() {
     return {
       modal: null,
-
+      isDragging: false,
       resizeTimeout: null
     }
   },
@@ -115,8 +116,8 @@ export default {
       return {
         top: this.coordinates.start + 'px',
         height: this.coordinates.height + 'px',
-        width: this.columnWidth + 'px',
-        left: this.scheduleListOrder * this.columnWidth + 'px',
+        width: this.columnWidth - (this.isDragging ? 5 : 0) + 'px',
+        left: (this.scheduleListOrder * this.columnWidth + (this.isDragging ? 5 : 0)) + 'px',
         'background-color': this.event.color || 'red'
       }
     }
@@ -126,11 +127,13 @@ export default {
   methods: {
 
     onDragStart(event, eventData) {
+      this.isDragging = true
       eventData.layoutX = event.layerX
       eventData.layoutY = event.layerY
       event.dataTransfer.setData('application/json', JSON.stringify(eventData))
       //set cursor position to the top left corner of the dragged element
-      event.dataTransfer.setDragImage( this.$refs[`eventItem_${this.event.id}`] , 0, 0)
+      event.dataTransfer.setDragImage(this.$refs[`eventItem_${this.event.id}`].html, 0, 0)
+      console.log(this.$refs[`eventItem_${this.event.id}`].html)
     },
 
 
@@ -177,6 +180,9 @@ export default {
 
   &.dark {
     color: #fff;
+  }
+  &.isDragging{
+    text-indent: -9999px;
   }
 }
 </style>
