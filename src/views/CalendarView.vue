@@ -478,6 +478,13 @@
           </span>
         </div>
 
+        <div class="mb-1">
+          <span class="small text-secondary">Status:</span> <br>
+          <span class="badge bg-primary">{{ activeAppointment.status }}</span>
+        </div>
+
+
+
       </div>
       <div class="col-md-6">
         <div class="mb-1">
@@ -503,6 +510,18 @@
       </div>
       <div class="col-12">
         <div class="mt-3">
+          <button class="btn btn-sm btn-success me-2"
+                  v-if="activeAppointment.status==='new'"
+                  @click.prevent="confirmAppointment(activeAppointment)">
+            <fa-icon :icon="['fas','check']"></fa-icon>
+            Confirm
+          </button>
+          <button class="btn btn-sm btn-danger me-2"
+                  v-if="activeAppointment.status==='confirmed'"
+                  @click.prevent="cancelAppointment(activeAppointment)">
+            <fa-icon :icon="['fas','times']"></fa-icon>
+            Cancel
+          </button>
           <button class="btn btn-sm btn-primary me-2" @click.prevent="editAppointment(activeAppointment) ">
             <fa-icon :icon="['fas','pencil']"></fa-icon>
             Update appointment
@@ -537,6 +556,8 @@ import CalendarMonthLayout from '@/components/calendar/layouts/CalendarMonthLayo
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getProcedures } from '@/repositories/ProceduresRepository.js'
 import {
+  cancel,
+  confirm,
   createAppointment,
   getAppointment,
   setLength,
@@ -1068,6 +1089,81 @@ export default {
       this.editingAppointment = JSON.parse(JSON.stringify(appointment))
       this.editingAppointment.date = this.$dayjs(appointment.reservationStartTime.date).format('YYYY-MM-DD')
       this.editingAppointment.time = this.$dayjs(appointment.reservationStartTime.date).format('HH:mm')
+    },
+
+    confirmAppointment(appointment){
+
+      this.$swal({
+        title: 'Confirm appointment',
+        text: 'Are you sure you want to confirm the appointment?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (!result.isConfirmed) return
+        confirm(this.token, appointment.id).then(response => {
+            if (response.code === 200) {
+              this.$swal({
+                title: 'Success',
+                text: 'Appointment confirmed',
+                icon: 'success',
+                showConfirmButton: true
+              })
+              this.getCalendar();
+              //todo update from api
+              this.activeAppointment.status = 'confirmed';
+            } else {
+              this.$swal({
+                title: 'Error',
+                text: response.message,
+                icon: 'error',
+                showConfirmButton: true
+              })
+            }
+          }
+        )
+      })
+
+
+
+    },
+    cancelAppointment(appointment){
+
+      this.$swal({
+        title: 'Cancel appointment',
+        text: 'Are you sure you want to cancel the appointment?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (!result.isConfirmed) return
+        cancel(this.token, appointment.id).then(response => {
+            if (response.code === 200) {
+              this.$swal({
+                title: 'Success',
+                text: 'Appointment cancelled',
+                icon: 'success',
+                showConfirmButton: true
+              })
+              this.getCalendar();
+              //todo update from api
+              this.activeAppointment.status = 'cancelled_expert';
+            } else {
+              this.$swal({
+                title: 'Error',
+                text: response.message,
+                icon: 'error',
+                showConfirmButton: true
+              })
+            }
+          }
+        )
+      })
+
+
+
     },
 
     copyAppointment(appointment) {

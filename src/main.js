@@ -23,9 +23,21 @@ import VResizable from 'v-resizable'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronLeft, faChevronRight, faSearch, faTimes, faPrint, faCopy, faPencil, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faChevronLeft, faChevronRight,
+  faSearch, faTimes,
+  faPrint, faCopy, faPencil,
+  faEye, faEyeSlash,
+  faCheck
+} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faChevronLeft, faChevronRight, faSearch, faTimes, faPrint, faCopy, faPencil,faEye,faEyeSlash)
+library.add(
+  faChevronLeft, faChevronRight,
+  faSearch, faTimes,
+  faPrint, faCopy, faPencil,
+  faEye, faEyeSlash,
+  faCheck
+)
 
 import Popper from 'vue3-popper'
 
