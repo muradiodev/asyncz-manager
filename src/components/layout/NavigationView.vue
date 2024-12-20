@@ -71,6 +71,7 @@
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li class="dropdown-item disabled"> {{ user.role }}</li>
+            <li><router-link class="dropdown-item" :to="{name:'profile'}">Profile</router-link></li>
             <li><a class="dropdown-item" href="#" @click.prevent="logout">Logout</a></li>
           </ul>
         </div>
