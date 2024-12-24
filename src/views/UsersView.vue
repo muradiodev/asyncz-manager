@@ -139,13 +139,14 @@ export default {
           }
         },
         {title: 'Name', data: 'name', orderable: true},
+        {title: 'Email', data: 'email', orderable: true},
 
         {
           title: 'Expert', data: (row) => {
             if(row.expert){
-              return row.expert.name;
+              return 'yes';
             } else {
-              return '-';
+              return 'no';
             }
           }
         },

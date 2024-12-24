@@ -49,10 +49,11 @@ export async function createExpert(token,branch, name, email, password) {
     })
 }
 
-export async function saveExpert(token, id, branch, name, about, color, status) {
+export async function saveExpert(token, id, branch, name, about, email, color, status) {
   return await Repository.postForm(`${baseUrl}/manager/expert/${id}?token=${token}`, {
     name,
     about,
+    email,
     color,
     status,
     branch

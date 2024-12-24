@@ -54,6 +54,13 @@
             </div>
             <div class="card-body" v-if="!editing">
 
+
+
+              <p class="mb-1">
+                <strong>Email: </strong>
+                {{ companyUser.email }}
+              </p>
+
               <p class="mb-1">
                 <strong>Branch: </strong>
                 {{ companyUser.branch ? companyUser.branch.name : '-' }}

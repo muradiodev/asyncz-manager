@@ -57,6 +57,10 @@
               <p>
                 {{ expert.about || '-' }}
               </p>
+              <p>
+                <strong>Email: </strong>
+                {{ user.email }}
+              </p>
               <p class="mb-1">
                 <strong>Color: </strong>
                 <ColorComponent :expert="expert" />
@@ -84,7 +88,9 @@
                       v-model="branchId"
                       required
                     >
-                      <option v-for="branch in branches" :value="branch.id">{{ branch.name }}</option>
+                      <option v-for="branch in branches" :value="branch.id" :key="branch.id">
+                        {{ branch.name }}
+                      </option>
                     </select>
                   </div>
                   <div class="col-md-12 mb-3">
@@ -105,6 +111,17 @@
                       id="about"
                       v-model="expert.about"
                     ></textarea>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                    <label for="fullName" class="form-label">Email</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="fullName"
+                      v-model="user.email"
+                      required
+                    />
                   </div>
 
                   <div class="col-md-6 mb-3">
@@ -251,6 +268,7 @@ export default {
     return {
 
       expert: null,
+      user: null,
 
       editing: false,
 
@@ -329,6 +347,7 @@ export default {
       getExpert(this.token, this.expertId).then(response => {
         if (response.code === 200) {
           this.expert = response.expert
+          this.user = response.user;
         } else {
           this.$swal({
             title: 'Error',
@@ -340,7 +359,7 @@ export default {
     },
 
     saveExpert() {
-      saveExpert(this.token, this.expertId, this.branchId, this.expert.fullName, this.expert.about, this.expert.color, this.expert.status ? 1 : 0).then(response => {
+      saveExpert(this.token, this.expertId, this.branchId, this.expert.fullName, this.expert.about, this.user.email, this.expert.color, this.expert.status ? 1 : 0).then(response => {
         if (response.code === 200) {
           this.editing = false
         } else {
