@@ -24,12 +24,9 @@
 
         <div class="card mb-4">
           <div class="card-body">
-            <VCalendar
-              expanded
-              borderless
-              @dayclick="calendarDayClick"
-              :attributes="smallCalendarEvents"
-            />
+            <SmallCalendar
+              :value="currentDate"
+              @calendarDayClick="calendarDayClick" />
           </div>
         </div>
 
@@ -564,10 +561,11 @@ import {
   setTime,
   updateAppointment
 } from '@/repositories/AppointmentRepository.js'
+import SmallCalendar from '@/components/calendar/SmallCalendar.vue'
 
 export default {
   name: 'CalendarView',
-  components: { ModalComponent, CalendarMonthLayout, FaIcon, CalendarVerticalLayout },
+  components: { SmallCalendar, ModalComponent, CalendarMonthLayout, FaIcon, CalendarVerticalLayout },
   data() {
     return {
       view: VIEW_MONTH, //horizontal, month, vertical
@@ -577,7 +575,6 @@ export default {
       currentDate: null,
       endDate: null,
       eventList: [],
-      eventDays: [],
       screenWidth: 0,
       screenHeight: 0,
       minDate: null,
@@ -857,23 +854,7 @@ export default {
 
     },
 
-    smallCalendarEvents() {
 
-      let list = []
-
-      this.eventDays.forEach(ev => {
-
-        list.push({
-          key: ev,
-          bar: 'red',
-          dates: ev,
-          order: 1
-        })
-      })
-
-      return list
-
-    }
 
   },
   methods: {
@@ -903,7 +884,6 @@ export default {
         getCalendarInfo(this.token, this.startDate.format('YYYY-MM-DD'), this.endDate.endOf('day').format('YYYY-MM-DD HH:mm:ss')).then((response) => {
           if (response.code === 200) {
             this.eventList = response.appointments
-            this.eventDays = response.calendar
           } else {
             this.$swal({
               title: 'Error',
