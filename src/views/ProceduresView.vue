@@ -80,10 +80,6 @@ import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net';
 import DataTablesLib from 'datatables.net-bs5';
 
-import 'datatables.net-select';
-import 'datatables.net-responsive';
-import 'datatables.net-select-bs5';
-import { createExpert, getExperts } from '@/repositories/ExpertsRepository.js'
 import {useAuthStore} from "@/stores/auth.js";
 import {mapState} from "pinia";
 import ModalComponent from '@/components/ModalComponent.vue'
@@ -175,8 +171,3 @@ export default {
 </script>
 
 
-<style scoped>
-
-@import 'datatables.net-dt';
-
-</style>

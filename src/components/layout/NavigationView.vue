@@ -28,6 +28,9 @@
           <li class="nav-item" v-if="user.role==='manager'">
             <router-link class="nav-link" :to="{name: 'procedures'}">Procedures</router-link>
           </li>
+          <li class="nav-item" >
+            <router-link class="nav-link" :to="{name: 'blacklist'}">Blacklist</router-link>
+          </li>
         </ul>
       </div>
 

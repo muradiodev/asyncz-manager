@@ -38,9 +38,7 @@ import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net';
 import DataTablesLib from 'datatables.net-bs5';
 
-import 'datatables.net-select';
-import 'datatables.net-responsive';
-import 'datatables.net-select-bs5';
+
 import {useAuthStore} from "@/stores/auth.js";
 import {mapState} from "pinia";
 import { getBranches } from '@/repositories/BranchRepository.js'
@@ -96,8 +94,3 @@ export default {
 </script>
 
 
-<style scoped>
-
-@import 'datatables.net-dt';
-
-</style>

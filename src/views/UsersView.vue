@@ -100,9 +100,6 @@ import DataTable from 'datatables.net-vue3';
 import DataTablesCore from 'datatables.net';
 import DataTablesLib from 'datatables.net-bs5';
 
-import 'datatables.net-select';
-import 'datatables.net-responsive';
-import 'datatables.net-select-bs5';
 import {useAuthStore} from "@/stores/auth.js";
 import {mapState} from "pinia";
 import ModalComponent from '@/components/ModalComponent.vue'
@@ -140,13 +137,14 @@ export default {
         },
         {title: 'Name', data: 'name', orderable: true},
         {title: 'Email', data: 'email', orderable: true},
-
         {
-          title: 'Expert', data: (row) => {
+          title: 'Role', data: (row) => {
             if(row.expert){
-              return 'yes';
+              return 'expert';
+            } else  if(row.branch){
+              return 'branch manager';
             } else {
-              return 'no';
+              return 'company manager';
             }
           }
         },
@@ -227,8 +225,3 @@ export default {
 </script>
 
 
-<style scoped>
-
-@import 'datatables.net-dt';
-
-</style>

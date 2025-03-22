@@ -84,7 +84,14 @@ const router = createRouter({
                     path: 'procedure/:id',
                     name: 'procedure',
                     component: () => import('../views/ProcedureView.vue')
-                }
+                },
+
+                {
+                    path: 'blacklist',
+                    name: 'blacklist',
+                    component: () => import('../views/BlacklistView.vue')
+                },
+
             ]
         }
     ]
