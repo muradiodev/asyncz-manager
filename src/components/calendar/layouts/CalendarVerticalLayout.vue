@@ -108,7 +108,7 @@ export default {
 
   computed: {
     columnWidth() {
-      return (this.screenWidth - 60) / this.dayCount;
+      return (this.screenWidth - 42) / this.dayCount;
     },
     expertNameWidth() {
       return (this.columnWidth) / this.schedules.length;

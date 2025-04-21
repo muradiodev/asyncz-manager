@@ -2,189 +2,186 @@
 
 
   <CContainer class="px-4 mt-4" fluid>
-  <div class="container-fluid">
+    <div class="container-fluid">
 
-    <div class="row">
-      <div class="  col-lg-auto order-2 order-lg-1">
+      <div class="row">
+        <div class="  col-lg-auto order-2 order-lg-1">
 
-        <div class="mb-3">
+          <div class="mb-3">
 
-          <div class="dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-              Create new
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">Appointment</a></li>
-              <li><a class="dropdown-item" target="_blank" href="https://scheduler.asyncz.com/">Time syncer</a></li>
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                Create new
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">Appointment</a></li>
+                <li><a class="dropdown-item" target="_blank" href="https://scheduler.asyncz.com/">Time syncer</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-body">
+              <SmallCalendar
+                :value="currentDate"
+                @calendarDayClick="calendarDayClick" />
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              Experts
+            </div>
+            <ul class="list-group list-group-flush">
+              <template v-for="b in expertMap" :key="b.branch.id">
+                <li class="list-group-item list-group-item-dark">
+                  <label>
+                    <input class="form-check-input me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
+                           :checked="branchSelected[b.branch.id]"
+                           :indeterminate="branchSelected[b.branch.id]===null"
+                           aria-label="...">
+                    <strong>{{ b.branch.name }}</strong>
+                  </label>
+                </li>
+                <li class="list-group-item ps-5" v-for="sh in b.experts" :key="sh.id">
+                  <label>
+                    <input class="form-check-input me-1" type="checkbox" :value="sh.id" v-model="selectedSchedules"
+                           aria-label="...">
+                    {{ sh.name }}
+                  </label>
+                </li>
+              </template>
             </ul>
           </div>
 
-        </div>
 
-            <div class="card mb-4">
-              <div class="card-body">
-                <SmallCalendar
-                  :value="currentDate"
-                  @calendarDayClick="calendarDayClick" />
+        </div>
+        <div class="col-md order-1 order-lg-2 p-0" id="calendarView">
+
+          <div class="row justify-content-between mb-3">
+            <div class="col-md col-6 order-2 order-md-1">
+              <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="goToToday">
+                Today
+              </a>
+
+              <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="prevView">
+                <fa-icon :icon="['fas', 'chevron-left']" />
+              </a>
+
+              <a href="#" class="btn  btn-outline-secondary ms-2" @click.prevent="nextView">
+                <fa-icon :icon="['fas', 'chevron-right']" />
+              </a>
+            </div>
+
+            <div class="col-md  col-12 order-1 order-md-2 text-center">
+              <h3>
+                {{ calendarTitle }}
+              </h3>
+            </div>
+
+
+            <div class="col-md  col-6 order-3 order-md-3 text-end">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ views[activeView].title }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li v-for="(v,k) in views" :key="k">
+                    <a class="dropdown-item" href="#" @click.prevent="activateView(k)">
+                      {{ v.title }}
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
-
-            <div class="card">
-              <div class="card-header">
-                Experts
-              </div>
-              <ul class="list-group list-group-flush">
-                <template v-for="b in expertMap" :key="b.branch.id">
-                  <li class="list-group-item list-group-item-dark">
-                    <label>
-                      <input class="form-check-input me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
-                             :checked="branchSelected[b.branch.id]"
-                             :indeterminate="branchSelected[b.branch.id]===null"
-                             aria-label="...">
-                      <strong>{{ b.branch.name }}</strong>
-                    </label>
-                  </li>
-                  <li class="list-group-item ps-5" v-for="sh in b.experts" :key="sh.id">
-                    <label>
-                      <input class="form-check-input me-1" type="checkbox" :value="sh.id" v-model="selectedSchedules"
-                             aria-label="...">
-                      {{ sh.name }}
-                    </label>
-                  </li>
-                </template>
-              </ul>
-            </div>
-
-
-
-
-
-      </div>
-      <div class="col-md order-1 order-lg-2 p-0" id="calendarView">
-
-        <div class="d-flex justify-content-between mb-3">
-          <div>
-            <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="goToToday">
-              Today
-            </a>
-
-            <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="prevView">
-              <fa-icon :icon="['fas', 'chevron-left']" />
-            </a>
-
-            <a href="#" class="btn  btn-outline-secondary ms-2" @click.prevent="nextView">
-              <fa-icon :icon="['fas', 'chevron-right']" />
-            </a>
-          </div>
-
-          <div>
-            <h3>
-              {{ calendarTitle }}
-            </h3>
           </div>
 
 
-          <div>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown" aria-expanded="false">
-                {{ views[activeView].title }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li v-for="(v,k) in views" :key="k">
-                  <a class="dropdown-item" href="#" @click.prevent="activateView(k)">
-                    {{ v.title }}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+          <div v-if="copyingAppointment">
+            <div class="alert alert-warning">
+              <div class="d-flex justify-content-between w-100">
+                <div>
+                  <strong>Click any available slot to create a copy of appointment</strong> <br>
+                  <div class="small">
+                    <strong>Customer:</strong> <span>{{ copyingAppointment.name }} {{ copyingAppointment.surname
+                    }} </span>
+                    <br>
+                    <strong>Phone:</strong> <span>{{ copyingAppointment.phone }} </span>
+                    <br>
+                    <strong>Email:</strong> <span>{{ copyingAppointment.email }} </span>
+                    <br>
+                    <strong>Procedure:</strong> <span>{{ copyingAppointment.procedure.name }}</span>
+                    <br>
+                    <strong>Expert:</strong> <span>{{ copyingAppointment.expert.fullName }}</span>
 
+                    <br>
 
-        <div v-if="copyingAppointment">
-          <div class="alert alert-warning">
-            <div class="d-flex justify-content-between w-100">
-              <div>
-                <strong>Click any available slot to create a copy of appointment</strong> <br>
-                <div class="small">
-                  <strong>Customer:</strong> <span>{{ copyingAppointment.name }} {{ copyingAppointment.surname
-                  }} </span>
-                  <br>
-                  <strong>Phone:</strong> <span>{{ copyingAppointment.phone }} </span>
-                  <br>
-                  <strong>Email:</strong> <span>{{ copyingAppointment.email }} </span>
-                  <br>
-                  <strong>Procedure:</strong> <span>{{ copyingAppointment.procedure.name }}</span>
-                  <br>
-                  <strong>Expert:</strong> <span>{{ copyingAppointment.expert.fullName }}</span>
-
-                  <br>
-
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                           v-model="showAllExperts" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Copy to another expert
-                    </label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox"
+                             v-model="showAllExperts" id="flexCheckDefault">
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Copy to another expert
+                      </label>
+                    </div>
                   </div>
+
+
                 </div>
-
-
-              </div>
-              <div>
-                <a href="#" @click.prevent="copyingAppointment=null" class="text-secondary">
-                  <fa-icon :icon="['fas','times']"></fa-icon>
-                </a>
+                <div>
+                  <a href="#" @click.prevent="copyingAppointment=null" class="text-secondary">
+                    <fa-icon :icon="['fas','times']"></fa-icon>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
 
-        <div v-if="readyToBuildLayout">
-          <CalendarVerticalLayout
-            :current-date="currentDate"
-            :start-date="startDate"
-            :end-date="endDate"
-            :day-count="dayCount"
-            :options="options"
-            :schedules="visibleSchedules"
-            :events="visibleEvents"
-            :screen-width="screenWidth"
-            :screen-height="screenHeight"
-            v-if="view===VIEW_VERTICAL"
-            @hourSlotClicked="openNewAppointmentModal"
-            @hourSlotDropped="updateAppointmentTime"
+          <div v-if="readyToBuildLayout">
+            <CalendarVerticalLayout
+              :current-date="currentDate"
+              :start-date="startDate"
+              :end-date="endDate"
+              :day-count="dayCount"
+              :options="options"
+              :schedules="visibleSchedules"
+              :events="visibleEvents"
+              :screen-width="screenWidth"
+              :screen-height="screenHeight"
+              v-if="view===VIEW_VERTICAL"
+              @hourSlotClicked="openNewAppointmentModal"
+              @hourSlotDropped="updateAppointmentTime"
 
-            @dayClicked="openDayDailyView"
-            @eventClicked="showAppointmentDetails"
-            @appResized="updateAppointmentLength"
-          />
-
-
-          <CalendarMonthLayout
-            :current-date="currentDate"
-            :start-date="startDate"
-            :end-date="endDate"
-            :day-count="dayCount"
-            :options="options"
-            :schedules="visibleSchedules"
-            :events="visibleEvents"
-            :screen-width="screenWidth"
-            :screen-height="screenHeight"
-            v-if="view===VIEW_MONTH"
-            @dayClicked="openDayDailyView"
-            @eventClicked="showAppointmentDetails"
-          />
+              @dayClicked="openDayDailyView"
+              @eventClicked="showAppointmentDetails"
+              @appResized="updateAppointmentLength"
+            />
 
 
+            <CalendarMonthLayout
+              :current-date="currentDate"
+              :start-date="startDate"
+              :end-date="endDate"
+              :day-count="dayCount"
+              :options="options"
+              :schedules="visibleSchedules"
+              :events="visibleEvents"
+              :screen-width="screenWidth"
+              :screen-height="screenHeight"
+              v-if="view===VIEW_MONTH"
+              @dayClicked="openDayDailyView"
+              @eventClicked="showAppointmentDetails"
+            />
+
+
+          </div>
         </div>
       </div>
-    </div>
 
-  </div>
+    </div>
   </CContainer>
 
 
@@ -604,6 +601,12 @@ export default {
           dayCount: 1,
           dayStep: 1
         },
+        day3: {
+          type: VIEW_VERTICAL,
+          title: '3 Days',
+          dayCount: 3,
+          dayStep: 3
+        },
         week: {
           type: VIEW_VERTICAL,
           title: 'Week',
@@ -990,6 +993,14 @@ export default {
     onResize() {
       this.screenWidth = window.document.getElementById('calendarView').offsetWidth - 10
       this.screenHeight = window.innerHeight * 2
+
+      if (this.screenWidth < 500) {
+        this.activateView('day')
+      } else if (this.screenWidth < 768) {
+        this.activateView('day3')
+      } else {
+        this.activateView(this.activeView)
+      }
     },
 
     activateView(view) {
@@ -1357,9 +1368,6 @@ export default {
     this.onResize()
 
     window.addEventListener('resize', this.onResize)
-
-
-    this.activateView('week')
 
     this.currentDate = this.$dayjs().startOf(this.activeView)
     this.calculateDates()
