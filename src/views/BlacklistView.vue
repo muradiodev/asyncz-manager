@@ -1,27 +1,34 @@
 <template>
 
-  <div class="container">
+  <CCard class="mb-4 border-0 rounded-0">
+    <CCardBody>
+      <CContainer class="px-4" lg>
 
-    <!-- breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link :to="{name: 'home'}">Home</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">Blacklist</li>
-      </ol>
-    </nav>
+        <div class="mb-4">
+          <AppBreadcrumb :breadcrumbs="[
+            { name: 'Dashboard', path: '/dashboard', active: false },
+            { name: 'Blacklist', path: '/dashboard/blacklist', active: true }
+          ]" />
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="h2 mb-0"> Blacklist </span>
+          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
+            + Add new
+          </button>
+        </div>
+      </CContainer>
+    </CCardBody>
+  </CCard>
 
 
-    <div class="d-flex align-items-center">
-      <span class="h2 mb-0"> Blacklist</span>
-      <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
-        + Add new
-      </button>
-    </div>
 
 
-    <div class="my-4">
+
+  <CContainer class="px-4" lg>
+
+    <CCard class="mb-4">
+      <CCardBody>
       <DataTable class="table table-striped table-bordered"
                  :columns="columns"
                  :data='data'>
@@ -31,13 +38,11 @@
         </template>
 
       </DataTable>
+      </CCardBody>
+    </CCard>
+  </CContainer>
 
-    </div>
-
-
-  </div>
-
-  <ModalComponent title="new blacklist" v-if="addNewItem" @modalClose="addNewItem = false">
+  <ModalComponent title="new blacklist" size="md" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
         <div class="col-md-12">
@@ -71,6 +76,7 @@ import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { createBlacklist, deleteBlacklist, getBlackList } from '@/repositories/BlacklistRepository.js'
 import { customAlert, customAsk } from '@/utils/utils.js'
+import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
 
 DataTable.use(DataTablesLib)
@@ -88,7 +94,6 @@ export default {
 
       itemList: [],
       columns: [
-        { title: 'ID', data: 'id', orderable: true },
         { title: 'Keyword', data: 'value', orderable: true },
         {
           title: 'Action',
@@ -158,6 +163,7 @@ export default {
     this.getItemList()
   },
   components: {
+    AppBreadcrumb,
     ModalComponent,
     DataTable
   }

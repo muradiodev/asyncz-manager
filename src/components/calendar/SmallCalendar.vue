@@ -1,17 +1,22 @@
 <template>
+  <div class="small-calendar">
   <VCalendar
     ref="calendar"
     expanded
     borderless
+    :isDark="isDark"
     @dayclick="calendarDayClick"
     @did-move="monthChanged($event)"
     :attributes="smallCalendarEvents"
   />
+  </div>
 </template>
 <script>
 import { getSmallCalendar } from '@/repositories/GeneralDataRepository.js'
 import { mapState } from 'pinia'
 import { useAuthStore } from '@/stores/auth.js'
+import { useThemeStore } from '@/stores/theme.js'
+
 
 export default {
   name: 'SmallCalendar',
@@ -25,23 +30,15 @@ export default {
   data() {
     return {
       eventDays: [],
-      date: null
+      date: null,
     }
   },
 
   watch: {
     value(newVal) {
-      console.log("value")
-      console.log(newVal)
       this.moveToDate(newVal)
     },
     date(newVal, oldVal) {
-
-      console.log("oldVal")
-      console.log(oldVal)
-      console.log(newVal)
-      console.log("newVal")
-
       if (newVal !== null && oldVal !== null && newVal.format('YYYY-MM') !== oldVal.format('YYYY-MM')) {
         this.getCalendar()
       }
@@ -52,6 +49,12 @@ export default {
 
 
     ...mapState(useAuthStore, ['token']),
+    ...mapState(useThemeStore, ['theme']),
+
+    isDark(){
+      console.log(this.theme)
+      return this.theme === 'dark'
+    },
 
     smallCalendarEvents() {
 
@@ -122,12 +125,17 @@ export default {
     }
 
     this.getCalendar();
+
   }
 
 }
 </script>
 
 <style scoped>
+
+.small-calendar :deep(.vc-container) {
+   background: transparent !important;
+}
 
 </style>
 

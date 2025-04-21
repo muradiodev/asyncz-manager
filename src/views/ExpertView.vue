@@ -1,21 +1,32 @@
 <template>
 
-  <div class="container">
+  <CCard class="mb-4 border-0 rounded-0">
+    <CCardBody>
+      <CContainer class="px-4" lg>
 
-    <!-- breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link :to="{name: 'home'}">Home</router-link>
-        </li>
-        <li class="breadcrumb-item">
-          <router-link :to="{name: 'experts'}">Experts</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page" v-if="expert">
-          {{ expert.fullName }}
-        </li>
-      </ol>
-    </nav>
+        <div class="mb-4">
+          <AppBreadcrumb :breadcrumbs="[
+            { name: 'Dashboard', path: '/dashboard', active: false },
+            { name: 'Experts', path: '/dashboard/experts', active: false },
+            { name:  expert?.fullName, path: '/expert/' + expertId, active: true }
+          ]" />
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="h2 mb-0">
+            {{expert?.fullName}}
+          </span>
+        </div>
+      </CContainer>
+    </CCardBody>
+  </CCard>
+
+
+
+
+
+  <CContainer class="px-4" lg>
+
 
 
     <div v-if="!expert">
@@ -29,35 +40,18 @@
 
     <div v-else>
 
-      <div class="d-flex align-items-center">
-        <span class="h2 mb-0">
-          {{ expert.fullName }}
-        </span>
-      </div>
 
-
-      <div class="row mt-4">
+      <div class="row ">
 
         <div class="col-md-6 mb-3">
           <div class="card">
-            <div class="card-header">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
-                  {{ expert.fullName }}
-                </h5>
-                <button class="btn btn-sm btn-outline-dark"
-                        v-if="!editing"
-                        @click.prevent="editing = true">
-                  edit
-                </button>
-              </div>
-            </div>
             <div class="card-body" v-if="!editing">
 
               <p>
+                <strong>About: </strong> <br>
                 {{ expert.about || '-' }}
               </p>
-              <p>
+              <p class="mb-1">
                 <strong>Email: </strong>
                 {{ user.email }}
               </p>
@@ -73,6 +67,11 @@
                 <strong>Status: </strong>
                 <StatusBadge :status="expert.status" />
               </p>
+              <button class="btn btn-sm btn-outline-dark"
+                      v-if="!editing"
+                      @click.prevent="editing = true">
+                edit
+              </button>
             </div>
             <div class="card-body" v-else>
 
@@ -190,8 +189,7 @@
       </div>
 
     </div>
-  </div>
-
+  </CContainer>
   <ModalComponent title="new expert" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
@@ -255,6 +253,7 @@ import ColorComponent from '@/views/ColorComponent.vue'
 import ExpertProcedures from '@/views/ExpertProcedures.vue'
 import ExpertSchedules from '@/views/ExpertSchedules.vue'
 import { getBranches } from '@/repositories/BranchRepository.js'
+import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -374,6 +373,7 @@ export default {
     this.getBranches();
   },
   components: {
+    AppBreadcrumb,
     ExpertSchedules,
     ExpertProcedures,
     ColorComponent,

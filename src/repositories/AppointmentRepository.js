@@ -1,7 +1,7 @@
 import Repository, { baseUrl } from './Repository'
 
 
-export async function createAppointment(token, expertId, procedureId, datetime, length, name, surname, phone, email, notes, color) {
+export async function createAppointment(token, expertId, procedureId, datetime, length, name, surname, phone, email, notes, color,sendEmail) {
 
   {
     return await Repository.postForm(`${baseUrl}/manager/appointment?token=${token}`, {
@@ -14,7 +14,8 @@ export async function createAppointment(token, expertId, procedureId, datetime, 
       start_time: datetime,
       length: length,
       notes: notes,
-      color: color
+      color: color,
+      send_email: sendEmail
     })
       .then((response) => {
         if (response.data) {

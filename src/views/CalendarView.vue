@@ -1,15 +1,16 @@
 <template>
 
 
+  <CContainer class="px-4 mt-4" fluid>
   <div class="container-fluid">
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="  col-lg-auto order-2 order-lg-1">
 
         <div class="mb-3">
 
           <div class="dropdown">
-            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
               Create new
             </button>
@@ -21,43 +22,46 @@
 
         </div>
 
+            <div class="card mb-4">
+              <div class="card-body">
+                <SmallCalendar
+                  :value="currentDate"
+                  @calendarDayClick="calendarDayClick" />
+              </div>
+            </div>
 
-        <div class="card mb-4">
-          <div class="card-body">
-            <SmallCalendar
-              :value="currentDate"
-              @calendarDayClick="calendarDayClick" />
-          </div>
-        </div>
+            <div class="card">
+              <div class="card-header">
+                Experts
+              </div>
+              <ul class="list-group list-group-flush">
+                <template v-for="b in expertMap" :key="b.branch.id">
+                  <li class="list-group-item list-group-item-dark">
+                    <label>
+                      <input class="form-check-input me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
+                             :checked="branchSelected[b.branch.id]"
+                             :indeterminate="branchSelected[b.branch.id]===null"
+                             aria-label="...">
+                      <strong>{{ b.branch.name }}</strong>
+                    </label>
+                  </li>
+                  <li class="list-group-item ps-5" v-for="sh in b.experts" :key="sh.id">
+                    <label>
+                      <input class="form-check-input me-1" type="checkbox" :value="sh.id" v-model="selectedSchedules"
+                             aria-label="...">
+                      {{ sh.name }}
+                    </label>
+                  </li>
+                </template>
+              </ul>
+            </div>
 
-        <div class="card">
-          <div class="card-header">
-            Experts
-          </div>
-          <ul class="list-group list-group-flush">
-            <template v-for="b in expertMap" :key="b.branch.id">
-              <li class="list-group-item bg-light">
-                <label>
-                  <input class="form-check-input me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
-                         :checked="branchSelected[b.branch.id]"
-                         :indeterminate="branchSelected[b.branch.id]===null"
-                         aria-label="...">
-                  <strong>{{ b.branch.name }}</strong>
-                </label>
-              </li>
-              <li class="list-group-item ps-5" v-for="sh in b.experts" :key="sh.id">
-                <label>
-                  <input class="form-check-input me-1" type="checkbox" :value="sh.id" v-model="selectedSchedules"
-                         aria-label="...">
-                  {{ sh.name }}
-                </label>
-              </li>
-            </template>
-          </ul>
-        </div>
+
+
+
 
       </div>
-      <div class="col-md-9" id="calendarView">
+      <div class="col-md order-1 order-lg-2 p-0" id="calendarView">
 
         <div class="d-flex justify-content-between mb-3">
           <div>
@@ -181,6 +185,7 @@
     </div>
 
   </div>
+  </CContainer>
 
 
   <ModalComponent title="new appointment" v-if="newAppointmentIsOpen" @modalClose="newAppointmentIsOpen = false">
@@ -272,7 +277,7 @@
             required>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
 
           <label for="newPhone" class="form-label">Phone</label>
           <input
@@ -283,15 +288,26 @@
             required>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-8 mb-3">
 
           <label for="newEmail" class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="newEmail"
-            v-model="newItemDetails.email"
-          >
+          <div class="input-group">
+            <input
+              type="email"
+              class="form-control"
+              id="newEmail"
+              v-model="newItemDetails.email"
+            >
+            <div class="input-group-text">
+              <div class="form-check d-flex">
+                <input class="form-check me-2" type="checkbox" id="sendEmail" :value="1"
+                       v-model="newItemDetails.sendEmail">
+                <label class="form-check-label" for="sendEmail">
+                  Send email
+                </label>
+              </div>
+            </div>
+          </div>
         </div>
 
 
@@ -481,7 +497,6 @@
         </div>
 
 
-
       </div>
       <div class="col-md-6">
         <div class="mb-1">
@@ -607,7 +622,8 @@ export default {
       newAppointmentIsOpen: false,
       newItemDetails: {
         expert: '',
-        time: ''
+        time: '',
+        sendEmail: true
       },
 
       editingAppointment: null,
@@ -852,8 +868,7 @@ export default {
 
       return []
 
-    },
-
+    }
 
 
   },
@@ -1071,7 +1086,7 @@ export default {
       this.editingAppointment.time = this.$dayjs(appointment.reservationStartTime.date).format('HH:mm')
     },
 
-    confirmAppointment(appointment){
+    confirmAppointment(appointment) {
 
       this.$swal({
         title: 'Confirm appointment',
@@ -1090,9 +1105,9 @@ export default {
                 icon: 'success',
                 showConfirmButton: true
               })
-              this.getCalendar();
+              this.getCalendar()
               //todo update from api
-              this.activeAppointment.status = 'confirmed';
+              this.activeAppointment.status = 'confirmed'
             } else {
               this.$swal({
                 title: 'Error',
@@ -1106,9 +1121,8 @@ export default {
       })
 
 
-
     },
-    cancelAppointment(appointment){
+    cancelAppointment(appointment) {
 
       this.$swal({
         title: 'Cancel appointment',
@@ -1127,9 +1141,9 @@ export default {
                 icon: 'success',
                 showConfirmButton: true
               })
-              this.getCalendar();
+              this.getCalendar()
               //todo update from api
-              this.activeAppointment.status = 'cancelled_expert';
+              this.activeAppointment.status = 'cancelled_expert'
             } else {
               this.$swal({
                 title: 'Error',
@@ -1141,7 +1155,6 @@ export default {
           }
         )
       })
-
 
 
     },
@@ -1191,7 +1204,8 @@ export default {
         this.newItemDetails.phone,
         this.newItemDetails.email,
         this.newItemDetails.notes,
-        this.newItemDetails.color
+        this.newItemDetails.color,
+        this.newItemDetails.sendEmail ? 1 : 0
       ).then(response => {
         if (response.code === 200) {
           this.$swal({

@@ -1,7 +1,7 @@
 <template>
   <div class="calendar-vertical-view" :style="layoutStyle">
     <div class="calendar-vertical-view-date-row">
-      <div class="position-absolute" :style="{width: columnWidth+'px', left: (columnWidth * column +50)+'px' }"
+      <div class="position-absolute" :style="{width: columnWidth+'px', left: ((columnWidth * column) +50)+'px' }"
            v-for="(day, column) in dayList"
            :key="day.format('YYYY-MM-DD')">
         <div class="text-center week-day" @click.prevent="$emit('dayClicked',day)">
@@ -11,8 +11,11 @@
 
           <div v-for="sc in schedules" :key="sc.expert.id"
                :title="sc.expert.name"
-               class="text-center flex-grow-1"
-               :style="{'background':sc.expert.color}">
+               data-bs-toggle="tooltipExpert"
+               data-bs-placement="top"
+               data-bs-html="true"
+               class="text-center"
+               :style="{'background':sc.expert.color, width: expertNameWidth+'px'}">
             {{ sc.expert.name}}
           </div>
 
@@ -54,6 +57,8 @@
 import CalendarColumn from "@/components/calendar/layouts/CalendarColumn.vue";
 import VerticalHourGrid from "@/components/calendar/layouts/VerticalHourGrid.vue";
 import {Dayjs} from "dayjs";
+
+import { Tooltip } from 'bootstrap'
 
 export default {
   name: 'CalendarVerticalLayout',
@@ -103,7 +108,10 @@ export default {
 
   computed: {
     columnWidth() {
-      return (this.screenWidth - 75) / this.dayCount;
+      return (this.screenWidth - 60) / this.dayCount;
+    },
+    expertNameWidth() {
+      return (this.columnWidth) / this.schedules.length;
     },
     pixelPerMinute() {
       let dayStart = this.$dayjs(this.options.dayStartHour, "HH:mm");
@@ -133,7 +141,9 @@ export default {
 
   methods: {},
   mounted() {
-
+    new Tooltip(document.body, {
+      selector: '[data-bs-toggle=\'tooltipExpert\']'
+    })
   },
   emits: ['hourSlotClicked', 'hourSlotDropped','dayClicked','eventClicked','appResized']
 }
@@ -147,6 +157,9 @@ export default {
 
   .week-day{
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .calendar-vertical-view-date-row {
@@ -157,6 +170,7 @@ export default {
       height: 100%;
       overflow: hidden;
       font-size: 12px;
+      cursor: pointer;
       //truncate
       div {
         white-space: nowrap;

@@ -28,7 +28,10 @@ import {
   faSearch, faTimes,
   faPrint, faCopy, faPencil,
   faEye, faEyeSlash,
-  faCheck
+  faCheck,
+  faPlus,
+  faCalendar,
+  faUsers
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -36,7 +39,8 @@ library.add(
   faSearch, faTimes,
   faPrint, faCopy, faPencil,
   faEye, faEyeSlash,
-  faCheck
+  faCheck,
+  faPlus,faCalendar, faUsers
 )
 
 import Popper from 'vue3-popper'
@@ -47,6 +51,7 @@ import { createI18n } from 'vue-i18n'
 
 
 import localeEn from './locale/en.json'
+import CoreuiVue from '@coreui/vue'
 
 const i18n = createI18n({
   locale: 'en',
@@ -71,9 +76,17 @@ app.use(VCalendar, {})
 
 app.use(VResizable)
 
+app.use(CoreuiVue);
+import CIcon from '@coreui/icons-vue'
+
+import { iconsSet as icons } from '@/assets/icons'
+
 app.use(i18n)
+
+app.provide('icons', icons)
 app.component('PopperWidget', Popper)
 app.component('fa-icon', FontAwesomeIcon)
+app.component('CIcon', CIcon)
 
 app.config.globalProperties.$dayjs = dayjs
 

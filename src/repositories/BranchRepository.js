@@ -30,3 +30,16 @@ export async function getBranch(token, id) {
     })
 }
 
+export async function createBranch(token, name) {
+  return await Repository.postForm(`${baseUrl}/manager/branch?token=${token}`, {name: name })
+    .then((response) => {
+      if (response.data) {
+        return response.data
+      } else {
+        return { code: 500, message: 'Internal Server Error' }
+      }
+    })
+    .catch((error) => {
+      return { code: 501, message: error }
+    })
+}

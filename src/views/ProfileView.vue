@@ -1,18 +1,29 @@
 <template>
 
-  <div class="container">
+  <CCard class="mb-4 border-0 rounded-0">
+    <CCardBody>
+      <CContainer class="px-4" lg>
 
-    <!-- breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link :to="{name: 'home'}">Home</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">
-          Profile
-        </li>
-      </ol>
-    </nav>
+        <div class="mb-4">
+          <AppBreadcrumb :breadcrumbs="[
+            { name: 'Dashboard', path: '/dashboard', active: false },
+            { name: 'Profile', path: '/dashboard/profile', active: true }
+          ]" />
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="h2 mb-0"> Profile</span>
+        </div>
+      </CContainer>
+    </CCardBody>
+  </CCard>
+
+
+
+
+
+  <CContainer class="px-4" lg>
+
 
 
     <div v-if="!user">
@@ -25,12 +36,6 @@
     </div>
 
     <div v-else>
-
-      <div class="d-flex align-items-center">
-        <span class="h2 mb-0">
-          {{ user.name }}
-        </span>
-      </div>
 
 
       <div class="row mt-4">
@@ -160,7 +165,7 @@
 
 
     </div>
-  </div>
+  </CContainer>
 
 
 </template>
@@ -171,9 +176,11 @@
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import { saveProfile, setPassword } from '@/repositories/AuthRepository.js'
+import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
 export default {
   name: 'ProfileView',
+  components: { AppBreadcrumb },
   data() {
     return {
       showPassword: false,

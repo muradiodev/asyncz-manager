@@ -1,21 +1,35 @@
 <template>
 
-  <div class="container">
 
-    <!-- breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link :to="{name: 'home'}">Home</router-link>
-        </li>
-        <li class="breadcrumb-item">
-          <router-link :to="{name: 'users'}">Users</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page" v-if="companyUser">
-          {{ companyUser.name }}
-        </li>
-      </ol>
-    </nav>
+  <CCard class="mb-4 border-0 rounded-0">
+    <CCardBody>
+      <CContainer class="px-4" lg>
+
+        <div class="mb-4">
+          <AppBreadcrumb :breadcrumbs="[
+            { name: 'Dashboard', path: '/dashboard', active: false },
+            { name: 'Users', path: '/dashboard/users', active: false },
+            { name:  user?.name, path: '/user/' + userId, active: true }
+          ]" />
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="h2 mb-0">
+            {{user?.name}}
+          </span>
+        </div>
+      </CContainer>
+    </CCardBody>
+  </CCard>
+
+
+
+
+
+  <CContainer class="px-4" lg>
+
+  <CCard class="mb-4">
+    <CCardBody>
 
 
     <div v-if="!companyUser">
@@ -29,30 +43,11 @@
 
     <div v-else>
 
-      <div class="d-flex align-items-center">
-        <span class="h2 mb-0">
-          {{ companyUser.name }}
-        </span>
-      </div>
-
-
-      <div class="row mt-4">
+      <div class="row mt-2">
 
         <div class="col-md-6 mb-3">
-          <div class="card">
-            <div class="card-header">
-              <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">
-                  {{ companyUser.name }}
-                </h5>
-                <button class="btn btn-sm btn-outline-dark"
-                        v-if="!editing"
-                        @click.prevent="editing = true">
-                  edit
-                </button>
-              </div>
-            </div>
-            <div class="card-body" v-if="!editing">
+          <div>
+            <div  v-if="!editing">
 
 
 
@@ -69,8 +64,13 @@
                 <strong>Status: </strong>
                 <StatusBadge :status="companyUser.status" />
               </p>
+              <button class="btn btn-sm btn-outline-dark"
+                      v-if="!editing"
+                      @click.prevent="editing = true">
+                edit
+              </button>
             </div>
-            <div class="card-body" v-else>
+            <div v-else>
 
               <div class="alert alert-warning" v-if="user.id === companyUser.id">
                 This user is currently logged in.  Please be careful when editing.
@@ -147,8 +147,9 @@
       </div>
 
     </div>
-  </div>
-
+    </CCardBody>
+  </CCard>
+  </CContainer>
 
 </template>
 
@@ -163,6 +164,7 @@ import { mapState } from 'pinia'
 import StatusBadge from '@/views/StatusBadge.vue'
 import { getBranches } from '@/repositories/BranchRepository.js'
 import { getUser, saveUser } from '@/repositories/CompanyUserRepository.js'
+import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -254,6 +256,7 @@ export default {
     this.getBranches()
   },
   components: {
+    AppBreadcrumb,
     StatusBadge,
   }
 }

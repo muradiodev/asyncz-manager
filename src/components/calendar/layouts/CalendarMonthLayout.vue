@@ -94,7 +94,7 @@ export default {
       return this.startDate.day()
     },
     columnWidth() {
-      return (this.screenWidth - 20) / 7
+      return (this.screenWidth - 10) / 7
     },
     columnWidthPx() {
       return this.columnWidth + 'px'

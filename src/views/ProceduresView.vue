@@ -1,37 +1,41 @@
 <template>
 
-  <div class="container">
+  <CCard class="mb-4 border-0 rounded-0">
+    <CCardBody>
+      <CContainer class="px-4" lg>
 
-    <!-- breadcrumb -->
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <router-link :to="{name: 'home'}">Home</router-link>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">Procedures</li>
-      </ol>
-    </nav>
+        <div class="mb-4">
+          <AppBreadcrumb :breadcrumbs="[
+            { name: 'Dashboard', path: '/dashboard', active: false },
+            { name: 'Procedures', path: '/dashboard/procedures', active: true }
+          ]" />
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="h2 mb-0"> Procedures</span>
+          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
+            + Add new
+          </button>
+        </div>
+      </CContainer>
+    </CCardBody>
+  </CCard>
 
 
 
-    <div class="d-flex align-items-center">
-      <span class="h2 mb-0"> Procedures</span>
-      <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
-        + Add new
-      </button>
-    </div>
 
 
-    <div class="my-4">
+  <CContainer class="px-4" lg>
+
+    <CCard class="mb-4">
+      <CCardBody>
       <DataTable class="table table-striped table-bordered"
                  :columns="columns"
                  :data='data'>
       </DataTable>
-
-    </div>
-
-
-  </div>
+      </CCardBody>
+    </CCard>
+  </CContainer>
 
   <ModalComponent title="new procedure" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
@@ -84,6 +88,7 @@ import {useAuthStore} from "@/stores/auth.js";
 import {mapState} from "pinia";
 import ModalComponent from '@/components/ModalComponent.vue'
 import { createProcedure, getProcedures } from '@/repositories/ProceduresRepository.js'
+import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
 DataTable.use(DataTablesLib);
 DataTable.use(DataTablesCore);
@@ -164,6 +169,7 @@ export default {
     this.getItemList();
   },
   components: {
+    AppBreadcrumb,
     ModalComponent,
     DataTable
   }
