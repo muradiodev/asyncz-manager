@@ -13,7 +13,7 @@
 
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Blacklist </span>
-          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
+          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true" v-if="enabled" >
             + Add new
           </button>
         </div>
@@ -27,7 +27,7 @@
 
   <CContainer class="px-4" lg>
 
-    <CCard class="mb-4">
+    <CCard class="mb-4" v-if="enabled">
       <CCardBody>
       <DataTable class="table table-striped table-bordered"
                  :columns="columns"
@@ -39,6 +39,11 @@
 
       </DataTable>
       </CCardBody>
+    </CCard>
+    <CCard class="mb-4" v-else>
+      <div class="alert alert-warning m-3">
+        Your company is not subscribed to a package that includes the blacklist feature.
+      </div>
     </CCard>
   </CContainer>
 
@@ -104,9 +109,13 @@ export default {
   },
   watch: {},
   computed: {
-    ...mapState(useAuthStore, ['token', 'user']),
+    ...mapState(useAuthStore, ['token', 'user','companyPackage']),
     data() {
       return this.itemList
+    },
+
+    enabled() {
+      return this.companyPackage && this.companyPackage.blacklist
     }
   },
   methods: {

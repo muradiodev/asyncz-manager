@@ -18,6 +18,11 @@ const router = createRouter({
             component: () => import('../views/LoginView.vue')
         },
         {
+            path: '/register',
+            name: 'register',
+            component: () => import('../views/RegisterView.vue')
+        },
+        {
             path: '/dashboard',
             name: 'dashboard',
             component: () => import('../views/DashboardView.vue'),
@@ -92,6 +97,14 @@ const router = createRouter({
                     component: () => import('../views/BlacklistView.vue')
                 },
 
+
+                {
+                    path: 'subscription',
+                    name: 'subscription',
+                    component: () => import('../views/SubscriptionView.vue')
+                },
+
+
             ]
         }
     ]
@@ -108,6 +121,9 @@ router.beforeResolve((to, from, next) => {
                 const auth = useAuthStore()
                 auth.setUser(data)
                 auth.setToken(token)
+                auth.setCompany(data.company)
+                auth.setCompanyPackage(data.package)
+                console.log(data.package)
                 next();
             } else {
                 localStorage.removeItem('token');
@@ -116,7 +132,7 @@ router.beforeResolve((to, from, next) => {
             }
         });
     } else {
-        if (['login', 'splash'].indexOf(to.name) === -1) {
+        if (['login', 'register', 'splash'].indexOf(to.name) === -1) {
             next({name: 'login', query: {back: to.path}})
         } else {
             next()

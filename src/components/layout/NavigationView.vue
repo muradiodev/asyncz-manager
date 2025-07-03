@@ -31,6 +31,9 @@
           <li class="nav-item" >
             <router-link class="nav-link" :to="{name: 'blacklist'}">Blacklist</router-link>
           </li>
+          <li class="nav-item" >
+            <router-link class="nav-link" :to="{name: 'subscription'}">Subscription</router-link>
+          </li>
         </ul>
       </div>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="calendar-vertical-view" :style="layoutStyle">
     <div class="calendar-vertical-view-date-row">
-      <div class="position-absolute" :style="{width: columnWidth+'px', left: ((columnWidth * column) +50)+'px' }"
+      <div class="position-absolute day-wrapper" :style="{width: columnWidth+'px', left: ((columnWidth * column) +50)+'px' }"
            v-for="(day, column) in dayList"
            :key="day.format('YYYY-MM-DD')">
         <div class="text-center week-day" @click.prevent="$emit('dayClicked',day)">
@@ -154,13 +154,21 @@ export default {
 .calendar-vertical-view {
   position: relative;
   border: 1px solid #ccc;
-
-  .week-day{
+.day-wrapper {
+  .week-day {
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+
   }
+
+  &:nth-child(2n)  .week-day{
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+  }
+}
 
   .calendar-vertical-view-date-row {
     height: 50px;
@@ -180,6 +188,7 @@ export default {
       }
     }
   }
+
 
   .calendar-content {
     position: absolute;

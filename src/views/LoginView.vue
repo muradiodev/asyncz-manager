@@ -147,6 +147,16 @@
                     </button>
                   </form>
                 </div>
+
+                <div class="mt-4" id="registerPrompt">
+
+                  <p>
+                    If you don't have an account, please
+                    <router-link :to="{name: 'register', query:{back: $route.query.back}}">Register for free</router-link>
+                  </p>
+
+                </div>
+
               </div>
             </div>
           </div>

@@ -5,7 +5,8 @@ export const useAuthStore = defineStore('auth', {
     return {
       token: null,
       user: null,
-      company: null
+      company: null,
+      companyPackage: null
     }
   },
 
@@ -18,6 +19,9 @@ export const useAuthStore = defineStore('auth', {
     },
     setCompany(newCompany) {
       this.company = newCompany
-    }
+    },
+    setCompanyPackage(newPackage) {
+      this.companyPackage = newPackage
+    },
   }
 })

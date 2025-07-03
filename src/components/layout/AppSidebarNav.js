@@ -214,6 +214,12 @@ const AppSidebarNav = defineComponent({
         to: '/dashboard/blacklist',
         icon: 'cil-ban',
       },
+      {
+        component: 'CNavItem',
+        name: 'Subscription',
+        to: '/dashboard/subscription',
+        icon: 'cil-ban',
+      },
 
     ];
     return () =>

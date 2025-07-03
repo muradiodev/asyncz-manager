@@ -31,7 +31,7 @@ import {
   faCheck,
   faPlus,
   faCalendar,
-  faUsers
+  faUsers, faBuilding, faListCheck, faFileText, faUser, faBan
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -40,7 +40,8 @@ library.add(
   faPrint, faCopy, faPencil,
   faEye, faEyeSlash,
   faCheck,
-  faPlus,faCalendar, faUsers
+  faPlus,faCalendar, faUsers,
+  faBuilding, faListCheck, faFileText, faUser, faBan
 )
 
 import Popper from 'vue3-popper'

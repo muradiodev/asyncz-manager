@@ -97,6 +97,7 @@ export default {
       return (this.screenWidth - 10) / 7
     },
     columnWidthPx() {
+      //used on css side
       return this.columnWidth + 'px'
     },
     pixelPerMinute() {
