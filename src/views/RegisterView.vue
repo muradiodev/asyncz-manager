@@ -32,6 +32,9 @@
             </ul>
           </div>
         </div>
+        <div class="back-to-login">
+          <router-link to="/login" class="back-link">← Back to Login</router-link>
+        </div>
 
         <!-- Progress indicator -->
         <div class="progress-indicator">
@@ -53,6 +56,9 @@
         <!-- Step 1: General Info -->
         <div v-if="status === 'general'" class="form-step">
           <h2>Create Your Account</h2>
+
+
+
 
           <form @submit.prevent="goTo2">
             <div class="form-group">
@@ -360,7 +366,8 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
     z-index: 1;
   }
 
@@ -369,6 +376,8 @@ export default {
     min-height: 150px;
   }
 }
+
+
 
 .logo-container {
   position: relative;
@@ -488,12 +497,12 @@ export default {
 
     &.active {
       .step-number {
-        background-color: #3498db;
+        background-color: #7FDA56;
         box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
       }
 
       .step-label {
-        color: #3498db;
+        color: #7FDA56;
         font-weight: 500;
       }
     }
@@ -550,7 +559,7 @@ export default {
 
     &:focus {
       outline: none;
-      border-color: #3498db;
+      border-color: #7FDA56;
       box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
     }
 
@@ -576,7 +585,7 @@ export default {
 
 .btn-primary {
   display: inline-block;
-  background-color: #3498db;
+  background-color: #7FDA56;
   color: white;
   border: none;
   border-radius: 8px;
@@ -589,7 +598,7 @@ export default {
   margin-top: 1rem;
 
   &:hover {
-    background-color: darken(#3498db, 10%);
+    background-color: darken(#7FDA56, 10%);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -599,9 +608,28 @@ export default {
   }
 }
 
+
 .footer-custom {
   text-align: center;
   color: #888;
   font-size: 0.9rem;
 }
+
+.back-to-login {
+  margin-bottom: 1.5rem;
+
+  .back-link {
+    color: #3498db;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: darken(#3498db, 15%);
+    }
+  }
+}
+
 </style>
