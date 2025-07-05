@@ -34,8 +34,10 @@
                  :data='data'>
 
         <template #column-action="props">
-          <button type="button" class="btn btn-sm btn-link text-danger" @click="deleteBlacklist(props)">delete</button>
+          <button type="button" class="btn btn-sm btn-danger" @click="deleteBlacklist(props)" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 4px 8px; border-radius: 4px;">Delete</button>
         </template>
+
+
 
       </DataTable>
       </CCardBody>

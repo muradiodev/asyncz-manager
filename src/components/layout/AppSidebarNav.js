@@ -218,7 +218,7 @@ const AppSidebarNav = defineComponent({
         component: 'CNavItem',
         name: 'Subscription',
         to: '/dashboard/subscription',
-        icon: 'cil-ban',
+        icon: 'cil-dollar',
       },
 
     ];

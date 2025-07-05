@@ -165,9 +165,9 @@ export default {
         {
           title: 'Action', data: (row) => {
             if(row.expert) {
-              return `<a href="./expert/${row.expert.id}">manage</a>`;
+              return `<button class="btn btn-sm btn-primary" onclick="window.location.href='./expert/${row.expert.id}'">manage</button>`;
             } else {
-              return `<a href="./user/${row.id}">manage</a>`;
+              return `<button class="btn btn-sm btn-primary" onclick="window.location.href='./user/${row.id}'">manage</button>`;
             }
           }
         },

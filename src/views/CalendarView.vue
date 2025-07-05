@@ -16,7 +16,20 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">Appointment</a></li>
-                <li><a class="dropdown-item" target="_blank" href="https://scheduler.asyncz.com/">Time syncer</a></li>
+                <li>
+                  <a class="dropdown-item" target="_blank" href="https://scheduler.asyncz.com/"
+                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            margin: 4px 0;
+            padding: 10px 15px;
+            transition: transform 0.2s ease;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);"
+                     onmouseover="this.style.transform='translateY(-1px)'"
+                     onmouseout="this.style.transform='translateY(0)'">
+                    🚀 Collabriq Scheduler
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -185,147 +198,98 @@
   </CContainer>
 
 
-  <ModalComponent title="new appointment" v-if="newAppointmentIsOpen" @modalClose="newAppointmentIsOpen = false">
-    <form @submit.prevent="createNewAppointment">
-      <div class="row">
+  <ModalComponent
+    title="New Appointment"
+    v-if="newAppointmentIsOpen"
+    @modalClose="newAppointmentIsOpen = false"
+  >
+    <form @submit.prevent="createNewAppointment" class="clean-form">
 
-        <div class="col-md-6 mb-3">
-
-          <label for="newExpert" class="form-label">Expert</label>
-          <select
-            class="form-select"
-            id="newExpert"
-            v-model="newItemDetails.expert"
-            required
-          >
+      <div class="form-row">
+        <div class="form-field">
+          <label>Expert</label>
+          <select v-model="newItemDetails.expert" required>
+            <option value="">Choose expert...</option>
             <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
               {{ expert.name }}
             </option>
           </select>
         </div>
-        <div class="col-md-6 mb-3">
 
-          <label for="newProcedure" class="form-label">Procedure</label>
-          <select
-            class="form-select"
-            id="newProcedure"
-            v-model="newItemDetails.procedure"
-            required
-          >
+        <div class="form-field">
+          <label>Service</label>
+          <select v-model="newItemDetails.procedure" required>
+            <option value="">Choose service...</option>
             <option v-for="procedure in selectedExpertProcedureList" :key="procedure.id" :value="procedure.id">
               {{ procedure.name }} ({{ procedure.length }} minutes)
             </option>
           </select>
         </div>
-        <div class="col-md-4 mb-3">
+      </div>
 
-          <label for="newDate" class="form-label">Date</label>
-          <input
-            type="date"
-            class="form-control"
-            id="newDate"
-            v-model="newItemDetails.date"
-            required>
-        </div>
-        <div class="col-md-4 mb-3">
-
-          <label for="newTime" class="form-label">Time</label>
-          <input
-            type="time"
-            class="form-control"
-            id="newTime"
-            v-model="newItemDetails.time"
-            required>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Date</label>
+          <input type="date" v-model="newItemDetails.date" required>
         </div>
 
-        <div class="col-md-4 mb-3">
+        <div class="form-field">
+          <label>Time</label>
+          <input type="time" v-model="newItemDetails.time" required>
+        </div>
 
-          <label for="newLength" class="form-label">Length</label>
-          <div class="input-group">
-            <input
-              type="number"
-              class="form-control"
-              id="newLength"
-              v-model="newItemDetails.length"
-              required>
-            <span class="input-group-text">minutes</span>
+        <div class="form-field">
+          <label>Duration (minutes)</label>
+          <input type="number" v-model="newItemDetails.length" min="15" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name</label>
+          <input type="text" v-model="newItemDetails.name" required>
+        </div>
+
+        <div class="form-field">
+          <label>Last Name</label>
+          <input type="text" v-model="newItemDetails.surname" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Phone Number</label>
+          <input type="tel" v-model="newItemDetails.phone" required>
+        </div>
+
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" v-model="newItemDetails.email">
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="sendEmail" v-model="newItemDetails.sendEmail">
+            <label for="sendEmail">Send confirmation email</label>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-6 mb-3">
+      <div class="form-field full-width">
+        <label>Additional Notes</label>
+        <textarea v-model="newItemDetails.notes" placeholder="Any special requests or information..."></textarea>
+      </div>
 
-          <label for="newName" class="form-label">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="newName"
-            v-model="newItemDetails.name"
-            required>
-        </div>
-
-        <div class="col-md-6 mb-3">
-
-          <label for="newSurname" class="form-label">Surname</label>
-          <input
-            type="text"
-            class="form-control"
-            id="newSurname"
-            v-model="newItemDetails.surname"
-            required>
-        </div>
-
-        <div class="col-md-4 mb-3">
-
-          <label for="newPhone" class="form-label">Phone</label>
-          <input
-            type="text"
-            class="form-control"
-            id="newPhone"
-            v-model="newItemDetails.phone"
-            required>
-        </div>
-
-        <div class="col-md-8 mb-3">
-
-          <label for="newEmail" class="form-label">Email</label>
-          <div class="input-group">
-            <input
-              type="email"
-              class="form-control"
-              id="newEmail"
-              v-model="newItemDetails.email"
-            >
-            <div class="input-group-text">
-              <div class="form-check d-flex">
-                <input class="form-check me-2" type="checkbox" id="sendEmail" :value="1"
-                       v-model="newItemDetails.sendEmail">
-                <label class="form-check-label" for="sendEmail">
-                  Send email
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="col-md-12 mb-3">
-
-          <label for="newNotes" class="form-label">Notes</label>
-          <textarea
-            class="form-control"
-            id="newNotes"
-            v-model="newItemDetails.notes"
-          >
-          </textarea>
-        </div>
-
-
-        <div class="col-md-12">
-          <button class="btn btn-success">Create</button>
-        </div>
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" @click="newAppointmentIsOpen = false">
+          Cancel
+        </button>
+        <button type="submit" class="btn-create">
+          Create Appointment
+        </button>
       </div>
     </form>
   </ModalComponent>
+
+
+
 
 
   <ModalComponent title="edit appointment" v-if="editingAppointment" @modalClose="editingAppointment = null">
@@ -1384,3 +1348,146 @@ export default {
 }
 
 </script>
+<style scoped>
+.clean-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 4px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field.full-width {
+  width: 100%;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+  font-size: 14px;
+}
+
+input, select, textarea {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+  min-height: 70px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #007bff;
+}
+
+/* Alternative custom checkbox styling if needed */
+.checkbox-wrapper input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+  background: white;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked {
+  background: #007bff;
+  border-color: #007bff;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checkbox-wrapper input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.btn-cancel, .btn-create {
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid;
+}
+
+.btn-cancel {
+  background: white;
+  color: #666;
+  border-color: #ddd;
+}
+
+.btn-cancel:hover {
+  background: #f8f9fa;
+}
+
+.btn-create {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.btn-create:hover {
+  background: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-cancel, .btn-create {
+    width: 100%;
+  }
+}
+</style>

@@ -151,7 +151,7 @@ export default {
         },
         {
           title: 'Action', data: (row) => {
-            return `<a href="./expert/${row.id}">manage</a>`;
+            return `<button class="btn btn-sm btn-primary" onclick="window.location.href='./expert/${row.id}'">manage</button>`;
           }
         },
       ],

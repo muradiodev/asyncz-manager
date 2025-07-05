@@ -1,18 +1,51 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, nextTick, onUnmounted } from 'vue'
 import { useColorModes } from '@coreui/vue'
 
 import AppHeaderDropdownAccnt from '@/components/layout/AppHeaderDropdownAccnt.vue'
 import { useSidebarStore } from '@/stores/sidebar.js'
-import {useThemeStore} from '@/stores/theme.js'
+import AiSchedulerView from '@/views/AiSchedulerView.vue' // Add this import
 
+import {useThemeStore} from '@/stores/theme.js'
 const headerClassNames = ref('mb-0 p-0')
 const { colorMode, setColorMode } = useColorModes('coreui-free-vue-admin-template-theme')
-const sidebar = useSidebarStore()
 
+const sidebar = useSidebarStore()
 const themeStore = useThemeStore();
 
+
+// Search functionality - explicitly set to false
+const isSearchExpanded = ref(false)
+const searchInput = ref(null)
+const searchQuery = ref('')
+
+const expandSearch = () => {
+  console.log('expandSearch called')
+  isSearchExpanded.value = true
+  nextTick(() => {
+    if (searchInput.value) {
+      searchInput.value.focus()
+    }
+  })
+}
+
+const collapseSearch = () => {
+  console.log('collapseSearch called')
+  isSearchExpanded.value = false
+  searchQuery.value = ''
+}
+
+const handleClickOutside = (event) => {
+  const searchContainer = event.target.closest('.search-container')
+  if (!searchContainer && isSearchExpanded.value) {
+    collapseSearch()
+  }
+}
+
 onMounted(() => {
+  // Force initial state
+  isSearchExpanded.value = false
+
   let theme = localStorage.getItem('colorMode')
   if (theme) {
     setColorMode(theme)
@@ -36,6 +69,12 @@ onMounted(() => {
       headerClassNames.value = 'mb-0 p-0'
     }
   })
+
+  document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside)
 })
 
 watch(colorMode, (newValue) => {
@@ -51,71 +90,54 @@ watch(colorMode, (newValue) => {
       <CHeaderToggler @click="sidebar.toggleVisible()" style="margin-inline-start: -14px">
         <CIcon icon="cil-menu" size="lg" />
       </CHeaderToggler>
-      <div class="position-relative">
-      <form class="d-none d-sm-flex">
-        <div class="input-group">
-          <span class="input-group-text bg-body-secondary border-0 ps-3" id="search-addon">
-            <CIcon icon="cil-magnifying-glass" size="lg" />
-          </span>
-          <input placeholder="Search..." aria-label="Search"
-                 ariadescribedby="search-addon"
-                 class="form-control bg-body-secondary border-0"
-                 type="search">
-        </div>
-      </form>
-<!--        <div class="searchResult">
-          <div v-if="searchResult.length >0">
-            <div class="searchResultItem small"
-                 @click.prevent="resultClicked(r)"
-                 v-for="r in searchResult" :key="r.id">
 
-              <strong>{{ r.name }} {{ r.surname }}</strong> <br>
-              <small>{{ r.email }}</small> <br>
-              <small>{{ r.phone }}</small> <br>
-              <small><em>{{ $dayjs(r.reservationStartTime.date).format('DD.MM.YYYY HH:mm') }}</em></small>
+      <div class="d-flex flex-grow-1 justify-content-center">
+        <div class="ai-scheduler-wrapper">
+          <AiSchedulerView />
+        </div>
+      </div>
+
+      <CHeaderNav>
+        <!-- Search functionality moved here -->
+        <div class="position-relative search-container d-none d-sm-flex">
+          <!-- Collapsed search - just icon -->
+          <button
+            v-if="!isSearchExpanded"
+            type="button"
+            class="btn btn-link p-2"
+            @click.stop="expandSearch"
+            style="border: none; background: none;"
+          >
+            <CIcon icon="cil-magnifying-glass" size="lg" />
+          </button>
+
+          <!-- Expanded search form -->
+          <div v-if="isSearchExpanded" class="d-flex">
+            <div class="input-group">
+              <span class="input-group-text bg-body-secondary border-0 ps-3" id="search-addon">
+                <CIcon icon="cil-magnifying-glass" size="lg" />
+              </span>
+              <input
+                ref="searchInput"
+                v-model="searchQuery"
+                placeholder="Search..."
+                aria-label="Search"
+                aria-describedby="search-addon"
+                class="form-control bg-body-secondary border-0"
+                type="search"
+                style="min-width: 250px;"
+              >
+              <button
+                type="button"
+                class="btn btn-outline-secondary border-0 px-3"
+                @click.stop="collapseSearch"
+              >
+                ×
+              </button>
             </div>
           </div>
-          <div class="alert alert-info p-1 small" v-else-if="noResult">
-            No result found
-          </div>
-        </div>-->
-      </div>
-      <!--
-       <CHeaderNav class="d-none d-md-flex">
-        <CNavItem>
-          <router-link class="nav-link" :to="{name:'dashboard'}">
-            Calendar
-          </router-link>
-        </CNavItem>
-        <CNavItem>
-          <router-link class="nav-link" :to="{name:'experts'}" v-if="user.role!=='expert'">
-            Experts
-          </router-link>
-        </CNavItem>
-        <CNavItem>
-          <router-link class="nav-link" :to="{name:'procedures'}" v-if="user.role==='manager'">
-            Procedures
-          </router-link>
-        </CNavItem>
-      </CHeaderNav>
-        <CHeaderNav class="ms-auto">
-              <CNavItem>
-                <CNavLink href="#">
-                  <CIcon icon="cil-bell" size="lg" />
-                </CNavLink>
-              </CNavItem>
-              <CNavItem>
-                <CNavLink href="#">
-                  <CIcon icon="cil-list" size="lg" />
-                </CNavLink>
-              </CNavItem>
-              <CNavItem>
-                <CNavLink href="#">
-                  <CIcon icon="cil-envelope-open" size="lg" />
-                </CNavLink>
-              </CNavItem>
-            </CHeaderNav>-->
-      <CHeaderNav>
+        </div>
+
         <CDropdown variant="nav-item" placement="bottom-end">
           <CDropdownToggle :caret="false">
             <CIcon v-if="colorMode === 'dark'" icon="cil-moon" size="lg" />
@@ -163,3 +185,71 @@ watch(colorMode, (newValue) => {
     </CContainer>
   </CHeader>
 </template>
+
+<style scoped>
+.btn-link:hover {
+  background-color: var(--cui-gray-100) !important;
+  border-radius: 0.375rem;
+}
+
+.ai-scheduler-wrapper {
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Override the AiSchedulerView styles for header integration */
+.ai-scheduler-wrapper :deep(#app) {
+  background: none;
+  min-height: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.ai-scheduler-wrapper :deep(.container-fluid) {
+  padding: 0;
+  margin: 0;
+}
+
+.ai-scheduler-wrapper :deep(.scheduler-container) {
+  background: none;
+  border-radius: 0;
+  padding: 10px;
+  margin: 0;
+  box-shadow: none;
+}
+
+.ai-scheduler-wrapper :deep(.voice-section) {
+  background: rgba(248, 249, 250, 0.1);
+  border-radius: 25px;
+  padding: 8px;
+  margin: 0;
+}
+
+.ai-scheduler-wrapper :deep(h1) {
+  display: none; /* Hide the title in header */
+}
+
+.ai-scheduler-wrapper :deep(.input-group .form-control) {
+  height: 35px;
+  font-size: 0.875rem;
+}
+
+.ai-scheduler-wrapper :deep(.voice-btn) {
+  height: 35px;
+  padding: 0 12px;
+}
+
+.ai-scheduler-wrapper :deep(.submit-btn) {
+  width: 35px;
+}
+
+@media (max-width: 768px) {
+  .ai-scheduler-wrapper {
+    max-width: 300px;
+  }
+
+  .ai-scheduler-wrapper :deep(.form-control) {
+    font-size: 0.8rem;
+  }
+}
+</style>

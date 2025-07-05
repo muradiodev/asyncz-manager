@@ -1,4 +1,4 @@
-<script >
+<script>
 import avatar from '@/assets/images/avatar.jpg'
 
 export default {
@@ -10,7 +10,6 @@ export default {
 
   methods: {
     logout() {
-
       this.$swal({
         title: 'Logout',
         text: 'Are you sure you want to logout?',
@@ -27,13 +26,12 @@ export default {
     },
   },
 }
-
 </script>
 
 <template>
   <CDropdown placement="bottom-end" variant="nav-item">
     <CDropdownToggle class="py-0 pe-0" :caret="false">
-      <CAvatar :src="avatar" size="md" />
+      <CAvatar :src="avatar" size="md" shape="rounded-circle" />
     </CDropdownToggle>
     <CDropdownMenu class="pt-0">
       <CDropdownHeader
@@ -42,19 +40,31 @@ export default {
       >
         Account
       </CDropdownHeader>
-      <CDropdownItem>
-        <router-link class="text-secondary" :to="{name:'profile'}"  style="text-decoration: none">
-          <CIcon icon="cil-user" />
-          Profile
-        </router-link>
+      <CDropdownItem @click="$router.push({name:'profile'})" class="clickable-item">
+        <CIcon icon="cil-user" />
+        Profile
       </CDropdownItem>
 
-      <CDropdownItem>
-        <a href="#" class="text-secondary" @click.prevent="logout" style="text-decoration: none">
-        <CIcon icon="cil-lock-locked" /> Logout
-      </a>
-
+      <CDropdownItem @click="logout" class="clickable-item">
+        <CIcon icon="cil-lock-locked" />
+        Logout
       </CDropdownItem>
     </CDropdownMenu>
   </CDropdown>
 </template>
+
+<style scoped>
+.clickable-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  color: #6c757d;
+  text-decoration: none;
+}
+
+.clickable-item:hover {
+  color: #495057;
+}
+</style>

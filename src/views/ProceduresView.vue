@@ -1,38 +1,29 @@
 <template>
-
   <CCard class="mb-4 border-0 rounded-0">
     <CCardBody>
       <CContainer class="px-4" lg>
-
         <div class="mb-4">
-          <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Procedures', path: '/dashboard/procedures', active: true }
-          ]" />
+          <AppBreadcrumb
+            :breadcrumbs="[
+              { name: 'Dashboard', path: '/dashboard', active: false },
+              { name: 'Procedures', path: '/dashboard/procedures', active: true }
+            ]"
+          />
         </div>
 
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Procedures</span>
-          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
-            + Add new
-          </button>
+          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">+ Add new</button>
         </div>
       </CContainer>
     </CCardBody>
   </CCard>
 
-
-
-
-
   <CContainer class="px-4" lg>
-
     <CCard class="mb-4">
       <CCardBody>
-      <DataTable class="table table-striped table-bordered"
-                 :columns="columns"
-                 :data='data'>
-      </DataTable>
+        <DataTable class="table table-striped table-bordered" :columns="columns" :data="data">
+        </DataTable>
       </CCardBody>
     </CCard>
   </CContainer>
@@ -55,18 +46,16 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="newLength" class="form-label">Length</label>
-           <div class="input-group">
-            <input
-              type="number"
-              class="form-control"
-              id="newEmail"
-              v-model.number="newItemDetails.length"
-              required
-            />
-             <div class="input-group-text">
-               minute(s)
-             </div>
-           </div>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                id="newEmail"
+                v-model.number="newItemDetails.length"
+                required
+              />
+              <div class="input-group-text">minute(s)</div>
+            </div>
           </div>
         </div>
         <div class="col-md-12">
@@ -75,98 +64,100 @@
       </div>
     </form>
   </ModalComponent>
-
 </template>
 
 <script>
+import DataTable from 'datatables.net-vue3'
+import DataTablesCore from 'datatables.net'
+import DataTablesLib from 'datatables.net-bs5'
 
-import DataTable from 'datatables.net-vue3';
-import DataTablesCore from 'datatables.net';
-import DataTablesLib from 'datatables.net-bs5';
-
-import {useAuthStore} from "@/stores/auth.js";
-import {mapState} from "pinia";
+import { useAuthStore } from '@/stores/auth.js'
+import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { createProcedure, getProcedures } from '@/repositories/ProceduresRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
-DataTable.use(DataTablesLib);
-DataTable.use(DataTablesCore);
+DataTable.use(DataTablesLib)
+DataTable.use(DataTablesCore)
 
 export default {
   name: 'ProceduresView',
   data() {
     return {
-
       addNewItem: false,
-      newItemDetails:{
+      newItemDetails: {
         name: '',
         length: ''
       },
 
       itemList: [],
       columns: [
-        {title: 'ID', data: 'id', orderable: true},
-        {title: 'Name', data: 'name', orderable: true},
+        { title: 'ID', data: 'id', orderable: true },
+        { title: 'Name', data: 'name', orderable: true },
         {
-          title: 'Status', data: (row) => {
+          title: 'Status',
+          data: (row) => {
             if (row.status) {
-              return `<span class="badge bg-success">active</span>`;
+              return `<span class="badge bg-success">active</span>`
             } else {
-              return `<span class="badge bg-danger">inactive</span>`;
+              return `<span class="badge bg-danger">inactive</span>`
             }
           }
-        },{
-          title: 'Length', data: (row) => {
-             return `${row.length} minute(s)`
+        },
+        {
+          title: 'Length',
+          data: (row) => {
+            return `${row.length} minute(s)`
           }
         },
         {
-          title: 'Action', data: (row) => {
-            return `<a href="./procedure/${row.id}">manage</a>`;
+          title: 'Action',
+          data: (row) => {
+            return `<button class="btn btn-sm btn-primary" onclick="window.location.href='./procedure/${row.id}'">manage</button>`
           }
-        },
-      ],
+        }
+      ]
     }
   },
   watch: {},
   computed: {
-    ...mapState(useAuthStore, ["token", "user"]),
+    ...mapState(useAuthStore, ['token', 'user']),
     data() {
-      return this.itemList;
+      return this.itemList
     }
   },
   methods: {
-
     getItemList() {
-      getProcedures(this.token).then(response => {
-        this.itemList = response;
-      });
+      getProcedures(this.token).then((response) => {
+        this.itemList = response
+      })
     },
 
-    createNewItem(){
-      createProcedure(this.token, this.newItemDetails.name, this.newItemDetails.length).then(response => {
-        if(response.code === 200){
-          this.getItemList();
-          this.addNewItem = false;
-          this.newItemDetails = {
-            name: '',
-            length: ''
-          };
+    createNewItem() {
+      createProcedure(this.token, this.newItemDetails.name, this.newItemDetails.length).then(
+        (response) => {
+          if (response.code === 200) {
+            this.getItemList()
+            this.addNewItem = false
+            this.newItemDetails = {
+              name: '',
+              length: ''
+            }
 
-          this.$router.push({name: 'procedure', params: {id: response.id}});
-        } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          });
+            this.$router.push({ name: 'procedure', params: { id: response.id } })
+          } else {
+            this.$swal({
+              title: 'Error',
+              text: response.message,
+              icon: 'error'
+            })
+          }
         }
-      });
+      )
     }
   },
   mounted() {
-    this.getItemList();
+    this.getItemList()
   },
   components: {
     AppBreadcrumb,
@@ -175,5 +166,3 @@ export default {
   }
 }
 </script>
-
-
