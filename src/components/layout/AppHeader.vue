@@ -78,6 +78,12 @@ onUnmounted(() => {
 })
 
 watch(colorMode, (newValue) => {
+  console.log ('Color mode changed:', newValue);
+  if (newValue === 'auto') {
+    // Automatically set to dark or light based on system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    newValue = prefersDark ? 'dark' : 'light';
+  }
   localStorage.setItem('colorMode', newValue)
   themeStore.toggleTheme(newValue);
 })
