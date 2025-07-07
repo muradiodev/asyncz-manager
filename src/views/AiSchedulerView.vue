@@ -1,78 +1,80 @@
 <template>
-  <!-- Voice Input Section -->
-  <div class="voice-section">
-    <div class="d-flex align-items-center input-group-container">
-      <!-- Input field with submit button inside -->
-      <div class="input-group flex-grow-1">
+  <div class="header-scheduler-always-open">
+    <!-- Always Visible Input Section -->
+    <div class="scheduler-input-container">
+      <div class="input-group-header">
         <input
+          ref="schedulerInput"
           type="text"
           v-model="messageInput"
-          class="form-control"
+          class="form-control-header"
           placeholder="💡 Schedule for Jane Doe, abc@example.com, +12345, 31 December 14:30, notes: Initial consultation.."
-          :disabled="isRecording"
+          :disabled="isRecording || isProcessing"
+          @keyup.enter="submitTextInput"
         />
-        <button
-          @click="submitTextInput"
-          class="btn btn-primary submit-btn"
-          type="button"
-          :disabled="isRecording || isProcessing || !messageInput.trim()"
-        >
-          <i class="fa-solid fa-arrow-up"></i>
-        </button>
-      </div>
 
-      <!-- Voice Recording Button -->
-      <button
-        @click="toggleRecording"
-        :class="['btn', 'voice-btn', 'ms-2', isRecording ? 'btn-danger recording' : 'btn-outline-primary']"
-        type="button"
-        :disabled="isProcessing"
-      >
-        <i :class="['fas', isRecording ? 'fa-stop' : 'fa-microphone']"></i>
-      </button>
-    </div>
+        <!-- Action Buttons -->
+        <div class="action-buttons-header">
+          <button
+            @click="toggleRecording"
+            :class="['btn-header', 'voice-btn-header', isRecording ? 'recording' : '']"
+            type="button"
+            :disabled="isProcessing"
+            :title="isRecording ? 'Stop recording' : 'Voice input'"
+          >
+            <CIcon :icon="isRecording ? 'cil-media-stop' : 'cil-microphone'" size="sm" />
+          </button>
 
-    <!-- Recording Status -->
-    <div v-if="isRecording" class="recording-status mt-3">
-      <div class="d-flex align-items-center justify-content-center">
-        <div class="recording-indicator"></div>
-        <span class="ms-2">Recording... Click to stop</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Processing Status -->
-  <div v-if="isProcessing" class="alert alert-info">
-    <i class="fas fa-spinner fa-spin"></i>
-    Processing...
-  </div>
-
-  <!-- Error Display -->
-  <div v-if="errorMessage" class="alert alert-danger">
-    <i class="fas fa-exclamation-triangle"></i>
-    {{ errorMessage }}
-  </div>
-
-  <!-- Appointment Confirmation Modal -->
-  <div class="modal fade" id="appointmentModal" tabindex="-1" ref="appointmentModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            <i class="fas fa-calendar-check text-success"></i>
-            Confirm Appointment Details
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <button
+            @click="submitTextInput"
+            class="btn-header submit-btn-header"
+            type="button"
+            :disabled="isRecording || isProcessing || !messageInput.trim()"
+            title="Submit"
+          >
+            <CIcon icon="cil-arrow-top" size="sm" />
+          </button>
         </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
+      </div>
+
+      <!-- Compact Status Indicators -->
+      <div v-if="isRecording" class="status-indicator recording-status">
+        <div class="recording-dot"></div>
+        <span>Recording...</span>
+      </div>
+
+      <div v-if="isProcessing" class="status-indicator processing-status">
+        <CIcon icon="cil-sync" size="sm" class="spinning" />
+        <span>Processing...</span>
+      </div>
+    </div>
+
+    <!-- Error Toast (Compact) -->
+    <div v-if="errorMessage" class="error-toast-header">
+      <CIcon icon="cil-warning" size="sm" />
+      <span>{{ errorMessage }}</span>
+      <button @click="errorMessage = ''" class="btn-close-toast">×</button>
+    </div>
+
+    <!-- Appointment Confirmation Modal -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1" ref="appointmentModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content modern-modal">
+          <div class="modal-header modern-header">
+            <h5 class="modal-title">
+              <CIcon icon="cil-calendar-check" size="lg" class="text-white me-2" />
+              Confirm Appointment
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body modern-body">
+            <div class="row g-3">
+              <div class="col-md-6">
                 <label class="form-label">First Name *</label>
                 <input
                   type="text"
                   v-model="appointmentData.name"
-                  class="form-control"
+                  class="form-control modern-input"
                   required
                   :class="{ 'is-invalid': !appointmentData.name.trim() && showValidation }"
                 >
@@ -80,14 +82,12 @@
                   First name is required
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-3">
+              <div class="col-md-6">
                 <label class="form-label">Last Name *</label>
                 <input
                   type="text"
                   v-model="appointmentData.surname"
-                  class="form-control"
+                  class="form-control modern-input"
                   required
                   :class="{ 'is-invalid': !appointmentData.surname.trim() && showValidation }"
                 >
@@ -96,87 +96,97 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
+
+            <div class="row g-3">
+              <div class="col-md-6">
                 <label class="form-label">Email</label>
                 <input
                   type="email"
                   v-model="appointmentData.email"
-                  class="form-control"
+                  class="form-control modern-input"
                   :class="{ 'is-invalid': appointmentData.email && !isValidEmail(appointmentData.email) }"
                 >
                 <div v-if="appointmentData.email && !isValidEmail(appointmentData.email)" class="invalid-feedback">
                   Please enter a valid email address
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-3">
+              <div class="col-md-6">
                 <label class="form-label">Phone</label>
-                <input type="tel" v-model="appointmentData.phone" class="form-control">
+                <input type="tel" v-model="appointmentData.phone" class="form-control modern-input">
               </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Appointment Date & Time</label>
-            <input
-              type="datetime-local"
-              v-model="appointmentData.reservation_start_time"
-              class="form-control"
-              :min="minDateTime"
-            >
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Notes</label>
-            <textarea v-model="appointmentData.notes" class="form-control" rows="3"></textarea>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Expert Notes</label>
-            <textarea v-model="appointmentData.expert_notes" class="form-control" rows="2"></textarea>
-          </div>
 
-          <!-- Original Voice Text -->
-          <div v-if="originalText" class="alert alert-light">
-            <strong>Original Voice Input:</strong>
-            <p class="mb-0 mt-2">{{ originalText }}</p>
+            <div class="mb-3">
+              <label class="form-label">Appointment Date & Time</label>
+              <input
+                type="datetime-local"
+                v-model="appointmentData.reservation_start_time"
+                class="form-control modern-input"
+                :min="minDateTime"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Notes</label>
+              <textarea v-model="appointmentData.notes" class="form-control modern-input" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Expert Notes</label>
+              <textarea v-model="appointmentData.expert_notes" class="form-control modern-input" rows="2"></textarea>
+            </div>
+
+            <!-- Original Input Display -->
+            <div v-if="originalText" class="original-input-display">
+              <div class="original-input-header">
+                <CIcon icon="cil-quote-alt-left" size="sm" />
+                <span>Original Input</span>
+              </div>
+              <p class="original-input-text">{{ originalText }}</p>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            <i class="fas fa-times"></i> Cancel
-          </button>
-          <button
-            type="button"
-            @click="saveAppointment"
-            class="btn btn-success"
-            :disabled="isSaving"
-          >
-            <i :class="['fas', isSaving ? 'fa-spinner fa-spin' : 'fa-save']"></i>
-            {{ isSaving ? 'Saving...' : 'Save Appointment' }}
-          </button>
+          <div class="modal-footer modern-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              <CIcon icon="cil-x" size="sm" class="me-1" /> Cancel
+            </button>
+            <button
+              type="button"
+              @click="saveAppointment"
+              class="btn btn-primary modern-btn"
+              :disabled="isSaving"
+            >
+              <CIcon :icon="isSaving ? 'cil-sync' : 'cil-save'" size="sm" :class="[isSaving ? 'spinning' : '', 'me-1']" />
+              {{ isSaving ? 'Saving...' : 'Save Appointment' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Success Modal -->
-  <div class="modal fade" id="successModal" tabindex="-1" ref="successModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-success text-white">
-          <h5 class="modal-title">
-            <i class="fas fa-check-circle"></i>
-            Success!
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <p>{{ successMessage }}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" ref="successModal">
+      <div class="modal-dialog">
+        <div class="modal-content modern-modal">
+          <div class="modal-header modern-header bg-success text-white">
+            <h5 class="modal-title">
+              <CIcon icon="cil-check-circle" size="lg" class="me-2" />
+              Success!
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body modern-body">
+            <div class="success-content">
+              <div class="success-icon">
+                <CIcon icon="cil-check-circle" size="xl" />
+              </div>
+              <p class="success-message">{{ successMessage }}</p>
+            </div>
+          </div>
+          <div class="modal-footer modern-footer">
+            <button type="button" class="btn btn-success modern-btn" data-bs-dismiss="modal">
+              <CIcon icon="cil-check" size="sm" class="me-1" /> OK
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -187,7 +197,7 @@
 import { Modal } from 'bootstrap'
 
 export default {
-  name: 'AiSchedulerInput',
+  name: 'AiSchedulerView',
   data() {
     return {
       backendUrl: 'http://localhost:5000',
@@ -242,7 +252,7 @@ export default {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
         stream.getTracks().forEach(track => track.stop())
       } catch (error) {
-        this.errorMessage = 'Microphone access is required for voice recording.'
+        console.warn('Microphone access not available')
       }
     },
 
@@ -272,7 +282,8 @@ export default {
         this.mediaRecorder.start()
         this.isRecording = true
       } catch (error) {
-        this.errorMessage = 'Error accessing microphone.'
+        this.errorMessage = 'Microphone access denied'
+        setTimeout(() => this.errorMessage = '', 3000)
       }
     },
 
@@ -308,10 +319,11 @@ export default {
         if (result.status === 'success') {
           this.showAppointmentModal(result.data)
         } else {
-          throw new Error(result.message || 'Unknown error occurred')
+          throw new Error(result.message || 'Processing failed')
         }
       } catch (error) {
-        this.errorMessage = `Error processing voice: ${error.message}`
+        this.errorMessage = `Processing error: ${error.message}`
+        setTimeout(() => this.errorMessage = '', 5000)
       } finally {
         this.isProcessing = false
       }
@@ -348,23 +360,25 @@ export default {
         if (result.status === 'success') {
           this.showAppointmentModal(result.data)
         } else {
-          throw new Error(result.message || 'Unknown error occurred')
+          throw new Error(result.message || 'Processing failed')
         }
       } catch (error) {
-        this.errorMessage = `Error processing text: ${error.message}`
+        this.errorMessage = `Processing error: ${error.message}`
+        setTimeout(() => this.errorMessage = '', 5000)
       } finally {
         this.isProcessing = false
       }
     },
 
     showAppointmentModal(data) {
+      // Populate appointment data
       this.appointmentData.name = data.name || ''
       this.appointmentData.surname = data.surname || ''
       this.appointmentData.email = data.email || ''
       this.appointmentData.phone = data.phone || ''
       this.appointmentData.notes = data.notes || ''
       this.appointmentData.expert_notes = data.expert_notes || ''
-      this.originalText = data.original_text || ''
+      this.originalText = data.original_text || this.messageInput
 
       if (data.reservation_start_time) {
         try {
@@ -417,10 +431,11 @@ export default {
           this.successModal.show()
           this.resetForm()
         } else {
-          throw new Error(result.message || 'Unknown error occurred')
+          throw new Error(result.message || 'Save failed')
         }
       } catch (error) {
-        this.errorMessage = `Error saving appointment: ${error.message}`
+        this.errorMessage = `Save error: ${error.message}`
+        setTimeout(() => this.errorMessage = '', 5000)
       } finally {
         this.isSaving = false
       }
@@ -459,78 +474,302 @@ export default {
 </script>
 
 <style scoped>
-.voice-section {
-  background: rgba(248, 249, 250, 0.8);
-  border-radius: 15px;
-  padding: 15px;
-  margin: 0;
-}
-
-.input-group-container {
+/* Always Open Header Scheduler */
+.header-scheduler-always-open {
   width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
-.input-group {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  border-radius: 25px;
-  overflow: hidden;
+.scheduler-input-container {
+  width: 100%;
+  position: relative;
 }
 
-.input-group .form-control {
-  height: 40px;
-  font-size: 0.9rem;
-  border-right: none;
-  border-radius: 25px 0 0 25px;
-}
-
-.submit-btn {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 4;
-  width: 40px;
-  border-radius: 0 25px 25px 0;
+/* Input Group for Header */
+.input-group-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  background: var(--cui-body-bg);
+  border: 1px solid var(--cui-border-color);
+  border-radius: 20px;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  position: relative;
 }
 
-.voice-btn {
-  height: 40px;
-  width: 40px;
-  padding: 0;
+.input-group-header:focus-within {
+  border-color: var(--cui-primary);
+  box-shadow: 0 0 0 2px rgba(var(--cui-primary-rgb), 0.25);
+}
+
+/* Header Input Field */
+.form-control-header {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  color: var(--cui-body-color);
+  outline: none;
+  height: 32px;
+}
+
+.form-control-header::placeholder {
+  color: var(--cui-gray-500);
+  font-style: italic;
+}
+
+.form-control-header:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Action Buttons in Header */
+.action-buttons-header {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding-right: 4px;
+}
+
+.btn-header {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  transition: all 0.3s ease;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
 }
 
-.btn.recording {
-  animation: pulse 1.5s infinite;
+.voice-btn-header {
+  background: var(--cui-secondary);
+  color: white;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+.voice-btn-header:hover:not(:disabled) {
+  background: var(--cui-secondary-dark);
+  transform: scale(1.1);
+}
+
+.voice-btn-header.recording {
+  background: var(--cui-danger);
+  animation: pulse-recording 1.5s infinite;
+}
+
+.submit-btn-header {
+  background: var(--cui-primary);
+  color: white;
+}
+
+.submit-btn-header:hover:not(:disabled) {
+  background: var(--cui-primary-dark);
+  transform: scale(1.1);
+}
+
+.submit-btn-header:disabled {
+  background: var(--cui-gray-400);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Status Indicators */
+.status-indicator {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  z-index: 1000;
+  animation: slideDown 0.3s ease;
 }
 
 .recording-status {
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 0.85rem;
+  background: rgba(var(--cui-warning-rgb), 0.15);
+  color: var(--cui-warning-dark);
+  border: 1px solid rgba(var(--cui-warning-rgb), 0.3);
 }
 
-.recording-indicator {
-  width: 8px;
-  height: 8px;
-  background-color: #dc3545;
+.processing-status {
+  background: rgba(var(--cui-info-rgb), 0.15);
+  color: var(--cui-info-dark);
+  border: 1px solid rgba(var(--cui-info-rgb), 0.3);
+}
+
+.recording-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--cui-danger);
   border-radius: 50%;
   animation: blink 1s infinite;
+}
+
+/* Error Toast for Header */
+.error-toast-header {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: var(--cui-danger);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1001;
+  animation: slideDown 0.3s ease;
+  box-shadow: 0 4px 12px rgba(var(--cui-danger-rgb), 0.3);
+}
+
+.btn-close-toast {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}
+
+.btn-close-toast:hover {
+  opacity: 1;
+}
+
+/* Modal Styles */
+.modern-modal {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.modern-header {
+  background: linear-gradient(135deg, var(--cui-primary) 0%, var(--cui-primary-dark) 100%);
+  color: white;
+  border: none;
+  padding: 20px 24px;
+}
+
+.modern-header .modal-title {
+  font-weight: 600;
+  font-size: 1.125rem;
+  display: flex;
+  align-items: center;
+}
+
+.modern-body {
+  padding: 24px;
+  background: var(--cui-body-bg);
+}
+
+.modern-footer {
+  background: var(--cui-gray-50);
+  border: none;
+  padding: 16px 24px;
+}
+
+.modern-input {
+  border: 2px solid var(--cui-border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  background: var(--cui-body-bg);
+}
+
+.modern-input:focus {
+  border-color: var(--cui-primary);
+  box-shadow: 0 0 0 3px rgba(var(--cui-primary-rgb), 0.1);
+  outline: none;
+}
+
+.modern-btn {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.modern-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Original Input Display */
+.original-input-display {
+  background: var(--cui-gray-50);
+  border: 1px solid var(--cui-border-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.original-input-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cui-gray-600);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.original-input-text {
+  margin: 0;
+  color: var(--cui-body-color);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Success Modal */
+.success-content {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.success-icon {
+  font-size: 3rem;
+  color: var(--cui-success);
+  margin-bottom: 16px;
+}
+
+.success-message {
+  font-size: 1.125rem;
+  color: var(--cui-body-color);
+  margin: 0;
+}
+
+/* Spinning animation for loading icons */
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes pulse-recording {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
 @keyframes blink {
@@ -538,79 +777,105 @@ export default {
   51%, 100% { opacity: 0.3; }
 }
 
-.alert {
-  border-radius: 10px;
-  border: none;
-  padding: 10px 15px;
-  font-size: 0.85rem;
-}
-
-.modal-content {
-  border-radius: 15px;
-  border: none;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.modal-header {
-  border-radius: 15px 15px 0 0;
-  border-bottom: none;
-  padding: 20px 30px;
-}
-
-.modal-body {
-  padding: 30px;
-}
-
-.modal-footer {
-  border-top: none;
-  padding: 20px 30px;
-}
-
-.form-control, .form-select {
-  border-radius: 10px;
-  border: 2px solid #e9ecef;
-  padding: 12px 15px;
-  transition: all 0.3s ease;
-}
-
-.form-control:focus, .form-select:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-}
-
-.fa-spinner {
-  animation: spin 1s linear infinite;
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-control-header {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .btn-header {
+    width: 26px;
+    height: 26px;
+  }
+
+  .input-group-header {
+    padding: 3px;
+  }
+
+  .modern-body {
+    padding: 16px;
+  }
+
+  .modern-header,
+  .modern-footer {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-control-header::placeholder {
+    font-size: 0.75rem;
+  }
+
+  .status-indicator,
+  .error-toast-header {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+}
+
+/* Dark mode adjustments */
+[data-coreui-theme="dark"] .input-group-header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+[data-coreui-theme="dark"] .original-input-display {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Validation styles */
 .is-invalid {
-  border-color: #dc3545;
+  border-color: var(--cui-danger) !important;
 }
 
 .invalid-feedback {
   display: block;
-  color: #dc3545;
+  color: var(--cui-danger);
   font-size: 0.875em;
   margin-top: 0.25rem;
 }
 
-@media (max-width: 768px) {
-  .voice-section {
-    padding: 10px;
-  }
+/* Focus states for accessibility */
+.btn-header:focus {
+  outline: 2px solid var(--cui-primary);
+  outline-offset: 2px;
+}
 
-  .input-group .form-control {
-    font-size: 0.8rem;
-    height: 35px;
-  }
+/* Hover effects */
+.input-group-header:hover {
+  border-color: rgba(var(--cui-primary-rgb), 0.5);
+}
 
-  .voice-btn, .submit-btn {
-    height: 35px;
-    width: 35px;
-  }
+/* Loading state for input */
+.form-control-header:disabled {
+  background: rgba(var(--cui-gray-100-rgb), 0.5);
+}
+
+/* Button states */
+.btn-header:active {
+  transform: scale(0.95);
+}
+
+.btn-header:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 </style>

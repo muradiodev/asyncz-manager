@@ -1379,7 +1379,6 @@ label {
 }
 
 input, select, textarea {
-  padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
@@ -1399,18 +1398,12 @@ textarea {
 }
 
 .checkbox-wrapper input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin: 0;
   cursor: pointer;
   accent-color: #007bff;
 }
 
 /* Alternative custom checkbox styling if needed */
 .checkbox-wrapper input[type="checkbox"] {
-  appearance: none;
-  width: 16px;
-  height: 16px;
   border: 2px solid #ccc;
   border-radius: 3px;
   margin: 0;
