@@ -2,10 +2,6 @@
   <div class="header-scheduler-always-open">
     <!-- Always Visible Input Section -->
     <div class="ai-input-container">
-      <div class="ai-message">
-        <span>🤖 I'm AI - Use me!</span>
-      </div>
-
       <div class="scheduler-input-container">
         <div class="input-group-header">
           <input
@@ -53,6 +49,9 @@
           <span>Processing...</span>
         </div>
       </div>
+      <div class="ai-message">
+        <span>🤖 I'm AI - Use me!</span>
+      </div>
     </div>
 
     <!-- Error Toast (Compact) -->
@@ -71,7 +70,11 @@
               <CIcon icon="cil-calendar-check" size="lg" class="text-white me-2" />
               Confirm Appointment
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
           <div class="modal-body modern-body">
             <div class="row g-3">
@@ -83,7 +86,7 @@
                   class="form-control modern-input"
                   required
                   :class="{ 'is-invalid': !appointmentData.name.trim() && showValidation }"
-                >
+                />
                 <div v-if="!appointmentData.name.trim() && showValidation" class="invalid-feedback">
                   First name is required
                 </div>
@@ -96,8 +99,11 @@
                   class="form-control modern-input"
                   required
                   :class="{ 'is-invalid': !appointmentData.surname.trim() && showValidation }"
+                />
+                <div
+                  v-if="!appointmentData.surname.trim() && showValidation"
+                  class="invalid-feedback"
                 >
-                <div v-if="!appointmentData.surname.trim() && showValidation" class="invalid-feedback">
                   Last name is required
                 </div>
               </div>
@@ -110,15 +116,24 @@
                   type="email"
                   v-model="appointmentData.email"
                   class="form-control modern-input"
-                  :class="{ 'is-invalid': appointmentData.email && !isValidEmail(appointmentData.email) }"
+                  :class="{
+                    'is-invalid': appointmentData.email && !isValidEmail(appointmentData.email)
+                  }"
+                />
+                <div
+                  v-if="appointmentData.email && !isValidEmail(appointmentData.email)"
+                  class="invalid-feedback"
                 >
-                <div v-if="appointmentData.email && !isValidEmail(appointmentData.email)" class="invalid-feedback">
                   Please enter a valid email address
                 </div>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Phone</label>
-                <input type="tel" v-model="appointmentData.phone" class="form-control modern-input">
+                <input
+                  type="tel"
+                  v-model="appointmentData.phone"
+                  class="form-control modern-input"
+                />
               </div>
             </div>
 
@@ -129,17 +144,25 @@
                 v-model="appointmentData.reservation_start_time"
                 class="form-control modern-input"
                 :min="minDateTime"
-              >
+              />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Notes</label>
-              <textarea v-model="appointmentData.notes" class="form-control modern-input" rows="3"></textarea>
+              <textarea
+                v-model="appointmentData.notes"
+                class="form-control modern-input"
+                rows="3"
+              ></textarea>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Expert Notes</label>
-              <textarea v-model="appointmentData.expert_notes" class="form-control modern-input" rows="2"></textarea>
+              <textarea
+                v-model="appointmentData.expert_notes"
+                class="form-control modern-input"
+                rows="2"
+              ></textarea>
             </div>
 
             <!-- Original Input Display -->
@@ -153,7 +176,8 @@
           </div>
           <div class="modal-footer modern-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              <CIcon icon="cil-x" size="sm" class="me-1" /> Cancel
+              <CIcon icon="cil-x" size="sm" class="me-1" />
+              Cancel
             </button>
             <button
               type="button"
@@ -161,7 +185,11 @@
               class="btn btn-primary modern-btn"
               :disabled="isSaving"
             >
-              <CIcon :icon="isSaving ? 'cil-sync' : 'cil-save'" size="sm" :class="[isSaving ? 'spinning' : '', 'me-1']" />
+              <CIcon
+                :icon="isSaving ? 'cil-sync' : 'cil-save'"
+                size="sm"
+                :class="[isSaving ? 'spinning' : '', 'me-1']"
+              />
               {{ isSaving ? 'Saving...' : 'Save Appointment' }}
             </button>
           </div>
@@ -178,7 +206,11 @@
               <CIcon icon="cil-check-circle" size="lg" class="me-2" />
               Success!
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
           </div>
           <div class="modal-body modern-body">
             <div class="success-content">
@@ -190,7 +222,8 @@
           </div>
           <div class="modal-footer modern-footer">
             <button type="button" class="btn btn-success modern-btn" data-bs-dismiss="modal">
-              <CIcon icon="cil-check" size="sm" class="me-1" /> OK
+              <CIcon icon="cil-check" size="sm" class="me-1" />
+              OK
             </button>
           </div>
         </div>
@@ -201,10 +234,7 @@
 
 <script>
 import { Modal } from 'bootstrap'
-import {
-  cilMicrophone,
-  cilMediaStop
-} from '@coreui/icons'
+import { cilMicrophone, cilMediaStop } from '@coreui/icons'
 
 export default {
   name: 'AiSchedulerView',
@@ -264,7 +294,7 @@ export default {
     async checkMicrophonePermissions() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-        stream.getTracks().forEach(track => track.stop())
+        stream.getTracks().forEach((track) => track.stop())
       } catch (error) {
         console.warn('Microphone access not available')
       }
@@ -297,14 +327,14 @@ export default {
         this.isRecording = true
       } catch (error) {
         this.errorMessage = 'Microphone access denied'
-        setTimeout(() => this.errorMessage = '', 3000)
+        setTimeout(() => (this.errorMessage = ''), 3000)
       }
     },
 
     stopRecording() {
       if (this.mediaRecorder && this.isRecording) {
         this.mediaRecorder.stop()
-        this.mediaRecorder.stream.getTracks().forEach(track => track.stop())
+        this.mediaRecorder.stream.getTracks().forEach((track) => track.stop())
         this.isRecording = false
       }
     },
@@ -337,7 +367,7 @@ export default {
         }
       } catch (error) {
         this.errorMessage = `Processing error: ${error.message}`
-        setTimeout(() => this.errorMessage = '', 5000)
+        setTimeout(() => (this.errorMessage = ''), 5000)
       } finally {
         this.isProcessing = false
       }
@@ -378,7 +408,7 @@ export default {
         }
       } catch (error) {
         this.errorMessage = `Processing error: ${error.message}`
-        setTimeout(() => this.errorMessage = '', 5000)
+        setTimeout(() => (this.errorMessage = ''), 5000)
       } finally {
         this.isProcessing = false
       }
@@ -449,7 +479,7 @@ export default {
         }
       } catch (error) {
         this.errorMessage = `Save error: ${error.message}`
-        setTimeout(() => this.errorMessage = '', 5000)
+        setTimeout(() => (this.errorMessage = ''), 5000)
       } finally {
         this.isSaving = false
       }
@@ -506,9 +536,9 @@ export default {
   align-items: center;
   background: var(--cui-body-bg);
   border: 1px solid var(--cui-border-color);
-  border-radius: 20px;
-  padding: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 5px 0 0 5px;
+  padding: 4px 16px 4px 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   transition: all 0.2s ease;
   position: relative;
   animation: aiPulse 3s ease-in-out infinite;
@@ -517,9 +547,9 @@ export default {
   max-width: 800px;
 }
 
-
 @keyframes aiPulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     border-color: var(--cui-border-color);
   }
@@ -540,6 +570,7 @@ export default {
   background: linear-gradient(135deg, var(--cui-primary), var(--cui-info));
   color: white;
   padding: 10px 14px;
+  margin-left: 75px;
   border-radius: 18px 18px 18px 4px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -552,7 +583,8 @@ export default {
 }
 
 @keyframes aiMessagePulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.95;
   }
@@ -638,12 +670,12 @@ export default {
 }
 
 .voice-btn-header {
-  background: var(--cui-secondary);
+  background: var(--cui-danger);
   color: white;
 }
 
 .voice-btn-header:hover:not(:disabled) {
-  background: #5a6268;
+  background: var(--cui-danger);
   transform: scale(1.1);
 }
 
@@ -857,13 +889,24 @@ export default {
 
 /* Animations */
 @keyframes pulse-recording {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0.3; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0.3;
+  }
 }
 
 @keyframes slideDown {
@@ -878,8 +921,12 @@ export default {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive Design */
@@ -910,7 +957,7 @@ export default {
 
 @media (max-width: 576px) {
   .form-control-header::placeholder {
-    font-size: 0.75rem;
+    font-size: 0.5rem;
   }
 
   .status-indicator,
@@ -921,11 +968,11 @@ export default {
 }
 
 /* Dark mode adjustments */
-[data-coreui-theme="dark"] .input-group-header {
+[data-coreui-theme='dark'] .input-group-header {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-[data-coreui-theme="dark"] .original-input-display {
+[data-coreui-theme='dark'] .original-input-display {
   background: rgba(255, 255, 255, 0.05);
 }
 
