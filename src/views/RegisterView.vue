@@ -60,7 +60,7 @@
 
 
 
-          <form @submit.prevent="goTo2">
+          <form @submit.prevent="loginOwner">
             <div class="form-group">
               <label for="companyNameInput">Company Name</label>
               <input
@@ -116,7 +116,7 @@
         <div v-if="status === 'verify'" class="form-step">
           <h2>Verify Your Email</h2>
 
-          <form @submit.prevent="goTo3">
+          <form @submit.prevent="registerVerify">
             <div class="form-group">
               <label for="verifyEmail">Email Address</label>
               <input
@@ -148,7 +148,7 @@
         <div v-if="status === 'password'" class="form-step">
           <h2>Set Your Password</h2>
 
-          <form @submit.prevent="goToFinish">
+          <form @submit.prevent="updatePassword">
             <div class="form-group">
               <label for="passwordEmail">Email Address</label>
               <input
@@ -244,7 +244,7 @@ export default {
       return stepOrder.indexOf(index) + 1
     },
 
-    // These methods are only for testing purposes. Written by Mubariz
+    // These methods are only for testing purposes. Do not delete it yet. Written by Mubariz
     goTo2() {this.status = 'verify'},
     goTo3() {this.status = 'password'},
     goToFinish() {
