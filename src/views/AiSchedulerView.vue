@@ -1,51 +1,57 @@
 <template>
   <div class="header-scheduler-always-open">
     <!-- Always Visible Input Section -->
-    <div class="scheduler-input-container">
-      <div class="input-group-header">
-        <input
-          ref="schedulerInput"
-          type="text"
-          v-model="messageInput"
-          class="form-control-header"
-          placeholder="💡 Schedule for Jane Doe, abc@example.com, +12345, 31 December 14:30, notes: Initial consultation.."
-          :disabled="isRecording || isProcessing"
-          @keyup.enter="submitTextInput"
-        />
+    <div class="ai-input-container">
+      <div class="ai-message">
+        <span>🤖 I'm AI - Use me!</span>
+      </div>
 
-        <!-- Action Buttons -->
-        <div class="action-buttons-header">
-          <button
-            @click="toggleRecording"
-            :class="['btn-header', 'voice-btn-header', isRecording ? 'recording' : '']"
-            type="button"
-            :disabled="isProcessing"
-            :title="isRecording ? 'Stop recording' : 'Voice input'"
-          >
-            <CIcon :icon="isRecording ? icons.cilMediaStop : icons.cilMicrophone" size="sm" />
-          </button>
+      <div class="scheduler-input-container">
+        <div class="input-group-header">
+          <input
+            ref="schedulerInput"
+            type="text"
+            v-model="messageInput"
+            class="form-control-header"
+            placeholder="💡 Schedule for Jane Doe, abc@example.com, +12345, 31 December 14:30, notes: Initial consultation.."
+            :disabled="isRecording || isProcessing"
+            @keyup.enter="submitTextInput"
+          />
 
-          <button
-            @click="submitTextInput"
-            class="btn-header submit-btn-header"
-            type="button"
-            :disabled="isRecording || isProcessing || !messageInput.trim()"
-            title="Submit"
-          >
-            <CIcon icon="cil-arrow-top" size="sm" />
-          </button>
+          <!-- Action Buttons -->
+          <div class="action-buttons-header">
+            <button
+              @click="toggleRecording"
+              :class="['btn-header', 'voice-btn-header', isRecording ? 'recording' : '']"
+              type="button"
+              :disabled="isProcessing"
+              :title="isRecording ? 'Stop recording' : 'Voice input'"
+            >
+              <CIcon :icon="isRecording ? icons.cilMediaStop : icons.cilMicrophone" size="sm" />
+            </button>
+
+            <button
+              @click="submitTextInput"
+              class="btn-header submit-btn-header"
+              type="button"
+              :disabled="isRecording || isProcessing || !messageInput.trim()"
+              title="Submit"
+            >
+              <CIcon icon="cil-arrow-top" size="sm" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- Compact Status Indicators -->
-      <div v-if="isRecording" class="status-indicator recording-status">
-        <div class="recording-dot"></div>
-        <span>Recording...</span>
-      </div>
+        <!-- Compact Status Indicators -->
+        <div v-if="isRecording" class="status-indicator recording-status">
+          <div class="recording-dot"></div>
+          <span>Recording...</span>
+        </div>
 
-      <div v-if="isProcessing" class="status-indicator processing-status">
-        <CIcon icon="cil-sync" size="sm" class="spinning" />
-        <span>Processing...</span>
+        <div v-if="isProcessing" class="status-indicator processing-status">
+          <CIcon icon="cil-sync" size="sm" class="spinning" />
+          <span>Processing...</span>
+        </div>
       </div>
     </div>
 
@@ -505,6 +511,83 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.2s ease;
   position: relative;
+  animation: aiPulse 3s ease-in-out infinite;
+  min-width: 600px;
+  width: 100%;
+  max-width: 800px;
+}
+
+
+@keyframes aiPulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-color: var(--cui-border-color);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(var(--cui-primary-rgb), 0.5);
+    border-color: rgba(var(--cui-primary-rgb), 0.6);
+  }
+}
+
+.ai-input-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.ai-message {
+  background: linear-gradient(135deg, var(--cui-primary), var(--cui-info));
+  color: white;
+  padding: 10px 14px;
+  border-radius: 18px 18px 18px 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(var(--cui-primary-rgb), 0.25);
+  animation: aiMessagePulse 2s ease-in-out infinite;
+  white-space: nowrap;
+  position: relative;
+  max-width: 200px;
+  flex-shrink: 0;
+}
+
+@keyframes aiMessagePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+.scheduler-input-container {
+  flex: 1;
+  position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ai-input-container {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai-message {
+    align-self: flex-start;
+    max-width: 160px;
+    font-size: 0.8rem;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ai-message {
+    max-width: 140px;
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
 }
 
 .input-group-header:focus-within {
@@ -526,7 +609,6 @@ export default {
 
 .form-control-header::placeholder {
   color: var(--cui-gray-500);
-  font-style: italic;
 }
 
 .form-control-header:disabled {
@@ -747,7 +829,6 @@ export default {
 .original-input-text {
   margin: 0;
   color: var(--cui-body-color);
-  font-style: italic;
   line-height: 1.4;
 }
 
