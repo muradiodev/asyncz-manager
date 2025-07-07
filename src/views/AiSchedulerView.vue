@@ -22,7 +22,7 @@
             :disabled="isProcessing"
             :title="isRecording ? 'Stop recording' : 'Voice input'"
           >
-            <CIcon :icon="isRecording ? 'cil-media-stop' : 'cil-microphone'" size="sm" />
+            <CIcon :icon="isRecording ? icons.cilMediaStop : icons.cilMicrophone" size="sm" />
           </button>
 
           <button
@@ -195,6 +195,10 @@
 
 <script>
 import { Modal } from 'bootstrap'
+import {
+  cilMicrophone,
+  cilMediaStop
+} from '@coreui/icons'
 
 export default {
   name: 'AiSchedulerView',
@@ -229,6 +233,10 @@ export default {
         status: 'pending',
         color: '#007bff',
         created_by: 'voice_system'
+      },
+      icons: {
+        cilMicrophone,
+        cilMediaStop
       }
     }
   },
@@ -553,7 +561,7 @@ export default {
 }
 
 .voice-btn-header:hover:not(:disabled) {
-  background: var(--cui-secondary-dark);
+  background: #5a6268;
   transform: scale(1.1);
 }
 
@@ -568,7 +576,7 @@ export default {
 }
 
 .submit-btn-header:hover:not(:disabled) {
-  background: var(--cui-primary-dark);
+  background: var(--cui-primary);
   transform: scale(1.1);
 }
 
