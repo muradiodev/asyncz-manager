@@ -50,10 +50,15 @@
               <template v-for="b in expertMap" :key="b.branch.id">
                 <li class="list-group-item list-group-item-dark">
                   <label :class="{ 'text-white': theme === 'dark' }">
-                    <input class="form-check-input  me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
-                           :checked="branchSelected[b.branch.id]"
-                           :indeterminate="branchSelected[b.branch.id]===null"
-                           aria-label="...">
+                    <input
+                      class="expert-colored-checkbox me-2"
+                      type="checkbox"
+                      @change="branchClicked(b.branch.id, $event)"
+                      :checked="branchSelected[b.branch.id]"
+                      :indeterminate="branchSelected[b.branch.id] === null"
+                      aria-label="..."
+                      :style="{'--expert-color': b.experts[0]?.color || '#387f94'}"
+                    />
                     <strong>{{ b.branch.name }}</strong>
                   </label>
                 </li>
