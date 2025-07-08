@@ -4,6 +4,7 @@ import './assets/tailwind.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { useThemeStore } from './stores/theme.js'
 
 
 import dayjs from 'dayjs'
@@ -34,7 +35,8 @@ import {
   faCalendar,
   faUsers, faBuilding, faListCheck, faFileText, faUser, faBan,
   faMicrophone, faStop, faArrowUp, faSync, faExclamationTriangle,
-  faCalendarCheck, faQuoteLeft, faXmark, faCheckCircle, faSave
+  faCalendarCheck, faQuoteLeft, faXmark, faCheckCircle, faSave,
+  faBars, faMoon, faSun
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -46,7 +48,8 @@ library.add(
   faPlus, faCalendar, faUsers,
   faBuilding, faListCheck, faFileText, faUser, faBan,
   faMicrophone, faStop, faArrowUp, faSync, faExclamationTriangle,
-  faCalendarCheck, faQuoteLeft, faXmark, faCheckCircle, faSave
+  faCalendarCheck, faQuoteLeft, faXmark, faCheckCircle, faSave,
+  faBars, faMoon, faSun
 )
 
 import Popper from 'vue3-popper'
@@ -68,9 +71,10 @@ const i18n = createI18n({
 })
 
 
+const pinia = createPinia()
 const app = createApp(App)
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(VueSweetAlert)
 app.use(Vue3Toastify, {
@@ -84,6 +88,9 @@ app.use(VResizable)
 // Tailwind CSS is used for styling
 
 app.use(i18n)
+
+const themeStore = useThemeStore(pinia)
+themeStore.init()
 
 app.component('PopperWidget', Popper)
 app.component('fa-icon', FontAwesomeIcon)

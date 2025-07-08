@@ -1,10 +1,12 @@
 <script setup>
 import { ref, nextTick } from 'vue'
 import { useSidebarStore } from '@/stores/sidebar.js'
+import { useThemeStore } from '@/stores/theme.js'
 import AppHeaderDropdownAccnt from '@/components/layout/AppHeaderDropdownAccnt.vue'
 import AiSchedulerView from '@/views/AiSchedulerView.vue'
 
 const sidebar = useSidebarStore()
+const themeStore = useThemeStore()
 const isSearchExpanded = ref(false)
 const searchInput = ref(null)
 const searchQuery = ref('')
@@ -18,10 +20,14 @@ const collapseSearch = () => {
   isSearchExpanded.value = false
   searchQuery.value = ''
 }
+
+const toggleTheme = () => {
+  themeStore.toggleTheme(themeStore.theme === 'dark' ? 'light' : 'dark')
+}
 </script>
 
 <template>
-  <header class="bg-white shadow sticky top-0 z-50">
+  <header class="bg-background text-foreground shadow sticky top-0 z-50">
     <div class="flex items-center border-b px-4 py-2">
       <button class="p-2" @click="sidebar.toggleVisible()">
         <fa-icon icon="bars" />
@@ -47,6 +53,9 @@ const collapseSearch = () => {
           >
           <button type="button" class="px-2" @click.stop="collapseSearch">×</button>
         </div>
+        <button type="button" class="p-2" @click="toggleTheme">
+          <fa-icon :icon="themeStore.theme === 'dark' ? 'sun' : 'moon'" />
+        </button>
         <AppHeaderDropdownAccnt />
       </div>
     </div>
