@@ -1,6 +1,5 @@
 <template>
 
-
   <CContainer class="px-4 mt-4" fluid>
     <div class="container-fluid">
 
@@ -50,7 +49,7 @@
             <ul class="list-group list-group-flush">
               <template v-for="b in expertMap" :key="b.branch.id">
                 <li class="list-group-item list-group-item-dark">
-                  <label>
+                  <label :class="{ 'text-white': theme === 'dark' }">
                     <input class="form-check-input  me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
                            :checked="branchSelected[b.branch.id]"
                            :indeterminate="branchSelected[b.branch.id]===null"
@@ -59,7 +58,7 @@
                   </label>
                 </li>
                 <li class="list-group-item ps-5" v-for="sh in b.experts" :key="sh.id">
-                  <label>
+                  <label :class="{ 'text-white': theme === 'dark' }">
                     <input
                       class="expert-colored-checkbox"
                       type="checkbox"
@@ -203,7 +202,6 @@
     </div>
   </CContainer>
 
-
   <ModalComponent
     title="New Appointment"
     v-if="newAppointmentIsOpen"
@@ -293,10 +291,6 @@
       </div>
     </form>
   </ModalComponent>
-
-
-
-
 
   <ModalComponent title="edit appointment" v-if="editingAppointment" @modalClose="editingAppointment = null">
     <form @submit.prevent="updateAppointment">
@@ -544,6 +538,7 @@ import {
   updateAppointment
 } from '@/repositories/AppointmentRepository.js'
 import SmallCalendar from '@/components/calendar/SmallCalendar.vue'
+import { useThemeStore } from '@/stores/theme.js'
 
 export default {
   name: 'CalendarView',
@@ -654,8 +649,11 @@ export default {
       }
     }
   },
-  computed: {
 
+  computed: {
+    theme() {
+      return useThemeStore().theme
+    },
     options() {
       return {
         dayStep: this.dayStep,
@@ -1354,6 +1352,7 @@ export default {
 }
 
 </script>
+
 <style scoped>
 .clean-form {
   display: flex;

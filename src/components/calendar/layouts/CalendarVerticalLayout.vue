@@ -77,12 +77,12 @@
       font-size: 1.3rem;             // ⬅️ Bigger font (adjust as needed)
       font-weight: 600;              // ⬅️ Bolder text
       padding: 0 16px;               // ⬅️ Side padding for wide days
-      background: #fff;              // ⬅️ Optional: white background
+      //background: #fff;              // ⬅️ Optional: white background
       transition: background 0.18s, color 0.18s;
     }
 
     &:nth-child(2n) .week-day {
-      background: rgba(0, 0, 0, 0.5);
+      background: #6b7785;
       color: #fff;
     }
   }
