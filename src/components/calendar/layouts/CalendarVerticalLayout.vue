@@ -5,8 +5,9 @@
            v-for="(day, column) in dayList"
            :key="day.format('YYYY-MM-DD')">
         <div class="text-center week-day" @click.prevent="$emit('dayClicked',day)">
-          {{ day.format('DD MMM, ddd') }}
+          {{ day.format('DD ddd') }}
         </div>
+
         <div class="position-relative w-100 d-flex doctor-name-list">
 
           <div v-for="sc in schedules" :key="sc.expert.id"
@@ -16,7 +17,7 @@
                data-bs-html="true"
                class="text-center"
                :style="{'background':sc.expert.color, width: expertNameWidth+'px'}">
-            {{ sc.expert.name}}
+<!--            {{ sc.expert.name}}-->
           </div>
 
         </div>
@@ -53,6 +54,88 @@
 
   </div>
 </template>
+
+
+<style scoped lang="scss">
+
+.calendar-vertical-view {
+  position: relative;
+  border: 1px solid #ccc;
+
+  .day-wrapper {
+    .week-day {
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      // NEW: Make it bigger & centered
+      height: 74px;                  // ⬅️ Make it tall (adjust as needed)
+      display: flex;                 // ⬅️ Enable flex centering
+      align-items: center;           // ⬅️ Vertical center
+      justify-content: center;       // ⬅️ Horizontal center
+      font-size: 1.3rem;             // ⬅️ Bigger font (adjust as needed)
+      font-weight: 600;              // ⬅️ Bolder text
+      padding: 0 16px;               // ⬅️ Side padding for wide days
+      background: #fff;              // ⬅️ Optional: white background
+      transition: background 0.18s, color 0.18s;
+    }
+
+    &:nth-child(2n) .week-day {
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+  }
+
+  .calendar-vertical-view-date-row {
+    height: 80px; /* Match .week-day height! */
+    border-bottom: 1px solid #ccc;
+
+    .doctor-name-list {
+      height: 100%;
+      overflow: hidden;
+      font-size: 12px;
+      cursor: pointer;
+
+      div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 3px;
+      }
+    }
+  }
+
+  .calendar-content {
+    position: absolute;
+    top: 80px; /* Match header row height! */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+
+    .hour-list {
+      width: 50px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    .day-list {
+      position: absolute;
+      top: 0;
+      left: 50px;
+      bottom: 0;
+      right: 0;
+      overflow: hidden;
+    }
+  }
+}
+
+</style>
+
 <script>
 import CalendarColumn from "@/components/calendar/layouts/CalendarColumn.vue";
 import VerticalHourGrid from "@/components/calendar/layouts/VerticalHourGrid.vue";
@@ -148,74 +231,3 @@ export default {
   emits: ['hourSlotClicked', 'hourSlotDropped','dayClicked','eventClicked','appResized']
 }
 </script>
-
-<style scoped lang="scss">
-
-.calendar-vertical-view {
-  position: relative;
-  border: 1px solid #ccc;
-.day-wrapper {
-  .week-day {
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-
-  }
-
-  &:nth-child(2n)  .week-day{
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-  }
-}
-
-  .calendar-vertical-view-date-row {
-    height: 50px;
-    border-bottom: 1px solid #ccc;
-
-    .doctor-name-list{
-      height: 100%;
-      overflow: hidden;
-      font-size: 12px;
-      cursor: pointer;
-      //truncate
-      div {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding: 3px;
-      }
-    }
-  }
-
-
-  .calendar-content {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-
-    .hour-list {
-      width: 50px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      overflow: hidden;
-    }
-
-    .day-list {
-      position: absolute;
-      top: 0;
-      left: 50px;
-      bottom: 0;
-      right: 0;
-      overflow: hidden;
-    }
-  }
-}
-
-</style>

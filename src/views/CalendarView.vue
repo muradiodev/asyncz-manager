@@ -51,7 +51,7 @@
               <template v-for="b in expertMap" :key="b.branch.id">
                 <li class="list-group-item list-group-item-dark">
                   <label>
-                    <input class="form-check-input me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
+                    <input class="form-check-input  me-2" type="checkbox" @change="branchClicked(b.branch.id,$event)"
                            :checked="branchSelected[b.branch.id]"
                            :indeterminate="branchSelected[b.branch.id]===null"
                            aria-label="...">
@@ -60,8 +60,14 @@
                 </li>
                 <li class="list-group-item ps-5" v-for="sh in b.experts" :key="sh.id">
                   <label>
-                    <input class="form-check-input me-1" type="checkbox" :value="sh.id" v-model="selectedSchedules"
-                           aria-label="...">
+                    <input
+                      class="expert-colored-checkbox"
+                      type="checkbox"
+                      :value="sh.id"
+                      v-model="selectedSchedules"
+                      aria-label="..."
+                      :style="{'--expert-color': sh.color}"
+                    />
                     {{ sh.name }}
                   </label>
                 </li>
@@ -765,7 +771,7 @@ export default {
 
     expertList() {
       return this.schedules.map(s => {
-        return { id: s.expert.id, name: s.expert.name, branch: s.expert.branch }
+        return { id: s.expert.id, name: s.expert.name, branch: s.expert.branch, color: s.expert.color }
       })
     },
 
@@ -1147,7 +1153,7 @@ export default {
         '<title>Print</title>' +
         '</head>' +
         '<body>' +
-        '<div style="font-family: Arial; font-size: 12px;">' +
+        '<div style="font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; font-size: 12px;">' +
         '<h3>Appointment details</h3>' +
         '<p><strong>Expert:</strong> ' + appointment.expert.fullName + '</p>' +
         '<p><strong>Procedure:</strong> ' + appointment.procedure.name + '</p>' +
@@ -1387,7 +1393,6 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 
@@ -1399,7 +1404,6 @@ textarea {
 
 .checkbox-wrapper input[type="checkbox"] {
   cursor: pointer;
-  accent-color: #007bff;
 }
 
 /* Alternative custom checkbox styling if needed */
@@ -1412,10 +1416,6 @@ textarea {
   background: white;
 }
 
-.checkbox-wrapper input[type="checkbox"]:checked {
-  background: #007bff;
-  border-color: #007bff;
-}
 
 .checkbox-wrapper input[type="checkbox"]:checked::after {
   content: '✓';
@@ -1483,4 +1483,37 @@ textarea {
     width: 100%;
   }
 }
+.expert-colored-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--expert-color, #387f94);
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.18s, border-color 0.18s;
+  vertical-align: middle;
+}
+
+/* Checked State: show background */
+.expert-colored-checkbox:checked {
+  background: var(--expert-color, #387f94);
+  border-color: var(--expert-color, #387f94);
+}
+
+/* The checkmark (pure CSS) */
+.expert-colored-checkbox:checked::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
 </style>
