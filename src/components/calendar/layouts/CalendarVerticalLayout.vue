@@ -1,11 +1,22 @@
 <template>
   <div class="calendar-vertical-view" :style="layoutStyle">
     <div class="calendar-vertical-view-date-row">
-      <div class="position-absolute day-wrapper" :style="{width: columnWidth+'px', left: ((columnWidth * column) +50)+'px' }"
-           v-for="(day, column) in dayList"
-           :key="day.format('YYYY-MM-DD')">
+      <div
+        class="position-absolute day-wrapper"
+        :class="{ 'today-column': day.isSame($dayjs(), 'day') }"
+        :style="{ width: columnWidth + 'px', left: ((columnWidth * column) + 50) + 'px' }"
+        v-for="(day, column) in dayList"
+        :key="day.format('YYYY-MM-DD')"
+      >
         <div class="text-center week-day" @click.prevent="$emit('dayClicked',day)">
-          {{ day.format('DD ddd') }}
+          <div class="day-name">{{ day.format('ddd') }}</div>
+          <div>
+            <span
+              :class="{ 'day-number-circle': day.isSame($dayjs(), 'day') }"
+            >
+              {{ day.format('DD') }}
+            </span>
+          </div>
         </div>
 
         <div class="position-relative w-100 d-flex doctor-name-list">
@@ -16,14 +27,15 @@
                data-bs-placement="top"
                data-bs-html="true"
                class="text-center"
-               :style="{'background':sc.expert.color, width: expertNameWidth+'px'}">
+               :style="{'background':sc.expert.color, width: expertNameWidth+'px', height: expertNameHeight+'px'}">
 <!--            {{ sc.expert.name}}-->
           </div>
 
         </div>
       </div>
     </div>
-    <div class="calendar-content">
+    <div class="calendar-content"
+         :style="{marginTop: expertNameHeight+'px'}">
       <div class="hour-list">
         <VerticalHourGrid
             :day="currentDate"
@@ -54,7 +66,6 @@
 
   </div>
 </template>
-
 
 <style scoped lang="scss">
 
@@ -89,7 +100,7 @@
 
   .calendar-vertical-view-date-row {
     height: 80px; /* Match .week-day height! */
-    border-bottom: 1px solid #ccc;
+    //border-bottom: 1px solid #ccc;
 
     .doctor-name-list {
       height: 100%;
@@ -101,7 +112,9 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding: 3px;
+        margin: 1px;
+        border-radius: 5px;
+        //padding: 3px;
       }
     }
   }
@@ -132,6 +145,40 @@
       overflow: hidden;
     }
   }
+}
+
+.today-column {
+  .week-day {
+    color: #ff6666 !important;
+  }
+}
+
+.week-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 74px;
+  padding: 4px 0;
+}
+
+.day-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.day-number-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ff6666;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 4px;
 }
 
 </style>
@@ -195,6 +242,9 @@ export default {
     },
     expertNameWidth() {
       return (this.columnWidth) / this.schedules.length;
+    },
+    expertNameHeight() {
+      return this.expertNameWidth / 5;
     },
     pixelPerMinute() {
       let dayStart = this.$dayjs(this.options.dayStartHour, "HH:mm");
