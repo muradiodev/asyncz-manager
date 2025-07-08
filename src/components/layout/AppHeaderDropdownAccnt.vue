@@ -1,13 +1,9 @@
 <script>
 import avatar from '@/assets/images/avatar.jpg'
-
 export default {
   data() {
-    return {
-      avatar: avatar,
-    }
+    return { avatar }
   },
-
   methods: {
     logout() {
       this.$swal({
@@ -19,52 +15,23 @@ export default {
         cancelButtonText: 'No'
       }).then((result) => {
         if (!result.isConfirmed) return
-
         localStorage.removeItem('token')
         window.location.reload()
       })
-    },
-  },
+    }
+  }
 }
 </script>
 
 <template>
-  <CDropdown placement="bottom-end" variant="nav-item">
-    <CDropdownToggle class="py-0 pe-0" :caret="false">
-      <CAvatar :src="avatar" size="md" shape="rounded-circle" />
-    </CDropdownToggle>
-    <CDropdownMenu class="pt-0">
-      <CDropdownHeader
-        component="h6"
-        class="bg-body-secondary text-body-secondary fw-semibold mb-2 rounded-top"
-      >
-        Account
-      </CDropdownHeader>
-      <CDropdownItem @click="$router.push({name:'profile'})" class="clickable-item">
-        <CIcon icon="cil-user" />
-        Profile
-      </CDropdownItem>
-
-      <CDropdownItem @click="logout" class="clickable-item">
-        <CIcon icon="cil-lock-locked" />
-        Logout
-      </CDropdownItem>
-    </CDropdownMenu>
-  </CDropdown>
+  <div class="relative" @mouseleave="open = false" v-slot="{ open }">
+    <button @mouseover="open = true" class="flex items-center focus:outline-none">
+      <img :src="avatar" alt="avatar" class="h-8 w-8 rounded-full" />
+    </button>
+    <div v-if="open" class="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-50">
+      <div class="px-4 py-2 text-gray-500 font-semibold border-b">Account</div>
+      <button @click="$router.push({name:'profile'})" class="block w-full text-left px-4 py-2 hover:bg-gray-100">Profile</button>
+      <button @click="logout" class="block w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
+    </div>
+  </div>
 </template>
-
-<style scoped>
-.clickable-item {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  color: #6c757d;
-  text-decoration: none;
-}
-
-.clickable-item:hover {
-  color: #495057;
-}
-</style>

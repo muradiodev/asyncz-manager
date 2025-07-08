@@ -42,11 +42,11 @@ export default {
 <template>
 
 
-  <div>
+  <div class="flex">
     <AppSidebar />
-    <div class="wrapper d-flex flex-column min-vh-100">
+    <div class="flex flex-col min-h-screen flex-1">
       <AppHeader />
-      <div class="body flex-grow-1">
+      <div class="flex-1">
         <div v-if="ready">
           <router-view />
         </div>

@@ -1,18 +1,14 @@
 <template>
-  <CFooter class="px-4 py-3 bg-light border-top">
-    <div class="d-flex justify-content-between align-items-center w-100">
-      <div class="text-muted">
+  <footer class="bg-gray-100 border-t px-4 py-3">
+    <div class="flex justify-between items-center text-sm text-gray-600">
+      <div>
         <span>&copy; {{ new Date().getFullYear() }}</span>
-        <a href="https://asyncz.com" target="_blank" class="text-decoration-none text-primary ms-2 fw-medium">
-          asyncz
-        </a>
+        <a href="https://asyncz.com" target="_blank" class="text-blue-600 ml-2 font-medium">asyncz</a>
       </div>
-      <div class="text-muted small">
+      <div>
         Made with ❤️ by
-        <a href="https://deviofy.com" target="_blank" class="text-decoration-none text-primary fw-medium">
-          Deviofy
-        </a>
+        <a href="https://deviofy.com" target="_blank" class="text-blue-600 font-medium">Deviofy</a>
       </div>
     </div>
-  </CFooter>
+  </footer>
 </template>

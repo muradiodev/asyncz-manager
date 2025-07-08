@@ -23,7 +23,7 @@
               :disabled="isProcessing"
               :title="isRecording ? 'Stop recording' : 'Voice input'"
             >
-              <CIcon :icon="isRecording ? icons.cilMediaStop : icons.cilMicrophone" size="sm" />
+              <fa-icon :icon="isRecording ? ['fas','stop'] : ['fas','microphone']" class="w-3 h-3" />
             </button>
 
             <button
@@ -33,7 +33,7 @@
               :disabled="isRecording || isProcessing || !messageInput.trim()"
               title="Submit"
             >
-              <CIcon icon="cil-arrow-top" size="sm" />
+              <fa-icon icon="arrow-up" class="w-3 h-3" />
             </button>
           </div>
         </div>
@@ -45,7 +45,7 @@
         </div>
 
         <div v-if="isProcessing" class="status-indicator processing-status">
-          <CIcon icon="cil-sync" size="sm" class="spinning" />
+          <fa-icon icon="sync" class="w-3 h-3 animate-spin" />
           <span>Processing...</span>
         </div>
       </div>
@@ -56,7 +56,7 @@
 
     <!-- Error Toast (Compact) -->
     <div v-if="errorMessage" class="error-toast-header">
-      <CIcon icon="cil-warning" size="sm" />
+      <fa-icon icon="exclamation-triangle" class="w-3 h-3" />
       <span>{{ errorMessage }}</span>
       <button @click="errorMessage = ''" class="btn-close-toast">×</button>
     </div>
@@ -67,7 +67,7 @@
         <div class="modal-content modern-modal">
           <div class="modal-header modern-header">
             <h5 class="modal-title">
-              <CIcon icon="cil-calendar-check" size="lg" class="text-white me-2" />
+              <fa-icon icon="calendar-check" class="w-5 h-5 text-white mr-2" />
               Confirm Appointment
             </h5>
             <button
@@ -168,7 +168,7 @@
             <!-- Original Input Display -->
             <div v-if="originalText" class="original-input-display">
               <div class="original-input-header">
-                <CIcon icon="cil-quote-alt-left" size="sm" />
+                <fa-icon icon="quote-left" class="w-3 h-3" />
                 <span>Original Input</span>
               </div>
               <p class="original-input-text">{{ originalText }}</p>
@@ -176,7 +176,7 @@
           </div>
           <div class="modal-footer modern-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              <CIcon icon="cil-x" size="sm" class="me-1" />
+              <fa-icon icon="xmark" class="w-3 h-3 mr-1" />
               Cancel
             </button>
             <button
@@ -185,10 +185,10 @@
               class="btn btn-primary modern-btn"
               :disabled="isSaving"
             >
-              <CIcon
-                :icon="isSaving ? 'cil-sync' : 'cil-save'"
-                size="sm"
-                :class="[isSaving ? 'spinning' : '', 'me-1']"
+              <fa-icon
+                :icon="isSaving ? 'sync' : 'save'"
+                class="w-3 h-3 mr-1"
+                :class="{ 'animate-spin': isSaving }"
               />
               {{ isSaving ? 'Saving...' : 'Save Appointment' }}
             </button>
@@ -203,7 +203,7 @@
         <div class="modal-content modern-modal">
           <div class="modal-header modern-header bg-success text-white">
             <h5 class="modal-title">
-              <CIcon icon="cil-check-circle" size="lg" class="me-2" />
+              <fa-icon icon="check-circle" class="w-5 h-5 mr-2" />
               Success!
             </h5>
             <button
@@ -215,14 +215,14 @@
           <div class="modal-body modern-body">
             <div class="success-content">
               <div class="success-icon">
-                <CIcon icon="cil-check-circle" size="xl" />
+                <fa-icon icon="check-circle" class="w-6 h-6" />
               </div>
               <p class="success-message">{{ successMessage }}</p>
             </div>
           </div>
           <div class="modal-footer modern-footer">
             <button type="button" class="btn btn-success modern-btn" data-bs-dismiss="modal">
-              <CIcon icon="cil-check" size="sm" class="me-1" />
+              <fa-icon icon="check" class="w-3 h-3 mr-1" />
               OK
             </button>
           </div>
@@ -234,7 +234,6 @@
 
 <script>
 import { Modal } from 'bootstrap'
-import { cilMicrophone, cilMediaStop } from '@coreui/icons'
 
 export default {
   name: 'AiSchedulerView',
@@ -270,10 +269,6 @@ export default {
         color: '#007bff',
         created_by: 'voice_system'
       },
-      icons: {
-        cilMicrophone,
-        cilMediaStop
-      }
     }
   },
 

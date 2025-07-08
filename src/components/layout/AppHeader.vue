@@ -1,261 +1,61 @@
 <script setup>
-import { onMounted, ref, watch, nextTick, onUnmounted } from 'vue'
-import { useColorModes } from '@coreui/vue'
-
-import AppHeaderDropdownAccnt from '@/components/layout/AppHeaderDropdownAccnt.vue'
+import { ref, nextTick } from 'vue'
 import { useSidebarStore } from '@/stores/sidebar.js'
-import AiSchedulerView from '@/views/AiSchedulerView.vue' // Add this import
-
-import {useThemeStore} from '@/stores/theme.js'
-const headerClassNames = ref('mb-0 p-0')
-const { colorMode, setColorMode } = useColorModes('coreui-free-vue-admin-template-theme')
+import AppHeaderDropdownAccnt from '@/components/layout/AppHeaderDropdownAccnt.vue'
+import AiSchedulerView from '@/views/AiSchedulerView.vue'
 
 const sidebar = useSidebarStore()
-const themeStore = useThemeStore();
-
-
-// Search functionality - explicitly set to false
 const isSearchExpanded = ref(false)
 const searchInput = ref(null)
 const searchQuery = ref('')
 
 const expandSearch = () => {
-  console.log('expandSearch called')
   isSearchExpanded.value = true
-  nextTick(() => {
-    if (searchInput.value) {
-      searchInput.value.focus()
-    }
-  })
+  nextTick(() => searchInput.value && searchInput.value.focus())
 }
 
 const collapseSearch = () => {
-  console.log('collapseSearch called')
   isSearchExpanded.value = false
   searchQuery.value = ''
 }
-
-const handleClickOutside = (event) => {
-  const searchContainer = event.target.closest('.search-container')
-  if (!searchContainer && isSearchExpanded.value) {
-    collapseSearch()
-  }
-}
-
-onMounted(() => {
-  // Force initial state
-  isSearchExpanded.value = false
-
-  let theme = localStorage.getItem('colorMode')
-  if (theme) {
-    setColorMode(theme)
-    themeStore.toggleTheme(theme);
-  } else {
-    setColorMode('auto')
-    themeStore.toggleTheme('auto');
-  }
-
-  let sidebarUnfoldable = localStorage.getItem('sidebar-unfoldable')
-  if (sidebarUnfoldable) {
-    sidebar.unfoldable = sidebarUnfoldable === 'true'
-  } else {
-    sidebar.unfoldable = true
-  }
-
-  document.addEventListener('scroll', () => {
-    if (document.documentElement.scrollTop > 0) {
-      headerClassNames.value = 'mb-0 p-0 shadow-sm'
-    } else {
-      headerClassNames.value = 'mb-0 p-0'
-    }
-  })
-
-  document.addEventListener('click', handleClickOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
-
-watch(colorMode, (newValue) => {
-  console.log ('Color mode changed:', newValue);
-  if (newValue === 'auto') {
-    // Automatically set to dark or light based on system preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    newValue = prefersDark ? 'dark' : 'light';
-  }
-  localStorage.setItem('colorMode', newValue)
-  themeStore.toggleTheme(newValue);
-})
-
 </script>
 
 <template>
-  <CHeader position="sticky" :class="headerClassNames">
-    <CContainer class="border-bottom px-4" fluid>
-      <CHeaderToggler @click="sidebar.toggleVisible()" style="margin-inline-start: -14px">
-        <CIcon icon="cil-menu" size="lg" />
-      </CHeaderToggler>
-
-      <div class="d-flex flex-grow-1 justify-content-center">
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="flex items-center border-b px-4 py-2">
+      <button class="p-2" @click="sidebar.toggleVisible()">
+        <fa-icon icon="bars" />
+      </button>
+      <div class="flex flex-1 justify-center">
         <div class="ai-scheduler-wrapper">
           <AiSchedulerView />
         </div>
       </div>
-
-      <CHeaderNav>
-        <!-- Search functionality moved here -->
-        <div class="position-relative search-container d-none d-sm-flex">
-          <!-- Collapsed search - just icon -->
-          <button
-            v-if="!isSearchExpanded"
-            type="button"
-            class="btn btn-link p-2"
-            @click.stop="expandSearch"
-            style="border: none; background: none;"
-          >
-            <CIcon icon="cil-magnifying-glass" size="lg" />
+      <div class="flex items-center space-x-2">
+        <div class="relative" v-if="!isSearchExpanded">
+          <button type="button" class="p-2" @click.stop="expandSearch">
+            <fa-icon icon="search" />
           </button>
-
-          <!-- Expanded search form -->
-          <div v-if="isSearchExpanded" class="d-flex">
-            <div class="input-group">
-              <span class="input-group-text bg-body-secondary border-0 ps-3" id="search-addon">
-                <CIcon icon="cil-magnifying-glass" size="lg" />
-              </span>
-              <input
-                ref="searchInput"
-                v-model="searchQuery"
-                placeholder="Search..."
-                aria-label="Search"
-                aria-describedby="search-addon"
-                class="form-control bg-body-secondary border-0"
-                type="search"
-                style="min-width: 250px;"
-              >
-              <button
-                type="button"
-                class="btn btn-outline-secondary border-0 px-3"
-                @click.stop="collapseSearch"
-              >
-                ×
-              </button>
-            </div>
-          </div>
         </div>
-
-        <CDropdown variant="nav-item" placement="bottom-end">
-          <CDropdownToggle :caret="false">
-            <CIcon v-if="colorMode === 'dark'" icon="cil-moon" size="lg" />
-            <CIcon v-else-if="colorMode === 'light'" icon="cil-sun" size="lg" />
-            <CIcon v-else icon="cil-contrast" size="lg" />
-          </CDropdownToggle>
-          <CDropdownMenu>
-            <CDropdownItem
-              :active="colorMode === 'light'"
-              class="d-flex align-items-center"
-              component="button"
-              type="button"
-              @click="setColorMode('light')"
-            >
-              <CIcon class="me-2" icon="cil-sun" size="lg" />
-              Light
-            </CDropdownItem>
-            <CDropdownItem
-              :active="colorMode === 'dark'"
-              class="d-flex align-items-center"
-              component="button"
-              type="button"
-              @click="setColorMode('dark')"
-            >
-              <CIcon class="me-2" icon="cil-moon" size="lg" />
-              Dark
-            </CDropdownItem>
-            <CDropdownItem
-              :active="colorMode === 'auto'"
-              class="d-flex align-items-center"
-              component="button"
-              type="button"
-              @click="setColorMode('auto')"
-            >
-              <CIcon class="me-2" icon="cil-contrast" size="lg" />
-              Auto
-            </CDropdownItem>
-          </CDropdownMenu>
-        </CDropdown>
-        <li class="nav-item py-1">
-          <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-        </li>
+        <div v-else class="flex items-center space-x-2">
+          <input
+            ref="searchInput"
+            v-model="searchQuery"
+            placeholder="Search..."
+            class="border rounded px-2 h-8"
+            type="search"
+          >
+          <button type="button" class="px-2" @click.stop="collapseSearch">×</button>
+        </div>
         <AppHeaderDropdownAccnt />
-      </CHeaderNav>
-    </CContainer>
-  </CHeader>
+      </div>
+    </div>
+  </header>
 </template>
 
 <style scoped>
-.btn-link:hover {
-  background-color: var(--cui-gray-100) !important;
-  border-radius: 0.375rem;
-}
-
 .ai-scheduler-wrapper {
   max-width: 500px;
   width: 100%;
-}
-
-/* Override the AiSchedulerView styles for header integration */
-.ai-scheduler-wrapper :deep(#app) {
-  background: none;
-  min-height: auto;
-  padding: 0;
-  margin: 0;
-}
-
-.ai-scheduler-wrapper :deep(.container-fluid) {
-  padding: 0;
-  margin: 0;
-}
-
-.ai-scheduler-wrapper :deep(.scheduler-container) {
-  background: none;
-  border-radius: 0;
-  padding: 10px;
-  margin: 0;
-  box-shadow: none;
-}
-
-.ai-scheduler-wrapper :deep(.voice-section) {
-  background: rgba(248, 249, 250, 0.1);
-  border-radius: 25px;
-  padding: 8px;
-  margin: 0;
-}
-
-.ai-scheduler-wrapper :deep(h1) {
-  display: none; /* Hide the title in header */
-}
-
-.ai-scheduler-wrapper :deep(.input-group .form-control) {
-  height: 35px;
-  font-size: 0.875rem;
-}
-
-.ai-scheduler-wrapper :deep(.voice-btn) {
-  height: 35px;
-  padding: 0 12px;
-}
-
-.ai-scheduler-wrapper :deep(.submit-btn) {
-  width: 35px;
-}
-
-@media (max-width: 768px) {
-  .ai-scheduler-wrapper {
-    max-width: 300px;
-  }
-
-  .ai-scheduler-wrapper :deep(.form-control) {
-    font-size: 0.8rem;
-  }
 }
 </style>

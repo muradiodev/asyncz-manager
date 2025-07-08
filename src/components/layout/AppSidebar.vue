@@ -1,33 +1,42 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-
-import { AppSidebarNav } from '@/components/layout/AppSidebarNav.js'
 import { useSidebarStore } from '@/stores/sidebar.js'
 
 const sidebar = useSidebarStore()
+
+const navItems = [
+  { name: 'Dashboard', to: '/dashboard' },
+  { name: 'Calendar', to: '/dashboard/calendar' },
+  { name: 'Branches', to: '/dashboard/branches' },
+  { name: 'Experts', to: '/dashboard/experts' },
+  { name: 'Users', to: '/dashboard/users' },
+  { name: 'Procedures', to: '/dashboard/procedures' },
+  { name: 'Blacklist', to: '/dashboard/blacklist' },
+  { name: 'Subscription', to: '/dashboard/subscription' }
+]
 </script>
 
 <template>
-  <CSidebar
-    class="border-end"
-    colorScheme="dark"
-    position="fixed"
-    :unfoldable="sidebar.unfoldable"
-    :visible="sidebar.visible"
-    @visible-change="(value) => sidebar.toggleVisible(value)"
+  <aside
+    class="bg-gray-800 text-gray-100 w-64 h-screen fixed inset-y-0 z-40 transform transition-transform"
+    :class="{ '-translate-x-full': !sidebar.visible }"
   >
-    <CSidebarHeader class="border-bottom">
-      <RouterLink custom to="/" v-slot="{ href, navigate }">
-        <CSidebarBrand v-bind="$attrs" as="a" :href="href" @click="navigate">
-          <img src="@/assets/images/logo.png" class="sidebar-brand-full" :height="32">
-          <img src="@/assets/images/logo-icon.png" class="sidebar-brand-narrow" :height="32">
-        </CSidebarBrand>
+    <div class="flex items-center justify-between p-4 border-b border-gray-700">
+      <RouterLink to="/">
+        <img src="@/assets/images/logo.png" class="h-8" alt="logo" />
       </RouterLink>
-      <CCloseButton class="d-lg-none" dark @click="sidebar.toggleVisible()" />
-    </CSidebarHeader>
-    <AppSidebarNav />
-    <CSidebarFooter class="border-top d-none d-lg-flex">
-      <CSidebarToggler @click="sidebar.toggleUnfoldable()" />
-    </CSidebarFooter>
-  </CSidebar>
+      <button class="lg:hidden" @click="sidebar.toggleVisible()">✕</button>
+    </div>
+    <nav class="p-4 space-y-2">
+      <RouterLink
+        v-for="item in navItems"
+        :key="item.to"
+        :to="item.to"
+        class="block px-2 py-1 rounded hover:bg-gray-700"
+        @click="sidebar.toggleVisible(false)"
+      >
+        {{ item.name }}
+      </RouterLink>
+    </nav>
+  </aside>
 </template>
