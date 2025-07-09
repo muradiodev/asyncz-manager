@@ -9,9 +9,9 @@
           <div class="mb-3">
 
             <div class="dropdown">
-              <button class="btn-dropdown-custom btn-large-custom dropdown-toggle" type="button" id="dropdownMenuButton1"
+              <button class="btn-dropdown-custom btn-medium-custom dropdown-toggle" type="button" id="dropdownMenuButton1"
                       data-bs-toggle="dropdown" aria-expanded="false">
-                Create new
+                New
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">Appointment</a></li>
