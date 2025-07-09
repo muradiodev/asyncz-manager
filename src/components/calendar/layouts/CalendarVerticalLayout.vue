@@ -27,7 +27,7 @@
                data-bs-placement="top"
                data-bs-html="true"
                class="text-center"
-               :style="{'background':sc.expert.color, width: expertNameWidth+'px', height: expertNameHeight+'px'}">
+               :style="{'background':sc.expert.color, width: expertNameWidth+'px', height: '5px'}">
 <!--            {{ sc.expert.name}}-->
           </div>
 
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="calendar-content"
-         :style="{marginTop: expertNameHeight+'px'}">
+         :style="{marginTop: '5px'}">
       <div class="hour-list">
         <VerticalHourGrid
             :day="currentDate"
