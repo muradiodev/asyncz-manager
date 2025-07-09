@@ -13,7 +13,7 @@
 
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Blacklist </span>
-          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true" v-if="enabled" >
+          <button class="btn-primary-custom ms-4" @click="addNewItem = true" v-if="enabled" >
             + Add new
           </button>
         </div>
@@ -34,7 +34,7 @@
                  :data='data'>
 
         <template #column-action="props">
-          <button type="button" class="btn btn-sm btn-danger" @click="deleteBlacklist(props)" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 4px 8px; border-radius: 4px;">Delete</button>
+          <button type="button" class="btn-danger-custom" @click="deleteBlacklist(props)" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 4px 8px; border-radius: 4px;">Delete</button>
         </template>
 
 
@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn btn-success">Create</button>
+          <button class="btn-primary-custom">Create</button>
         </div>
       </div>
     </form>

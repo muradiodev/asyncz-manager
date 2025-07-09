@@ -39,8 +39,8 @@
       </table>
     </div>
     <div class="card-footer">
-      <button class="btn btn-success" @click="saveChanges">Save</button>
-      <button class="btn btn-outline-dark ms-3" @click="getExpertSchedules">Reset changes</button>
+      <button class="btn-success-custom" @click="saveChanges">Save</button>
+      <button class="btn-outline-danger-custom ms-3" @click="getExpertSchedules">Reset changes</button>
     </div>
 
   </div>

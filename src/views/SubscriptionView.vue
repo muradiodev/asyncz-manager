@@ -123,7 +123,7 @@
 
           <div class="card-footer">
             <div>
-              <button type="button" class="btn btn-outline-danger" @click.prevent="cancelSubscription">
+              <button type="button" class="btn-outline-danger-custom btn-full-width-custom" @click.prevent="cancelSubscription">
                 <fa-icon icon="times" fixed-width />
                 Cancel subscription
               </button>
@@ -151,11 +151,11 @@
           <div class="text-center mb-4">
             <div class="btn-group">
               <button class="btn"
-                      :class="{'btn-primary': period === 'monthly', 'btn-outline-primary': period!=='monthly'}"
+                      :class="{'btn-primary-custom': period === 'monthly', 'btn-outline-primary-custom': period!=='monthly'}"
                       @click="period = 'monthly'">Monthly
               </button>
               <button class="btn"
-                      :class="{'btn-primary': period === 'yearly', ' btn-outline-primary': period!=='yearly'}"
+                      :class="{'btn-primary-custom': period === 'yearly', ' btn-outline-primary-custom': period!=='yearly'}"
                       @click="period = 'yearly'">Yearly
               </button>
             </div>
@@ -233,7 +233,7 @@
                     <span class="h4" v-if="pack.yearlyPrice>0">{{ pack.yearlyPrice }} AZN</span>
                     <span class="h4 text-success" v-else>FREE</span>
                   </div>
-                  <button class="btn btn-primary" @click="subscribeToPackage(pack.id)">Subscribe</button>
+                  <button class="btn-primary-custom" @click="subscribeToPackage(pack.id)">Subscribe</button>
                 </div>
                 <div class="text-success fw-bold text-end" v-if="pack.trialDays>0 && !company.trialUsed">
                   {{ pack.trialDays }} days trial available

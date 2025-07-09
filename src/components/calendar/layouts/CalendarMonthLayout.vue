@@ -135,22 +135,5 @@ export default {
 
 <style scoped lang="scss">
 
-.weekdays {
-  .weekday {
-    text-align: center;
-    border: 1px solid #ccc;
-    width: v-bind('columnWidthPx')
-  }
-}
-
-
-.calendar-month-week-view {
-  position: relative;
-
-  .day-box {
-    border: 1px solid #ccc;
-    overflow: hidden;
-  }
-}
 
 </style>

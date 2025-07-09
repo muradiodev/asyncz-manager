@@ -75,7 +75,7 @@
                   </div>
 
                   <div class="col-md-12">
-                    <button class="btn btn-success me-2">Save</button>
+                    <button class="btn-success-custom">Save</button>
                   </div>
 
 
@@ -108,7 +108,7 @@
                   </div>
 
                   <div class="col-md-12">
-                    <button class="btn btn-success me-2">Save</button>
+                    <button class="btn-success-custom">Save</button>
                   </div>
 
 
@@ -139,7 +139,7 @@
                         v-model="passwordNew"
                         required
                       />
-                      <button type="button" class="btn btn-outline-secondary"
+                      <button type="button" class="btn-outline-secondary-custom"
                               @click.prevent="showPassword=!showPassword">
                         <fa-icon :icon="['fas','eye-slash']" v-if="showPassword"></fa-icon>
                         <fa-icon :icon="['fas','eye']" v-else></fa-icon>
@@ -148,7 +148,7 @@
                   </div>
 
                   <div class="col-md-12">
-                    <button class="btn btn-success me-2">Save</button>
+                    <button class="btn-success-custom">Save</button>
                   </div>
 
 

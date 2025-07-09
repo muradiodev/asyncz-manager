@@ -163,26 +163,4 @@ export default {
 </script>
 <style>
 
-.event {
-  position: absolute;
-  background-color: red;
-  opacity: 0.8;
-  font-size: 10px;
-  overflow: hidden;
-  border-radius: 3px;
-  padding: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &.dark {
-    color: #fff;
-  }
-  &.isDragging{
-    text-indent: -9999px;
-  }
-}
 </style>

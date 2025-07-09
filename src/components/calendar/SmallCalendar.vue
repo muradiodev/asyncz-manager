@@ -132,10 +132,5 @@ export default {
 </script>
 
 <style scoped>
-
-.small-calendar :deep(.vc-container) {
-   background: transparent !important;
-}
-
 </style>
 

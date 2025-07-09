@@ -67,7 +67,7 @@
                 <strong>Status: </strong>
                 <StatusBadge :status="expert.status" />
               </p>
-              <button class="btn btn-sm btn-outline-dark"
+              <button class="btn-outline-custom"
                       v-if="!editing"
                       @click.prevent="editing = true">
                 edit
@@ -148,9 +148,9 @@
                   </div>
 
                   <div class="col-md-12">
-                    <button class="btn btn-success me-2">Save</button>
+                    <button class="btn-success-custom">Save</button>
 
-                    <button class="btn btn-outline-dark" @click.prevent="editing = false">Cancel</button>
+                    <button class="btn-outline-custom" @click.prevent="editing = false">Cancel</button>
                   </div>
 
 
@@ -230,7 +230,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn btn-success">Create</button>
+          <button class="btn-success-custom">Create</button>
         </div>
       </div>
     </form>

@@ -18,9 +18,4 @@
 </template>
 
 <style>
-
-.c-footer {
-  margin-top: 10px;
-}
-
 </style>

@@ -103,14 +103,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.calendar-column {
-  border: 1px solid #ccc;
-  position: absolute;
-
-  &.current-day {
-    background-color: rgba(#86C748, 0.2);
-  }
-}
-
 </style>

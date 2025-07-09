@@ -169,29 +169,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
-.searchResult {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 36px;
-  background-color: white;
-
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-
-  .searchResultItem {
-    padding: 10px 5px;
-    cursor: pointer;
-    line-height: 1.1;
-    border: 1px solid #ccc;
-
-    &:hover {
-      background-color: #f0f0f0;
-    }
-  }
-
-}
-
 </style>

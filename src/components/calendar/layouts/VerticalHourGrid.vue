@@ -92,35 +92,4 @@ export default {
 </script>
 
 <style scoped>
-.hour-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  .hour {
-    position: absolute;
-    left: 0;
-    right: 0;
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    .hour-time {
-      font-size: 12px;
-      color: #aaa;
-    }
-
-    &:hover {
-      background-color: #494d49;
-
-      .hour-time {
-        color: white;
-      }
-    }
-  }
-}
 </style>

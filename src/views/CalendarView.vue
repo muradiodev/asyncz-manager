@@ -9,7 +9,7 @@
           <div class="mb-3">
 
             <div class="dropdown">
-              <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+              <button class="btn-dropdown-custom btn-large-custom dropdown-toggle" type="button" id="dropdownMenuButton1"
                       data-bs-toggle="dropdown" aria-expanded="false">
                 Create new
               </button>
@@ -107,7 +107,7 @@
 
             <div class="col-md  col-6 order-3 order-md-3 text-end">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                <button class="btn-dropdown-custom btn-dropdown-outline-custom dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
                   {{ views[activeView].title }}
                 </button>
@@ -287,10 +287,10 @@
       </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-cancel" @click="newAppointmentIsOpen = false">
+        <button type="button" class="btn-cancel-custom" @click="newAppointmentIsOpen = false">
           Cancel
         </button>
-        <button type="submit" class="btn-create">
+        <button type="submit" class="btn-create-custom">
           Create Appointment
         </button>
       </div>
@@ -422,7 +422,7 @@
 
 
         <div class="col-md-12">
-          <button class="btn btn-success">Update</button>
+          <button class="btn-success-custom">Update</button>
         </div>
       </div>
     </form>
@@ -488,27 +488,27 @@
       </div>
       <div class="col-12">
         <div class="mt-3">
-          <button class="btn btn-sm btn-success me-2"
+          <button class="btn-success-custom me-2"
                   v-if="activeAppointment.status==='new'"
                   @click.prevent="confirmAppointment(activeAppointment)">
             <fa-icon :icon="['fas','check']"></fa-icon>
             Confirm
           </button>
-          <button class="btn btn-sm btn-danger me-2"
+          <button class="btn-danger-custom me-2"
                   v-if="activeAppointment.status==='confirmed'"
                   @click.prevent="cancelAppointment(activeAppointment)">
             <fa-icon :icon="['fas','times']"></fa-icon>
             Cancel
           </button>
-          <button class="btn btn-sm btn-primary me-2" @click.prevent="editAppointment(activeAppointment) ">
+          <button class="btn-primary-custom btn-size-small-custom me-2" @click.prevent="editAppointment(activeAppointment) ">
             <fa-icon :icon="['fas','pencil']"></fa-icon>
-            Update appointment
+            Edit
           </button>
-          <button class="btn btn-sm btn-outline-primary me-2" @click.prevent="copyAppointment(activeAppointment) ">
+          <button class="btn-outline-custom btn-outline-primary-custom me-2" @click.prevent="copyAppointment(activeAppointment) ">
             <fa-icon :icon="['fas','copy']"></fa-icon>
             Copy
           </button>
-          <button class="btn btn-sm btn-outline-dark" @click.prevent="printAppointment(activeAppointment) ">
+          <button class="btn-outline-custom btn-outline-dark-custom" @click.prevent="printAppointment(activeAppointment) ">
             <fa-icon :icon="['fas','print']"></fa-icon>
             Print
           </button>
@@ -1359,165 +1359,4 @@ export default {
 </script>
 
 <style scoped>
-.clean-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 4px;
-}
-
-.form-row {
-  display: flex;
-  gap: 16px;
-}
-
-.form-field {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-field.full-width {
-  width: 100%;
-}
-
-label {
-  font-weight: 500;
-  margin-bottom: 6px;
-  color: #333;
-  font-size: 14px;
-}
-
-input, select, textarea {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background: white;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
-}
-
-textarea {
-  min-height: 70px;
-  resize: vertical;
-  font-family: inherit;
-}
-
-.checkbox-wrapper input[type="checkbox"] {
-  cursor: pointer;
-}
-
-/* Alternative custom checkbox styling if needed */
-.checkbox-wrapper input[type="checkbox"] {
-  border: 2px solid #ccc;
-  border-radius: 3px;
-  margin: 0;
-  cursor: pointer;
-  position: relative;
-  background: white;
-}
-
-
-.checkbox-wrapper input[type="checkbox"]:checked::after {
-  content: '✓';
-  position: absolute;
-  top: -2px;
-  left: 2px;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.checkbox-wrapper input[type="checkbox"]:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 12px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-}
-
-.btn-cancel, .btn-create {
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1px solid;
-}
-
-.btn-cancel {
-  background: white;
-  color: #666;
-  border-color: #ddd;
-}
-
-.btn-cancel:hover {
-  background: #f8f9fa;
-}
-
-.btn-create {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
-}
-
-.btn-create:hover {
-  background: #0056b3;
-}
-
-@media (max-width: 768px) {
-  .form-row {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .form-actions {
-    flex-direction: column;
-  }
-
-  .btn-cancel, .btn-create {
-    width: 100%;
-  }
-}
-.expert-colored-checkbox {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--expert-color, #387f94);
-  border-radius: 4px;
-  background: #fff;
-  cursor: pointer;
-  position: relative;
-  transition: background 0.18s, border-color 0.18s;
-  vertical-align: middle;
-}
-
-/* Checked State: show background */
-.expert-colored-checkbox:checked {
-  background: var(--expert-color, #387f94);
-  border-color: var(--expert-color, #387f94);
-}
-
-/* The checkmark (pure CSS) */
-.expert-colored-checkbox:checked::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 5px;
-  top: 2px;
-  width: 6px;
-  height: 12px;
-  border: solid #fff;
-  border-width: 0 2.5px 2.5px 0;
-  transform: rotate(45deg);
-}
-
 </style>
