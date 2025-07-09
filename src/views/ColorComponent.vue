@@ -11,11 +11,4 @@ export default {
 </script>
 
 <style scoped>
-.block {
-  width: 30px;
-  height: 15px;
-  display: inline-block;
-  border: 1px solid #000;
-  border-radius: 5px;
-}
 </style>

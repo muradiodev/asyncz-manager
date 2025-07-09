@@ -54,17 +54,4 @@ export default {
 </template>
 
 <style scoped>
-.clickable-item {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  color: #6c757d;
-  text-decoration: none;
-}
-
-.clickable-item:hover {
-  color: #495057;
-}
 </style>

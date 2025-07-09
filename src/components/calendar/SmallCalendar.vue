@@ -1,26 +1,25 @@
 <template>
   <div class="small-calendar">
-  <VCalendar
-    ref="calendar"
-    expanded
-    borderless
-    :isDark="isDark"
-    @dayclick="calendarDayClick"
-    @did-move="monthChanged($event)"
-    :attributes="smallCalendarEvents"
-  />
+    <VCalendar
+      ref="calendar"
+      expanded
+      borderless
+      :isDark="isDark"
+      @dayclick="calendarDayClick"
+      @did-move="monthChanged($event)"
+      :attributes="calendarAttributes"
+    />
   </div>
 </template>
+
 <script>
 import { getSmallCalendar } from '@/repositories/GeneralDataRepository.js'
 import { mapState } from 'pinia'
 import { useAuthStore } from '@/stores/auth.js'
 import { useThemeStore } from '@/stores/theme.js'
 
-
 export default {
   name: 'SmallCalendar',
-
   props: {
     value: {
       type: Object,
@@ -33,7 +32,6 @@ export default {
       date: null,
     }
   },
-
   watch: {
     value(newVal) {
       this.moveToDate(newVal)
@@ -44,62 +42,58 @@ export default {
       }
     }
   },
-
   computed: {
-
-
     ...mapState(useAuthStore, ['token']),
     ...mapState(useThemeStore, ['theme']),
 
-    isDark(){
-      console.log(this.theme)
+    isDark() {
       return this.theme === 'dark'
     },
 
-    smallCalendarEvents() {
+    calendarAttributes() {
+      const list = []
 
-      let list = []
-
+      // Highlight event days (with bar or background)
       this.eventDays.forEach(ev => {
-
         list.push({
-          key: ev,
+          key: 'event-' + ev,
           bar: 'red',
           dates: ev,
           order: 1
         })
       })
 
-      return list
+      // Highlight today with a red circle outline
+      const today = this.$dayjs().format('YYYY-MM-DD')
+      list.push({
+        key: 'today',
+        dates: today,
+        highlight: {
+          color: 'red'
+        },
+        order: 99
+      })
 
+      return list
     }
   },
-
   methods: {
     calendarDayClick(day) {
       this.$emit('calendarDayClick', day)
     },
-
     monthChanged(ev) {
-      console.log('month changed start')
       let date = ev[0].id + '-01'
       if (this.date.format('YYYY-MM-01') !== date) {
-        console.log('month changed ' + date)
         this.date = this.$dayjs(date)
         this.getCalendar()
       }
     },
-
     moveToDate(date) {
-      console.log('move to date ' + date)
       if (date.format('YYYY-MM') !== this.date.format('YYYY-MM')) {
-        console.log('move in ' + date.format('YYYY-MM'))
-        //this.$refs.calendar.move(date)
-      } else {
-        console.log('month not changed ' + date)
+        // optionally, call calendar methods to move the displayed month
+        // this.$refs.calendar.move(date)
       }
     },
-
     getCalendar() {
       if (this.date) {
         getSmallCalendar(this.token, this.date.format('YYYY-MM-DD')).then((response) => {
@@ -123,19 +117,11 @@ export default {
     } else {
       this.date = this.$dayjs()
     }
-
-    this.getCalendar();
-
+    this.getCalendar()
   }
-
 }
 </script>
 
 <style scoped>
-
-.small-calendar :deep(.vc-container) {
-   background: transparent !important;
-}
-
+/* Optional: further style tweaks, but VCalendar handles most highlight */
 </style>
-

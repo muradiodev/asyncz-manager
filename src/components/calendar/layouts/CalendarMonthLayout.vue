@@ -1,44 +1,38 @@
 <template>
-
-  <div class="weekdays d-flex">
-    <div class="weekday">Sun</div>
-    <div class="weekday">Mon</div>
-    <div class="weekday">Tue</div>
-    <div class="weekday">Wed</div>
-    <div class="weekday">Thu</div>
-    <div class="weekday">Fri</div>
-    <div class="weekday">Sat</div>
-  </div>
-
-  <div class="calendar-month-week-view" :style="layoutStyle">
-    <div class="position-absolute day-box" :style="{
-        width: (columnWidth * monthStartWeekDay ) +'px',
-        left: '0px' ,
-        height: columnWidth+'px',
-        top:  '0px'
-      }">
-
+  <div class="calendar-month-wrapper">
+    <div class="calendar-month-header">
+      <div class="calendar-month-cell" v-for="(w, idx) in 7" :key="idx">
+        {{ ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][idx] }}
+      </div>
     </div>
-
-    <div class="position-absolute day-box" :style="{
-        width: columnWidth+'px',
-        left: (columnWidth * ((column + monthStartWeekDay)%7))+'px' ,
-        height: columnWidth+'px',
-        top: (columnWidth * (Math.floor((column + monthStartWeekDay)/7))+'px')
+    <div
+      class="calendar-month-grid"
+      :style="{
+        gridTemplateRows: 'repeat(' + weekCount + ', 1fr)',
       }"
-         v-for="(day, column) in dayList"
-         :key="day.format('YYYY-MM-DD')">
-      <MonthlyViewDay
-        :day="day"
-        :events="events"
-        @dayClicked="$emit('dayClicked', $event)"
-        @eventClicked="$emit('eventClicked', $event)"
-      />
+    >
+      <div
+        v-for="(day, idx) in dayList"
+        :key="day.format('YYYY-MM-DD')"
+        class="calendar-month-cell day-box"
+        :style="{
+          gridColumn: ((idx + monthStartWeekDay) % 7) + 1,
+          gridRow: Math.floor((idx + monthStartWeekDay) / 7) + 1,
+        }"
+      >
+        <MonthlyViewDay
+          :day="day"
+          :events="events"
+          @dayClicked="$emit('dayClicked', $event)"
+          @eventClicked="$emit('eventClicked', $event)"
+        />
+      </div>
     </div>
-
-
   </div>
 </template>
+
+
+
 <script>
 import { Dayjs } from 'dayjs'
 import MonthlyViewDay from '@/components/calendar/layouts/MonthlyViewDay.vue'
@@ -90,6 +84,11 @@ export default {
   },
 
   computed: {
+    weekCount() {
+      // E.g. for July 2024, if the 1st is Monday (.day()=1), 31 days = 5 full weeks
+      const daysTotal = this.dayList.length + this.monthStartWeekDay
+      return Math.ceil(daysTotal / 7)
+    },
     monthStartWeekDay() {
       return this.startDate.day()
     },
@@ -134,23 +133,42 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.weekdays {
-  .weekday {
-    text-align: center;
-    border: 1px solid #ccc;
-    width: v-bind('columnWidthPx')
-  }
+.calendar-month-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--background);
+  min-width: 300px;
+  min-height: 400px;
+}
+.calendar-month-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+}
+.calendar-month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 700px;
+  //background: var(--background);
+}
+.calendar-month-cell {
+  border: 1px solid #e0e0e0;
+  text-align: center;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+  //background: var(--background);
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.4em 0.2em;
+  overflow: hidden;
+}
+.day-box {
+  //background: var(--background);
 }
 
-
-.calendar-month-week-view {
-  position: relative;
-
-  .day-box {
-    border: 1px solid #ccc;
-    overflow: hidden;
-  }
-}
 
 </style>

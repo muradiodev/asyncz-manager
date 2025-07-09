@@ -13,7 +13,7 @@
 
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Branches</span>
-          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">
+          <button class="btn-primary-custom" @click="addNewItem = true">
             + Add new
           </button>
         </div>
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn btn-success">Create</button>
+          <button class="btn-success-custom">Create</button>
         </div>
       </div>
     </form>

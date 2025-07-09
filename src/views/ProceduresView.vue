@@ -13,7 +13,7 @@
 
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Procedures</span>
-          <button class="btn btn-sm btn-success ms-4" @click="addNewItem = true">+ Add new</button>
+          <button class="btn-primary-custom ms-4" @click="addNewItem = true">+ Add new</button>
         </div>
       </CContainer>
     </CCardBody>
@@ -59,7 +59,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn btn-success">Create</button>
+          <button class="btn-success-custom">Create</button>
         </div>
       </div>
     </form>
@@ -113,7 +113,7 @@ export default {
         {
           title: 'Action',
           data: (row) => {
-            return `<button class="btn btn-sm btn-primary" onclick="window.location.href='./procedure/${row.id}'">manage</button>`
+            return `<button class="btn-primary-custom" onclick="window.location.href='./procedure/${row.id}'">manage</button>`
           }
         }
       ]

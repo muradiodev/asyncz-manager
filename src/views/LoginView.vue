@@ -55,7 +55,7 @@
               <input v-model.trim="password" type="password" id="exampleInputPassword" required />
             </div>
 
-            <button type="submit" class="btn-primary">{{ $t('general.submit') }}</button>
+            <button type="submit" class="btn-primary-custom">{{ $t('general.submit') }}</button>
           </form>
         </div>
 
@@ -71,10 +71,10 @@
             </div>
 
             <div class="form-actions">
-              <button type="button" class="btn-secondary" @click="status = 'LOGIN'">
+              <button type="button" class="btn-secondary-custom" @click="status = 'LOGIN'">
                 Back to Login
               </button>
-              <button type="submit" class="btn-primary">
+              <button type="submit" class="btn-primary-custom">
                 {{ $t('login.getVerificationCode') }}
               </button>
             </div>
@@ -121,7 +121,7 @@
               />
             </div>
 
-            <button type="submit" class="btn-primary">
+            <button type="submit" class="btn-primary-custom">
               {{ $t('login.setMyNewPassword') }}
             </button>
           </form>
@@ -201,279 +201,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-  display: flex;
-  min-height: 100vh;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-}
-
-.brand-panel {
-  flex: 0 0 50%;
-  background-image: url('@/assets/images/asyncz_login_back_photo.png');
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(5px);
-    z-index: 1;
-  }
-
-  @media (max-width: 768px) {
-    flex: 0 0 150px;
-    min-height: 150px;
-  }
-}
-
-
-.logo-container {
-  position: relative;
-  z-index: 2;
-  padding: 2rem;
-
-  img {
-    max-width: 100%;
-    width: 200px;
-    height: auto;
-  }
-}
-
-.form-panel {
-  flex: 0 0 50%;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  @media (max-width: 768px) {
-    flex: 1;
-  }
-}
-
-.form-wrapper {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.language-selector {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 2rem;
-
-  .dropdown-toggle {
-    color: #555;
-    text-decoration: none;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-
-    &::after {
-      margin-left: 0.5rem;
-    }
-  }
-
-  .dropdown-menu {
-    min-width: 150px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: none;
-    padding: 0.5rem 0;
-  }
-
-  .dropdown-item {
-    padding: 0.5rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .check-icon {
-      color: #4caf50;
-      font-weight: bold;
-    }
-  }
-}
-
-.form-step {
-  width: 100%;
-
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-
-  .subtitle {
-    color: #777;
-    margin-bottom: 2rem;
-  }
-
-  form {
-    width: 100%;
-  }
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-  width: 100%;
-
-  .label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-
-  label {
-    display: block;
-    font-weight: 500;
-    color: #555;
-  }
-
-  .forgot-link {
-    font-size: 0.9rem;
-    color: #3498db;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  input {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-
-    &:focus {
-      outline: none;
-      border-color: #7FDA56;
-      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-    }
-
-    &.readonly-input {
-      background-color: #f9f9f9;
-      color: #777;
-    }
-
-    &.verification-input {
-      letter-spacing: 2px;
-      font-weight: 600;
-      text-align: center;
-    }
-  }
-
-  .helper-text {
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
-    color: #888;
-  }
-}
-
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-
-  button {
-    flex: 1;
-  }
-}
-
-.btn-primary {
-  display: inline-block;
-  background-color: #7FDA56;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  margin-top: 1rem;
-
-  &:hover {
-    background-color: darken(#7FDA56, 10%);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.btn-secondary {
-  display: inline-block;
-  background-color: #f5f5f5;
-  color: #333;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-
-  &:hover {
-    background-color: #e9e9e9;
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.register-prompt {
-  margin-top: 2rem;
-  text-align: center;
-
-  p {
-    color: #555;
-  }
-
-  a {
-    color: #3498db;
-    text-decoration: none;
-    font-weight: 500;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.footer-custom {
-  text-align: center;
-  color: #888;
-  font-size: 0.9rem;
-  padding: 1.5rem;
-  width: 100%;
-}
 </style>

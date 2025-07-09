@@ -57,8 +57,10 @@
 
 <style scoped>
 
+    /*
     .modal-active {
         display: block;
     }
+    */
 
 </style>

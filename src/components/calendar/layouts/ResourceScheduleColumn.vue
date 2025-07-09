@@ -201,15 +201,4 @@ export default {
 </script>
 
 <style>
-.schedule-column {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  opacity: 0.3;
-
-  div {
-    opacity: 1 !important;
-  }
-}
-
 </style>
