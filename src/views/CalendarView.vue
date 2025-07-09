@@ -207,86 +207,84 @@
     </div>
   </CContainer>
 
+  <!-- New Appointment Modal -->
   <ModalComponent
     title="New Appointment"
     v-if="newAppointmentIsOpen"
     @modalClose="newAppointmentIsOpen = false"
   >
-    <form @submit.prevent="createNewAppointment" class="clean-form">
-
-      <div class="form-row">
-        <div class="form-field">
-          <label>Expert</label>
-          <select v-model="newItemDetails.expert" required>
+    <form @submit.prevent="createNewAppointment" class="modern-body clean-form">
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Expert <span style="color:#e74c3c">*</span></label>
+          <select v-model="newItemDetails.expert" required class="modern-input">
             <option value="">Choose expert...</option>
             <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
               {{ expert.name }}
             </option>
           </select>
         </div>
-
-        <div class="form-field">
-          <label>Service</label>
-          <select v-model="newItemDetails.procedure" required>
+        <div class="form-field" style="flex:1;">
+          <label>Service <span style="color:#e74c3c">*</span></label>
+          <select v-model="newItemDetails.procedure" required class="modern-input">
             <option value="">Choose service...</option>
             <option v-for="procedure in selectedExpertProcedureList" :key="procedure.id" :value="procedure.id">
-              {{ procedure.name }} ({{ procedure.length }} minutes)
+              {{ procedure.name }} ({{ procedure.length }} min)
             </option>
           </select>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-field">
-          <label>Date</label>
-          <input type="date" v-model="newItemDetails.date" required>
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Date <span style="color:#e74c3c">*</span></label>
+          <input type="date" v-model="newItemDetails.date" required class="modern-input" />
         </div>
-
-        <div class="form-field">
-          <label>Time</label>
-          <input type="time" v-model="newItemDetails.time" required>
+        <div class="form-field" style="flex:1;">
+          <label>Time <span style="color:#e74c3c">*</span></label>
+          <input type="time" v-model="newItemDetails.time" required class="modern-input" />
         </div>
-
-        <div class="form-field">
-          <label>Duration (minutes)</label>
-          <input type="number" v-model="newItemDetails.length" min="15" required>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-field">
-          <label>First Name</label>
-          <input type="text" v-model="newItemDetails.name" required>
-        </div>
-
-        <div class="form-field">
-          <label>Last Name</label>
-          <input type="text" v-model="newItemDetails.surname" required>
+        <div class="form-field" style="flex:1;">
+          <label>Duration <span style="color:#e74c3c">*</span></label>
+          <div style="display: flex;">
+            <input type="number" min="15" v-model="newItemDetails.length" required class="modern-input" style="flex:1;"/>
+            <span style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
+          </div>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-field">
-          <label>Phone Number</label>
-          <input type="tel" v-model="newItemDetails.phone" required>
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>First Name <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="newItemDetails.name" required class="modern-input" autocomplete="given-name" />
         </div>
+        <div class="form-field" style="flex:1;">
+          <label>Last Name <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="newItemDetails.surname" required class="modern-input" autocomplete="family-name" />
+        </div>
+      </div>
 
-        <div class="form-field">
-          <label>Email Address</label>
-          <input type="email" v-model="newItemDetails.email">
-          <div class="checkbox-wrapper">
-            <input type="checkbox" id="sendEmail" v-model="newItemDetails.sendEmail">
-            <label for="sendEmail">Send confirmation email</label>
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Phone <span style="color:#e74c3c">*</span></label>
+          <input type="tel" v-model="newItemDetails.phone" required class="modern-input" autocomplete="tel" />
+        </div>
+        <div class="form-field" style="flex:1;">
+          <label>Email</label>
+          <input type="email" v-model="newItemDetails.email" class="modern-input" autocomplete="email" />
+          <div class="checkbox-wrapper" style="margin-top: 8px;">
+            <input type="checkbox" id="sendEmail" v-model="newItemDetails.sendEmail" />
+            <label for="sendEmail" style="font-size: 0.93em;">Send confirmation email</label>
           </div>
         </div>
       </div>
 
       <div class="form-field full-width">
         <label>Additional Notes</label>
-        <textarea v-model="newItemDetails.notes" placeholder="Any special requests or information..."></textarea>
+        <textarea v-model="newItemDetails.notes" class="modern-input" rows="2" placeholder="Any special requests or information?"></textarea>
       </div>
 
-      <div class="form-actions">
+      <div class="form-actions" style="margin-top: 18px;">
         <button type="button" class="btn-cancel-custom" @click="newAppointmentIsOpen = false">
           Cancel
         </button>
@@ -297,227 +295,146 @@
     </form>
   </ModalComponent>
 
-  <ModalComponent title="edit appointment" v-if="editingAppointment" @modalClose="editingAppointment = null">
-    <form @submit.prevent="updateAppointment">
-      <div class="row">
 
-        <div class="col-md-6 mb-3">
-
-          <label for="updateExpert" class="form-label">Expert</label>
-          <select
-            class="form-select"
-            id="updateExpert"
-            v-model="editingAppointment.expert.id"
-            required
-          >
+  <!-- Edit Appointment Modal -->
+  <ModalComponent
+    title="Edit Appointment"
+    v-if="editingAppointment"
+    @modalClose="editingAppointment = null"
+  >
+    <form @submit.prevent="updateAppointment" class="modern-body clean-form">
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Expert <span style="color:#e74c3c">*</span></label>
+          <select v-model="editingAppointment.expert.id" required class="modern-input">
             <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
               {{ expert.name }}
             </option>
           </select>
         </div>
-        <div class="col-md-6 mb-3">
-
-          <label for="updateProcedure" class="form-label">Procedure</label>
-          <select
-            class="form-select"
-            id="updateProcedure"
-            v-model="editingAppointment.procedure.id"
-            required
-          >
+        <div class="form-field" style="flex:1;">
+          <label>Procedure <span style="color:#e74c3c">*</span></label>
+          <select v-model="editingAppointment.procedure.id" required class="modern-input">
             <option v-for="procedure in selectedExpertProcedureListUpdate" :key="procedure.id" :value="procedure.id">
-              {{ procedure.name }} ({{ procedure.length }} minutes)
+              {{ procedure.name }} ({{ procedure.length }} min)
             </option>
           </select>
         </div>
-        <div class="col-md-4 mb-3">
+      </div>
 
-          <label for="updateDate" class="form-label">Date</label>
-          <input
-            type="date"
-            class="form-control"
-            id="updateDate"
-            v-model="editingAppointment.date"
-            required>
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Date <span style="color:#e74c3c">*</span></label>
+          <input type="date" v-model="editingAppointment.date" required class="modern-input" />
         </div>
-        <div class="col-md-4 mb-3">
-
-          <label for="updateTime" class="form-label">Time</label>
-          <input
-            type="time"
-            class="form-control"
-            id="updateTime"
-            v-model="editingAppointment.time"
-            required>
+        <div class="form-field" style="flex:1;">
+          <label>Time <span style="color:#e74c3c">*</span></label>
+          <input type="time" v-model="editingAppointment.time" required class="modern-input" />
         </div>
-
-        <div class="col-md-4 mb-3">
-
-          <label for="updateLength" class="form-label">Length</label>
-          <div class="input-group">
-            <input
-              type="number"
-              class="form-control"
-              id="updateLength"
-              v-model="editingAppointment.reservationLength"
-              required>
-            <span class="input-group-text">minutes</span>
+        <div class="form-field" style="flex:1;">
+          <label>Length <span style="color:#e74c3c">*</span></label>
+          <div style="display: flex;">
+            <input type="number" v-model="editingAppointment.reservationLength" required class="modern-input" style="flex:1;" />
+            <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-6 mb-3">
-
-          <label for="updateName" class="form-label">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="updateName"
-            v-model="editingAppointment.name"
-            required>
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>First Name <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="editingAppointment.name" required class="modern-input" autocomplete="given-name" />
         </div>
-
-        <div class="col-md-6 mb-3">
-
-          <label for="updateSurname" class="form-label">Surname</label>
-          <input
-            type="text"
-            class="form-control"
-            id="updateSurname"
-            v-model="editingAppointment.surname"
-            required>
+        <div class="form-field" style="flex:1;">
+          <label>Last Name <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="editingAppointment.surname" required class="modern-input" autocomplete="family-name" />
         </div>
+      </div>
 
-        <div class="col-md-6 mb-3">
-
-          <label for="updatePhone" class="form-label">Phone</label>
-          <input
-            type="text"
-            class="form-control"
-            id="updatePhone"
-            v-model="editingAppointment.phone"
-            required>
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Phone <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="editingAppointment.phone" required class="modern-input" autocomplete="tel" />
         </div>
-
-        <div class="col-md-6 mb-3">
-
-          <label for="updateEmail" class="form-label">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="updateEmail"
-            v-model="editingAppointment.email"
-          >
+        <div class="form-field" style="flex:1;">
+          <label>Email</label>
+          <input type="email" v-model="editingAppointment.email" class="modern-input" autocomplete="email" />
         </div>
+      </div>
 
+      <div class="form-field full-width">
+        <label>Notes</label>
+        <textarea v-model="editingAppointment.notes" class="modern-input" rows="2"></textarea>
+      </div>
 
-        <div class="col-md-12 mb-3">
-
-          <label for="updateNotes" class="form-label">Notes</label>
-          <textarea
-            class="form-control"
-            id="updateNotes"
-            v-model="editingAppointment.notes"
-          >
-          </textarea>
-        </div>
-
-
-        <div class="col-md-12">
-          <button class="btn-success-custom">Update</button>
-        </div>
+      <div class="form-actions" style="margin-top: 18px;">
+        <button type="button" class="btn-cancel-custom" @click="editingAppointment = null">
+          Cancel
+        </button>
+        <button type="submit" class="btn-success-custom">
+          Update
+        </button>
       </div>
     </form>
   </ModalComponent>
 
-  <ModalComponent title="Appointment details" v-if="activeAppointment" @modalClose="activeAppointment = null">
 
-    <div class="row">
-
-      <div class="col-md-6 mb-3">
-        <div class="mb-1">
-          <span class="small text-secondary">Expert:</span> <br>
-          <strong>{{ activeAppointment.expert.fullName }}</strong>
-        </div>
-
-        <div class="mb-1">
-          <span class="small text-secondary">Procedure:</span> <br>
-          <strong>{{ activeAppointment.procedure.name }}</strong>
-        </div>
-
-        <div class="mb-1">
-          <span class="small text-secondary">Starts:</span> <br>
-          <strong>{{ formatTime(activeAppointment.reservationStartTime.date) }}</strong>
-        </div>
-
-        <div class="mb-1">
-          <span class="small text-secondary">Duration:</span> <br>
-          <strong>{{ activeAppointment.reservationLength }} minute</strong>
-          <span class="text-danger small"
-                v-if="activeAppointment.reservationLength!==activeAppointment.procedure['length']">
-             (originaly was {{ activeAppointment.procedure['length'] }} minute)
+  <!-- Appointment Details Modal -->
+  <ModalComponent
+    title="Appointment Details"
+    v-if="activeAppointment"
+    @modalClose="activeAppointment = null"
+  >
+    <div class="modern-body" style="padding-bottom: 8px;">
+      <div class="row" style="margin-bottom:12px;">
+        <div class="col-md-6 mb-3">
+          <div class="mb-1"><span class="small text-secondary">Expert:</span><br/><strong>{{ activeAppointment.expert.fullName }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Procedure:</span><br/><strong>{{ activeAppointment.procedure.name }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Starts:</span><br/><strong>{{ formatTime(activeAppointment.reservationStartTime.date) }}</strong></div>
+          <div class="mb-1">
+            <span class="small text-secondary">Duration:</span><br/>
+            <strong>{{ activeAppointment.reservationLength }} min</strong>
+            <span class="text-danger small" v-if="activeAppointment.reservationLength !== activeAppointment.procedure['length']">
+            (originally {{ activeAppointment.procedure['length'] }} min)
           </span>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">Status:</span><br/>
+            <span class="badge bg-primary">{{ activeAppointment.status }}</span>
+          </div>
         </div>
-
-        <div class="mb-1">
-          <span class="small text-secondary">Status:</span> <br>
-          <span class="badge bg-primary">{{ activeAppointment.status }}</span>
-        </div>
-
-
-      </div>
-      <div class="col-md-6">
-        <div class="mb-1">
-          <span class="small text-secondary">Customer:</span> <br>
-          <strong>{{ activeAppointment.name }} {{ activeAppointment.surname }} </strong>
-        </div>
-        <div class="mb-1">
-          <span class="small text-secondary">Phone:</span> <br>
-          <strong>{{ activeAppointment.phone }} </strong>
-        </div>
-        <div class="mb-1">
-          <span class="small text-secondary">Email:</span> <br>
-          <strong>{{ activeAppointment.email }} </strong>
-        </div>
-        <div class="mb-1">
-          <span class="small text-secondary">Notes:</span> <br>
-          <strong>{{ activeAppointment.notes || '-' }} </strong>
-        </div>
-        <div class="mb-1">
-          <span class="small text-secondary">Requested at :</span> <br>
-          <strong>{{ formatTime(activeAppointment.requestTime.date) }} </strong>
+        <div class="col-md-6 mb-3">
+          <div class="mb-1"><span class="small text-secondary">Customer:</span><br/><strong>{{ activeAppointment.name }} {{ activeAppointment.surname }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Phone:</span><br/><strong>{{ activeAppointment.phone }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Email:</span><br/><strong>{{ activeAppointment.email }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Notes:</span><br/><strong>{{ activeAppointment.notes || '-' }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Requested at:</span><br/><strong>{{ formatTime(activeAppointment.requestTime.date) }}</strong></div>
         </div>
       </div>
-      <div class="col-12">
-        <div class="mt-3">
-          <button class="btn-success-custom me-2"
-                  v-if="activeAppointment.status==='new'"
-                  @click.prevent="confirmAppointment(activeAppointment)">
-            <fa-icon :icon="['fas','check']"></fa-icon>
-            Confirm
-          </button>
-          <button class="btn-danger-custom me-2"
-                  v-if="activeAppointment.status==='confirmed'"
-                  @click.prevent="cancelAppointment(activeAppointment)">
-            <fa-icon :icon="['fas','times']"></fa-icon>
-            Cancel
-          </button>
-          <button class="btn-primary-custom btn-size-small-custom me-2" @click.prevent="editAppointment(activeAppointment) ">
-            <fa-icon :icon="['fas','pencil']"></fa-icon>
-            Edit
-          </button>
-          <button class="btn-outline-custom btn-outline-primary-custom me-2" @click.prevent="copyAppointment(activeAppointment) ">
-            <fa-icon :icon="['fas','copy']"></fa-icon>
-            Copy
-          </button>
-          <button class="btn-outline-custom btn-outline-dark-custom" @click.prevent="printAppointment(activeAppointment) ">
-            <fa-icon :icon="['fas','print']"></fa-icon>
-            Print
-          </button>
-        </div>
+      <div class="form-actions" style="margin-top:0; gap:10px;">
+        <button class="btn-success-custom me-2" v-if="activeAppointment.status === 'new'" @click.prevent="confirmAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','check']" class="me-2"></fa-icon> Confirm
+        </button>
+        <button class="btn-danger-custom me-2" v-if="activeAppointment.status === 'confirmed'" @click.prevent="cancelAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','times']" class="me-2"></fa-icon> Cancel
+        </button>
+        <button class="btn-primary-custom btn-size-small-custom me-2" @click.prevent="editAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','pencil']" class="me-2"></fa-icon> Edit
+        </button>
+        <button class="btn-outline-custom btn-outline-primary-custom me-2" @click.prevent="copyAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','copy']" class="me-2"></fa-icon> Copy
+        </button>
+        <button class="btn-outline-custom btn-outline-dark-custom" @click.prevent="printAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','print']" class="me-2"></fa-icon> Print
+        </button>
+
       </div>
     </div>
-
-
   </ModalComponent>
+
+
+
+
 
 
 </template>

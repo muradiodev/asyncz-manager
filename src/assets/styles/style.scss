@@ -4,7 +4,7 @@
 @use "vendors/simplebar";
 
 body {
-  background-color: var(--cui-tertiary-bg);
+  background-color: #fdfbfb;
 }
 
 .wrapper {
@@ -72,7 +72,6 @@ body {
   width: 100%;
 }
 
-/* Override the AiSchedulerView styles for header integration */
 .ai-scheduler-wrapper :deep(#app) {
   background: none;
   min-height: auto;
@@ -94,14 +93,14 @@ body {
 }
 
 .ai-scheduler-wrapper :deep(.voice-section) {
-  background: rgba(248, 249, 250, 0.1);
+  background: var(--muted);
   border-radius: 25px;
   padding: 8px;
   margin: 0;
 }
 
 .ai-scheduler-wrapper :deep(h1) {
-  display: none; /* Hide the title in header */
+  display: none;
 }
 
 .ai-scheduler-wrapper :deep(.input-group .form-control) {
@@ -122,13 +121,10 @@ body {
   .ai-scheduler-wrapper {
     max-width: 300px;
   }
-
   .ai-scheduler-wrapper :deep(.form-control) {
     font-size: 0.8rem;
   }
 }
-
-// AiSchedulerView
 
 .header-scheduler-always-open {
   width: 100%;
@@ -141,12 +137,11 @@ body {
   position: relative;
 }
 
-/* Input Group for Header */
 .input-group-header {
   display: flex;
   align-items: center;
-  background: var(--cui-body-bg);
-  border: 1px solid var(--cui-border-color);
+  background: var(--background);
+  border: 1px solid var(--border);
   border-radius: 5px 0 0 5px;
   padding: 4px 16px 4px 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
@@ -159,14 +154,13 @@ body {
 }
 
 @keyframes aiPulse {
-  0%,
-  100% {
+  0%, 100% {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-color: var(--cui-border-color);
+    border-color: var(--border);
   }
   50% {
-    box-shadow: 0 6px 20px rgba(var(--cui-primary-rgb), 0.5);
-    border-color: rgba(var(--cui-primary-rgb), 0.6);
+    box-shadow: 0 6px 20px var(--ring, rgba(0,0,0,0.1));
+    border-color: var(--primary);
   }
 }
 
@@ -178,14 +172,14 @@ body {
 }
 
 .ai-message {
-  background: linear-gradient(135deg, var(--cui-primary), var(--cui-info));
-  color: white;
-  padding: 10px 14px;
+  background: linear-gradient(135deg, var(--primary), var(--info));
+  color: var(--primary-foreground);
+  padding: 13.8px 13.8px;
   margin-left: 75px;
   border-radius: 18px 18px 18px 4px;
   font-size: 0.85rem;
   font-weight: 500;
-  box-shadow: 0 2px 8px rgba(var(--cui-primary-rgb), 0.25);
+  box-shadow: 0 2px 8px var(--ring, rgba(0,0,0,0.08));
   animation: aiMessagePulse 2s ease-in-out infinite;
   white-space: nowrap;
   position: relative;
@@ -194,8 +188,7 @@ body {
 }
 
 @keyframes aiMessagePulse {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
     opacity: 0.95;
   }
@@ -210,13 +203,11 @@ body {
   position: relative;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .ai-input-container {
     flex-direction: column;
     gap: 8px;
   }
-
   .ai-message {
     align-self: flex-start;
     max-width: 160px;
@@ -224,7 +215,6 @@ body {
     padding: 8px 12px;
   }
 }
-
 @media (max-width: 576px) {
   .ai-message {
     max-width: 140px;
@@ -234,32 +224,29 @@ body {
 }
 
 .input-group-header:focus-within {
-  border-color: var(--cui-primary);
-  box-shadow: 0 0 0 2px rgba(var(--cui-primary-rgb), 0.25);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--ring, rgba(0,0,0,0.08));
 }
 
-/* Header Input Field */
 .form-control-header {
   flex: 1;
   border: none;
   background: transparent;
   padding: 8px 16px;
   font-size: 0.875rem;
-  color: var(--cui-body-color);
+  color: var(--foreground);
   outline: none;
   height: 32px;
 }
-
 .form-control-header::placeholder {
-  color: var(--cui-gray-500);
+  color: var(--muted-foreground);
 }
-
 .form-control-header:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  background: var(--muted);
 }
 
-/* Action Buttons in Header */
 .action-buttons-header {
   display: flex;
   gap: 4px;
@@ -267,38 +254,53 @@ body {
   padding-right: 4px;
 }
 
-.voice-btn-header {
-  background: var(--cui-danger);
-  color: white;
+// Applies to both .voice-btn-header and .submit-btn-header
+.voice-btn-header,
+.submit-btn-header {
+  border: none !important;       // No border at all
+  border-radius: 50% !important; // Fully round
+  min-width: 38px;
+  min-height: 38px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  box-shadow: none;
+  transition: background 0.16s, transform 0.13s;
+  padding: 0;
 }
 
-.voice-btn-header:hover:not(:disabled) {
-  background: var(--cui-danger);
+.voice-btn-header {
+  background: var(--danger);
+  color: var(--danger-foreground);
+}
+.voice-btn-header:hover:not(:disabled),
+.voice-btn-header.recording {
+  background: var(--danger);
   transform: scale(1.1);
 }
-
 .voice-btn-header.recording {
-  background: var(--cui-danger);
   animation: pulse-recording 1.5s infinite;
 }
 
 .submit-btn-header {
-  background: var(--cui-primary);
-  color: white;
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
-
 .submit-btn-header:hover:not(:disabled) {
-  background: var(--cui-primary);
+  background: var(--btn-primary-hover);
   transform: scale(1.1);
 }
-
 .submit-btn-header:disabled {
-  background: var(--cui-gray-400);
+  background: var(--muted);
+  color: var(--muted-foreground);
   cursor: not-allowed;
   transform: none;
 }
 
-/* Status Indicators */
+
 .status-indicator {
   position: absolute;
   top: 100%;
@@ -317,34 +319,32 @@ body {
 }
 
 .recording-status {
-  background: rgba(var(--cui-warning-rgb), 0.15);
-  color: var(--cui-warning-dark);
-  border: 1px solid rgba(var(--cui-warning-rgb), 0.3);
+  background: var(--warning);
+  color: var(--warning-foreground);
+  border: 1px solid var(--warning);
 }
-
 .processing-status {
-  background: rgba(var(--cui-info-rgb), 0.15);
-  color: var(--cui-info-dark);
-  border: 1px solid rgba(var(--cui-info-rgb), 0.3);
+  background: var(--info);
+  color: var(--info-foreground);
+  border: 1px solid var(--info);
 }
 
 .recording-dot {
   width: 6px;
   height: 6px;
-  background: var(--cui-danger);
+  background: var(--danger);
   border-radius: 50%;
   animation: blink 1s infinite;
 }
 
-/* Error Toast for Header */
 .error-toast-header {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
   margin-top: 4px;
-  background: var(--cui-danger);
-  color: white;
+  background: var(--danger);
+  color: var(--danger-foreground);
   padding: 6px 12px;
   border-radius: 8px;
   font-size: 0.75rem;
@@ -353,10 +353,9 @@ body {
   gap: 8px;
   z-index: 1001;
   animation: slideDown 0.3s ease;
-  box-shadow: 0 4px 12px rgba(var(--cui-danger-rgb), 0.3);
+  box-shadow: 0 4px 12px var(--danger);
 }
 
-/* Modal Styles */
 .modern-modal {
   border: none;
   border-radius: 16px;
@@ -365,12 +364,11 @@ body {
 }
 
 .modern-header {
-  background: linear-gradient(135deg, var(--cui-primary) 0%, var(--cui-primary-dark) 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--btn-primary-hover) 100%);
+  color: var(--primary-foreground);
   border: none;
   padding: 20px 24px;
 }
-
 .modern-header .modal-title {
   font-weight: 600;
   font-size: 1.125rem;
@@ -380,27 +378,27 @@ body {
 
 .modern-body {
   padding: 24px;
-  background: var(--cui-body-bg);
+  background: var(--background);
 }
 
 .modern-footer {
-  background: var(--cui-gray-50);
+  background: var(--muted);
   border: none;
   padding: 16px 24px;
 }
 
 .modern-input {
-  border: 2px solid var(--cui-border-color);
+  border: 2px solid var(--border);
   border-radius: 8px;
   padding: 12px 16px;
   font-size: 0.875rem;
   transition: all 0.2s ease;
-  background: var(--cui-body-bg);
+  background: var(--background);
+  color: var(--foreground);
 }
-
 .modern-input:focus {
-  border-color: var(--cui-primary);
-  box-shadow: 0 0 0 3px rgba(var(--cui-primary-rgb), 0.1);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--ring, rgba(0,0,0,0.08));
   outline: none;
 }
 
@@ -411,16 +409,18 @@ body {
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
-
 .modern-btn:hover {
+  background: var(--btn-primary-hover);
   transform: translateY(-1px);
 }
 
 /* Original Input Display */
 .original-input-display {
-  background: var(--cui-gray-50);
-  border: 1px solid var(--cui-border-color);
+  background: var(--muted);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px;
   margin-top: 16px;
@@ -430,7 +430,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--cui-gray-600);
+  color: var(--muted-foreground);
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 8px;
@@ -438,106 +438,64 @@ body {
 
 .original-input-text {
   margin: 0;
-  color: var(--cui-body-color);
+  color: var(--foreground);
   line-height: 1.4;
 }
 
-/* Success Modal */
 .success-content {
   text-align: center;
   padding: 20px 0;
 }
-
 .success-icon {
   font-size: 3rem;
-  color: var(--cui-success);
+  color: var(--success);
   margin-bottom: 16px;
 }
-
 .success-message {
   font-size: 1.125rem;
-  color: var(--cui-body-color);
+  color: var(--foreground);
   margin: 0;
 }
 
-/* Spinning animation for loading icons */
 .spinning {
   animation: spin 1s linear infinite;
 }
 
-/* Animations */
 @keyframes pulse-recording {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.15);
-  }
+  0%, 100% { transform: scale(1);}
+  50% { transform: scale(1.15);}
 }
-
 @keyframes blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0.3;
-  }
+  0%, 50% { opacity: 1;}
+  51%, 100% { opacity: 0.3;}
 }
-
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-8px);}
+  to { opacity: 1; transform: translateY(0);}
 }
-
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg);}
+  to { transform: rotate(360deg);}
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .form-control-header {
     font-size: 0.8rem;
     padding: 6px 12px;
   }
-
   .btn-header {
     width: 26px;
     height: 26px;
   }
-
   .input-group-header {
     padding: 3px;
   }
-
-  .modern-body {
-    padding: 16px;
-  }
-
+  .modern-body { padding: 16px; }
   .modern-header,
-  .modern-footer {
-    padding: 16px;
-  }
+  .modern-footer { padding: 16px; }
 }
-
 @media (max-width: 576px) {
-  .form-control-header::placeholder {
-    font-size: 0.5rem;
-  }
-
+  .form-control-header::placeholder { font-size: 0.5rem; }
   .status-indicator,
   .error-toast-header {
     font-size: 0.7rem;
@@ -545,40 +503,19 @@ body {
   }
 }
 
-/* Dark mode adjustments */
-[data-coreui-theme='dark'] .input-group-header {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-[data-coreui-theme='dark'] .original-input-display {
-  background: rgba(255, 255, 255, 0.05);
-}
-
 /* Validation styles */
-.is-invalid {
-  border-color: var(--cui-danger) !important;
-}
-
+.is-invalid { border-color: var(--danger) !important; }
 .invalid-feedback {
   display: block;
-  color: var(--cui-danger);
+  color: var(--danger);
   font-size: 0.875em;
   margin-top: 0.25rem;
 }
-
-/* Focus states for accessibility */
-
-/* Hover effects */
-.input-group-header:hover {
-  border-color: rgba(var(--cui-primary-rgb), 0.5);
-}
-
-/* Loading state for input */
+.input-group-header:hover { border-color: var(--primary); }
 .form-control-header:disabled {
-  background: rgba(var(--cui-gray-100-rgb), 0.5);
+  background: var(--muted);
 }
 
-/* Button states */
 
 // CalendarView
 
@@ -599,7 +536,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 .form-field.full-width {
   width: 100%;
 }
@@ -607,20 +543,27 @@ body {
 label {
   font-weight: 500;
   margin-bottom: 6px;
-  color: #333;
+  color: var(--foreground);
   font-size: 14px;
 }
 
-input, select, textarea {
-  border: 1px solid #ccc;
+input,
+select,
+textarea {
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 14px;
-  background: white;
+  background: var(--background);
+  color: var(--foreground);
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  box-shadow: 0 0 0 2px var(--ring, rgba(0, 123, 255, 0.1));
+  border-color: var(--primary);
 }
 
 textarea {
@@ -631,32 +574,36 @@ textarea {
 
 .checkbox-wrapper input[type="checkbox"] {
   cursor: pointer;
-}
-
-/* Alternative custom checkbox styling if needed */
-.checkbox-wrapper input[type="checkbox"] {
-  border: 2px solid #ccc;
+  border: 2px solid var(--border);
   border-radius: 3px;
   margin: 0;
-  cursor: pointer;
   position: relative;
-  background: white;
+  background: var(--background);
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  transition: border-color 0.2s, background 0.2s;
 }
 
+.checkbox-wrapper input[type="checkbox"]:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
 
 .checkbox-wrapper input[type="checkbox"]:checked::after {
   content: '✓';
   position: absolute;
-  top: -2px;
-  left: 2px;
-  color: white;
-  font-size: 12px;
+  top: 0;
+  left: 5px;
+  color: var(--primary-foreground, #fff);
+  font-size: 14px;
   font-weight: bold;
+  pointer-events: none;
 }
 
 .checkbox-wrapper input[type="checkbox"]:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  box-shadow: 0 0 0 2px var(--ring, rgba(0, 123, 255, 0.2));
 }
 
 .form-actions {
@@ -665,7 +612,7 @@ textarea {
   gap: 12px;
   margin-top: 12px;
   padding-top: 20px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border);
 }
 
 @media (max-width: 768px) {
@@ -673,35 +620,32 @@ textarea {
     flex-direction: column;
     gap: 12px;
   }
-
   .form-actions {
     flex-direction: column;
   }
-
   .btn-cancel, .btn-create {
     width: 100%;
   }
 }
+
+// Expert color checkbox — use variable for dynamic color
 .expert-colored-checkbox {
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--expert-color, #387f94);
+  border: 2px solid var(--expert-color, var(--primary));
   border-radius: 4px;
-  background: #fff;
+  background: var(--background);
   cursor: pointer;
   position: relative;
   transition: background 0.18s, border-color 0.18s;
   vertical-align: middle;
 }
 
-/* Checked State: show background */
 .expert-colored-checkbox:checked {
-  background: var(--expert-color, #387f94);
-  border-color: var(--expert-color, #387f94);
+  background: var(--expert-color, var(--primary));
+  border-color: var(--expert-color, var(--primary));
 }
-
-/* The checkmark (pure CSS) */
 .expert-colored-checkbox:checked::after {
   content: "";
   display: block;
@@ -710,10 +654,11 @@ textarea {
   top: 2px;
   width: 6px;
   height: 12px;
-  border: solid #fff;
+  border: solid var(--primary-foreground, #fff);
   border-width: 0 2.5px 2.5px 0;
   transform: rotate(45deg);
 }
+
 
 // ColorComponent
 
@@ -721,9 +666,11 @@ textarea {
   width: 30px;
   height: 15px;
   display: inline-block;
-  border: 1px solid #000;
+  border: 1px solid var(--border);
   border-radius: 5px;
+  background: var(--background);
 }
+
 
 // LoginView
 
@@ -749,11 +696,8 @@ textarea {
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.7);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.7);
     backdrop-filter: blur(5px);
     z-index: 1;
   }
@@ -763,7 +707,6 @@ textarea {
     min-height: 150px;
   }
 }
-
 
 .logo-container {
   position: relative;
@@ -779,7 +722,7 @@ textarea {
 
 .form-panel {
   flex: 0 0 50%;
-  background-color: #fff;
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -805,7 +748,7 @@ textarea {
   margin-bottom: 2rem;
 
   .dropdown-toggle {
-    color: #555;
+    color: var(--muted-foreground);
     text-decoration: none;
     font-size: 0.9rem;
     display: flex;
@@ -815,15 +758,14 @@ textarea {
       margin-left: 0.5rem;
     }
   }
-
   .dropdown-menu {
     min-width: 150px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border: none;
     padding: 0.5rem 0;
+    background: var(--background);
   }
-
   .dropdown-item {
     padding: 0.5rem 1rem;
     display: flex;
@@ -831,7 +773,7 @@ textarea {
     align-items: center;
 
     .check-icon {
-      color: #4caf50;
+      color: var(--success);
       font-weight: bold;
     }
   }
@@ -843,15 +785,13 @@ textarea {
   h2 {
     font-size: 1.8rem;
     font-weight: 600;
-    color: #333;
+    color: var(--foreground);
     margin-bottom: 0.5rem;
   }
-
   .subtitle {
-    color: #777;
+    color: var(--muted-foreground);
     margin-bottom: 2rem;
   }
-
   form {
     width: 100%;
   }
@@ -867,54 +807,51 @@ textarea {
     align-items: center;
     margin-bottom: 0.5rem;
   }
-
   label {
     display: block;
     font-weight: 500;
-    color: #555;
+    color: var(--muted-foreground);
   }
-
   .forgot-link {
     font-size: 0.9rem;
-    color: #3498db;
+    color: var(--primary);
     text-decoration: none;
 
     &:hover {
       text-decoration: underline;
     }
   }
-
   input {
     width: 100%;
     padding: 0.8rem 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--input);
     border-radius: 8px;
     font-size: 1rem;
+    background: var(--background);
+    color: var(--foreground);
     transition: border-color 0.3s ease;
 
     &:focus {
       outline: none;
-      border-color: #7FDA56;
-      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      border-color: var(--btn-success-bg, var(--success));
+      box-shadow: 0 0 0 3px var(--ring, rgba(52,152,219,0.1));
     }
 
     &.readonly-input {
-      background-color: #f9f9f9;
-      color: #777;
+      background-color: var(--muted);
+      color: var(--muted-foreground);
     }
-
     &.verification-input {
       letter-spacing: 2px;
       font-weight: 600;
       text-align: center;
     }
   }
-
   .helper-text {
     display: block;
     margin-top: 0.5rem;
     font-size: 0.8rem;
-    color: #888;
+    color: var(--muted-foreground);
   }
 }
 
@@ -933,11 +870,10 @@ textarea {
   text-align: center;
 
   p {
-    color: #555;
+    color: var(--muted-foreground);
   }
-
   a {
-    color: #3498db;
+    color: var(--primary);
     text-decoration: none;
     font-weight: 500;
 
@@ -949,17 +885,18 @@ textarea {
 
 .footer-custom {
   text-align: center;
-  color: #888;
+  color: var(--muted-foreground);
   font-size: 0.9rem;
   padding: 1.5rem;
   width: 100%;
 }
 
+
 // RegisterView
+
 .registration-container {
   display: flex;
   min-height: 100vh;
-
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -974,32 +911,24 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.7);
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.7);
     backdrop-filter: blur(5px);
     z-index: 1;
   }
-
   @media (max-width: 768px) {
     flex: 0 0 150px;
     min-height: 150px;
   }
 }
 
-
-
 .logo-container {
   position: relative;
   z-index: 2;
   padding: 2rem;
-
   img {
     max-width: 100%;
     width: 200px;
@@ -1009,10 +938,9 @@ textarea {
 
 .form-panel {
   flex: 0 0 50%;
-  background-color: #fff;
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
-
   @media (max-width: 768px) {
     flex: 1;
   }
@@ -1032,35 +960,31 @@ textarea {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1.5rem;
-
   .dropdown-toggle {
-    color: #555;
+    color: var(--muted-foreground);
     text-decoration: none;
     font-size: 0.9rem;
     display: flex;
     align-items: center;
-
     &::after {
       margin-left: 0.5rem;
     }
   }
-
   .dropdown-menu {
     min-width: 150px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     border: none;
     padding: 0.5rem 0;
+    background: var(--background);
   }
-
   .dropdown-item {
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     .check-icon {
-      color: #4caf50;
+      color: var(--success);
       font-weight: bold;
     }
   }
@@ -1071,7 +995,6 @@ textarea {
   justify-content: space-between;
   margin-bottom: 1rem;
   position: relative;
-
   &::after {
     content: '';
     position: absolute;
@@ -1079,23 +1002,21 @@ textarea {
     left: 30px;
     right: 30px;
     height: 2px;
-    background-color: #e0e0e0;
+    background-color: var(--border);
     z-index: 1;
   }
-
   .step {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     z-index: 2;
-
     .step-number {
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background-color: #e0e0e0;
-      color: #fff;
+      background-color: var(--muted);
+      color: var(--background);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1103,39 +1024,33 @@ textarea {
       font-weight: 500;
       transition: all 0.3s ease;
     }
-
     .step-label {
       font-size: 0.8rem;
-      color: #777;
+      color: var(--muted-foreground);
       text-align: center;
       transition: all 0.3s ease;
     }
-
     &.active {
       .step-number {
-        background-color: #7FDA56;
-        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+        background-color: var(--btn-success-bg, var(--success));
+        box-shadow: 0 0 0 4px var(--ring, rgba(52,152,219,0.2));
       }
-
       .step-label {
-        color: #7FDA56;
+        color: var(--btn-success-bg, var(--success));
         font-weight: 500;
       }
     }
-
     &.completed {
       .step-number {
-        background-color: #4caf50;
+        background-color: var(--success);
       }
     }
-
     &.disabled {
       .step-number {
-        background-color: #e0e0e0;
+        background-color: var(--muted);
       }
-
       .step-label {
-        color: #aaa;
+        color: var(--border);
       }
     }
   }
@@ -1145,83 +1060,76 @@ textarea {
   h2 {
     font-size: 1.8rem;
     font-weight: 600;
-    color: #333;
+    color: var(--foreground);
     margin-bottom: 1rem;
   }
-
   .subtitle {
-    color: #777;
+    color: var(--muted-foreground);
     margin-bottom: 1rem;
   }
 }
 
 .form-group {
   margin-bottom: 1rem;
-
   label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: #555;
+    color: var(--muted-foreground);
   }
-
   input {
     width: 100%;
     padding: 0.8rem 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--input);
     border-radius: 8px;
     font-size: 1rem;
+    background: var(--background);
+    color: var(--foreground);
     transition: border-color 0.3s ease;
-
     &:focus {
       outline: none;
-      border-color: #7FDA56;
-      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      border-color: var(--btn-success-bg, var(--success));
+      box-shadow: 0 0 0 3px var(--ring, rgba(52,152,219,0.1));
     }
-
     &.readonly-input {
-      background-color: #f9f9f9;
-      color: #777;
+      background-color: var(--muted);
+      color: var(--muted-foreground);
     }
-
     &.verification-input {
       letter-spacing: 2px;
       font-weight: 600;
       text-align: center;
     }
   }
-
   .helper-text {
     display: block;
     margin-top: 0.5rem;
     font-size: 0.8rem;
-    color: #888;
+    color: var(--muted-foreground);
   }
 }
 
-
 .footer-custom {
   text-align: center;
-  color: #888;
+  color: var(--muted-foreground);
   font-size: 0.9rem;
 }
 
 .back-to-login {
   margin-bottom: 1.5rem;
-
   .back-link {
-    color: #3498db;
+    color: var(--primary);
     text-decoration: none;
     font-size: 0.9rem;
     display: inline-flex;
     align-items: center;
     transition: color 0.3s ease;
-
     &:hover {
-      color: darken(#3498db, 15%);
+      color: var(--btn-primary-hover, var(--primary));
     }
   }
 }
+
 
 // AppFooter
 
@@ -1284,35 +1192,20 @@ textarea {
   position: absolute;
 
   &.current-day {
-    background-color: rgba(#86C748, 0.2);
+    background-color: var(--primary-hsl);
   }
 }
 
 // CalendarMonthLayout
 
-.weekdays {
-  .weekday {
-    text-align: center;
-    border: 1px solid #ccc;
-    width: v-bind('columnWidthPx')
-  }
-}
 
-
-.calendar-month-week-view {
-  position: relative;
-
-  .day-box {
-    border: 1px solid #ccc;
-    overflow: hidden;
-  }
-}
 
 // CalendarVerticalLayout
 
 .calendar-vertical-view {
   position: relative;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
+  background: var(--background);
 
   .day-wrapper {
     .week-day {
@@ -1320,49 +1213,45 @@ textarea {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
-      // NEW: Make it bigger & centered
-      height: 74px;                  // ⬅️ Make it tall (adjust as needed)
-      display: flex;                 // ⬅️ Enable flex centering
-      align-items: center;           // ⬅️ Vertical center
-      justify-content: center;       // ⬅️ Horizontal center
-      font-size: 1.3rem;             // ⬅️ Bigger font (adjust as needed)
-      font-weight: 600;              // ⬅️ Bolder text
-      padding: 0 16px;               // ⬅️ Side padding for wide days
-      //background: #fff;              // ⬅️ Optional: white background
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 0 16px;
+      background: var(--background);
+      color: var(--muted-foreground);
       transition: background 0.18s, color 0.18s;
+      border-right: 1px solid var(--muted-foreground);
     }
-
-    &:nth-child(2n) .week-day {
-      background: #6b7785;
-      color: #fff;
+    &:last-child .week-day {
+      border-right: none;
     }
   }
 
   .calendar-vertical-view-date-row {
-    height: 80px; /* Match .week-day height! */
-    //border-bottom: 1px solid #ccc;
+    height: 80px;
 
     .doctor-name-list {
       height: 100%;
       overflow: hidden;
       font-size: 12px;
       cursor: pointer;
-
       div {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin: 1px;
         border-radius: 5px;
-        //padding: 3px;
+        // Optional: can use background for doctor label color, e.g. var(--muted)
       }
     }
   }
 
   .calendar-content {
     position: absolute;
-    top: 80px; /* Match header row height! */
+    top: 80px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -1376,7 +1265,6 @@ textarea {
       bottom: 0;
       overflow: hidden;
     }
-
     .day-list {
       position: absolute;
       top: 0;
@@ -1388,9 +1276,10 @@ textarea {
   }
 }
 
+// Highlight today's column (danger color)
 .today-column {
   .week-day {
-    color: #ff6666 !important;
+    color: var(--danger) !important;
   }
 }
 
@@ -1406,6 +1295,7 @@ textarea {
 .day-name {
   font-size: 14px;
   font-weight: 600;
+  color: var(--foreground);
 }
 
 .day-number-circle {
@@ -1415,8 +1305,8 @@ textarea {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #ff6666;
-  color: white;
+  background-color: var(--danger);
+  color: var(--danger-foreground, #fff);
   font-weight: 600;
   font-size: 14px;
   margin-top: 4px;
@@ -1426,7 +1316,7 @@ textarea {
 
 .event {
   position: absolute;
-  background-color: red;
+  background-color: var(--danger);
   opacity: 0.8;
   font-size: 10px;
   overflow: hidden;
@@ -1434,18 +1324,20 @@ textarea {
   padding: 5px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  color: var(--danger-foreground, #fff);
 
   &:hover {
     opacity: 1;
   }
 
   &.dark {
-    color: #fff;
+    color: var(--danger-foreground, #fff);
   }
-  &.isDragging{
+  &.isDragging {
     text-indent: -9999px;
   }
 }
+
 
 // MonthlyViewDay
 
@@ -1453,7 +1345,7 @@ textarea {
   height: 100%;
 
   &.active {
-    background-color: #aae8ac;
+    background-color: var(--success);
   }
 
   .day-title {
@@ -1461,26 +1353,25 @@ textarea {
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    color: var(--foreground);
   }
-
 
   .month-event {
     padding: 2px 3px;
     font-size: 10px;
     cursor: pointer;
-    /* single line with truncate  */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color: #ababab;
+    background-color: var(--muted-foreground);
+    color: var(--background);
     margin: 2px;
     border-radius: 3px;
 
     &:hover {
-      background-color: #494d49;
-      color: white;
+      background-color: var(--foreground);
+      color: var(--background);
     }
-
   }
 
   .event-dot {
@@ -1489,9 +1380,8 @@ textarea {
     height: 8px;
     border-radius: 50%;
     margin-right: 3px;
+    background: var(--success);
   }
-
-
 }
 
 // ResourceScheduleColumn
@@ -1667,7 +1557,7 @@ textarea {
   --cui-body-bg: var(--background);
   --cui-body-color: var(--foreground);
   --cui-border-color: var(--border);
-  --cui-tertiary-bg: hsl(240, 3.7%, 15.9%);
+  --cui-tertiary-bg: hsl(0, 0%, 100%);
   --cui-success: var(--success);
   --cui-warning: var(--warning);
   --cui-danger: var(--danger);
