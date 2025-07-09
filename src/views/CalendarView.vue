@@ -272,8 +272,8 @@
         <div class="form-field" style="flex:1;">
           <label>Email</label>
           <input type="email" v-model="newItemDetails.email" class="modern-input" autocomplete="email" />
-          <div class="checkbox-wrapper" style="margin-top: 8px;">
-            <input type="checkbox" id="sendEmail" v-model="newItemDetails.sendEmail" />
+          <div class="checkbox-wrapper" style="margin-top: 8px;" >
+            <input type="checkbox" id="sendEmail" v-model="newItemDetails.sendEmail" class="me-2" />
             <label for="sendEmail" style="font-size: 0.93em;">Send confirmation email</label>
           </div>
         </div>
