@@ -175,7 +175,7 @@
               :screen-width="screenWidth"
               :screen-height="screenHeight"
               v-if="view===VIEW_VERTICAL"
-              @hourSlotClicked="openNewAppointmentModal"
+              @hourSlotClicked="showQuickActionModal"
               @hourSlotDropped="updateAppointmentTime"
 
               @dayClicked="openDayDailyView"
@@ -206,6 +206,101 @@
 
     </div>
   </CContainer>
+
+  <!-- Quick Action Modal -->
+  <ModalComponent
+    title="Choose Action"
+    v-if="quickActionModalOpen"
+    @modalClose="quickActionModalOpen = false"
+    size="sm"
+  >
+    <div class="text-center" style="padding: 20px;">
+      <div class="mb-4">
+        <div class="fw-bold mb-2">{{ quickActionDetails.time ? quickActionDetails.time.format('MMMM DD, YYYY - HH:mm') : '' }}</div>
+        <div class="text-muted">{{ quickActionDetails.expert ? quickActionDetails.expert.name : '' }}</div>
+      </div>
+
+      <div class="d-grid gap-3">
+        <button class="btn-primary-custom" @click="selectAddAppointment">
+          New
+        </button>
+        <button class="btn-warning-custom" @click="selectBlockTime">
+          Block Time
+        </button>
+
+      </div>
+    </div>
+  </ModalComponent>
+
+  <!-- Block Time Modal -->
+  <ModalComponent
+    title="Block Time"
+    v-if="blockTimeModalOpen"
+    @modalClose="blockTimeModalOpen = false"
+    size="md"
+  >
+    <form @submit.prevent="saveBlockTime" class="clean-form">
+      <div class="form-field">
+        <label>Expert</label>
+        <select v-model="blockTimeDetails.expert" required class="modern-input">
+          <option value="">Choose expert...</option>
+          <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
+            {{ expert.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Date</label>
+          <input type="date" v-model="blockTimeDetails.date" required class="modern-input" />
+        </div>
+        <div class="form-field" style="flex:1;">
+          <label>Time</label>
+          <input type="time" v-model="blockTimeDetails.time" required class="modern-input" />
+        </div>
+      </div>
+
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Duration (minutes)</label>
+          <input
+            type="number"
+            v-model="blockTimeDetails.duration"
+            required
+            class="modern-input"
+            min="1"
+            max="480"
+            placeholder="e.g. 30"
+          />
+        </div>
+        <div class="form-field" style="flex:1;">
+          <label>Reason</label>
+          <select v-model="blockTimeDetails.reason" required class="modern-input">
+            <option value="">Select reason...</option>
+            <option value="break">Break</option>
+            <option value="lunch">Lunch</option>
+            <option value="meeting">Meeting</option>
+            <option value="training">Training</option>
+            <option value="personal">Personal</option>
+            <option value="maintenance">Maintenance</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions" style="margin-top: 18px;">
+        <button type="button" class="btn-cancel-custom" @click="blockTimeModalOpen = false">
+          Cancel
+        </button>
+        <button type="submit" class="btn-create-custom">
+          Save
+        </button>
+      </div>
+    </form>
+  </ModalComponent>
+
+
 
   <!-- New Appointment Modal -->
   <ModalComponent
@@ -507,7 +602,21 @@ export default {
       },
 
       procedures: [],
+      quickActionModalOpen: false,
+      quickActionDetails: {
+        time: null,
+        expert: null
+      },
 
+      // Block Time Modal
+      blockTimeModalOpen: false,
+      blockTimeDetails: {
+        expert: '',
+        date: '',
+        time: '',
+        duration: '',
+        reason: ''
+      },
 
       newAppointmentIsOpen: false,
       newItemDetails: {
@@ -766,6 +875,56 @@ export default {
 
   },
   methods: {
+
+    showQuickActionModal(details) {
+      this.quickActionDetails = {
+        time: details.time,
+        expert: details.expert
+      }
+      this.quickActionModalOpen = true
+    },
+
+    // Select Add Appointment from Quick Action Modal
+    selectAddAppointment() {
+      this.quickActionModalOpen = false
+      this.openNewAppointmentModal(this.quickActionDetails)
+    },
+
+    // Select Block Time from Quick Action Modal
+    selectBlockTime() {
+      this.quickActionModalOpen = false
+      this.openBlockTimeModal()
+    },
+
+    // Open Block Time Modal
+    openBlockTimeModal() {
+      this.blockTimeModalOpen = true
+      this.blockTimeDetails = {
+        expert: this.quickActionDetails.expert ? this.quickActionDetails.expert.id : '',
+        date: this.quickActionDetails.time ? this.quickActionDetails.time.format('YYYY-MM-DD') : '',
+        time: this.quickActionDetails.time ? this.quickActionDetails.time.format('HH:mm') : '',
+        duration: '',
+        reason: ''
+      }
+    },
+
+    // Save Block Time
+    saveBlockTime() {
+      // Here you can add your API call to save block time
+      console.log('Block Time Details:', this.blockTimeDetails)
+
+      // For now, just show success message and close modal
+      this.$swal({
+        title: 'Success',
+        text: 'Time blocked successfully',
+        icon: 'success',
+        showConfirmButton: true
+      }).then(() => {
+        this.blockTimeModalOpen = false
+        // Refresh calendar if needed
+        this.getCalendar()
+      })
+    },
 
     checkUrlForAppointmentId() {
       if (this.$route.query['open'] === 'appointment') {
