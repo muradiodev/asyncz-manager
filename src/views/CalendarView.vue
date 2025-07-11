@@ -556,6 +556,7 @@ import {
 } from '@/repositories/AppointmentRepository.js'
 import SmallCalendar from '@/components/calendar/SmallCalendar.vue'
 import { useThemeStore } from '@/stores/theme.js'
+import { useSidebarStore } from '@/stores/sidebar.js'
 
 export default {
   name: 'CalendarView',
@@ -678,6 +679,16 @@ export default {
       } else {
         this.$router.push({ query: {} })
       }
+    },
+    visible(){
+      setTimeout(() => {
+        this.onResize();
+      }, 100);
+    },
+    unfoldable(){
+      setTimeout(() => {
+        this.onResize();
+      }, 100);
     }
   },
 
@@ -767,6 +778,8 @@ export default {
     },
 
     ...mapState(useAuthStore, ['token']),
+
+    ...mapState(useSidebarStore, ['visible','unfoldable']),
 
     readyToBuildLayout() {
       return this.startDate && this.endDate && this.currentDate
@@ -1415,6 +1428,11 @@ export default {
   mounted() {
 
     this.onResize()
+
+
+    setTimeout(() => {
+       this.onResize();
+    }, 1000)
 
     window.addEventListener('resize', this.onResize)
 

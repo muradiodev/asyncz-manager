@@ -287,7 +287,7 @@ export default {
   mounted() {
     this.appointmentModal = new Modal(this.$refs.appointmentModal)
     this.successModal = new Modal(this.$refs.successModal)
-    this.checkMicrophonePermissions()
+    //this.checkMicrophonePermissions()
   },
 
   methods: {
@@ -301,6 +301,7 @@ export default {
     },
 
     async toggleRecording() {
+      this.checkMicrophonePermissions();
       if (!this.isRecording) {
         await this.startRecording()
       } else {
