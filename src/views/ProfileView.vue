@@ -111,7 +111,7 @@
                   </div>
 
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary" :disabled="isProfileLoading">
+                    <button type="submit" class="btn btn-primary-custom" :disabled="isProfileLoading">
                       <span v-if="isProfileLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                       {{ isProfileLoading ? 'Saving...' : 'Save Changes' }}
                     </button>
@@ -155,7 +155,7 @@
                   </div>
 
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary" :disabled="isPasswordLoading">
+                    <button type="submit" class="btn btn-primary-custom" :disabled="isPasswordLoading">
                       <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                       {{ isPasswordLoading ? 'Saving...' : 'Save Changes' }}
                     </button>
