@@ -190,12 +190,12 @@ const AppSidebarNav = defineComponent({
         to: '/dashboard/branches',
         icon: 'cil-factory',
       },
-      {
-        component: 'CNavItem',
-        name: 'Experts',
-        to: '/dashboard/experts',
-        icon: 'cil-briefcase',
-      },
+      // {
+      //   component: 'CNavItem',
+      //   name: 'Experts',
+      //   to: '/dashboard/experts',
+      //   icon: 'cil-briefcase',
+      // },
       {
         component: 'CNavItem',
         name: 'Users',
