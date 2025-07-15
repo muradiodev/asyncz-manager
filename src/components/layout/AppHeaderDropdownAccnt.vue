@@ -33,25 +33,39 @@ export default {
     <CDropdownToggle class="py-0 pe-0" :caret="false">
       <CAvatar :src="avatar" size="md" shape="rounded-circle" />
     </CDropdownToggle>
-    <CDropdownMenu class="pt-0">
-      <CDropdownHeader
-        component="h6"
-        class="bg-body-secondary text-body-secondary fw-semibold mb-2 rounded-top"
-      >
-        Account
-      </CDropdownHeader>
-      <CDropdownItem @click="$router.push({name:'profile'})" class="clickable-item">
-        <CIcon icon="cil-user" />
+    <CDropdownMenu class="pt-2 pb-2">
+      <CDropdownItem @click="$router.push({name:'profile'})" class="d-flex align-items-center py-2">
+        <CIcon icon="cil-user" class="me-2" />
         Profile
       </CDropdownItem>
 
-      <CDropdownItem @click="logout" class="clickable-item">
-        <CIcon icon="cil-lock-locked" />
-        Logout
+      <CDropdownItem @click="$router.push({name:'billing'})" class="d-flex align-items-center py-2">
+        <CIcon icon="cil-credit-card" class="me-2" />
+        Billing
+      </CDropdownItem>
+
+      <CDropdownItem @click="$router.push({name:'permissions'})" class="d-flex align-items-center py-2">
+        <CIcon icon="cil-shield-alt" class="me-2" />
+        Permissions
+      </CDropdownItem>
+
+      <CDropdownItem @click="$router.push({name:'business-settings'})" class="d-flex align-items-center py-2">
+        <CIcon icon="cil-settings" class="me-2" />
+        Business Settings
+      </CDropdownItem>
+
+      <CDropdownItem @click="$router.push({name:'language'})" class="d-flex align-items-center justify-content-between py-2">
+        <div class="d-flex align-items-center">
+          <CIcon icon="cil-globe-alt" class="me-2" />
+          Language
+        </div>
+        <CIcon icon="cil-chevron-right" />
+      </CDropdownItem>
+
+      <CDropdownItem @click="logout" class="d-flex align-items-center py-2">
+        <CIcon icon="cil-account-logout" class="me-2" />
+        Log out
       </CDropdownItem>
     </CDropdownMenu>
   </CDropdown>
 </template>
-
-<style scoped>
-</style>
