@@ -61,7 +61,7 @@
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="mb-0">{{ companyPackage.name }}</h4>
             <div class="text-end">
-              <h4 class="mb-0">{{ companyPackage.price > 0 ? companyPackage.price + ' AZN' : 'FREE' }}</h4>
+              <h4 class="mb-0">{{ companyPackage.price > 0 ? companyPackage.price + ' $' : 'FREE' }}</h4>
               <span class="badge bg-primary" v-if="companyPackage.isTrial">Trial</span>
             </div>
           </div>
@@ -157,11 +157,11 @@
 
                 <div class="mb-3">
                   <div v-if="period === 'monthly'">
-                    <h3 class="mb-0" v-if="pack.price > 0">{{ pack.price }} AZN<span class="text-muted fs-6">/month</span></h3>
+                    <h3 class="mb-0" v-if="pack.price > 0">{{ pack.price }} $<span class="text-muted fs-6">/month</span></h3>
                     <h3 class="mb-0 text-success" v-else>FREE</h3>
                   </div>
                   <div v-else>
-                    <h3 class="mb-0" v-if="pack.yearlyPrice > 0">{{ pack.yearlyPrice }} AZN<span class="text-muted fs-6">/year</span></h3>
+                    <h3 class="mb-0" v-if="pack.yearlyPrice > 0">{{ pack.yearlyPrice }} $<span class="text-muted fs-6">/year</span></h3>
                     <h3 class="mb-0 text-success" v-else>FREE</h3>
                   </div>
                 </div>
