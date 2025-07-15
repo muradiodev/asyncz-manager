@@ -683,12 +683,12 @@ export default {
     visible(){
       setTimeout(() => {
         this.onResize();
-      }, 100);
+      }, 1000);
     },
     unfoldable(){
       setTimeout(() => {
         this.onResize();
-      }, 100);
+      }, 1000);
     }
   },
 
