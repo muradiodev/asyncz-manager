@@ -51,6 +51,12 @@ const router = createRouter({
         },
 
         {
+          path: 'business-settings',
+          name: 'business-settings',
+          component: () => import('../views/BusinessSettingsView.vue')
+        },
+
+        {
           path: 'calendar',
           name: 'calendar',
           component: () => import('../views/CalendarView.vue')
