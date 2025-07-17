@@ -1,6 +1,7 @@
 <script>
 import avatar from '@/assets/images/avatar.jpg'
 import { cilAccountLogout , cilUser, cilDollar, cilShieldAlt, cilSettings, cilGlobeAlt} from '@coreui/icons'
+import { customAsk } from '@/utils/utils.js'
 
 export default {
   data() {
@@ -17,19 +18,18 @@ export default {
 
   methods: {
     logout() {
-      this.$swal({
-        title: 'Logout',
-        text: 'Are you sure you want to logout?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
-      }).then((result) => {
-        if (!result.isConfirmed) return
+      customAsk(
+        'Logout',
+        'Are you sure you want to logout?',
+        'warning',
+        () =>{
+          localStorage.removeItem('token')
+          window.location.reload()
+        },
+        () =>{
 
-        localStorage.removeItem('token')
-        window.location.reload()
-      })
+        }
+      )
     },
   },
 }

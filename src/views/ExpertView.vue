@@ -7,7 +7,7 @@
         <div class="mb-4">
           <AppBreadcrumb :breadcrumbs="[
             { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Experts', path: '/dashboard/experts', active: false },
+            { name: 'Users', path: '/dashboard/users', active: false },
             { name:  expert?.fullName, path: '/expert/' + expertId, active: true }
           ]" />
         </div>

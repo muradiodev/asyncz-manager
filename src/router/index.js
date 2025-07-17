@@ -22,6 +22,12 @@ const router = createRouter({
       name: 'register',
       component: () => import('../views/RegisterView.vue')
     },
+
+    {
+      path: '/password-enforced',
+      name: 'password-enforced',
+      component: () => import('../views/PasswordEnforcedView.vue')
+    },
     {
       path: '/dashboard',
       name: 'dashboard',
@@ -130,6 +136,10 @@ router.beforeResolve((to, from, next) => {
         auth.setCompany(data.company)
         auth.setCompanyPackage(data.package)
         console.log(data.package)
+        if(data.password_change_required && to.name !== 'password-enforced') {
+          next({ name: 'password-enforced' , query: { back: to.path } })
+          return
+        }
         next()
       } else {
         localStorage.removeItem('token')

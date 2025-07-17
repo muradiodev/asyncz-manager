@@ -30,12 +30,12 @@ export async function getUser(token, id) {
     })
 }
 
-export async function createUser(token, branch, name, email, password) {
+export async function createUser(token, role, branch, name, email) {
   return await Repository.postForm(`${baseUrl}/manager/user?token=${token}`, {
+    role,
     branch,
     name,
-    email,
-    password
+    email
   })
     .then((response) => {
       if (response.data) {

@@ -42,6 +42,21 @@
       <div class="row">
         <div class="col-md-12">
           <div class="mb-3">
+            <label for="newBranch" class="form-label">Role</label>
+            <select
+              class="form-control"
+              id="newBranch"
+              v-model="newItemDetails.role"
+              required
+            >
+              <option value="manager" >Company manager</option>
+              <option value="branch" >Branch manager</option>
+              <option value="expert" >Expert</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-12" v-if="newItemDetails.role !== 'manager'">
+          <div class="mb-3">
             <label for="newBranch" class="form-label">Branch</label>
             <select
               class="form-control"
@@ -49,7 +64,6 @@
               v-model="newItemDetails.branchId"
               required
             >
-              <option value="0" >-all branches-</option>
               <option v-for="branch in branchList" :value="branch.id" :key="branch.id">{{ branch.name }}</option>
             </select>
           </div>
@@ -66,7 +80,7 @@
             />
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="mb-3">
             <label for="newEmail" class="form-label">E-mail</label>
             <input
@@ -74,17 +88,6 @@
               class="form-control"
               id="newEmail"
               v-model="newItemDetails.email"
-              required
-            />
-          </div>
-        </div><div class="col-md-6">
-          <div class="mb-3">
-            <label for="newPassword" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="newPassword"
-              v-model="newItemDetails.password"
               required
             />
           </div>
@@ -121,9 +124,9 @@ export default {
 
       addNewItem: false,
       newItemDetails:{
+        role: '',
         fullName: '',
         email: '',
-        password: '',
         branchId: null
       },
 
@@ -196,18 +199,24 @@ export default {
     },
 
     createNewItem(){
-      createUser(this.token, this.newItemDetails.branchId, this.newItemDetails.fullName, this.newItemDetails.email, this.newItemDetails.password).then(response => {
+      createUser(this.token, this.newItemDetails.role, this.newItemDetails.branchId, this.newItemDetails.fullName, this.newItemDetails.email).then(response => {
         if(response.code === 200){
           this.getUsers();
           this.addNewItem = false;
+
+          if(this.newItemDetails.role === 'expert'){
+            this.$router.push({name: 'expert', params: {id: response.expertId}});
+          } else {
+            this.$router.push({name: 'user', params: {id: response.id}});
+          }
+
           this.newItemDetails = {
             branchId: null,
             fullName: '',
             email: '',
-            password: ''
+            role: ''
           };
 
-          this.$router.push({name: 'user', params: {id: response.id}});
         } else {
           this.$swal({
             title: 'Error',
