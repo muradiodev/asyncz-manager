@@ -17,9 +17,18 @@
   </CCard>
 
   <CContainer class="px-4 pb-4" lg>
-    <div class="card border-0 shadow-sm">
+    <div v-if="isInitialLoading">
+      <!-- loading-->
+      <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <div v-else class="card border-0 shadow-sm">
       <div class="card-body p-4">
-        <form @submit.prevent>
+        <form @submit.prevent="saveChanges">
           <!-- Business Name -->
           <div class="mb-4">
             <label for="businessName" class="form-label fw-bold">Business Name</label>
@@ -27,12 +36,21 @@
               type="text"
               class="form-control"
               id="businessName"
-              value="MyTestGroomingBusiness"
+              v-model="businessData.name"
+              :disabled="isLoading"
             />
-            <div class="text-warning small mt-1">
-              <fa-icon :icon="['fas','exclamation-triangle']" class="me-1"></fa-icon>
-              Updating your business name will also update your online form link (slug)
-            </div>
+          </div>
+
+          <!-- Business Description -->
+          <div class="mb-4">
+            <label for="businessAbout" class="form-label fw-bold">Business Description</label>
+            <textarea
+              class="form-control"
+              id="businessAbout"
+              rows="3"
+              v-model="businessData.about"
+              :disabled="isLoading"
+            ></textarea>
           </div>
 
           <!-- Business Address -->
@@ -42,7 +60,9 @@
               class="form-control"
               id="businessAddress"
               rows="3"
-            >1108, Regal Tower, Business Bay St-Dubai - United Arab Emirates</textarea>
+              v-model="businessData.address"
+              :disabled="isLoading"
+            ></textarea>
           </div>
 
           <!-- Business Phone -->
@@ -52,7 +72,8 @@
               type="tel"
               class="form-control"
               id="businessPhone"
-              value="+994505883149"
+              v-model="businessData.phone"
+              :disabled="isLoading"
             />
           </div>
 
@@ -63,7 +84,8 @@
               type="email"
               class="form-control"
               id="businessEmail"
-              value="is.elxan@gmail.com"
+              v-model="businessData.email"
+              :disabled="isLoading"
             />
           </div>
 
@@ -73,8 +95,10 @@
             <select
               class="form-select"
               id="businessTimezone"
+              v-model="businessData.time_zone"
+              :disabled="isLoading"
             >
-              <option value="Eastern Time - Toronto (EST/EDT)" selected>Eastern Time - Toronto (EST/EDT)</option>
+              <option value="Eastern Time - Toronto (EST/EDT)">Eastern Time - Toronto (EST/EDT)</option>
               <option value="Central Time (CST/CDT)">Central Time (CST/CDT)</option>
               <option value="Mountain Time (MST/MDT)">Mountain Time (MST/MDT)</option>
               <option value="Pacific Time (PST/PDT)">Pacific Time (PST/PDT)</option>
@@ -84,10 +108,27 @@
             </select>
           </div>
 
+          <!-- Slot Size -->
+          <div class="mb-4">
+            <label for="slotSize" class="form-label fw-bold">Slot Size in Minutes</label>
+            <select
+              class="form-select"
+              id="slotSize"
+              v-model="businessData.slot_size"
+              :disabled="isLoading"
+            >
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="60">60</option>
+            </select>
+          </div>
+
           <!-- Action Buttons-->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary-custom">
-              Save Changes
+            <button type="submit" class="btn btn-primary-custom" :disabled="isLoading">
+              <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {{ isLoading ? 'Saving...' : 'Save Changes' }}
             </button>
           </div>
         </form>
@@ -98,9 +139,118 @@
 
 <script>
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
+import { useAuthStore } from '@/stores/auth.js'
+import { mapState } from 'pinia'
+import { getBusinessData, saveBusinessData } from '@/repositories/BusinessDataRepository.js'
 
 export default {
   name: 'BusinessSettingsView',
-  components: { AppBreadcrumb }
+  components: { AppBreadcrumb },
+  data() {
+    return {
+      isInitialLoading: true,
+      isLoading: false,
+      businessData: {
+        name: '',
+        about: '',
+        address: '',
+        email: '',
+        phone: '',
+        time_zone: 'Eastern Time - Toronto (EST/EDT)', // Default timezone
+        slot_size: '10' // Default slot size
+      },
+      originalData: null
+    }
+  },
+  computed: {
+    ...mapState(useAuthStore, ['token', 'user']),
+  },
+  methods: {
+    async loadBusinessData() {
+      this.isInitialLoading = true;
+      try {
+        const response = await getBusinessData(this.token);
+        if (response && response.code === 200 && response.company) {
+          // Extract company data from the response
+          const data = response.company;
+          this.businessData = {
+            name: data.name || '',
+            about: data.about || '',
+            address: data.address || '',
+            email: data.email || '',
+            phone: data.phone || '',
+            time_zone: data.time_zone || 'Eastern Time - Toronto (EST/EDT)',
+            slot_size: data.slot_size ? data.slot_size.toString() : '30',
+            logo: data.logo || ''
+          };
+          // Store original data for reset functionality
+          this.originalData = JSON.parse(JSON.stringify(this.businessData));
+        }
+      } catch (error) {
+        this.$swal({
+          title: 'Error',
+          text: 'Failed to load business data',
+          icon: 'error'
+        });
+        console.error('Error loading business data:', error);
+      } finally {
+        this.isInitialLoading = false;
+      }
+    },
+    async saveChanges() {
+      this.isLoading = true;
+      try {
+        // Log the data being sent to verify it's correct
+        console.log('Sending business data:', this.businessData);
+
+        const response = await saveBusinessData(
+          this.token,
+          {
+            name: this.businessData.name,
+            about: this.businessData.about,
+            address: this.businessData.address,
+            email: this.businessData.email,
+            phone: this.businessData.phone,
+            time_zone: this.businessData.time_zone,
+            slot_size: this.businessData.slot_size,
+            logo: this.businessData.logo
+          }
+        );
+
+        if (response.code === 200) {
+          this.$swal({
+            title: 'Success',
+            text: response.message || 'Business settings updated successfully',
+            icon: 'success'
+          });
+          // Update original data after successful save
+          this.originalData = JSON.parse(JSON.stringify(this.businessData));
+        } else {
+          this.$swal({
+            title: 'Error',
+            text: response.message || 'Failed to update business settings',
+            icon: 'error'
+          });
+        }
+      } catch (error) {
+        this.$swal({
+          title: 'Error',
+          text: 'An unexpected error occurred',
+          icon: 'error'
+        });
+        console.error('Error saving business data:', error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    resetForm() {
+      if (this.originalData) {
+        this.businessData = JSON.parse(JSON.stringify(this.originalData));
+      }
+    }
+  },
+  mounted() {
+    this.loadBusinessData();
+  }
 }
 </script>
