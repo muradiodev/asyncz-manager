@@ -210,6 +210,12 @@ const AppSidebarNav = defineComponent({
       },
       {
         component: 'CNavItem',
+        name: 'Customer List',
+        to: '/dashboard/customers',
+        icon: 'cil-user',
+      },
+      {
+        component: 'CNavItem',
         name: 'Blacklist',
         to: '/dashboard/blacklist',
         icon: 'cil-ban',

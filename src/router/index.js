@@ -94,7 +94,11 @@ const router = createRouter({
           name: 'branches',
           component: () => import('../views/BranchesView.vue')
         },
-
+        {
+          path: 'customers',
+          name: 'customers',
+          component: () => import('../views/CustomersView.vue')
+        },
         {
           path: 'procedures',
           name: 'procedures',
@@ -135,7 +139,6 @@ router.beforeResolve((to, from, next) => {
         auth.setToken(token)
         auth.setCompany(data.company)
         auth.setCompanyPackage(data.package)
-        console.log(data.package)
         if(data.password_change_required && to.name !== 'password-enforced') {
           next({ name: 'password-enforced' , query: { back: to.path } })
           return

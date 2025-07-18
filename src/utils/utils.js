@@ -1,4 +1,5 @@
-import Swal from 'sweetalert2'
+import
+  Swal from 'sweetalert2'
 
 export function customAlert(title, decription, type, next) {
     Swal.fire({
