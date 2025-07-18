@@ -11,7 +11,7 @@
   },
   "navigation": {
     "dashboard": "Dashboard",
-    "profile": "Profile"
+    "account": "Account"
   },
   "login": {
     "welcome": "Welcome!",

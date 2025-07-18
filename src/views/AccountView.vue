@@ -5,7 +5,7 @@
         <div class="mb-4">
           <AppBreadcrumb :breadcrumbs="[
             { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Profile', path: '/dashboard/profile', active: true }
+            { name: 'Account', path: '/dashboard/account', active: true }
           ]" />
         </div>
 
@@ -30,7 +30,7 @@
       <!-- Tabs navigation -->
       <ul class="nav nav-tabs mb-4">
         <li class="nav-item">
-          <a class="nav-link active" data-bs-toggle="tab" href="#profile">Profile</a>
+          <a class="nav-link active" data-bs-toggle="tab" href="#account">Account</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="tab" href="#security">Security</a>
@@ -39,14 +39,14 @@
 
       <!-- Tab content -->
       <div class="tab-content">
-        <!-- Profile Tab -->
-        <div class="tab-pane fade show active" id="profile">
+        <!-- Account Tab -->
+        <div class="tab-pane fade show active" id="account">
           <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-              <h5 class="mb-3">Profile Information</h5>
+              <h5 class="mb-3">Account Information</h5>
               <p class="text-muted mb-4">Update your personal information</p>
 
-              <form @submit.prevent="user.expert ? updateProfile() : updateProfileManager()">
+              <form @submit.prevent="user.expert ? updateAccount() : updateAccountManager()">
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label for="firstName" class="form-label">First name</label>
@@ -57,7 +57,7 @@
                       :value="getFirstName"
                       @input="updateFirstName($event.target.value)"
                       required
-                      :disabled="isProfileLoading"
+                      :disabled="isAccountLoading"
                     />
                   </div>
 
@@ -70,7 +70,7 @@
                       :value="getLastName"
                       @input="updateLastName($event.target.value)"
                       required
-                      :disabled="isProfileLoading"
+                      :disabled="isAccountLoading"
                     />
                   </div>
 
@@ -94,7 +94,7 @@
                       id="phone"
                       v-model="phone"
                       placeholder="+1 (555) 000-0000"
-                      :disabled="isProfileLoading"
+                      :disabled="isAccountLoading"
                     />
                   </div>
 
@@ -106,14 +106,14 @@
                       id="about"
                       v-model="user.expert.about"
                       placeholder="Tell us about yourself"
-                      :disabled="isProfileLoading"
+                      :disabled="isAccountLoading"
                     ></textarea>
                   </div>
 
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary-custom" :disabled="isProfileLoading">
-                      <span v-if="isProfileLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                      {{ isProfileLoading ? 'Saving...' : 'Save Changes' }}
+                    <button type="submit" class="btn btn-primary-custom" :disabled="isAccountLoading">
+                      <span v-if="isAccountLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                      {{ isAccountLoading ? 'Saving...' : 'Save Changes' }}
                     </button>
                   </div>
                 </div>
@@ -173,11 +173,11 @@
 <script>
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
-import { saveProfile, setPassword } from '@/repositories/AuthRepository.js'
+import { saveAccount, setPassword } from '@/repositories/AuthRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
 export default {
-  name: 'ProfileView',
+  name: 'AccountView',
   components: { AppBreadcrumb },
   data() {
     return {
@@ -186,7 +186,7 @@ export default {
       phone: '',
       firstName: '',
       lastName: '',
-      isProfileLoading: false,
+      isAccountLoading: false,
       isPasswordLoading: false
     }
   },
@@ -228,9 +228,9 @@ export default {
         this.user.name = this.getFirstName + ' ' + value;
       }
     },
-    updateProfile() {
-      this.isProfileLoading = true;
-      saveProfile(this.token, this.user.expert.name, this.user.expert.about)
+    updateAccount() {
+      this.isAccountLoading = true;
+      saveAccount(this.token, this.user.expert.name, this.user.expert.about)
         .then(response => {
           if (response.code === 200) {
             this.$swal({
@@ -256,12 +256,12 @@ export default {
           })
         })
         .finally(() => {
-          this.isProfileLoading = false;
+          this.isAccountLoading = false;
         });
     },
-    updateProfileManager() {
-      this.isProfileLoading = true;
-      saveProfile(this.token, this.user.name, null)
+    updateAccountManager() {
+      this.isAccountLoading = true;
+      saveAccount(this.token, this.user.name, null)
         .then(response => {
           if (response.code === 200) {
             this.$swal({
@@ -287,7 +287,7 @@ export default {
           })
         })
         .finally(() => {
-          this.isProfileLoading = false;
+          this.isAccountLoading = false;
         });
     },
     updatePassword() {

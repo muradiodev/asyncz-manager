@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
 import { useAuthStore } from '@/stores/auth'
-import { getProfile } from '@/repositories/AuthRepository.js'
+import { getAccount } from '@/repositories/AuthRepository.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,9 +51,9 @@ const router = createRouter({
         },
 
         {
-          path: 'profile',
-          name: 'profile',
-          component: () => import('../views/ProfileView.vue')
+          path: 'account',
+          name: 'account',
+          component: () => import('../views/AccountView.vue')
         },
 
         {
@@ -132,7 +132,7 @@ router.beforeResolve((to, from, next) => {
 
   if (token) {
     //decoding token
-    getProfile(token).then(({ code, data }) => {
+    getAccount(token).then(({ code, data }) => {
       if (code === 200) {
         const auth = useAuthStore()
         auth.setUser(data)

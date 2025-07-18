@@ -68,7 +68,7 @@
           </div>
         </div>
 
-        <!-- profile dropdown -->
+        <!-- Account dropdown -->
         <div class="dropdown">
           <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
              data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,7 +77,7 @@
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <li class="dropdown-item disabled"> {{ user.role }}</li>
-            <li><router-link class="dropdown-item" :to="{name:'profile'}">Profile</router-link></li>
+            <li><router-link class="dropdown-item" :to="{name:'account'}">Account</router-link></li>
             <li><a class="dropdown-item" href="#" @click.prevent="logout">Logout</a></li>
           </ul>
         </div>
