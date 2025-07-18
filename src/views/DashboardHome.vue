@@ -1,5 +1,12 @@
 <template>
   <div class="dashboard-home container-fluid py-4">
+    <!-- Loading Overlay -->
+    <div v-if="isLoading" class="loading-overlay">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
     <!-- Greeting -->
     <div class="row mb-4">
       <div class="col">
@@ -23,7 +30,7 @@
                   class="btn-outline-primary-custom"
                   v-for="range in quickRanges"
                   :key="range.value"
-                  :class="{ 'btn-primary': selectedQuickRange === range.value, 'btn-outline-secondary': selectedQuickRange !== range.value }"
+                  :class="{ 'btn btn-primary': selectedQuickRange === range.value, 'btn btn-outline-secondary': selectedQuickRange !== range.value }"
                   @click="selectQuickRange(range.value)">
                   {{ range.label }}
                 </button>
@@ -51,10 +58,10 @@
 
               <!-- Apply/Reset Buttons -->
               <div class="d-flex gap-2">
-                <button class="btn-success-custom" @click="applyDateFilter">
+                <button class="btn btn-success btn-sm" @click="applyDateFilter" :disabled="isLoading">
                   <i class="bi bi-check-circle me-1"></i>Apply
                 </button>
-                <button class="btn-outline-danger-custom" @click="resetDateFilter">
+                <button class="btn btn-outline-danger btn-sm" @click="resetDateFilter" :disabled="isLoading">
                   <i class="bi bi-arrow-clockwise me-1"></i>Reset
                 </button>
               </div>
@@ -64,6 +71,42 @@
             <div class="mt-2 small text-muted">
               <strong>Current Filter:</strong> {{ currentFilterText }}
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats Row -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-center">
+            <div class="display-6 fw-bold text-primary">{{ quickStats.today_appointments || 0 }}</div>
+            <div class="small text-muted">Today's Appointments</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-center">
+            <div class="display-6 fw-bold text-success">{{ quickStats.month_appointments || 0 }}</div>
+            <div class="small text-muted">This Month</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-center">
+            <div class="display-6 fw-bold text-info">{{ quickStats.active_experts || 0 }}</div>
+            <div class="small text-muted">Active Experts</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="card shadow-sm h-100">
+          <div class="card-body text-center">
+            <div class="display-6 fw-bold text-warning">{{ quickStats.active_procedures || 0 }}</div>
+            <div class="small text-muted">Active Services</div>
           </div>
         </div>
       </div>
@@ -81,23 +124,23 @@
                 <div class="small text-muted">{{ currentFilterText }}</div>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-sm btn-outline-secondary" v-for="range in ranges" :key="range.value"
-                        :class="{ 'btn-primary text-white': activeRange === range.value }"
-                        @click="setActiveRange(range.value)">
+                <button class="btn btn-sm btn-outline-secondary" v-for="range in chartRanges" :key="range.value"
+                        :class="{ 'btn-primary text-white': activeChartRange === range.value }"
+                        @click="setActiveChartRange(range.value)">
                   {{ range.label }}
                 </button>
-                <button class="btn btn-light btn-sm ms-1" title="Show Chart Type" @click="toggleChartType">
+                <button class="btn btn-light btn-sm ms-1" title="Toggle Chart Type" @click="toggleChartType">
                   <i :class="chartType === 'line' ? 'bi bi-bar-chart-fill' : 'bi bi-graph-up'"></i>
                 </button>
               </div>
             </div>
             <div class="d-flex flex-wrap mb-2 gap-3">
               <div>
-                <span class="display-6 fw-bold">{{ filteredTotalAppointments }}</span>
+                <span class="display-6 fw-bold">{{ dashboardSummary.total_appointments || 0 }}</span>
               </div>
               <div class="small text-muted">
                 Total appointments<br>
-                Average per period: {{ filteredAvgAppointments }}
+                Completion rate: {{ dashboardSummary.completion_rate || 0 }}%
               </div>
             </div>
             <!-- Chart -->
@@ -117,15 +160,18 @@
           <div class="card-body">
             <div class="fw-semibold mb-0" style="font-size: 1.1rem;">Upcoming Appointments</div>
             <div class="small text-muted mb-2">Next 7 days (booked & confirmed only)</div>
-            <div class="display-6 fw-bold mb-2">{{ filteredUpcomingAppointments.length }} total</div>
-            <div v-if="filteredUpcomingAppointments.length">
-              <div v-for="(appt, idx) in filteredUpcomingAppointments" :key="appt.id" class="d-flex justify-content-between align-items-center mb-3">
+            <div class="display-6 fw-bold mb-2">{{ upcomingAppointments.length }} total</div>
+            <div v-if="upcomingAppointments.length" class="upcoming-appointments-list">
+              <div v-for="(appt, idx) in upcomingAppointments.slice(0, 5)" :key="appt.id" class="d-flex justify-content-between align-items-center mb-3">
                 <div>
                   <div class="fw-semibold">{{ appt.service }}</div>
-                  <div class="small text-muted">{{ formatDate(appt.date) }}<br>{{ appt.duration }} min</div>
+                  <div class="small text-muted">{{ formatDate(appt.date) }} at {{ appt.time }}<br>{{ appt.duration }} min</div>
                   <span class="badge" :class="getStatusBadgeClass(appt.status)">{{ appt.status }}</span>
                 </div>
-                <div class="fw-bold">{{ appt.price ? appt.price : '' }}</div>
+                <div class="fw-bold">{{ appt.price || '' }}</div>
+              </div>
+              <div v-if="upcomingAppointments.length > 5" class="text-center mt-3">
+                <small class="text-muted">+{{ upcomingAppointments.length - 5 }} more appointments</small>
               </div>
             </div>
             <div v-else class="text-muted small">No upcoming appointments</div>
@@ -145,7 +191,7 @@
               <i class="bi bi-info-circle ms-1" title="Most booked services in selected period"></i>
             </div>
             <div class="small text-muted mb-2">Most booked services ({{ currentFilterText }})</div>
-            <div v-if="filteredTopServices.length">
+            <div v-if="topServices.length">
               <table class="table table-sm mb-0">
                 <thead>
                 <tr>
@@ -155,7 +201,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="svc in filteredTopServices" :key="svc.name">
+                <tr v-for="svc in topServices" :key="svc.name">
                   <td>{{ svc.name }}</td>
                   <td>{{ svc.bookings }}</td>
                   <td>
@@ -181,7 +227,7 @@
               <i class="bi bi-info-circle ms-1" title="Experts by total appointments in selected period"></i>
             </div>
             <div class="small text-muted mb-2">Experts by total appointments ({{ currentFilterText }})</div>
-            <div v-if="filteredTopExperts.length">
+            <div v-if="topExperts.length">
               <table class="table table-sm mb-0">
                 <thead>
                 <tr>
@@ -191,7 +237,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="expert in filteredTopExperts" :key="expert.name">
+                <tr v-for="expert in topExperts" :key="expert.name">
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="avatar-sm me-2">{{ expert.name.charAt(0) }}</div>
@@ -214,17 +260,34 @@
         </div>
       </div>
     </div>
+
+    <!-- Error Message -->
+    <div v-if="errorMessage" class="alert alert-danger mt-3" role="alert">
+      {{ errorMessage }}
+    </div>
   </div>
 </template>
 
 <script>
 import Chart from 'chart.js/auto'
+import {
+  getDashboardData,
+  getQuickStats,
+  getAppointmentsChart,
+  getUpcomingAppointments,
+  getTopServices,
+  getTopExperts
+} from '@/repositories/DashboardRepository'
+import { mapState } from 'pinia'
+import { useAuthStore } from '@/stores/auth.js'
 
 export default {
   name: 'DashboardHome',
   data() {
     return {
       username: 'User',
+      isLoading: false,
+      errorMessage: '',
 
       // Date filtering
       selectedQuickRange: '3m',
@@ -246,82 +309,22 @@ export default {
         { label: 'All Time', value: 'all' }
       ],
 
-      ranges: [
-        { label: '7D', value: '7d' },
-        { label: '2W', value: '2w' },
-        { label: '4W', value: '4w' },
-        { label: '3M', value: '3m' },
-        { label: '1Y', value: '1y' }
+      chartRanges: [
+        { label: 'Day', value: 'day' },
+        { label: 'Week', value: 'week' },
+        { label: 'Month', value: 'month' }
       ],
-      activeRange: '1y',
+      activeChartRange: 'month',
       chartType: 'line',
 
-      // Dummy data - this will be replaced with API calls
-      allAppointmentsData: [
-        { date: '2024-01-15', appointments: 5, completed: 4, cancelled: 1 },
-        { date: '2024-02-15', appointments: 8, completed: 7, cancelled: 1 },
-        { date: '2024-03-15', appointments: 12, completed: 10, cancelled: 2 },
-        { date: '2024-04-15', appointments: 15, completed: 13, cancelled: 2 },
-        { date: '2024-05-15', appointments: 18, completed: 16, cancelled: 2 },
-        { date: '2024-06-15', appointments: 22, completed: 20, cancelled: 2 },
-        { date: '2024-07-15', appointments: 25, completed: 22, cancelled: 3 },
-        { date: '2024-08-15', appointments: 20, completed: 18, cancelled: 2 },
-        { date: '2024-09-15', appointments: 24, completed: 22, cancelled: 2 },
-        { date: '2024-10-15', appointments: 28, completed: 25, cancelled: 3 },
-        { date: '2024-11-15', appointments: 30, completed: 27, cancelled: 3 },
-        { date: '2024-12-15', appointments: 35, completed: 32, cancelled: 3 },
-      ],
-
-      allUpcomingAppointments: [
-        {
-          id: 1,
-          service: 'Consultation',
-          date: '2024-12-20',
-          duration: 30,
-          status: 'Booked',
-          price: '$120'
-        },
-        {
-          id: 2,
-          service: 'Therapy Session',
-          date: '2024-12-21',
-          duration: 60,
-          status: 'Confirmed',
-          price: '$200'
-        },
-        {
-          id: 3,
-          service: 'Follow-up',
-          date: '2024-12-22',
-          duration: 20,
-          status: 'Booked',
-          price: '$80'
-        },
-        {
-          id: 4,
-          service: 'Assessment',
-          date: '2024-12-23',
-          duration: 45,
-          status: 'Confirmed',
-          price: '$150'
-        }
-      ],
-
-      allTopServices: [
-        { name: 'Consultation', bookings: 45, completion: 95, revenue: 5400, dateRange: '2024-01-01' },
-        { name: 'Therapy Session', bookings: 38, completion: 92, revenue: 7600, dateRange: '2024-01-01' },
-        { name: 'Assessment', bookings: 25, completion: 88, revenue: 3750, dateRange: '2024-01-01' },
-        { name: 'Follow-up', bookings: 32, completion: 97, revenue: 2560, dateRange: '2024-01-01' },
-        { name: 'Group Session', bookings: 18, completion: 85, revenue: 1800, dateRange: '2024-01-01' }
-      ],
-
-      allTopExperts: [
-        { name: 'Dr. Murad', appointments: 65, rating: 4.9, revenue: 13000, dateRange: '2024-01-01' },
-        { name: 'Dr. Sarah', appointments: 52, rating: 4.8, revenue: 10400, dateRange: '2024-01-01' },
-        { name: 'Dr. Ahmed', appointments: 48, rating: 4.7, revenue: 9600, dateRange: '2024-01-01' },
-        { name: 'Dr. Lisa', appointments: 41, rating: 4.8, revenue: 8200, dateRange: '2024-01-01' },
-        { name: 'Deviofy', appointments: 35, rating: 4.6, revenue: 7000, dateRange: '2024-01-01' }
-      ],
+      // API Data
+      dashboardData: {},
+      quickStats: {},
+      chartData: [],
+      upcomingAppointments: [],
+      topServices: [],
+      topExperts: [],
+      dashboardSummary: {},
 
       chart: null
     }
@@ -342,53 +345,163 @@ export default {
       return `${start} - ${end}`
     },
 
-    filteredAppointmentsData() {
-      if (!this.currentDateRange.start || !this.currentDateRange.end) {
-        return this.allAppointmentsData
-      }
+    ...mapState(useAuthStore, ['user', 'token']),
 
-      return this.allAppointmentsData.filter(item => {
-        const itemDate = new Date(item.date)
-        return itemDate >= this.currentDateRange.start && itemDate <= this.currentDateRange.end
-      })
-    },
-
-    filteredTotalAppointments() {
-      return this.filteredAppointmentsData.reduce((sum, item) => sum + item.appointments, 0)
-    },
-
-    filteredAvgAppointments() {
-      if (this.filteredAppointmentsData.length === 0) return 0
-      return Math.round(this.filteredTotalAppointments / this.filteredAppointmentsData.length)
-    },
-
-    filteredUpcomingAppointments() {
-      const today = new Date()
-      const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
-
-      return this.allUpcomingAppointments.filter(appt => {
-        const apptDate = new Date(appt.date)
-        return apptDate >= today && apptDate <= nextWeek
-      })
-    },
-
-    filteredTopServices() {
-      // In real implementation, this would filter based on date range
-      return this.allTopServices.slice(0, 5)
-    },
-
-    filteredTopExperts() {
-      // In real implementation, this would filter based on date range
-      return this.allTopExperts.slice(0, 5)
-    }
   },
 
-  mounted() {
+  async mounted() {
     this.initializeDateRange()
-    this.renderChart()
+    await this.loadInitialData()
   },
 
   methods: {
+    async loadInitialData() {
+      this.isLoading = true
+      this.errorMessage = ''
+
+      try {
+        // Load quick stats first (no date dependency)
+        await this.loadQuickStats()
+
+        // Load main dashboard data
+        await this.loadDashboardData()
+
+        // Load upcoming appointments
+        await this.loadUpcomingAppointments()
+
+        // Render chart after data is loaded
+        this.$nextTick(() => {
+          this.renderChart()
+        })
+
+      } catch (error) {
+        console.error('Error loading dashboard data:', error)
+        this.errorMessage = 'Failed to load dashboard data. Please try again.'
+      } finally {
+        this.isLoading = false
+      }
+    },
+
+    // Replace these methods in your Vue component:
+
+    async loadQuickStats() {
+      try {
+        console.log('Loading quick stats with token:', this.token)
+        const result = await getQuickStats(this.token)
+        console.log('Quick stats result:', result)
+
+        if (result && result.code === 200) {
+          // The data is directly in the result object
+          this.quickStats = {
+            today_appointments: result.today_appointments || 0,
+            month_appointments: result.month_appointments || 0,
+            active_experts: result.active_experts || 0,
+            active_procedures: result.active_procedures || 0
+          }
+        } else {
+          console.error('Quick stats API error:', result)
+        }
+      } catch (error) {
+        console.error('Error loading quick stats:', error)
+      }
+    },
+
+    async loadDashboardData() {
+      try {
+        const startDate = this.currentDateRange.start ? this.formatDateForAPI(this.currentDateRange.start) : null
+        const endDate = this.currentDateRange.end ? this.formatDateForAPI(this.currentDateRange.end) : null
+
+        console.log('Loading dashboard data with dates:', startDate, endDate)
+        const result = await getDashboardData(this.token, startDate, endDate)
+        console.log('Dashboard result:', result)
+
+        if (result && result.code === 200) {
+          this.dashboardData = result
+          this.dashboardSummary = result.summary || {
+            total_appointments: 0,
+            completed_appointments: 0,
+            cancelled_appointments: 0,
+            completion_rate: 0
+          }
+          this.username = result.company_name || 'User'
+
+          // Load chart data
+          await this.loadChartData()
+
+          // Load top services and experts
+          await this.loadTopServices()
+          await this.loadTopExperts()
+        } else {
+          console.error('Dashboard API error:', result)
+        }
+      } catch (error) {
+        console.error('Error loading dashboard data:', error)
+        throw error
+      }
+    },
+
+    async loadChartData() {
+      try {
+        const startDate = this.currentDateRange.start ? this.formatDateForAPI(this.currentDateRange.start) : null
+        const endDate = this.currentDateRange.end ? this.formatDateForAPI(this.currentDateRange.end) : null
+
+        const result = await getAppointmentsChart(this.token, startDate, endDate, this.activeChartRange)
+        console.log('Chart data result:', result)
+
+        if (result && result.code === 200) {
+          this.chartData = result.chart_data || []
+        }
+      } catch (error) {
+        console.error('Error loading chart data:', error)
+      }
+    },
+
+    async loadUpcomingAppointments() {
+      try {
+        const result = await getUpcomingAppointments(this.token, 7)
+        console.log('Upcoming appointments result:', result)
+
+        if (result && result.code === 200) {
+          this.upcomingAppointments = result.upcoming_appointments || []
+        }
+      } catch (error) {
+        console.error('Error loading upcoming appointments:', error)
+      }
+    },
+
+    async loadTopServices() {
+      try {
+        const startDate = this.currentDateRange.start ? this.formatDateForAPI(this.currentDateRange.start) : null
+        const endDate = this.currentDateRange.end ? this.formatDateForAPI(this.currentDateRange.end) : null
+
+        const result = await getTopServices(this.token, startDate, endDate, 10)
+        console.log('Top services result:', result)
+
+        if (result && result.code === 200) {
+          this.topServices = result.top_services || []
+        }
+      } catch (error) {
+        console.error('Error loading top services:', error)
+      }
+    },
+
+    async loadTopExperts() {
+      try {
+        const startDate = this.currentDateRange.start ? this.formatDateForAPI(this.currentDateRange.start) : null
+        const endDate = this.currentDateRange.end ? this.formatDateForAPI(this.currentDateRange.end) : null
+
+        const result = await getTopExperts(this.token, startDate, endDate, 10)
+        console.log('Top experts result:', result)
+
+        if (result && result.code === 200) {
+          this.topExperts = result.top_experts || []
+        }
+      } catch (error) {
+        console.error('Error loading top experts:', error)
+      }
+    },
+
+
     initializeDateRange() {
       // Set default to last 3 months
       this.selectQuickRange('3m')
@@ -417,10 +530,11 @@ export default {
           break
         case 'all':
           start = null
+          end = null
           break
       }
 
-      if (start) {
+      if (start && end) {
         this.customDateRange.start = start.toISOString().split('T')[0]
         this.customDateRange.end = end.toISOString().split('T')[0]
         this.currentDateRange.start = start
@@ -432,7 +546,7 @@ export default {
         this.currentDateRange.end = null
       }
 
-      this.updateChart()
+      this.loadDashboardData()
     },
 
     onCustomDateChange() {
@@ -440,32 +554,31 @@ export default {
       if (this.customDateRange.start && this.customDateRange.end) {
         this.currentDateRange.start = new Date(this.customDateRange.start)
         this.currentDateRange.end = new Date(this.customDateRange.end)
-        this.updateChart()
       }
     },
 
-    applyDateFilter() {
+    async applyDateFilter() {
       if (this.customDateRange.start && this.customDateRange.end) {
         this.currentDateRange.start = new Date(this.customDateRange.start)
         this.currentDateRange.end = new Date(this.customDateRange.end)
+        await this.loadDashboardData()
         this.updateChart()
-
-        // Show success message (you can use a toast library)
-        console.log('Date filter applied successfully')
       }
     },
 
-    resetDateFilter() {
+    async resetDateFilter() {
       this.selectedQuickRange = 'all'
       this.customDateRange.start = ''
       this.customDateRange.end = ''
       this.currentDateRange.start = null
       this.currentDateRange.end = null
+      await this.loadDashboardData()
       this.updateChart()
     },
 
-    setActiveRange(range) {
-      this.activeRange = range
+    async setActiveChartRange(range) {
+      this.activeChartRange = range
+      await this.loadChartData()
       this.updateChart()
     },
 
@@ -475,18 +588,25 @@ export default {
     },
 
     renderChart() {
-      const ctx = document.getElementById('appointmentsChart').getContext('2d')
+      const ctx = document.getElementById('appointmentsChart')
+      if (!ctx) return
 
-      const chartData = this.getChartData()
+      const chartCtx = ctx.getContext('2d')
 
-      this.chart = new Chart(ctx, {
+      if (this.chart) {
+        this.chart.destroy()
+      }
+
+      const processedData = this.getProcessedChartData()
+
+      this.chart = new Chart(chartCtx, {
         type: this.chartType,
         data: {
-          labels: chartData.labels,
+          labels: processedData.labels,
           datasets: [
             {
               label: 'Total Appointments',
-              data: chartData.appointments,
+              data: processedData.appointments,
               borderColor: '#31A9FF',
               backgroundColor: this.chartType === 'line' ? 'rgba(49,169,255,0.08)' : 'rgba(49,169,255,0.8)',
               pointRadius: 4,
@@ -495,7 +615,7 @@ export default {
             },
             {
               label: 'Completed',
-              data: chartData.completed,
+              data: processedData.completed,
               borderColor: '#10B981',
               backgroundColor: this.chartType === 'line' ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.8)',
               pointRadius: 4,
@@ -504,7 +624,7 @@ export default {
             },
             {
               label: 'Cancelled',
-              data: chartData.cancelled,
+              data: processedData.cancelled,
               borderColor: '#EF4444',
               backgroundColor: this.chartType === 'line' ? 'rgba(239,68,68,0.08)' : 'rgba(239,68,68,0.8)',
               pointRadius: 4,
@@ -521,7 +641,9 @@ export default {
           scales: {
             y: {
               beginAtZero: true,
-              precision: 0
+              ticks: {
+                precision: 0
+              }
             }
           }
         }
@@ -530,11 +652,11 @@ export default {
 
     updateChart() {
       if (this.chart) {
-        const chartData = this.getChartData()
-        this.chart.data.labels = chartData.labels
-        this.chart.data.datasets[0].data = chartData.appointments
-        this.chart.data.datasets[1].data = chartData.completed
-        this.chart.data.datasets[2].data = chartData.cancelled
+        const processedData = this.getProcessedChartData()
+        this.chart.data.labels = processedData.labels
+        this.chart.data.datasets[0].data = processedData.appointments
+        this.chart.data.datasets[1].data = processedData.completed
+        this.chart.data.datasets[2].data = processedData.cancelled
 
         // Update chart type if changed
         if (this.chart.config.type !== this.chartType) {
@@ -547,36 +669,44 @@ export default {
       }
     },
 
-    getChartData() {
-      const filteredData = this.filteredAppointmentsData
-
-      // Group data based on active range
-      let groupedData = []
-
-      if (this.activeRange === '7d' || this.activeRange === '2w') {
-        // Daily grouping
-        groupedData = filteredData.map(item => ({
-          label: this.formatDate(item.date, 'short'),
-          appointments: item.appointments,
-          completed: item.completed,
-          cancelled: item.cancelled
-        }))
-      } else {
-        // Monthly grouping (default)
-        groupedData = filteredData.map(item => ({
-          label: this.formatDate(item.date, 'month'),
-          appointments: item.appointments,
-          completed: item.completed,
-          cancelled: item.cancelled
-        }))
+    getProcessedChartData() {
+      if (!this.chartData || !Array.isArray(this.chartData)) {
+        return {
+          labels: [],
+          appointments: [],
+          completed: [],
+          cancelled: []
+        }
       }
 
       return {
-        labels: groupedData.map(item => item.label),
-        appointments: groupedData.map(item => item.appointments),
-        completed: groupedData.map(item => item.completed),
-        cancelled: groupedData.map(item => item.cancelled)
+        labels: this.chartData.map(item => this.formatChartLabel(item.date)),
+        appointments: this.chartData.map(item => item.appointments || 0),
+        completed: this.chartData.map(item => item.completed || 0),
+        cancelled: this.chartData.map(item => item.cancelled || 0)
       }
+    },
+
+    formatChartLabel(date) {
+      const d = new Date(date)
+
+      switch(this.activeChartRange) {
+        case 'day':
+          return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+        case 'week':
+          return `Week ${this.getWeekNumber(d)}`
+        case 'month':
+        default:
+          return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+      }
+    },
+
+    getWeekNumber(date) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+      const dayNum = d.getUTCDay() || 7
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum)
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1))
+      return Math.ceil((((d - yearStart) / 86400000) + 1)/7)
     },
 
     formatDate(date, format = 'default') {
@@ -596,15 +726,28 @@ export default {
       }
     },
 
+    formatDateForAPI(date) {
+      if (!date) return null
+      return new Date(date).toISOString().split('T')[0]
+    },
+
     getStatusBadgeClass(status) {
       const classes = {
         'Booked': 'bg-primary text-white',
         'Confirmed': 'bg-success text-white',
         'Pending': 'bg-warning text-dark',
         'Cancelled': 'bg-danger text-white',
-        'Completed': 'bg-info text-white'
+        'Completed': 'bg-info text-white',
+        'new': 'bg-primary text-white',
+        'confirmed': 'bg-success text-white'
       }
       return classes[status] || 'bg-secondary text-white'
+    }
+  },
+
+  beforeUnmount() {
+    if (this.chart) {
+      this.chart.destroy()
     }
   }
 }
@@ -613,6 +756,19 @@ export default {
 <style scoped>
 .dashboard-home {
   font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
 .username-highlight {
@@ -673,7 +829,7 @@ export default {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(var(--primary), var(--secondary));
+  background: linear-gradient(45deg, #31A9FF, #6366f1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -685,6 +841,11 @@ export default {
 .badge {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
+}
+
+.upcoming-appointments-list {
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 @media (max-width: 991px) {
@@ -710,6 +871,10 @@ export default {
   .date-input {
     width: 100%;
     max-width: 150px;
+  }
+
+  .display-6 {
+    font-size: 1.8rem;
   }
 }
 </style>
