@@ -1,18 +1,18 @@
 <script setup>
-import { onMounted, ref, watch, nextTick, onUnmounted } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { CHeader, useColorModes } from '@coreui/vue'
 
 import AppHeaderDropdownAccnt from '@/components/layout/AppHeaderDropdownAccnt.vue'
 import { useSidebarStore } from '@/stores/sidebar.js'
 import AiSchedulerView from '@/views/AiSchedulerView.vue' // Add this import
+import { useThemeStore } from '@/stores/theme.js'
+import { useAuthStore } from '@/stores/auth.js'
 
-import {useThemeStore} from '@/stores/theme.js'
 const headerClassNames = ref('mb-0 p-0')
 const { colorMode, setColorMode } = useColorModes('coreui-free-vue-admin-template-theme')
 
 const sidebar = useSidebarStore()
-const themeStore = useThemeStore();
-
+const themeStore = useThemeStore()
 
 // Search functionality - explicitly set to false
 const isSearchExpanded = ref(false)
@@ -29,6 +29,11 @@ const expandSearch = () => {
   })
 }
 
+const ownShareLink = () => {
+  const auth = useAuthStore()
+  return `http://book.asyncz.com/?share=${auth.user['shareHash']}`
+}
+
 const collapseSearch = () => {
   console.log('collapseSearch called')
   isSearchExpanded.value = false
@@ -36,6 +41,19 @@ const collapseSearch = () => {
 }
 
 const handleClickOutside = (event) => {
+  const copyBtn = event.target.closest('.copy-link-btn')
+  if (copyBtn) {
+    const link = ownShareLink();
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        alert("Success! Link copied to clipboard.")
+        this.$swal({ title: 'Copied!', text: 'Link copied to clipboard.', icon: 'success' })
+      })
+      .catch(() => {
+        this.$swal({ title: 'Oops!', text: 'Failed to copy the link.', icon: 'error' })
+      })
+  }
   const searchContainer = event.target.closest('.search-container')
   if (!searchContainer && isSearchExpanded.value) {
     collapseSearch()
@@ -49,10 +67,10 @@ onMounted(() => {
   let theme = localStorage.getItem('colorMode')
   if (theme) {
     setColorMode(theme)
-    themeStore.toggleTheme(theme);
+    themeStore.toggleTheme(theme)
   } else {
     setColorMode('auto')
-    themeStore.toggleTheme('auto');
+    themeStore.toggleTheme('auto')
   }
 
   let sidebarUnfoldable = localStorage.getItem('sidebar-unfoldable')
@@ -80,13 +98,12 @@ onUnmounted(() => {
 watch(colorMode, (newValue) => {
   if (newValue === 'auto') {
     // Automatically set to dark or light based on system preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    newValue = prefersDark ? 'dark' : 'light';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    newValue = prefersDark ? 'dark' : 'light'
   }
   localStorage.setItem('colorMode', newValue)
-  themeStore.toggleTheme(newValue);
+  themeStore.toggleTheme(newValue)
 })
-
 </script>
 
 <template>
@@ -105,6 +122,11 @@ watch(colorMode, (newValue) => {
       <CHeaderNav>
         <!-- Search functionality moved here -->
         <div class="position-relative search-container d-none d-sm-flex">
+          <!-- Share Link-->
+          <button type="button" class="btn btn-outline-success border-0 copy-link-btn">
+            <i class="fas fa-link"></i>
+          </button>
+
           <!-- Collapsed search - just icon -->
           <button
             v-if="!isSearchExpanded"
@@ -115,7 +137,6 @@ watch(colorMode, (newValue) => {
           >
             <CIcon icon="cil-magnifying-glass" size="lg" />
           </button>
-
 
           <!-- Expanded search form -->
           <div v-if="isSearchExpanded" class="d-flex">
@@ -131,8 +152,8 @@ watch(colorMode, (newValue) => {
                 aria-describedby="search-addon"
                 class="form-control bg-body-secondary border-0"
                 type="search"
-                style="min-width: 250px;"
-              >
+                style="min-width: 250px"
+              />
               <button
                 type="button"
                 class="btn btn-outline-secondary border-0 px-3"
@@ -192,5 +213,4 @@ watch(colorMode, (newValue) => {
   </CHeader>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
