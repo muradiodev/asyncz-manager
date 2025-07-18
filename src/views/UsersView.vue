@@ -119,6 +119,7 @@ import ModalComponent from '@/components/ModalComponent.vue'
 import { createUser, getUsers /*, deleteUser*/ } from '@/repositories/CompanyUserRepository.js'
 import { getBranches } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
+import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
 
 DataTable.use(DataTablesLib);
 DataTable.use(DataTablesCore);
@@ -136,6 +137,7 @@ export default {
       },
       branchList: [],
       userList: [],
+      shareLinks: [],
       columns: [
         {title: 'ID', data: 'id', orderable: true},
 
@@ -167,6 +169,22 @@ export default {
               return `<span class="badge bg-success">active</span>`;
             } else {
               return `<span class="badge bg-danger">inactive</span>`;
+            }
+          }
+        },
+        {
+          title: 'Public Link', data: (row) => {
+            const match = this.shareLinks.find(
+              (shareLink) => shareLink.name == row.name && shareLink.type == this.getUserRole(row)
+            );
+
+            if (match && match.hash) {
+              const link = `http://book.asyncz.com/?share=${match.hash}`;
+              return `<button class="btn btn-outline-success btn-sm copy-link-btn" data-link="${link}">
+                <i class="fas fa-globe"></i>
+              </button>`;
+            } else {
+              return ``;
             }
           }
         },
@@ -203,6 +221,11 @@ export default {
       getBranches(this.token).then(response => {
         this.branchList = response;
       });
+    },
+
+    async getShareLinks() {
+
+      this.shareLinks = await getShareLinks(this.token);
     },
 
     createNewItem(){
@@ -282,13 +305,36 @@ export default {
           this.$refs.usersTable.dt.draw();
         }
       });
+    },
+    getUserRole(row) {
+      if(row.expert){
+        return 'expert';
+      } else  if(row.branch){
+        return 'branch';
+      } else {
+        return 'company';
+      }
     }
   },
-  mounted() {
+  async mounted() {
+    await this.getShareLinks();
     this.getUsers();
     this.getBranches();
 
+
     document.addEventListener('click', (event) => {
+      const copyBtn = event.target.closest('.copy-link-btn');
+      if (copyBtn) {
+        const link = copyBtn.getAttribute('data-link');
+        navigator.clipboard.writeText(link)
+          .then(() => {
+            this.$swal({ title: 'Copied!', text: 'Link copied to clipboard.', icon: 'success' });
+          })
+          .catch(() => {
+            this.$swal({ title: 'Oops!', text: 'Failed to copy the link.', icon: 'error' });
+          });
+      }
+
       const editBtn = event.target.closest('.user-edit-btn');
       if (editBtn) {
         const id = editBtn.getAttribute('data-id');
