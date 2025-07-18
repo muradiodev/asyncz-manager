@@ -58,10 +58,10 @@
 
               <!-- Apply/Reset Buttons -->
               <div class="d-flex gap-2">
-                <button class="btn btn-success btn-sm" @click="applyDateFilter" :disabled="isLoading">
+                <button class="btn-outline-success-custom btn-sm" @click="applyDateFilter" :disabled="isLoading">
                   <i class="bi bi-check-circle me-1"></i>Apply
                 </button>
-                <button class="btn btn-outline-danger btn-sm" @click="resetDateFilter" :disabled="isLoading">
+                <button class="btn-outline-danger-custom btn-sm" @click="resetDateFilter" :disabled="isLoading">
                   <i class="bi bi-arrow-clockwise me-1"></i>Reset
                 </button>
               </div>
@@ -197,18 +197,12 @@
                 <tr>
                   <th>Service</th>
                   <th>Bookings</th>
-                  <th>Completion</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="svc in topServices" :key="svc.name">
                   <td>{{ svc.name }}</td>
                   <td>{{ svc.bookings }}</td>
-                  <td>
-                    <span class="badge" :class="svc.completion >= 90 ? 'bg-success' : svc.completion >= 70 ? 'bg-warning' : 'bg-danger'">
-                      {{ svc.completion }}%
-                    </span>
-                  </td>
                 </tr>
                 </tbody>
               </table>
