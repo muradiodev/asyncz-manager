@@ -43,3 +43,35 @@ export async function createBranch(token, name) {
       return { code: 501, message: error }
     })
 }
+
+export async function updateBranch(token, id, { name, status }) {
+  return await Repository.putForm(
+    `${baseUrl}/manager/branch/${id}?token=${token}`,
+    { name, status }
+  )
+    .then((response) => {
+      if (response.data) {
+        return response.data
+      } else {
+        return { code: 500, message: 'Internal Server Error' }
+      }
+    })
+    .catch((error) => {
+      return { code: 501, message: error }
+    })
+}
+
+export async function deleteBranch(token, id) {
+  return await Repository.delete(`${baseUrl}/manager/branch/${id}?token=${token}`)
+    .then((response) => {
+      if (response.data) {
+        return response.data;
+      } else {
+        return { code: 500, message: 'Internal Server Error' }
+      }
+    })
+    .catch((error) => {
+      return { code: 501, message: error }
+    })
+}
+

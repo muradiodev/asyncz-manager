@@ -250,7 +250,7 @@ import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import StatusBadge from '@/views/StatusBadge.vue'
 import ColorComponent from '@/views/ColorComponent.vue'
-import ExpertProcedures from '@/views/ExpertProcedures.vue'
+import ExpertServices from '@/views/ExpertServices.vue'
 import ExpertSchedules from '@/views/ExpertSchedules.vue'
 import { getBranches } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
@@ -375,7 +375,7 @@ export default {
   components: {
     AppBreadcrumb,
     ExpertSchedules,
-    ExpertProcedures,
+    ExpertProcedures: ExpertServices,
     ColorComponent,
     StatusBadge,
     ModalComponent,

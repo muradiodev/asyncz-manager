@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, watch, nextTick, onUnmounted } from 'vue'
-import { useColorModes } from '@coreui/vue'
+import { CHeader, useColorModes } from '@coreui/vue'
 
 import AppHeaderDropdownAccnt from '@/components/layout/AppHeaderDropdownAccnt.vue'
 import { useSidebarStore } from '@/stores/sidebar.js'
@@ -109,12 +109,13 @@ watch(colorMode, (newValue) => {
           <button
             v-if="!isSearchExpanded"
             type="button"
-            class="btn btn-link p-2"
+            class="btn btn-outline-success border-0"
             @click.stop="expandSearch"
-            style="border: none; background: none;"
+            style=""
           >
             <CIcon icon="cil-magnifying-glass" size="lg" />
           </button>
+
 
           <!-- Expanded search form -->
           <div v-if="isSearchExpanded" class="d-flex">

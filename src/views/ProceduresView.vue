@@ -10,10 +10,11 @@
             ]"
           />
         </div>
-
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Procedures</span>
-          <button class="btn-primary-custom ms-4" @click="addNewItem = true">+ Add new</button>
+          <button class="btn-outline-success-custom w-25" @click="openCreateModal">
+            <i class="fas fa-plus me-1"></i> Add Procedure
+          </button>
         </div>
       </CContainer>
     </CCardBody>
@@ -22,44 +23,56 @@
   <CContainer class="px-4" lg>
     <CCard class="mb-4">
       <CCardBody>
-        <DataTable class="table table-striped table-bordered" :columns="columns" :data="data">
-        </DataTable>
+        <DataTable class="table table-sm table-hover"
+                   :columns="columns"
+                   :data="itemList"
+                   ref="proceduresTable" />
       </CCardBody>
     </CCard>
   </CContainer>
 
-  <ModalComponent title="new procedure" v-if="addNewItem" @modalClose="addNewItem = false">
-    <form @submit.prevent="createNewItem">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="mb-3">
-            <label for="newName" class="form-label">Name</label>
+  <!-- CREATE / EDIT MODAL -->
+  <ModalComponent
+    :title="isEditing ? 'Edit Procedure' : 'New Procedure'"
+    size="md"
+    v-if="addNewItem"
+    @modalClose="closeModal"
+  >
+    <form @submit.prevent="isEditing ? submitEdit() : createNewItem()">
+      <div class="row gy-3">
+        <div class="col-12">
+          <label for="procedureName" class="form-label fw-bold">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="procedureName"
+            v-model="newItemDetails.name"
+            required
+            placeholder="Procedure name"
+            autocomplete="off"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="procedureLength" class="form-label fw-bold">Length</label>
+          <div class="input-group">
             <input
-              type="text"
+              type="number"
               class="form-control"
-              id="newName"
-              v-model="newItemDetails.name"
+              id="procedureLength"
+              v-model.number="newItemDetails.length"
               required
+              min="1"
+              placeholder="Length"
+              autocomplete="off"
             />
+            <span class="input-group-text">minute(s)</span>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="newLength" class="form-label">Length</label>
-            <div class="input-group">
-              <input
-                type="number"
-                class="form-control"
-                id="newEmail"
-                v-model.number="newItemDetails.length"
-                required
-              />
-              <div class="input-group-text">minute(s)</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <button class="btn-success-custom">Create</button>
+        <div class="col-12">
+          <button type="submit" class="btn-success-custom w-50 fw-bold py-2">
+            <i :class="isEditing ? 'fas fa-pen me-2' : 'fas fa-plus me-2'"></i>
+            {{ isEditing ? 'Save Changes' : 'Create Procedure' }}
+          </button>
         </div>
       </div>
     </form>
@@ -74,7 +87,7 @@ import DataTablesLib from 'datatables.net-bs5'
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
-import { createProcedure, getProcedures } from '@/repositories/ProceduresRepository.js'
+import { getProcedures, createProcedure, updateProcedure, deleteProcedure } from '@/repositories/ProceduresRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
 DataTable.use(DataTablesLib)
@@ -85,11 +98,12 @@ export default {
   data() {
     return {
       addNewItem: false,
+      isEditing: false,
       newItemDetails: {
+        id: null,
         name: '',
         length: ''
       },
-
       itemList: [],
       columns: [
         { title: 'ID', data: 'id', orderable: true },
@@ -97,53 +111,64 @@ export default {
         {
           title: 'Status',
           data: (row) => {
-            if (row.status) {
-              return `<span class="badge bg-success">active</span>`
-            } else {
-              return `<span class="badge bg-danger">inactive</span>`
-            }
+            return row.status
+              ? `<span class="badge bg-success">active</span>`
+              : `<span class="badge bg-danger">inactive</span>`
           }
         },
         {
           title: 'Length',
-          data: (row) => {
-            return `${row.length} minute(s)`
-          }
+          data: (row) => `${row.length} minute(s)`
         },
         {
-          title: 'Action',
-          data: (row) => {
-            return `<button class="btn-primary-custom" onclick="window.location.href='./procedure/${row.id}'">manage</button>`
+          title: 'Actions',
+          orderable: false,
+          data: null,
+          render: (data, type, row) => {
+            return `
+              <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${row.id}" style="padding:4px 8px; margin-right:3px;">
+                <i class="fas fa-pen"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;">
+                <i class="fas fa-trash"></i>
+              </button>
+            `
           }
         }
       ]
     }
   },
-  watch: {},
   computed: {
-    ...mapState(useAuthStore, ['token', 'user']),
-    data() {
-      return this.itemList
-    }
+    ...mapState(useAuthStore, ['token', 'user'])
   },
   methods: {
     getItemList() {
       getProcedures(this.token).then((response) => {
         this.itemList = response
+        this.rerenderTable()
       })
     },
-
+    openCreateModal() {
+      this.isEditing = false
+      this.addNewItem = true
+      this.newItemDetails = { id: null, name: '', length: '' }
+    },
+    openEditModal(procedure) {
+      this.isEditing = true
+      this.addNewItem = true
+      this.newItemDetails = { ...procedure }
+    },
+    closeModal() {
+      this.addNewItem = false
+      this.isEditing = false
+      this.newItemDetails = { id: null, name: '', length: '' }
+    },
     createNewItem() {
       createProcedure(this.token, this.newItemDetails.name, this.newItemDetails.length).then(
         (response) => {
           if (response.code === 200) {
             this.getItemList()
-            this.addNewItem = false
-            this.newItemDetails = {
-              name: '',
-              length: ''
-            }
-
+            this.closeModal()
             this.$router.push({ name: 'procedure', params: { id: response.id } })
           } else {
             this.$swal({
@@ -154,10 +179,70 @@ export default {
           }
         }
       )
+    },
+    submitEdit() {
+      updateProcedure(this.token, this.newItemDetails.id, {
+        name: this.newItemDetails.name,
+        length: this.newItemDetails.length
+      }).then((response) => {
+        if (response.code === 200) {
+          this.getItemList()
+          this.closeModal()
+          this.$swal({ title: 'Saved!', text: 'Procedure updated.', icon: 'success' })
+        } else {
+          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
+        }
+      })
+    },
+    confirmDeleteProcedure(procedure) {
+      this.$swal({
+        title: 'Are you sure?',
+        text: `Delete procedure "${procedure.name}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteProcedure(procedure.id)
+        }
+      })
+    },
+    deleteProcedure(id) {
+      deleteProcedure(this.token, id).then((response) => {
+        if (response.code === 200) {
+          this.getItemList()
+          this.$swal({ title: 'Deleted!', text: 'Procedure deleted.', icon: 'success' })
+        } else {
+          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
+        }
+      })
+    },
+    rerenderTable() {
+      this.$nextTick(() => {
+        if (this.$refs.proceduresTable && this.$refs.proceduresTable.dt) {
+          this.$refs.proceduresTable.dt.draw()
+        }
+      })
     }
   },
   mounted() {
     this.getItemList()
+    // Attach edit and delete button handlers after DOM update
+    document.addEventListener('click', (event) => {
+      const editBtn = event.target.closest('.edit-btn')
+      if (editBtn) {
+        const id = editBtn.getAttribute('data-id')
+        const procedure = this.itemList.find(p => String(p.id) === String(id))
+        if (procedure) this.openEditModal(procedure)
+      }
+      const deleteBtn = event.target.closest('.delete-btn')
+      if (deleteBtn) {
+        const id = deleteBtn.getAttribute('data-id')
+        const procedure = this.itemList.find(p => String(p.id) === String(id))
+        if (procedure) this.confirmDeleteProcedure(procedure)
+      }
+    })
   },
   components: {
     AppBreadcrumb,

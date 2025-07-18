@@ -1,6 +1,5 @@
 import Repository, { baseUrl } from './Repository'
 
-
 export async function getProcedures(token) {
   return await Repository.get(`${baseUrl}/manager/procedures?token=${token}`)
     .then((response) => {
@@ -47,9 +46,7 @@ export async function createProcedure(token, name, length) {
     })
 }
 
-
-
-export async function saveProcedure(token,id,  name, about, length, status) {
+export async function saveProcedure(token, id, name, about, length, status) {
   return await Repository.postForm(`${baseUrl}/manager/procedure/${id}?token=${token}`, {
     name,
     about,
@@ -67,3 +64,7 @@ export async function saveProcedure(token,id,  name, about, length, status) {
       return { code: 501, message: error }
     })
 }
+
+export class deleteProcedure {}
+
+export class updateProcedure {}

@@ -37,9 +37,14 @@ export default {
 
 <template>
   <CDropdown placement="bottom-end" variant="nav-item">
-    <CDropdownToggle class="py-0 pe-0" :caret="false">
-      <CAvatar :src="avatar" size="md" shape="rounded-circle" />
+    <CDropdownToggle
+      class="btn btn-outline-success border-0 p-0 avatar-toggle"
+      :caret="false"
+      style="transition: border-color .15s;"
+    >
+      <CAvatar :src="avatar" :size="32" shape="rounded-circle" />
     </CDropdownToggle>
+
     <CDropdownMenu class="pt-2 pb-2">
       <CDropdownItem @click="$router.push({name:'profile'})" class="d-flex align-items-center py-2">
         <CIcon :icon="cilUser" class="me-2" />
@@ -68,6 +73,7 @@ export default {
         </div>
         <CIcon icon="cil-chevron-right" />
       </CDropdownItem>
+      <CDropdownDivider />
 
       <CDropdownItem @click="logout" class="d-flex align-items-center py-2">
         <CIcon :icon="cilAccountLogout" class="me-2" />
@@ -76,3 +82,29 @@ export default {
     </CDropdownMenu>
   </CDropdown>
 </template>
+<style scoped>
+.c-dropdown-item, .dropdown-item, .c-dropdown-item:hover {
+  cursor: pointer !important;
+}
+
+.c-dropdown-item:hover, .dropdown-item:hover {
+  background-color: #f3f4f6 !important; /* daha yaxşı hover effekti üçün */
+}
+.avatar-toggle {
+  border-radius: 50% !important;
+  padding: 0 !important;
+  width: 40px; /* avatar ölçüsünə uyğunlaşdır */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-toggle:hover, .avatar-toggle:focus-visible {
+  background-color: #e8faf3 !important;   /* istəyə görə rəng seç */
+  border-color: #198754 !important;       /* outline-success üçün */
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 2px rgba(25,135,84,0.1);
+  transition: background .15s, border-color .15s;
+}
+</style>

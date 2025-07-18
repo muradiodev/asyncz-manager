@@ -1,45 +1,31 @@
 <template>
-
   <CCard class="mb-4 border-0 rounded-0">
     <CCardBody>
       <CContainer class="px-4" lg>
-
         <div class="mb-4">
           <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Blacklist', path: '/dashboard/blacklist', active: true }
-          ]" />
+              { name: 'Dashboard', path: '/dashboard', active: false },
+              { name: 'Blacklist', path: '/dashboard/blacklist', active: true }
+            ]" />
         </div>
-
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Blacklist </span>
-          <button class="btn-primary-custom ms-4" @click="addNewItem = true" v-if="enabled" >
-            + Add new
+          <button class="btn-outline-success-custom" @click="addNewItem = true" v-if="enabled">
+            <i class="fas fa-plus me-1"></i> Add Blacklist
           </button>
         </div>
       </CContainer>
     </CCardBody>
   </CCard>
 
-
-
-
-
   <CContainer class="px-4" lg>
-
     <CCard class="mb-4" v-if="enabled">
       <CCardBody>
-      <DataTable class="table table-striped table-bordered"
-                 :columns="columns"
-                 :data='data'>
-
-        <template #column-action="props">
-          <button type="button" class="btn-danger-custom" @click="deleteBlacklist(props)" style="background-color: #dc3545; color: white; border: 1px solid #dc3545; padding: 4px 8px; border-radius: 4px;">Delete</button>
-        </template>
-
-
-
-      </DataTable>
+        <DataTable class="table table-sm table-hover"
+                   :columns="columns"
+                   :data="itemList"
+                   ref="blacklistTable">
+        </DataTable>
       </CCardBody>
     </CCard>
     <CCard class="mb-4" v-else>
@@ -49,28 +35,28 @@
     </CCard>
   </CContainer>
 
-  <ModalComponent title="new blacklist" size="md" v-if="addNewItem" @modalClose="addNewItem = false">
+  <!-- CREATE MODAL -->
+  <ModalComponent title="New Blacklist" size="md" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
         <div class="col-md-12">
           <div class="mb-3">
-            <label for="newName" class="form-label">Keyword</label>
+            <label for="newKeyword" class="form-label">Keyword</label>
             <input
               type="text"
               class="form-control"
-              id="newName"
+              id="newKeyword"
               v-model="newItemDetails.keyword"
               required
             />
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn-primary-custom">Create</button>
+          <button class="btn-success-custom w-25 fw-bold py-2">Create</button>
         </div>
       </div>
     </form>
   </ModalComponent>
-
 </template>
 
 <script>
@@ -85,7 +71,6 @@ import { createBlacklist, deleteBlacklist, getBlackList } from '@/repositories/B
 import { customAlert, customAsk } from '@/utils/utils.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 
-
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
 
@@ -93,85 +78,93 @@ export default {
   name: 'BlacklistView',
   data() {
     return {
-
       addNewItem: false,
-      newItemDetails: {
-        keyword: ''
-      },
-
+      newItemDetails: { keyword: '' },
       itemList: [],
       columns: [
         { title: 'Keyword', data: 'value', orderable: true },
         {
           title: 'Action',
-          name: 'action'
+          orderable: false,
+          data: null,
+          render: (data, type, row) => {
+            return `
+              <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;">
+                <i class="fas fa-trash"></i>
+              </button>
+            `
+          }
         }
       ]
     }
   },
-  watch: {},
   computed: {
     ...mapState(useAuthStore, ['token', 'user','companyPackage']),
-    data() {
-      return this.itemList
-    },
-
-    enabled() {
-      return this.companyPackage && this.companyPackage.blacklist
-    }
+    data() { return this.itemList },
+    enabled() { return this.companyPackage && this.companyPackage.blacklist }
   },
   methods: {
-
     getItemList() {
       getBlackList(this.token).then(response => {
         this.itemList = response
+        this.rerenderTable()
       })
     },
-
     createNewItem() {
       createBlacklist(this.token, this.newItemDetails.keyword).then(response => {
         if (response.code === 200) {
           this.getItemList()
           this.addNewItem = false
-          this.newItemDetails = {
-            keyword: ''
-          }
-
-          this.$swal({
-            title: 'Success',
-            text: 'New blacklist added successfully',
-            icon: 'success'
-          })
+          this.newItemDetails = { keyword: '' }
+          this.$swal({ title: 'Success', text: 'New blacklist added successfully', icon: 'success' })
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
         }
       })
     },
-    deleteBlacklist(props) {
-      let id = props.rowData.id
-
-      customAsk(
-        'Are you sure you want to delete this blacklist?',
-        '', 'warning', () => {
-          deleteBlacklist(this.token, id).then(response => {
-              if (response.code === 200) {
-                this.getItemList()
-                customAlert('Success', 'Blacklist deleted successfully', 'success')
-              } else {
-                customAlert('Error', response.message, 'error')
-              }
-            }
-          )
-
-        })
+    confirmDeleteBlacklist(item) {
+      this.$swal({
+        title: 'Are you sure?',
+        text: `Delete blacklist "${item.value}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteBlacklist(item.id)
+        }
+      })
+    },
+    deleteBlacklist(id) {
+      deleteBlacklist(this.token, id).then(response => {
+        if (response.code === 200) {
+          this.getItemList()
+          this.$swal({ title: 'Deleted!', text: 'Blacklist deleted.', icon: 'success' })
+        } else {
+          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
+        }
+      })
+    },
+    rerenderTable() {
+      this.$nextTick(() => {
+        if (this.$refs.blacklistTable && this.$refs.blacklistTable.dt) {
+          this.$refs.blacklistTable.dt.draw()
+        }
+      })
     }
   },
   mounted() {
     this.getItemList()
+    // Attach delete button handler
+    document.addEventListener('click', (event) => {
+      const delBtn = event.target.closest('.delete-btn')
+      if (delBtn) {
+        const id = delBtn.getAttribute('data-id')
+        const item = this.itemList.find(i => String(i.id) === String(id))
+        if (item) this.confirmDeleteBlacklist(item)
+      }
+    })
   },
   components: {
     AppBreadcrumb,
@@ -180,4 +173,3 @@ export default {
   }
 }
 </script>
-
