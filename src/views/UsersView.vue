@@ -181,7 +181,7 @@ export default {
             if (match && match.hash) {
               const link = `http://book.asyncz.com/?share=${match.hash}`;
               return `<button class="btn btn-outline-success btn-sm copy-link-btn" data-link="${link}">
-                <i class="fas fa-globe"></i>
+                <i class="fas fa-link"></i>
               </button>`;
             } else {
               return ``;

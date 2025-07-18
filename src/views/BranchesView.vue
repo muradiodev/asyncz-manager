@@ -92,6 +92,7 @@ import { mapState } from "pinia";
 import { getBranches, createBranch, updateBranch, deleteBranch } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
+import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
 
 
 DataTable.use(DataTablesLib);
@@ -116,6 +117,22 @@ export default {
             return row.status
               ? `<span class="badge bg-success">active</span>`
               : `<span class="badge bg-danger">inactive</span>`;
+          }
+        },
+        {
+          title: 'Public Link', data: (row) => {
+            const match = this.shareLinks.find(
+              (shareLink) => shareLink.name == row.name && shareLink.type == "branch"
+            );
+
+            if (match && match.hash) {
+              const link = `http://book.asyncz.com/?share=${match.hash}`;
+              return `<button class="btn btn-outline-success btn-sm copy-link-btn" data-link="${link}">
+                <i class="fas fa-link"></i>
+              </button>`;
+            } else {
+              return ``;
+            }
           }
         },
         {
@@ -147,6 +164,10 @@ export default {
     ...mapState(useAuthStore, ["token", "user"]),
   },
   methods: {
+    async getShareLinks() {
+
+      this.shareLinks = await getShareLinks(this.token);
+    },
     getBranches() {
       getBranches(this.token).then(response => {
         this.branchList = response;
@@ -224,11 +245,25 @@ export default {
       });
     }
   },
-  mounted() {
+  async mounted() {
+    await this.getShareLinks();
     this.getBranches();
 
     // Attach edit button click handler after DOM is updated by DataTables
     document.addEventListener('click', (event) => {
+      // Handle clicks on dynamically created buttons
+      const copyBtn = event.target.closest('.copy-link-btn');
+      if (copyBtn) {
+        const link = copyBtn.getAttribute('data-link');
+        navigator.clipboard.writeText(link)
+          .then(() => {
+            this.$swal({ title: 'Copied!', text: 'Link copied to clipboard.', icon: 'success' });
+          })
+          .catch(() => {
+            this.$swal({ title: 'Oops!', text: 'Failed to copy the link.', icon: 'error' });
+          });
+      }
+
       const editBtn = event.target.closest('.edit-btn');
       if (editBtn) {
         const id = editBtn.getAttribute('data-id');
