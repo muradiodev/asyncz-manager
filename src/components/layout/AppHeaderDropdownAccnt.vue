@@ -46,9 +46,9 @@ export default {
     </CDropdownToggle>
 
     <CDropdownMenu class="pt-2 pb-2">
-      <CDropdownItem @click="$router.push({name:'profile'})" class="d-flex align-items-center py-2">
+      <CDropdownItem @click="$router.push({name:'account'})" class="d-flex align-items-center py-2">
         <CIcon :icon="cilUser" class="me-2" />
-        Profile
+        Account
       </CDropdownItem>
 
       <CDropdownItem @click="$router.push({name:'billing'})" class="d-flex align-items-center py-2">

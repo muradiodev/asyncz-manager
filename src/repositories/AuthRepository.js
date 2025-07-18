@@ -59,7 +59,7 @@ export async function login(email, password) {
     })
 }
 
-export async function getProfile(token) {
+export async function getAccount(token) {
   return await Repository.get(`${baseUrl}/manager/me?token=${token}`)
     .then((response) => {
       if (response.data) {
@@ -74,7 +74,7 @@ export async function getProfile(token) {
     })
 }
 
-export async function saveProfile(token, name, about) {
+export async function saveAccount(token, name, about) {
 
 
   return await Repository.postForm(`${baseUrl}/manager/profile?token=${token}`, {
