@@ -165,7 +165,6 @@ export default {
   },
   methods: {
     async getShareLinks() {
-
       this.shareLinks = await getShareLinks(this.token);
     },
     getBranches() {

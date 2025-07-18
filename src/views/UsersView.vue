@@ -224,7 +224,6 @@ export default {
     },
 
     async getShareLinks() {
-
       this.shareLinks = await getShareLinks(this.token);
     },
 

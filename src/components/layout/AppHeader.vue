@@ -47,7 +47,6 @@ const handleClickOutside = (event) => {
     navigator.clipboard
       .writeText(link)
       .then(() => {
-        alert("Success! Link copied to clipboard.")
         this.$swal({ title: 'Copied!', text: 'Link copied to clipboard.', icon: 'success' })
       })
       .catch(() => {
