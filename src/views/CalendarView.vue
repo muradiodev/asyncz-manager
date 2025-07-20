@@ -890,11 +890,15 @@ export default {
   methods: {
 
     showQuickActionModal(details) {
-      this.quickActionDetails = {
-        time: details.time,
-        expert: details.expert
+      if (this.copyingAppointment) {
+        this.openNewAppointmentModal(details)
+      } else {
+        this.quickActionDetails = {
+          time: details.time,
+          expert: details.expert
+        }
+        this.quickActionModalOpen = true
       }
-      this.quickActionModalOpen = true
     },
 
     // Select Add Appointment from Quick Action Modal
