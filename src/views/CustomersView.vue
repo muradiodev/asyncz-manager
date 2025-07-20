@@ -6,15 +6,12 @@
           <AppBreadcrumb
             :breadcrumbs="[
               { name: 'Dashboard', path: '/dashboard', active: false },
-              { name: 'Procedures', path: '/dashboard/customers', active: true }
+              { name: 'Customers', path: '/dashboard/customers', active: true }
             ]"
           />
         </div>
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0"> Procedures</span>
-          <button class="btn-outline-success-custom w-25" @click="openCreateModal">
-            <i class="fas fa-plus me-1"></i> Add Procedure
-          </button>
+          <span class="h2 mb-0"> Customers</span>
         </div>
       </CContainer>
     </CCardBody>
@@ -26,57 +23,77 @@
         <DataTable class="table table-sm table-hover"
                    :columns="columns"
                    :data="customerList"
-                   ref="proceduresTable" />
+                   ref="customersTable" />
       </CCardBody>
     </CCard>
   </CContainer>
 
-  <!-- CREATE / VIRE MODAL -->
+  <!-- IMPROVED VIEW MODAL -->
   <ModalComponent
-    :title="'View Appointments'"
-    size="md"
+    :title="'Customer Details'"
+    size="xl"
     v-if="addNewItem"
     @modalClose="closeModal"
   >
-
-    <div>
-      <h5 class="mb-3">Appointments</h5>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped table-sm">
-          <thead class="table-light">
-          <tr>
-            <th>#</th>
-            <th>Procedure</th>
-            <th>Expert</th>
-            <th>Start Time</th>
-            <th>Length</th>
-            <th>Status</th>
-            <th>Notes</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(appt, index) in appointments" :key="appt.id">
-            <td>{{ index + 1 }}</td>
-            <td>{{ appt.procedure?.name }}</td>
-            <td>{{ appt.expert?.name }}</td>
-            <td>{{ appt.reservation_start_time }}</td>
-            <td>{{ appt.reservation_length }} min</td>
-            <td>{{ appt.status }}</td>
-            <td>{{ appt.notes }}</td>
-          </tr>
-          <tr v-if="appointments.length === 0">
-            <td colspan="7" class="text-center text-muted">No appointments found.</td>
-          </tr>
-          </tbody>
-        </table>
+    <div class="p-2">
+      <!-- Loading State -->
+      <div v-if="isLoading" class="d-flex flex-column align-items-center justify-content-center py-5">
+        <div class="spinner-border text-secondary mb-3" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-muted">Loading customer appointments...</p>
       </div>
 
-      <div class="text-center mt-4">
-        <button class="btn btn-secondary fw-bold px-5" @click="closeModal">Close</button>
+      <!-- Content (shown when not loading) -->
+      <div v-else>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <span class="badge bg-success">Total: {{ appointments.length }}</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">Service</th>
+              <th scope="col">Expert</th>
+              <th scope="col">Start Time</th>
+              <th scope="col">Length</th>
+              <th scope="col">Status</th>
+              <th scope="col">Notes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(appt, index) in appointments" :key="appt.id">
+              <td class="text-center fw-bold">{{ index + 1 }}</td>
+              <td>{{ appt.procedure?.name || '-' }}</td>
+              <td>{{ appt.expert?.name || '-' }}</td>
+              <td>{{ appt.reservation_start_time || '-' }}</td>
+              <td>{{ appt.reservation_length }} min</td>
+              <td>
+                  <span :class="getStatusBadgeClass(appt.status)">
+                    {{ appt.status }}
+                  </span>
+              </td>
+              <td>{{ appt.notes || '-' }}</td>
+            </tr>
+            <tr v-if="appointments.length === 0">
+              <td colspan="7" class="text-center py-4">
+                <i class="fas fa-calendar-times text-muted me-2"></i>
+                <span class="text-muted">No appointments found for this customer.</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+          <button class="btn btn-light px-4" @click="closeModal">
+            <i class="fas fa-times me-2"></i> Close
+          </button>
+        </div>
       </div>
     </div>
-
-
   </ModalComponent>
 </template>
 
@@ -94,11 +111,12 @@ DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
 
 export default {
-  name: 'ProceduresView',
+  name: 'CustomersView',
   data() {
     return {
       addNewItem: false,
       isEditing: false,
+      isLoading: false, // Added loading state
       appointments: [],
       newItemDetails: {
         id: null,
@@ -111,6 +129,14 @@ export default {
       },
       customerList: [],
       columns: [
+        {
+          title: '#',
+          orderable: false,
+          data: null,
+          render: (data, type, row, meta) => {
+            return meta.row + 1;
+          }
+        },
         { title: 'Name', data: 'name', orderable: true },
         { title: 'Surname', data: 'surname', orderable: true },
         { title: 'Email', data: 'email', orderable: true },
@@ -142,19 +168,35 @@ export default {
     closeModal() {
       this.addNewItem = false
       this.isEditing = false
-      this.newItemDetails = {   id: null,
+      this.isLoading = false // Reset loading state when closing
+      this.newItemDetails = {
+        id: null,
         name: '',
         length: '',
         expert: '',
         status: '',
         startTime: '',
-        notes: '' }
+        notes: ''
+      }
     },
-
+    getStatusBadgeClass(status) {
+      switch(status?.toLowerCase()) {
+        case 'confirmed':
+          return 'badge bg-success';
+        case 'cancelled_expert':
+          return 'badge bg-danger';
+        case 'cancelled':
+          return 'badge bg-danger';
+        case 'new':
+          return 'badge bg-info';
+        default:
+          return 'badge bg-secondary';
+      }
+    },
     rerenderTable() {
       this.$nextTick(() => {
-        if (this.$refs.proceduresTable && this.$refs.proceduresTable.dt) {
-          this.$refs.proceduresTable.dt.draw()
+        if (this.$refs.customersTable && this.$refs.customersTable.dt) {
+          this.$refs.customersTable.dt.draw()
         }
       })
     }
@@ -164,7 +206,6 @@ export default {
     this.getCustomerList();
     // Attach edit and delete button handlers after DOM update
     document.addEventListener('click', (event) => {
-
       const viewBtn = event.target.closest('.view-btn')
       if (viewBtn) {
         const index = viewBtn.getAttribute('data-index')
@@ -183,7 +224,7 @@ export default {
 
         this.isEditing = true
         this.addNewItem = true
-
+        this.isLoading = true // Set loading to true before API call
 
         getCustomerDetails(
           this.token,
@@ -193,12 +234,13 @@ export default {
           customer.phone
         ).then((response) => {
           this.appointments = response || []
-          this.addNewItem = true
+          this.isLoading = false // Set loading to false after API response
         })
+          .catch(error => {
+            console.error('Error fetching customer details:', error)
+            this.isLoading = false // Make sure to set loading to false even on error
+          })
       }
-
-
-
     })
   },
   components: {
