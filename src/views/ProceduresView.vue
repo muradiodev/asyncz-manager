@@ -173,11 +173,6 @@ export default {
       this.addNewItem = true
       this.newItemDetails = { id: null, name: '', length: '' }
     },
-    openEditModal(procedure) {
-      this.isEditing = true
-      this.addNewItem = true
-      this.newItemDetails = { ...procedure }
-    },
     closeModal() {
       this.addNewItem = false
       this.isEditing = false
@@ -266,9 +261,8 @@ export default {
 
       const editBtn = event.target.closest('.edit-btn')
       if (editBtn) {
-        const id = editBtn.getAttribute('data-id')
-        const procedure = this.itemList.find(p => String(p.id) === String(id))
-        if (procedure) this.openEditModal(procedure)
+        const procedureId = editBtn.getAttribute('data-id')
+        this.$router.push({ name: 'procedure', params: { id: procedureId } })
       }
       const deleteBtn = event.target.closest('.delete-btn')
       if (deleteBtn) {
