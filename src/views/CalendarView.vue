@@ -513,10 +513,10 @@
         <button class="btn-danger-custom me-2" v-if="activeAppointment.status === 'confirmed'" @click.prevent="cancelAppointment(activeAppointment)">
           <fa-icon :icon="['fas','times']" class="me-2"></fa-icon> Cancel
         </button>
-        <button class="btn-primary-custom btn-size-small-custom me-2" @click.prevent="editAppointment(activeAppointment)">
+        <button class="btn-outline-warning-custom btn-size-small-custom me-2" @click.prevent="editAppointment(activeAppointment)">
           <fa-icon :icon="['fas','pencil']" class="me-2"></fa-icon> Edit
         </button>
-        <button class="btn-outline-custom btn-outline-primary-custom me-2" @click.prevent="copyAppointment(activeAppointment)">
+        <button class="btn-outline-info-custom btn-outline-primary-custom me-2" @click.prevent="copyAppointment(activeAppointment)">
           <fa-icon :icon="['fas','copy']" class="me-2"></fa-icon> Copy
         </button>
         <button class="btn-outline-custom btn-outline-dark-custom" @click.prevent="printAppointment(activeAppointment)">
