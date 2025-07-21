@@ -214,23 +214,39 @@
     @modalClose="quickActionModalOpen = false"
     size="sm"
   >
-    <div class="text-center" style="padding: 20px;">
-      <div class="mb-4">
-        <div class="fw-bold mb-2">{{ quickActionDetails.time ? quickActionDetails.time.format('MMMM DD, YYYY - HH:mm') : '' }}</div>
-        <div class="text-muted">{{ quickActionDetails.expert ? quickActionDetails.expert.name : '' }}</div>
+    <div class="text-center" style="max-width:320px; margin:0 auto;">
+      <div>
+        <div class="fw-bold">
+          {{ quickActionDetails.time ? quickActionDetails.time.format('MMMM DD, YYYY - HH:mm') : '' }}
+        </div>
+        <div class="text-muted small">
+          {{ quickActionDetails.expert ? quickActionDetails.expert.name : '' }}
+        </div>
       </div>
-
-      <div class="d-grid gap-3">
-        <button class="btn-primary-custom" @click="selectAddAppointment">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <button
+          class="btn-primary-custom"
+          @click="selectAddAppointment"
+          style="margin-bottom: 6px; padding-top: 4px; padding-bottom: 4px;"
+        >
           New
         </button>
-        <button class="btn-warning-custom" @click="selectBlockTime">
+        <button
+          class="btn btn-light btn-medium-custom"
+          @click="selectBlockTime"
+          style="margin-top: 0; padding-top: 4px; padding-bottom: 4px; border: 1.5px solid #bcbcbc;"
+        >
           Block Time
         </button>
 
       </div>
     </div>
   </ModalComponent>
+
+
+
+
+
 
   <!-- Block Time Modal -->
   <ModalComponent
