@@ -226,7 +226,12 @@ const AppSidebarNav = defineComponent({
         to: '/dashboard/subscription',
         icon: 'cil-dollar',
       },
-
+      {
+        component: 'CNavItem',
+        name: 'Permissions',
+        to: '/dashboard/permissions',
+        icon: 'cil-lock-locked',
+      },
     ];
     return () =>
       h(

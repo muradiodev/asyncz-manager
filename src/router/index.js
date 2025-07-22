@@ -121,6 +121,11 @@ const router = createRouter({
           path: 'subscription',
           name: 'subscription',
           component: () => import('../views/SubscriptionView.vue')
+        },
+        {
+          path: 'permissions',
+          name: 'permissions',
+          component: () => import('../views/PermissionsView.vue')
         }
       ]
     }
