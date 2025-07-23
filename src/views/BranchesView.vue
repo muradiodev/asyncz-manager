@@ -245,7 +245,6 @@ export default {
 
         // Fetch fresh data from the server
         const response = await getBranch(this.token, branchId);
-        console.log(response);
 
         if (response.code && response.code !== 200) {
           // Handle error
@@ -265,7 +264,7 @@ export default {
           id: branchId,
           name: branch.name || '',
           about: branch.about || '',
-          status: response.status !== undefined ? response.status : true
+          status: branch.status !== undefined ? branch.status : true
         };
       } catch (error) {
         console.error('Error fetching branch details:', error);
