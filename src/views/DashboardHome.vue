@@ -1,11 +1,14 @@
 <template>
   <div class="dashboard-home container-fluid py-4">
-    <!-- Loading Overlay -->
-    <div v-if="isLoading" class="loading-overlay">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+    <div v-if="isLoading" class="loading-overlay-center">
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border text-secondary mb-3" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-muted">Loading dashboard data...</p>
       </div>
     </div>
+
 
     <!-- Greeting -->
     <div class="row mb-4">
@@ -195,7 +198,7 @@
               <table class="table table-sm mb-0">
                 <thead>
                 <tr>
-                  <th>Service</th>
+                  <th>Services</th>
                   <th>Bookings</th>
                 </tr>
                 </thead>
@@ -227,7 +230,6 @@
                 <tr>
                   <th>Name</th>
                   <th>Appointments</th>
-                  <th>Rating</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -239,12 +241,6 @@
                     </div>
                   </td>
                   <td>{{ expert.appointments }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <i class="bi bi-star-fill text-warning me-1"></i>
-                      {{ expert.rating }}
-                    </div>
-                  </td>
                 </tr>
                 </tbody>
               </table>
@@ -256,13 +252,19 @@
     </div>
 
     <!-- Error Message -->
-    <div v-if="errorMessage" class="alert alert-danger mt-3" role="alert">
-      {{ errorMessage }}
-    </div>
+    <CContainer v-if="errorMessage && !isLoading" class="px-4" lg>
+      <CAlert color="danger" :visible="true">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        {{ errorMessage }}
+        <button class="btn btn-sm btn-outline-danger ms-3" @click="retryLoad">
+          <i class="fas fa-redo me-1"></i> Retry
+        </button>
+      </CAlert>
+    </CContainer>
   </div>
 </template>
 
-<script>
+<<script>
 import Chart from 'chart.js/auto'
 import {
   getDashboardData,
@@ -295,10 +297,10 @@ export default {
       },
 
       quickRanges: [
-        { label: 'Last 7 Days', value: '7d' },
-        { label: 'Last 30 Days', value: '30d' },
-        { label: 'Last 3 Months', value: '3m' },
-        { label: 'Last 6 Months', value: '6m' },
+        { label: '7 Days', value: '7d' },
+        { label: '30 Days', value: '30d' },
+        { label: '3 Months', value: '3m' },
+        { label: '6 Months', value: '6m' },
         { label: 'Last Year', value: '1y' },
         { label: 'All Time', value: 'all' }
       ],
@@ -334,13 +336,17 @@ export default {
         return 'All time'
       }
 
+      const startStr = this.formatDateForAPI(this.currentDateRange.start)
+      if (startStr === '2023-01-01') {
+        return 'All time (from Jan 2023)'
+      }
+
       const start = this.formatDate(this.currentDateRange.start)
       const end = this.formatDate(this.currentDateRange.end)
       return `${start} - ${end}`
     },
 
     ...mapState(useAuthStore, ['user', 'token']),
-
   },
 
   async mounted() {
@@ -354,20 +360,13 @@ export default {
       this.errorMessage = ''
 
       try {
-        // Load quick stats first (no date dependency)
         await this.loadQuickStats()
-
-        // Load main dashboard data
         await this.loadDashboardData()
-
-        // Load upcoming appointments
         await this.loadUpcomingAppointments()
 
-        // Render chart after data is loaded
         this.$nextTick(() => {
           this.renderChart()
         })
-
       } catch (error) {
         console.error('Error loading dashboard data:', error)
         this.errorMessage = 'Failed to load dashboard data. Please try again.'
@@ -376,8 +375,6 @@ export default {
       }
     },
 
-    // Replace these methods in your Vue component:
-
     async loadQuickStats() {
       try {
         console.log('Loading quick stats with token:', this.token)
@@ -385,7 +382,6 @@ export default {
         console.log('Quick stats result:', result)
 
         if (result && result.code === 200) {
-          // The data is directly in the result object
           this.quickStats = {
             today_appointments: result.today_appointments || 0,
             month_appointments: result.month_appointments || 0,
@@ -401,6 +397,8 @@ export default {
     },
 
     async loadDashboardData() {
+      this.errorMessage = ''
+
       try {
         const startDate = this.currentDateRange.start ? this.formatDateForAPI(this.currentDateRange.start) : null
         const endDate = this.currentDateRange.end ? this.formatDateForAPI(this.currentDateRange.end) : null
@@ -419,17 +417,17 @@ export default {
           }
           this.username = result.company_name || 'User'
 
-          // Load chart data
           await this.loadChartData()
-
-          // Load top services and experts
           await this.loadTopServices()
           await this.loadTopExperts()
         } else {
           console.error('Dashboard API error:', result)
+          this.errorMessage = result.message || 'Failed to load dashboard data'
+          throw new Error(this.errorMessage)
         }
       } catch (error) {
         console.error('Error loading dashboard data:', error)
+        this.errorMessage = 'Failed to load dashboard data. Please try again.'
         throw error
       }
     },
@@ -495,13 +493,13 @@ export default {
       }
     },
 
-
     initializeDateRange() {
-      // Set default to last 3 months
       this.selectQuickRange('3m')
     },
 
-    selectQuickRange(range) {
+    async selectQuickRange(range) {
+      this.isLoading = true
+      this.errorMessage = ''
       this.selectedQuickRange = range
       const end = new Date()
       let start = new Date()
@@ -523,28 +521,30 @@ export default {
           start.setFullYear(end.getFullYear() - 1)
           break
         case 'all':
-          start = null
-          end = null
+          start = new Date('2023-01-01')
           break
       }
 
-      if (start && end) {
-        this.customDateRange.start = start.toISOString().split('T')[0]
-        this.customDateRange.end = end.toISOString().split('T')[0]
-        this.currentDateRange.start = start
-        this.currentDateRange.end = end
-      } else {
-        this.customDateRange.start = ''
-        this.customDateRange.end = ''
-        this.currentDateRange.start = null
-        this.currentDateRange.end = null
-      }
+      this.customDateRange.start = start.toISOString().split('T')[0]
+      this.customDateRange.end = end.toISOString().split('T')[0]
+      this.currentDateRange.start = start
+      this.currentDateRange.end = end
 
-      this.loadDashboardData()
+      try {
+        await this.loadDashboardData()
+        this.$nextTick(() => {
+          this.updateChart()
+        })
+      } catch (error) {
+        console.error('Error loading dashboard data:', error)
+        this.errorMessage = 'Failed to load dashboard data. Please try again.'
+      } finally {
+        this.isLoading = false
+      }
     },
 
     onCustomDateChange() {
-      this.selectedQuickRange = null // Clear quick range selection
+      this.selectedQuickRange = null
       if (this.customDateRange.start && this.customDateRange.end) {
         this.currentDateRange.start = new Date(this.customDateRange.start)
         this.currentDateRange.end = new Date(this.customDateRange.end)
@@ -553,27 +553,75 @@ export default {
 
     async applyDateFilter() {
       if (this.customDateRange.start && this.customDateRange.end) {
-        this.currentDateRange.start = new Date(this.customDateRange.start)
-        this.currentDateRange.end = new Date(this.customDateRange.end)
-        await this.loadDashboardData()
-        this.updateChart()
+        this.isLoading = true
+        this.errorMessage = ''
+
+        try {
+          this.currentDateRange.start = new Date(this.customDateRange.start)
+          this.currentDateRange.end = new Date(this.customDateRange.end)
+          await this.loadDashboardData()
+          this.updateChart()
+        } catch (error) {
+          console.error('Error applying date filter:', error)
+          this.errorMessage = 'Failed to apply date filter. Please try again.'
+        } finally {
+          this.isLoading = false
+        }
       }
     },
 
     async resetDateFilter() {
-      this.selectedQuickRange = 'all'
-      this.customDateRange.start = ''
-      this.customDateRange.end = ''
-      this.currentDateRange.start = null
-      this.currentDateRange.end = null
-      await this.loadDashboardData()
-      this.updateChart()
+      this.isLoading = true
+      this.errorMessage = ''
+
+      try {
+        this.selectedQuickRange = 'all'
+        const end = new Date()
+        const start = new Date('2023-01-01')
+
+        this.customDateRange.start = start.toISOString().split('T')[0]
+        this.customDateRange.end = end.toISOString().split('T')[0]
+        this.currentDateRange.start = start
+        this.currentDateRange.end = end
+
+        await this.loadDashboardData()
+        this.updateChart()
+      } catch (error) {
+        console.error('Error resetting date filter:', error)
+        this.errorMessage = 'Failed to reset date filter. Please try again.'
+      } finally {
+        this.isLoading = false
+      }
     },
 
     async setActiveChartRange(range) {
-      this.activeChartRange = range
-      await this.loadChartData()
-      this.updateChart()
+      this.isLoading = true
+      this.errorMessage = ''
+
+      try {
+        this.activeChartRange = range
+        await this.loadChartData()
+        this.updateChart()
+      } catch (error) {
+        console.error('Error changing chart range:', error)
+        this.errorMessage = 'Failed to update chart. Please try again.'
+      } finally {
+        this.isLoading = false
+      }
+    },
+
+    async retryLoad() {
+      this.isLoading = true
+      this.errorMessage = ''
+
+      try {
+        await this.loadDashboardData()
+      } catch (error) {
+        console.error('Retry failed:', error)
+        this.errorMessage = 'Failed to load dashboard data. Please try again.'
+      } finally {
+        this.isLoading = false
+      }
     },
 
     toggleChartType() {
@@ -652,7 +700,6 @@ export default {
         this.chart.data.datasets[1].data = processedData.completed
         this.chart.data.datasets[2].data = processedData.cancelled
 
-        // Update chart type if changed
         if (this.chart.config.type !== this.chartType) {
           this.chart.destroy()
           this.renderChart()
@@ -746,6 +793,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 .dashboard-home {
@@ -871,4 +919,17 @@ export default {
     font-size: 1.8rem;
   }
 }
+.loading-overlay-center {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
 </style>
