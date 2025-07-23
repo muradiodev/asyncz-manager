@@ -81,8 +81,8 @@ onMounted(() => {
     setColorMode(theme)
     themeStore.toggleTheme(theme)
   } else {
-    setColorMode('auto')
-    themeStore.toggleTheme('auto')
+    setColorMode('light')
+    themeStore.toggleTheme('light')
   }
 
   let sidebarUnfoldable = localStorage.getItem('sidebar-unfoldable')
@@ -216,45 +216,45 @@ watch(colorMode, (newValue) => {
         </div>
 
         <!-- Theme Dropdown - responsive -->
-        <CDropdown variant="nav-item" placement="bottom-end">
-          <CDropdownToggle :caret="false">
-            <CIcon v-if="colorMode === 'dark'" icon="cil-moon" :size="isMobile ? 'md' : 'lg'" />
-            <CIcon v-else-if="colorMode === 'light'" icon="cil-sun" :size="isMobile ? 'md' : 'lg'" />
-            <CIcon v-else icon="cil-contrast" :size="isMobile ? 'md' : 'lg'" />
-          </CDropdownToggle>
-          <CDropdownMenu>
-            <CDropdownItem
-              :active="colorMode === 'light'"
-              class="d-flex align-items-center"
-              component="button"
-              type="button"
-              @click="setColorMode('light')"
-            >
-              <CIcon class="me-2" icon="cil-sun" :size="isMobile ? 'md' : 'lg'" />
-              Light
-            </CDropdownItem>
-            <CDropdownItem
-              :active="colorMode === 'dark'"
-              class="d-flex align-items-center"
-              component="button"
-              type="button"
-              @click="setColorMode('dark')"
-            >
-              <CIcon class="me-2" icon="cil-moon" :size="isMobile ? 'md' : 'lg'" />
-              Dark
-            </CDropdownItem>
-            <CDropdownItem
-              :active="colorMode === 'auto'"
-              class="d-flex align-items-center"
-              component="button"
-              type="button"
-              @click="setColorMode('auto')"
-            >
-              <CIcon class="me-2" icon="cil-contrast" :size="isMobile ? 'md' : 'lg'" />
-              Auto
-            </CDropdownItem>
-          </CDropdownMenu>
-        </CDropdown>
+<!--        <CDropdown variant="nav-item" placement="bottom-end">-->
+<!--          <CDropdownToggle :caret="false">-->
+<!--            <CIcon v-if="colorMode === 'dark'" icon="cil-moon" :size="isMobile ? 'md' : 'lg'" />-->
+<!--            <CIcon v-else-if="colorMode === 'light'" icon="cil-sun" :size="isMobile ? 'md' : 'lg'" />-->
+<!--            <CIcon v-else icon="cil-contrast" :size="isMobile ? 'md' : 'lg'" />-->
+<!--          </CDropdownToggle>-->
+<!--          <CDropdownMenu>-->
+<!--            <CDropdownItem-->
+<!--              :active="colorMode === 'light'"-->
+<!--              class="d-flex align-items-center"-->
+<!--              component="button"-->
+<!--              type="button"-->
+<!--              @click="setColorMode('light')"-->
+<!--            >-->
+<!--              <CIcon class="me-2" icon="cil-sun" :size="isMobile ? 'md' : 'lg'" />-->
+<!--              Light-->
+<!--            </CDropdownItem>-->
+<!--            <CDropdownItem-->
+<!--              :active="colorMode === 'dark'"-->
+<!--              class="d-flex align-items-center"-->
+<!--              component="button"-->
+<!--              type="button"-->
+<!--              @click="setColorMode('dark')"-->
+<!--            >-->
+<!--              <CIcon class="me-2" icon="cil-moon" :size="isMobile ? 'md' : 'lg'" />-->
+<!--              Dark-->
+<!--            </CDropdownItem>-->
+<!--            <CDropdownItem-->
+<!--              :active="colorMode === 'auto'"-->
+<!--              class="d-flex align-items-center"-->
+<!--              component="button"-->
+<!--              type="button"-->
+<!--              @click="setColorMode('auto')"-->
+<!--            >-->
+<!--              <CIcon class="me-2" icon="cil-contrast" :size="isMobile ? 'md' : 'lg'" />-->
+<!--              Auto-->
+<!--            </CDropdownItem>-->
+<!--          </CDropdownMenu>-->
+<!--        </CDropdown>-->
 
         <li class="nav-item py-1 d-none d-lg-block">
           <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
