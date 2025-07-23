@@ -55,7 +55,13 @@
 
   <!-- EDIT MODAL -->
   <ModalComponent title="Edit Branch" size="md" v-if="editModalVisible" @modalClose="editModalVisible = false">
-    <form @submit.prevent="submitEdit">
+    <div v-if="isLoading" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading branch data...</p>
+    </div>
+    <form @submit.prevent="submitEdit" v-else>
       <div class="row">
         <div class="col-12 mb-3">
           <label class="form-label" for="editBranchName">Branch Name</label>
@@ -64,6 +70,16 @@
             type="text"
             class="form-control"
             v-model="editItem.name"
+            required
+          />
+        </div>
+        <div class="col-12 mb-3">
+          <label class="form-label" for="editBranchabout">Description</label>
+          <input
+            id="editBranchabout"
+            type="text"
+            class="form-control"
+            v-model="editItem.about"
             required
           />
         </div>
@@ -89,7 +105,7 @@ import DataTablesLib from 'datatables.net-bs5';
 
 import { useAuthStore } from "@/stores/auth.js";
 import { mapState } from "pinia";
-import { getBranches, createBranch, updateBranch, deleteBranch } from '@/repositories/BranchRepository.js'
+import { getBranches, getBranch, createBranch, updateBranch, deleteBranch } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
@@ -107,6 +123,8 @@ export default {
         name: '',
       },
       branchList: [],
+      shareLinks: [],
+      isLoading: false,
       columns: [
         { title: 'ID', data: 'id', orderable: true },
         { title: 'Name', data: 'name', orderable: true },
@@ -156,6 +174,7 @@ export default {
       editItem: {
         id: null,
         name: '',
+        about: '',
         status: true,
       },
     }
@@ -188,8 +207,9 @@ export default {
       });
     },
     deleteBranch(id) {
-      deleteBranch(this.token, id).then(response => {
+      deleteBranch(this.token, id).then(async response => {
         if (response.code === 200) {
+          await this.getShareLinks();
           this.getBranches();
           this.$swal({ title: 'Deleted!', text: 'Branch deleted.', icon: 'success' });
         } else {
@@ -198,8 +218,9 @@ export default {
       });
     },
     createNewItem() {
-      createBranch(this.token, this.newItemDetails.name).then(response => {
+      createBranch(this.token, this.newItemDetails.name).then(async response => {
         if (response.code === 200) {
+          await this.getShareLinks();
           this.getBranches()
           this.addNewItem = false
           this.newItemDetails = { name: '' }
@@ -217,16 +238,55 @@ export default {
         }
       })
     },
-    openEditModal(branch) {
-      this.editItem = { ...branch };
-      this.editModalVisible = true;
+    async openEditModal(branchId) {
+      try {
+        this.isLoading = true;
+        this.editModalVisible = true; // Open modal while loading
+
+        // Fetch fresh data from the server
+        const response = await getBranch(this.token, branchId);
+        console.log(response);
+
+        if (response.code && response.code !== 200) {
+          // Handle error
+          this.$swal({
+            title: 'Error',
+            text: `Failed to load branch details: ${response.message}`,
+            icon: 'error'
+          });
+          this.editModalVisible = false;
+          return;
+        }
+
+        const branch = response.branch || {};
+
+        // Update the editItem with fresh data from server
+        this.editItem = {
+          id: branchId,
+          name: branch.name || '',
+          about: branch.about || '',
+          status: response.status !== undefined ? response.status : true
+        };
+      } catch (error) {
+        console.error('Error fetching branch details:', error);
+        this.$swal({
+          title: 'Error',
+          text: 'Failed to load branch details. Please try again.',
+          icon: 'error'
+        });
+        this.editModalVisible = false;
+      } finally {
+        this.isLoading = false;
+      }
     },
     submitEdit() {
       updateBranch(this.token, this.editItem.id, {
         name: this.editItem.name,
+        about: this.editItem.about,
         status: this.editItem.status,
-      }).then(response => {
+      }).then(async response => {
         if (response.code === 200) {
+          await this.getShareLinks();
           this.getBranches();
           this.editModalVisible = false;
           this.$swal({ title: 'Saved!', text: 'Branch updated.', icon: 'success' });
@@ -266,8 +326,7 @@ export default {
       const editBtn = event.target.closest('.edit-btn');
       if (editBtn) {
         const id = editBtn.getAttribute('data-id');
-        const branch = this.branchList.find(b => String(b.id) === String(id));
-        if (branch) this.openEditModal(branch);
+        this.openEditModal(id);
       }
 
       const deleteBtn = event.target.closest('.delete-btn');

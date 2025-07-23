@@ -44,10 +44,10 @@ export async function createBranch(token, name) {
     })
 }
 
-export async function updateBranch(token, id, { name, status }) {
-  return await Repository.putForm(
+export async function updateBranch(token, id, { name, about, status }) {
+  return await Repository.postForm(
     `${baseUrl}/manager/branch/${id}?token=${token}`,
-    { name, status }
+    { name, about, status }
   )
     .then((response) => {
       if (response.data) {
