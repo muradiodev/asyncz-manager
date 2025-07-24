@@ -292,16 +292,13 @@
         </div>
         <div class="form-field" style="flex:1;">
           <label>Reason</label>
-          <select v-model="blockTimeDetails.reason" required class="modern-input">
-            <option value="">Select reason...</option>
-            <option value="break">Break</option>
-            <option value="lunch">Lunch</option>
-            <option value="meeting">Meeting</option>
-            <option value="training">Training</option>
-            <option value="personal">Personal</option>
-            <option value="maintenance">Maintenance</option>
-            <option value="other">Other</option>
-          </select>
+          <input
+            type="text"
+            v-model="blockTimeDetails.reason"
+            required
+            class="modern-input"
+            placeholder="Break, Lunch, etc."
+          />
         </div>
       </div>
 
