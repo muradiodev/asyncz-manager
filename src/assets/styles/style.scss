@@ -1671,24 +1671,24 @@ textarea {
 // Fixed Button Sizes
 // -----------------------------------------------------------------------------
 %btn-size-small-custom {
-  width: 80px;
+  min-width: 80px;
   height: 32px;
   font-size: 0.875rem;
-  padding: 0;
+  padding: 0 1rem;
 }
 
 %btn-size-medium-custom {
-  width: 120px;
+  min-width: 120px;
   height: 40px;
   font-size: 1rem;
-  padding: 0;
+  padding: 0 1.25rem;
 }
 
 %btn-size-large-custom {
-  width: 160px;
+  min-width: 160px;
   height: 48px;
   font-size: 1.125rem;
-  padding: 0;
+  padding: 0 1.5rem;
 }
 
 %btn-size-full-custom {
@@ -1696,6 +1696,31 @@ textarea {
   height: 40px;
   font-size: 1rem;
   padding: 0;
+}
+
+.btn-width-auto-custom {
+  width: auto !important;
+  min-width: unset !important; // Override min-width if needed
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+.btn-text-nowrap-custom {
+  white-space: nowrap !important;
+}
+
+.btn-text-truncate-custom {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-fixed-width-custom {
+  width: var(--btn-fixed-width, auto) !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 // -----------------------------------------------------------------------------
