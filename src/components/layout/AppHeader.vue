@@ -111,8 +111,9 @@ onUnmounted(() => {
 
 watch(colorMode, (newValue) => {
   if (newValue === 'auto') {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    newValue = prefersDark ? 'dark' : 'light'
+    // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    // newValue = prefersDark ? 'light' : 'light';
+    newValue = 'light';
   }
   localStorage.setItem('colorMode', newValue)
   themeStore.toggleTheme(newValue)
