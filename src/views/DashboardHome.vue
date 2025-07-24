@@ -264,7 +264,7 @@
   </div>
 </template>
 
-<<script>
+<script>
 import Chart from 'chart.js/auto'
 import {
   getDashboardData,
