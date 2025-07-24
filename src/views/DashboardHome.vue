@@ -656,15 +656,6 @@ export default {
               fill: this.chartType === 'line'
             },
             {
-              label: 'Completed',
-              data: processedData.completed,
-              borderColor: '#10B981',
-              backgroundColor: this.chartType === 'line' ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.8)',
-              pointRadius: 4,
-              tension: 0.35,
-              fill: this.chartType === 'line'
-            },
-            {
               label: 'Cancelled',
               data: processedData.cancelled,
               borderColor: '#EF4444',
