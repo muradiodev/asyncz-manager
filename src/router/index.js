@@ -126,6 +126,11 @@ const router = createRouter({
           path: 'permissions',
           name: 'permissions',
           component: () => import('../views/PermissionsView.vue')
+        },
+        {
+          path: 'feedbacks',
+          name: 'feedbacks',
+          component: () => import('../views/FeedbacksView.vue')
         }
       ]
     }
