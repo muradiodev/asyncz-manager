@@ -241,7 +241,7 @@ export default {
 
           // Filter successful uploads and extract paths
           const successfulUploads = uploadResults.filter(result => result.code === 200)
-          imagePaths = successfulUploads.map(result => result.data.path)
+          imagePaths = successfulUploads.map(result => result.path)
 
           // Check if all images were uploaded successfully
           if (successfulUploads.length !== imageFiles.length) {
