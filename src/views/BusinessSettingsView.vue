@@ -18,7 +18,7 @@
     </CCardBody>
   </CCard>
 
-  <CContainer class="px-4 pb-4" lg>
+  <CContainer class="px-4 pb-4 mt-4" lg>
     <div v-if="isInitialLoading">
       <!-- loading-->
       <div class="d-flex justify-content-center align-items-center vh-100">
@@ -129,21 +129,27 @@
           </div>
 
           <!-- Email Confirmation Required -->
-          <div class="mb-4">
-            <div class="form-check form-switch">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="email_confirmation_required"
-                v-model="emailConfirmationRequired"
-                :disabled="isLoading"
-              />
-              <label class="form-check-label fw-bold" for="email_confirmation_required">
-                Require Email Confirmation
-              </label>
-              <div class="form-text">
-                When enabled, clients will need to confirm their email address when booking
-                appointments.
+          <div class="card border-light shadow-sm mb-4 p-3">
+            <div class="d-flex align-items-center">
+              <div class="form-check form-switch me-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="email_confirmation_required"
+                  v-model="emailConfirmationRequired"
+                  :disabled="isLoading"
+                  style="width: 2.5em; height: 1.25em"
+                />
+                <label class="form-check-label visually-hidden" for="email_confirmation_required">
+                  Require Email Confirmation
+                </label>
+              </div>
+              <div>
+                <h6 class="mb-1">Require Email Confirmation</h6>
+                <p class="text-muted small mb-0">
+                  When enabled, clients will need to confirm their email address when booking
+                  appointments.
+                </p>
               </div>
             </div>
           </div>
@@ -198,10 +204,10 @@ export default {
     // Computed property to handle email confirmation toggle
     emailConfirmationRequired: {
       get() {
-        return this.businessData.email_confirmation_required == 1;
+        return this.businessData.email_confirmation_required == 1
       },
       set(value) {
-        this.businessData.email_confirmation_required = value ? 1 : 0;
+        this.businessData.email_confirmation_required = value ? 1 : 0
       }
     }
   },
