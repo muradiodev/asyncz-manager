@@ -3,10 +3,12 @@
     <CCardBody>
       <CContainer class="px-4" lg>
         <div class="mb-4">
-          <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Business Settings', path: '/dashboard/business-settings', active: true }
-          ]" />
+          <AppBreadcrumb
+            :breadcrumbs="[
+              { name: 'Dashboard', path: '/dashboard', active: false },
+              { name: 'Business Settings', path: '/dashboard/business-settings', active: true }
+            ]"
+          />
         </div>
 
         <div class="d-flex align-items-center justify-content-between w-100">
@@ -98,7 +100,9 @@
               v-model="businessData.time_zone"
               :disabled="isLoading"
             >
-              <option value="Eastern Time - Toronto (EST/EDT)">Eastern Time - Toronto (EST/EDT)</option>
+              <option value="Eastern Time - Toronto (EST/EDT)">
+                Eastern Time - Toronto (EST/EDT)
+              </option>
               <option value="Central Time (CST/CDT)">Central Time (CST/CDT)</option>
               <option value="Mountain Time (MST/MDT)">Mountain Time (MST/MDT)</option>
               <option value="Pacific Time (PST/PDT)">Pacific Time (PST/PDT)</option>
@@ -124,10 +128,36 @@
             </select>
           </div>
 
+          <!-- Email Confirmation Required -->
+          <div class="mb-4">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="email_confirmation_required"
+                :checked="businessData.email_confirmation_required == 1"
+                @change="businessData.email_confirmation_required = $event.target.checked ? 1 : 0"
+                :disabled="isLoading"
+              />
+              <label class="form-check-label fw-bold" for="email_confirmation_required">
+                Require Email Confirmation
+              </label>
+              <div class="form-text">
+                When enabled, clients will need to confirm their email address when booking
+                appointments.
+              </div>
+            </div>
+          </div>
+
           <!-- Action Buttons-->
           <div class="col-12">
             <button type="submit" class="btn btn-primary-custom" :disabled="isLoading">
-              <span v-if="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              <span
+                v-if="isLoading"
+                class="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
               {{ isLoading ? 'Saving...' : 'Save Changes' }}
             </button>
           </div>
@@ -157,22 +187,23 @@ export default {
         email: '',
         phone: '',
         time_zone: 'Eastern Time - Toronto (EST/EDT)', // Default timezone
-        slot_size: '10' // Default slot size
+        slot_size: '10', // Default slot size
+        email_confirmation_required: ''
       },
       originalData: null
     }
   },
   computed: {
-    ...mapState(useAuthStore, ['token', 'user']),
+    ...mapState(useAuthStore, ['token', 'user'])
   },
   methods: {
     async loadBusinessData() {
-      this.isInitialLoading = true;
+      this.isInitialLoading = true
       try {
-        const response = await getBusinessData(this.token);
+        const response = await getBusinessData(this.token)
         if (response && response.code === 200 && response.company) {
           // Extract company data from the response
-          const data = response.company;
+          const data = response.company
           this.businessData = {
             name: data.name || '',
             about: data.about || '',
@@ -181,76 +212,75 @@ export default {
             phone: data.phone || '',
             time_zone: data.time_zone || 'Eastern Time - Toronto (EST/EDT)',
             slot_size: data.slot_size ? data.slot_size.toString() : '30',
-            logo: data.logo || ''
-          };
+            logo: data.logo || '',
+            email_confirmation_required: data.email_confirmation_required
+          }
           // Store original data for reset functionality
-          this.originalData = JSON.parse(JSON.stringify(this.businessData));
+          this.originalData = JSON.parse(JSON.stringify(this.businessData))
         }
       } catch (error) {
         this.$swal({
           title: 'Error',
           text: 'Failed to load business data',
           icon: 'error'
-        });
-        console.error('Error loading business data:', error);
+        })
+        console.error('Error loading business data:', error)
       } finally {
-        this.isInitialLoading = false;
+        this.isInitialLoading = false
       }
     },
     async saveChanges() {
-      this.isLoading = true;
+      this.isLoading = true
       try {
         // Log the data being sent to verify it's correct
-        console.log('Sending business data:', this.businessData);
+        console.log('Sending business data:', this.businessData)
 
-        const response = await saveBusinessData(
-          this.token,
-          {
-            name: this.businessData.name,
-            about: this.businessData.about,
-            address: this.businessData.address,
-            email: this.businessData.email,
-            phone: this.businessData.phone,
-            time_zone: this.businessData.time_zone,
-            slot_size: this.businessData.slot_size,
-            logo: this.businessData.logo
-          }
-        );
+        const response = await saveBusinessData(this.token, {
+          name: this.businessData.name,
+          about: this.businessData.about,
+          address: this.businessData.address,
+          email: this.businessData.email,
+          phone: this.businessData.phone,
+          time_zone: this.businessData.time_zone,
+          slot_size: this.businessData.slot_size,
+          logo: this.businessData.logo,
+          email_confirmation_required: this.businessData.email_confirmation_required
+        })
 
         if (response.code === 200) {
           this.$swal({
             title: 'Success',
             text: response.message || 'Business settings updated successfully',
             icon: 'success'
-          });
+          })
           // Update original data after successful save
-          this.originalData = JSON.parse(JSON.stringify(this.businessData));
+          this.originalData = JSON.parse(JSON.stringify(this.businessData))
         } else {
           this.$swal({
             title: 'Error',
             text: response.message || 'Failed to update business settings',
             icon: 'error'
-          });
+          })
         }
       } catch (error) {
         this.$swal({
           title: 'Error',
           text: 'An unexpected error occurred',
           icon: 'error'
-        });
-        console.error('Error saving business data:', error);
+        })
+        console.error('Error saving business data:', error)
       } finally {
-        this.isLoading = false;
+        this.isLoading = false
       }
     },
     resetForm() {
       if (this.originalData) {
-        this.businessData = JSON.parse(JSON.stringify(this.originalData));
+        this.businessData = JSON.parse(JSON.stringify(this.originalData))
       }
     }
   },
   mounted() {
-    this.loadBusinessData();
+    this.loadBusinessData()
   }
 }
 </script>

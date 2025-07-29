@@ -34,7 +34,6 @@ export async function getBusinessData(token) {
 
 export async function saveBusinessData(token, businessData) {
   console.log('Repository received data:', businessData); // Debug log
-
   return await Repository.postForm(`${baseUrl}/manager/companyProfile?token=${token}`, {
     name: businessData.name,
     about: businessData.about,
@@ -43,7 +42,8 @@ export async function saveBusinessData(token, businessData) {
     phone: businessData.phone,
     time_zone: businessData.time_zone,
     slot_size: businessData.slot_size,
-    logo: businessData.logo
+    logo: businessData.logo,
+    email_confirmation_required: businessData.email_confirmation_required
   })
     .then((response) => {
       if (response.data) {
@@ -57,4 +57,5 @@ export async function saveBusinessData(token, businessData) {
       return { code: 501, message: error.response?.data?.message || error.message }
     })
 }
+
 
