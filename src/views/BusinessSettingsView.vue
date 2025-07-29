@@ -135,8 +135,7 @@
                 class="form-check-input"
                 type="checkbox"
                 id="email_confirmation_required"
-                :checked="businessData.email_confirmation_required == 1"
-                @change="businessData.email_confirmation_required = $event.target.checked ? 1 : 0"
+                v-model="emailConfirmationRequired"
                 :disabled="isLoading"
               />
               <label class="form-check-label fw-bold" for="email_confirmation_required">
@@ -194,7 +193,17 @@ export default {
     }
   },
   computed: {
-    ...mapState(useAuthStore, ['token', 'user'])
+    ...mapState(useAuthStore, ['token', 'user']),
+
+    // Computed property to handle email confirmation toggle
+    emailConfirmationRequired: {
+      get() {
+        return this.businessData.email_confirmation_required == 1;
+      },
+      set(value) {
+        this.businessData.email_confirmation_required = value ? 1 : 0;
+      }
+    }
   },
   methods: {
     async loadBusinessData() {
