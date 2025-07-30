@@ -90,9 +90,9 @@ const AppSidebarNav = defineComponent({
             default: () => [
               item.icon
                 ? h(resolveComponent('CIcon'), {
-                    customClassName: 'nav-icon',
-                    name: item.icon,
-                  })
+                  customClassName: 'nav-icon',
+                  name: item.icon,
+                })
                 : h('span', { class: 'nav-icon' }, h('span', { class: 'nav-icon-bullet' })),
               item.name,
               item.external && h(resolveComponent('CIcon'), {
@@ -101,17 +101,17 @@ const AppSidebarNav = defineComponent({
                 size: 'sm'
               }),
               item.badge &&
-                h(
-                  CBadge,
-                  {
-                    class: 'ms-auto',
-                    color: item.badge.color,
-                    size: 'sm',
-                  },
-                  {
-                    default: () => item.badge.text,
-                  },
-                ),
+              h(
+                CBadge,
+                {
+                  class: 'ms-auto',
+                  color: item.badge.color,
+                  size: 'sm',
+                },
+                {
+                  default: () => item.badge.text,
+                },
+              ),
             ],
           },
         )
@@ -119,56 +119,63 @@ const AppSidebarNav = defineComponent({
 
       return item.to
         ? h(
-            RouterLink,
-            {
-              to: item.to,
-              custom: true,
+          RouterLink,
+          {
+            to: item.to,
+            custom: true,
+          },
+          {
+            default: (props) => {
+              // Special handling for dashboard - only active when exactly on /dashboard
+              let isActive = props.isActive
+              if (item.to === '/dashboard' && route.path !== '/dashboard') {
+                isActive = false
+              }
+
+              return h(
+                resolveComponent(item.component),
+                {
+                  active: isActive,
+                  as: 'div',
+                  href: props.href,
+                  onClick: () => props.navigate(),
+                },
+                {
+                  default: () => [
+                    item.icon
+                      ? h(resolveComponent('CIcon'), {
+                        customClassName: 'nav-icon',
+                        name: item.icon,
+                      })
+                      : h('span', { class: 'nav-icon' }, h('span', { class: 'nav-icon-bullet' })),
+                    item.name,
+                    item.badge &&
+                    h(
+                      CBadge,
+                      {
+                        class: 'ms-auto',
+                        color: item.badge.color,
+                        size: 'sm',
+                      },
+                      {
+                        default: () => item.badge.text,
+                      },
+                    ),
+                  ],
+                },
+              )
             },
-            {
-              default: (props) =>
-                h(
-                  resolveComponent(item.component),
-                  {
-                    active: props.isActive,
-                    as: 'div',
-                    href: props.href,
-                    onClick: () => props.navigate(),
-                  },
-                  {
-                    default: () => [
-                      item.icon
-                        ? h(resolveComponent('CIcon'), {
-                            customClassName: 'nav-icon',
-                            name: item.icon,
-                          })
-                        : h('span', { class: 'nav-icon' }, h('span', { class: 'nav-icon-bullet' })),
-                      item.name,
-                      item.badge &&
-                        h(
-                          CBadge,
-                          {
-                            class: 'ms-auto',
-                            color: item.badge.color,
-                            size: 'sm',
-                          },
-                          {
-                            default: () => item.badge.text,
-                          },
-                        ),
-                    ],
-                  },
-                ),
-            },
-          )
+          },
+        )
         : h(
-            resolveComponent(item.component),
-            {
-              as: 'div',
-            },
-            {
-              default: () => item.name,
-            },
-          )
+          resolveComponent(item.component),
+          {
+            as: 'div',
+          },
+          {
+            default: () => item.name,
+          },
+        )
     }
 
     let nav = [
