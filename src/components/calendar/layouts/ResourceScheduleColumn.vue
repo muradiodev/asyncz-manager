@@ -36,21 +36,40 @@
 
   />
 
+  <BlockItemComponent
+    v-for="e in resourceBlocks"
+    :day="day"
+    :block="e"
+    :key="e.id"
+    :pixel-per-minute="pixelPerMinute"
+    :column-width="columnWidth"
+    :schedule-list-order="listOrder"
+    :options="options"
+    @blockClicked="$emit('blockClicked', e)"
+    @blockResized="$emit('blockResized',$event)"
+
+  />
+
 </template>
 <script>
 import EventItemComponent from '@/components/calendar/layouts/EventItemComponent.vue'
+import BlockItemComponent from '@/components/calendar/layouts/BlockItemComponent.vue'
 import VerticalHourGrid from '@/components/calendar/layouts/VerticalHourGrid.vue'
 import { Dayjs } from 'dayjs'
 
 export default {
   name: 'ResourceScheduleColumn',
-  components: { VerticalHourGrid, EventItemComponent },
+  components: { VerticalHourGrid, EventItemComponent , BlockItemComponent},
   props: {
     schedule: {
       type: Dayjs,
       required: true
     },
     events: {
+      type: Array,
+      default: () => []
+    },
+    blocks: {
       type: Array,
       default: () => []
     },
@@ -140,6 +159,12 @@ export default {
 
     resourceEvents() {
       return this.events.filter(event => {
+        return event.expert.id === this.schedule.expert.id
+      })
+    },
+
+    resourceBlocks() {
+      return this.blocks.filter(event => {
         return event.expert.id === this.schedule.expert.id
       })
     }

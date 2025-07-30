@@ -55,10 +55,13 @@
             :options="options"
             :schedules="schedules"
             :events="events"
+            :blocks="blocks"
             @hourSlotClicked="$emit('hourSlotClicked', $event)"
             @hourSlotDropped="$emit('hourSlotDropped', $event)"
             @eventClicked="$emit('eventClicked', $event)"
             @appResized="$emit('appResized',$event)"
+            @blockClicked="$emit('blockClicked', $event)"
+            @blockResized="$emit('blockResized',$event)"
         />
       </div>
 
@@ -98,6 +101,10 @@ export default {
       required: true
     },
     events: {
+      type: Array,
+      default: () => []
+    },
+    blocks: {
       type: Array,
       default: () => []
     },

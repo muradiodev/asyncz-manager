@@ -9,6 +9,7 @@
         v-for="(schedule, listOrder) in schedules" :key="schedule.expert.id"
         :schedule="schedule"
         :events = "columnEvents"
+        :blocks = "columnBlocks"
         :day="day"
         :listOrder="listOrder"
         :column-width="resourceWidth"
@@ -18,6 +19,8 @@
         @hourSlotDropped="$emit('hourSlotDropped', $event)"
         @eventClicked="$emit('eventClicked', $event)"
         @appResized="$emit('appResized',$event)"
+        @blockClicked="$emit('blockClicked', $event)"
+        @blockResized="$emit('blockResized',$event)"
     />
 
   </div>
@@ -62,6 +65,10 @@ export default {
       type: Array,
       default: () => []
     },
+    blocks: {
+      type: Array,
+      default: () => []
+    },
   },
 
   computed: {
@@ -91,6 +98,16 @@ export default {
       return this.events.filter(event => {
         let reservationStartTime = this.$dayjs(event.reservationStartTime.date);
         return reservationStartTime.isSame(this.day, 'day');
+      });
+    },
+
+    columnBlocks() {
+      if(!this.blocks){
+        return [];
+      }
+      return this.blocks.filter(event => {
+        let startTime = this.$dayjs(event.startTime.date);
+        return startTime.isSame(this.day, 'day');
       });
     },
 

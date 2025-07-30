@@ -1,15 +1,15 @@
 <template>
-  <div :id="`eventItem_${event.id}`"
-       :ref="`eventItem_${event.id}`"
+  <div :id="`blockItem_${block.id}`"
+       :ref="`blockItem_${block.id}`"
        class="event" :class="{dark: isColorDark, 'isDragging': isDragging}"
        :style="style"
        data-bs-toggle="tooltip"
        data-bs-placement="top"
        data-bs-html="true"
        :title="tooltipTitle"
-       @dblclick="$emit('eventClicked', event)"
+       @dblclick="$emit('blockClicked', block)"
        draggable="true"
-       v-on:dragstart="onDragStart($event, event)"
+       v-on:dragstart="onDragStart($event, block)"
        v-on:dragend="isDragging = false"
        v-resizable.b
        @resize="onResize"
@@ -23,9 +23,9 @@
 import { Tooltip } from 'bootstrap'
 
 export default {
-  name: 'EventItemComponent',
+  name: 'BlockItemComponent',
   props: {
-    event: {
+    block: {
       type: Object,
       required: true
     },
@@ -64,22 +64,19 @@ export default {
     label() {
       let text = ''
 
-      text += this.event.id + ' <b>' + this.event.procedure.name + '</b>  <br>'
 
-      text += '<b>' + this.$dayjs(this.event.reservationStartTime.date).format('HH:mm') + '</b> '
+      text += '<b>' + this.$dayjs(this.block.startTime.date).format('HH:mm') + '</b> <br> '
+      text += '<b>' + this.block.comment+ '</b>  <br>'
 
-      text += this.event.name + ' ' + this.event.surname + ' <br>'
 
       return text
     },
 
     tooltipTitle() {
       let text = '<span style=\'text-align: left\'>'
-      text += this.event.id + ' <b>' + this.event.procedure.name + '</b>  <br>'
-      text += '<b>' + this.$dayjs(this.event.reservationStartTime.date).format('HH:mm') + '</b> '
-      text += this.event.name + ' ' + this.event.surname + ' <br>'
-      text += 'lenght: ' + this.event.reservationLength + ' min <br>'
-      text += 'status: ' + this.event.status + ' <br>'
+      text += '<b>' + this.$dayjs(this.block.startTime.date).format('HH:mm') + '</b> <br> '
+      text += 'duration: ' + this.block.duration + ' min <br>'
+      text += ' <b>' + this.block.comment + '</b>  <br>'
       text += '</span>'
       return text
     },
@@ -90,8 +87,8 @@ export default {
       let dayStart = this.day.clone().hour(timeParts[0]).minute(timeParts[1])
 
 
-      let scheduleStart = this.$dayjs(this.event.reservationStartTime.date)
-      let scheduleHeight = this.event.reservationLength * this.pixelPerMinute
+      let scheduleStart = this.$dayjs(this.block.startTime.date)
+      let scheduleHeight = this.block.duration * this.pixelPerMinute
 
       let start = scheduleStart.diff(dayStart, 'minutes') * this.pixelPerMinute
 
@@ -103,7 +100,7 @@ export default {
 
     isColorDark() {
       //detect if this color is dark or light
-      let hexCode = this.event.color
+      let hexCode = this.block.color
       hexCode.replace('#', '')
       let r = parseInt(hexCode.substr(1, 2), 16)
       let g = parseInt(hexCode.substr(3, 2), 16)
@@ -118,7 +115,7 @@ export default {
         height: this.coordinates.height + 'px',
         width: this.columnWidth - (this.isDragging ? 5 : 0) + 'px',
         left: (this.scheduleListOrder * this.columnWidth + (this.isDragging ? 5 : 0)) + 'px',
-        'background-color': this.event.color || 'red'
+        'background-color': this.block.color || 'red'
       }
     }
 
@@ -127,14 +124,15 @@ export default {
   methods: {
 
     onDragStart(event, eventData) {
-      eventData['type']= 'event';
+      console.log(eventData)
+      eventData['type']= 'block';
       this.isDragging = true
       eventData.layoutX = event.layerX
       eventData.layoutY = event.layerY
       event.dataTransfer.setData('application/json', JSON.stringify(eventData))
       //set cursor position to the top left corner of the dragged element
-      event.dataTransfer.setDragImage(this.$refs[`eventItem_${this.event.id}`].html, 0, 0)
-      console.log(this.$refs[`eventItem_${this.event.id}`].html)
+      event.dataTransfer.setDragImage(this.$refs[`blockItem_${this.block.id}`].html, 0, 0)
+      console.log(this.$refs[`blockItem_${this.block.id}`].html)
     },
 
 
@@ -147,7 +145,7 @@ export default {
       }
 
       this.resizeTimeout = setTimeout(() => {
-        this.$emit('appResized', { event: this.event, newLength: newLengthInMinutes })
+        this.$emit('blockResized', { block: this.block, newLength: newLengthInMinutes })
       }, 1000)
     }
 

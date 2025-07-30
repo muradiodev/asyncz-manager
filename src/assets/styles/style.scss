@@ -1,3 +1,4 @@
+@use "variables";
 @use "@coreui/coreui/scss/coreui" as * with (
   $enable-deprecation-messages: false
 );

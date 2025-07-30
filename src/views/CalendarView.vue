@@ -9,7 +9,8 @@
           <div class="mb-3">
 
             <div class="dropdown">
-              <button class="btn-dropdown-custom btn-medium-custom dropdown-toggle" type="button" id="dropdownMenuButton1"
+              <button class="btn-dropdown-custom btn-medium-custom dropdown-toggle" type="button"
+                      id="dropdownMenuButton1"
                       data-bs-toggle="dropdown" aria-expanded="false">
                 New
               </button>
@@ -107,7 +108,8 @@
 
             <div class="col-md  col-6 order-3 order-md-3 text-end">
               <div class="dropdown">
-                <button class="btn-dropdown-custom btn-dropdown-outline-custom dropdown-toggle" type="button" id="dropdownMenuButton1"
+                <button class="btn-dropdown-custom btn-dropdown-outline-custom dropdown-toggle" type="button"
+                        id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
                   {{ views[activeView].title }}
                 </button>
@@ -172,6 +174,7 @@
               :options="options"
               :schedules="visibleSchedules"
               :events="visibleEvents"
+              :blocks="visibleBlocks"
               :screen-width="screenWidth"
               :screen-height="screenHeight"
               v-if="view===VIEW_VERTICAL"
@@ -181,6 +184,8 @@
               @dayClicked="openDayDailyView"
               @eventClicked="showAppointmentDetails"
               @appResized="updateAppointmentLength"
+              @blockClicked="showAppointmentDetails"
+              @blockResized="updateBlockTimeLength"
             />
 
 
@@ -244,10 +249,6 @@
   </ModalComponent>
 
 
-
-
-
-
   <!-- Block Time Modal -->
   <ModalComponent
     title="Block Time"
@@ -255,7 +256,7 @@
     @modalClose="blockTimeModalOpen = false"
     size="md"
   >
-    <form @submit.prevent="saveBlockTime" class="clean-form">
+    <form @submit.prevent="crateBlockTime" class="clean-form">
       <div class="form-field">
         <label>Expert</label>
         <select v-model="blockTimeDetails.expert" required class="modern-input">
@@ -314,7 +315,6 @@
   </ModalComponent>
 
 
-
   <!-- New Appointment Modal -->
   <ModalComponent
     title="New Appointment"
@@ -355,8 +355,10 @@
         <div class="form-field" style="flex:1;">
           <label>Duration <span style="color:#e74c3c">*</span></label>
           <div style="display: flex;">
-            <input type="number" min="15" v-model="newItemDetails.length" required class="modern-input" style="flex:1;"/>
-            <span style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
+            <input type="number" min="15" v-model="newItemDetails.length" required class="modern-input"
+                   style="flex:1;" />
+            <span
+              style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
           </div>
         </div>
       </div>
@@ -368,7 +370,8 @@
         </div>
         <div class="form-field" style="flex:1;">
           <label>Last Name <span style="color:#e74c3c">*</span></label>
-          <input type="text" v-model="newItemDetails.surname" required class="modern-input" autocomplete="family-name" />
+          <input type="text" v-model="newItemDetails.surname" required class="modern-input"
+                 autocomplete="family-name" />
         </div>
       </div>
 
@@ -380,7 +383,7 @@
         <div class="form-field" style="flex:1;">
           <label>Email</label>
           <input type="email" v-model="newItemDetails.email" class="modern-input" autocomplete="email" />
-          <div class="checkbox-wrapper" style="margin-top: 8px;" >
+          <div class="checkbox-wrapper" style="margin-top: 8px;">
             <input type="checkbox" id="sendEmail" v-model="newItemDetails.sendEmail" class="me-2" />
             <label for="sendEmail" style="font-size: 0.93em;">Send confirmation email</label>
           </div>
@@ -389,7 +392,8 @@
 
       <div class="form-field full-width">
         <label>Additional Notes</label>
-        <textarea v-model="newItemDetails.notes" class="modern-input" rows="2" placeholder="Any special requests or information?"></textarea>
+        <textarea v-model="newItemDetails.notes" class="modern-input" rows="2"
+                  placeholder="Any special requests or information?"></textarea>
       </div>
 
       <div class="form-actions" style="margin-top: 18px;">
@@ -442,7 +446,8 @@
         <div class="form-field" style="flex:1;">
           <label>Length <span style="color:#e74c3c">*</span></label>
           <div style="display: flex;">
-            <input type="number" v-model="editingAppointment.reservationLength" required class="modern-input" style="flex:1;" />
+            <input type="number" v-model="editingAppointment.reservationLength" required class="modern-input"
+                   style="flex:1;" />
             <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
           </div>
         </div>
@@ -451,11 +456,13 @@
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
           <label>First Name <span style="color:#e74c3c">*</span></label>
-          <input type="text" v-model="editingAppointment.name" required class="modern-input" autocomplete="given-name" />
+          <input type="text" v-model="editingAppointment.name" required class="modern-input"
+                 autocomplete="given-name" />
         </div>
         <div class="form-field" style="flex:1;">
           <label>Last Name <span style="color:#e74c3c">*</span></label>
-          <input type="text" v-model="editingAppointment.surname" required class="modern-input" autocomplete="family-name" />
+          <input type="text" v-model="editingAppointment.surname" required class="modern-input"
+                 autocomplete="family-name" />
         </div>
       </div>
 
@@ -496,53 +503,71 @@
     <div class="modern-body" style="padding-bottom: 8px;">
       <div class="row" style="margin-bottom:12px;">
         <div class="col-md-6 mb-3">
-          <div class="mb-1"><span class="small text-secondary">Expert:</span><br/><strong>{{ activeAppointment.expert.fullName }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Procedure:</span><br/><strong>{{ activeAppointment.procedure.name }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Starts:</span><br/><strong>{{ formatTime(activeAppointment.reservationStartTime.date) }}</strong></div>
+          <div class="mb-1"><span
+            class="small text-secondary">Expert:</span><br /><strong>{{ activeAppointment.expert.fullName }}</strong>
+          </div>
+          <div class="mb-1"><span
+            class="small text-secondary">Procedure:</span><br /><strong>{{ activeAppointment.procedure.name }}</strong>
+          </div>
+          <div class="mb-1"><span
+            class="small text-secondary">Starts:</span><br /><strong>{{ formatTime(activeAppointment.reservationStartTime.date)
+            }}</strong></div>
           <div class="mb-1">
-            <span class="small text-secondary">Duration:</span><br/>
+            <span class="small text-secondary">Duration:</span><br />
             <strong>{{ activeAppointment.reservationLength }} min</strong>
-            <span class="text-danger small" v-if="activeAppointment.reservationLength !== activeAppointment.procedure['length']">
+            <span class="text-danger small"
+                  v-if="activeAppointment.reservationLength !== activeAppointment.procedure['length']">
             (originally {{ activeAppointment.procedure['length'] }} min)
           </span>
           </div>
           <div class="mb-1">
-            <span class="small text-secondary">Status:</span><br/>
+            <span class="small text-secondary">Status:</span><br />
             <span class="badge bg-primary">{{ activeAppointment.status }}</span>
           </div>
         </div>
         <div class="col-md-6 mb-3">
-          <div class="mb-1"><span class="small text-secondary">Customer:</span><br/><strong>{{ activeAppointment.name }} {{ activeAppointment.surname }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Phone:</span><br/><strong>{{ activeAppointment.phone }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Email:</span><br/><strong>{{ activeAppointment.email }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Notes:</span><br/><strong>{{ activeAppointment.notes || '-' }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Requested at:</span><br/><strong>{{ formatTime(activeAppointment.requestTime.date) }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Customer:</span><br /><strong>{{ activeAppointment.name
+            }} {{ activeAppointment.surname }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Phone:</span><br /><strong>{{ activeAppointment.phone
+            }}</strong></div>
+          <div class="mb-1"><span class="small text-secondary">Email:</span><br /><strong>{{ activeAppointment.email
+            }}</strong></div>
+          <div class="mb-1"><span
+            class="small text-secondary">Notes:</span><br /><strong>{{ activeAppointment.notes || '-' }}</strong></div>
+          <div class="mb-1"><span
+            class="small text-secondary">Requested at:</span><br /><strong>{{ formatTime(activeAppointment.requestTime.date)
+            }}</strong></div>
         </div>
       </div>
       <div class="form-actions" style="margin-top:0; gap:10px;">
-        <button class="btn-success-custom me-2" v-if="activeAppointment.status === 'new'" @click.prevent="confirmAppointment(activeAppointment)">
-          <fa-icon :icon="['fas','check']" class="me-2"></fa-icon> Confirm
+        <button class="btn-success-custom me-2" v-if="activeAppointment.status === 'new'"
+                @click.prevent="confirmAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','check']" class="me-2"></fa-icon>
+          Confirm
         </button>
-        <button class="btn-danger-custom me-2" v-if="activeAppointment.status === 'confirmed'" @click.prevent="cancelAppointment(activeAppointment)">
-          <fa-icon :icon="['fas','times']" class="me-2"></fa-icon> Cancel
+        <button class="btn-danger-custom me-2" v-if="activeAppointment.status === 'confirmed'"
+                @click.prevent="cancelAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','times']" class="me-2"></fa-icon>
+          Cancel
         </button>
-        <button class="btn-outline-warning-custom btn-size-small-custom me-2" @click.prevent="editAppointment(activeAppointment)">
-          <fa-icon :icon="['fas','pencil']" class="me-2"></fa-icon> Edit
+        <button class="btn-outline-warning-custom btn-size-small-custom me-2"
+                @click.prevent="editAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','pencil']" class="me-2"></fa-icon>
+          Edit
         </button>
-        <button class="btn-outline-info-custom btn-outline-primary-custom me-2" @click.prevent="copyAppointment(activeAppointment)">
-          <fa-icon :icon="['fas','copy']" class="me-2"></fa-icon> Copy
+        <button class="btn-outline-info-custom btn-outline-primary-custom me-2"
+                @click.prevent="copyAppointment(activeAppointment)">
+          <fa-icon :icon="['fas','copy']" class="me-2"></fa-icon>
+          Copy
         </button>
         <button class="btn-outline-custom btn-outline-dark-custom" @click.prevent="printAppointment(activeAppointment)">
-          <fa-icon :icon="['fas','print']" class="me-2"></fa-icon> Print
+          <fa-icon :icon="['fas','print']" class="me-2"></fa-icon>
+          Print
         </button>
 
       </div>
     </div>
   </ModalComponent>
-
-
-
-
 
 
 </template>
@@ -570,6 +595,7 @@ import {
 import SmallCalendar from '@/components/calendar/SmallCalendar.vue'
 import { useThemeStore } from '@/stores/theme.js'
 import { useSidebarStore } from '@/stores/sidebar.js'
+import { createBlockTime, setLength as setBlockLength, setTime as setBlockTime } from '@/repositories/BlockTimeRepository.js'
 
 export default {
   name: 'CalendarView',
@@ -583,6 +609,7 @@ export default {
       currentDate: null,
       endDate: null,
       eventList: [],
+      blockTimeList: [],
       screenWidth: 0,
       screenHeight: 0,
       minDate: null,
@@ -629,7 +656,8 @@ export default {
         date: '',
         time: '',
         duration: '',
-        reason: ''
+        reason: '',
+        color: '#ff0000'
       },
 
       newAppointmentIsOpen: false,
@@ -693,15 +721,15 @@ export default {
         this.$router.push({ query: {} })
       }
     },
-    visible(){
+    visible() {
       setTimeout(() => {
-        this.onResize();
-      }, 1000);
+        this.onResize()
+      }, 1000)
     },
-    unfoldable(){
+    unfoldable() {
       setTimeout(() => {
-        this.onResize();
-      }, 1000);
+        this.onResize()
+      }, 1000)
     }
   },
 
@@ -764,6 +792,13 @@ export default {
       })
     },
 
+    visibleBlocks() {
+      if (this.selectedSchedules.length === 0) return this.blockTimeList
+      return this.blockTimeList.filter(event => {
+        return this.selectedSchedules.includes(event.expert.id)
+      })
+    },
+
     endingHour() {
 
       let endHour = '00:00'
@@ -792,7 +827,7 @@ export default {
 
     ...mapState(useAuthStore, ['token']),
 
-    ...mapState(useSidebarStore, ['visible','unfoldable']),
+    ...mapState(useSidebarStore, ['visible', 'unfoldable']),
 
     readyToBuildLayout() {
       return this.startDate && this.endDate && this.currentDate
@@ -939,21 +974,37 @@ export default {
     },
 
     // Save Block Time
-    saveBlockTime() {
-      // Here you can add your API call to save block time
-      console.log('Block Time Details:', this.blockTimeDetails)
+    crateBlockTime() {
 
-      // For now, just show success message and close modal
-      this.$swal({
-        title: 'Success',
-        text: 'Time blocked successfully',
-        icon: 'success',
-        showConfirmButton: true
-      }).then(() => {
-        this.blockTimeModalOpen = false
-        // Refresh calendar if needed
-        this.getCalendar()
+
+      createBlockTime(this.token,
+        this.blockTimeDetails.expert,
+        this.blockTimeDetails.date + ' ' + this.blockTimeDetails.time,
+        this.blockTimeDetails.duration,
+        this.blockTimeDetails.reason,
+        this.newItemDetails.color
+      ).then(response => {
+        if (response.code === 200) {
+          this.$swal({
+            title: 'Success',
+            text: 'Time blocked successfully',
+            icon: 'success',
+            showConfirmButton: true
+          })
+          this.blockTimeModalOpen = false
+          this.copyingAppointment = null
+          this.getCalendar()
+        } else {
+          this.$swal({
+            title: 'Error',
+            text: response.message,
+            icon: 'error',
+            showConfirmButton: true
+          })
+        }
       })
+
+
     },
 
     checkUrlForAppointmentId() {
@@ -981,6 +1032,7 @@ export default {
         getCalendarInfo(this.token, this.startDate.format('YYYY-MM-DD'), this.endDate.endOf('day').format('YYYY-MM-DD HH:mm:ss')).then((response) => {
           if (response.code === 200) {
             this.eventList = response.appointments
+            this.blockTimeList = response.blockTimes;
           } else {
             this.$swal({
               title: 'Error',
@@ -1358,38 +1410,76 @@ export default {
 
     updateAppointmentTime(event) {
 
+      console.log(event)
 
-      this.$swal({
-        title: 'Update appointment time',
-        text: 'Are you sure you want to update the appointment?',
-        html: '<p><strong>Expert: </strong>' + event.expert.name + '</p><p><strong>Time: </strong> ' + event.time.format('DD MMM YYYY HH:mm') + '</p>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
-      }).then((result) => {
-        if (!result.isConfirmed) return
-        setTime(this.token, event.event.id, event.time.format('YYYY-MM-DD HH:mm:ss'), event.expert.id).then(response => {
-            if (response.code === 200) {
-              this.$swal({
-                title: 'Success',
-                text: 'Appointment time updated',
-                icon: 'success',
-                showConfirmButton: true
-              })
-              this.getCalendar()
-            } else {
-              this.$swal({
-                title: 'Error',
-                text: response.message,
-                icon: 'error',
-                showConfirmButton: true
-              })
+      if(event.event.type === "block"){
+        //this is block time
+
+        this.$swal({
+          title: 'Update block time',
+          text: 'Are you sure you want to update the block?',
+          html: '<p><strong>Expert: </strong>' + event.expert.name + '</p><p><strong>Time: </strong> ' + event.time.format('DD MMM YYYY HH:mm') + '</p>',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+          if (!result.isConfirmed) return
+          setBlockTime(this.token, event.event.id, event.time.format('YYYY-MM-DD HH:mm:ss'), event.expert.id).then(response => {
+              if (response.code === 200) {
+                this.$swal({
+                  title: 'Success',
+                  text: 'Block time updated',
+                  icon: 'success',
+                  showConfirmButton: true
+                })
+                this.getCalendar()
+              } else {
+                this.$swal({
+                  title: 'Error',
+                  text: response.message,
+                  icon: 'error',
+                  showConfirmButton: true
+                })
+              }
             }
-          }
-        )
-      })
+          )
+        })
 
+      } else {
+
+
+        this.$swal({
+          title: 'Update appointment time',
+          text: 'Are you sure you want to update the appointment?',
+          html: '<p><strong>Expert: </strong>' + event.expert.name + '</p><p><strong>Time: </strong> ' + event.time.format('DD MMM YYYY HH:mm') + '</p>',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No'
+        }).then((result) => {
+          if (!result.isConfirmed) return
+          setTime(this.token, event.event.id, event.time.format('YYYY-MM-DD HH:mm:ss'), event.expert.id).then(response => {
+              if (response.code === 200) {
+                this.$swal({
+                  title: 'Success',
+                  text: 'Appointment time updated',
+                  icon: 'success',
+                  showConfirmButton: true
+                })
+                this.getCalendar()
+              } else {
+                this.$swal({
+                  title: 'Error',
+                  text: response.message,
+                  icon: 'error',
+                  showConfirmButton: true
+                })
+              }
+            }
+          )
+        })
+      }
 
     },
 
@@ -1433,6 +1523,46 @@ export default {
 
     },
 
+    updateBlockTimeLength(event) {
+
+
+      this.$swal({
+        title: 'Update block time length',
+        text: 'Are you sure you want to update the block?',
+        html: '<p>Lenght:' + event.newLength + ' minutes</p>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (!result.isConfirmed) {
+          this.getCalendar()
+          return
+        }
+        setBlockLength(this.token, event.block.id, event.newLength).then(response => {
+            if (response.code === 200) {
+              this.$swal({
+                title: 'Success',
+                text: 'Block updated',
+                icon: 'success',
+                showConfirmButton: true
+              })
+              this.getCalendar()
+            } else {
+              this.$swal({
+                title: 'Error',
+                text: response.message,
+                icon: 'error',
+                showConfirmButton: true
+              })
+            }
+          }
+        )
+      })
+
+
+    },
+
     showAppointmentDetails(event) {
 
       this.activeAppointment = event
@@ -1448,7 +1578,7 @@ export default {
 
 
     setTimeout(() => {
-       this.onResize();
+      this.onResize()
     }, 1000)
 
     window.addEventListener('resize', this.onResize)
