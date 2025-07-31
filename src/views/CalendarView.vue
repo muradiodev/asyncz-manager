@@ -184,7 +184,7 @@
               @dayClicked="openDayDailyView"
               @eventClicked="showAppointmentDetails"
               @appResized="updateAppointmentLength"
-              @blockClicked="showAppointmentDetails"
+              @blockClicked="showBlockTimeDetails"
               @blockResized="updateBlockTimeLength"
             />
 
@@ -494,6 +494,61 @@
   </ModalComponent>
 
 
+  <!-- Edit Appointment Modal -->
+  <ModalComponent
+    title="Edit block time"
+    v-if="editingBlockTime"
+    @modalClose="editingBlockTime = null"
+  >
+    <form @submit.prevent="updateBlockTime" class="modern-body clean-form">
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Expert <span style="color:#e74c3c">*</span></label>
+          <select v-model="editingBlockTime.expert.id" required class="modern-input">
+            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
+              {{ expert.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row" style="gap:18px;">
+        <div class="form-field" style="flex:1;">
+          <label>Date <span style="color:#e74c3c">*</span></label>
+          <input type="date" v-model="editingBlockTime.date" required class="modern-input" />
+        </div>
+        <div class="form-field" style="flex:1;">
+          <label>Time <span style="color:#e74c3c">*</span></label>
+          <input type="time" v-model="editingBlockTime.time" required class="modern-input" />
+        </div>
+        <div class="form-field" style="flex:1;">
+          <label>Length <span style="color:#e74c3c">*</span></label>
+          <div style="display: flex;">
+            <input type="number" v-model="editingBlockTime.duration" required class="modern-input"
+                   style="flex:1;" />
+            <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-field full-width">
+        <label>Comment</label>
+        <textarea v-model="editingBlockTime.comment" class="modern-input" rows="2"></textarea>
+      </div>
+
+      <div class="form-actions" style="margin-top: 18px;">
+        <button type="button" class="btn-cancel-custom" @click="editingBlockTime = null">
+          Cancel
+        </button>
+        <button type="submit" class="btn-success-custom">
+          Update
+        </button>
+      </div>
+    </form>
+  </ModalComponent>
+
+
   <!-- Appointment Details Modal -->
   <ModalComponent
     title="Appointment Details"
@@ -570,6 +625,52 @@
   </ModalComponent>
 
 
+<!-- Block time Details Modal -->
+  <ModalComponent
+    title="Block time details"
+    v-if="activeBlockTime"
+    @modalClose="activeBlockTime = null"
+  >
+    <div class="modern-body" style="padding-bottom: 8px;">
+      <div class="row" style="margin-bottom:12px;">
+        <div class="col-md-12 mb-3">
+          <div class="mb-1"><span
+            class="small text-secondary">Expert:</span><br /><strong>{{ activeBlockTime.expert.fullName }}</strong>
+          </div>
+          <div class="mb-1"><span
+            class="small text-secondary">Starts:</span><br />
+            <strong>{{ formatTime(activeBlockTime.startTime.date)
+            }}</strong></div>
+          <div class="mb-1">
+            <span class="small text-secondary">Duration:</span><br />
+            <strong>{{ activeBlockTime.duration }} min</strong>
+          </div>
+
+          <div class="mb-1">
+            <span class="small text-secondary">Comment:</span><br />
+            <strong>{{ activeBlockTime.comment || '-' }}</strong>
+          </div>
+
+        </div>
+      </div>
+      <div class="form-actions" style="margin-top:0; gap:10px;">
+
+        <button class="btn-danger-custom me-2"
+                @click.prevent="deleteBlockTime(activeBlockTime)">
+          <fa-icon :icon="['fas','times']" class="me-2"></fa-icon>
+          Delete
+        </button>
+        <button class="btn-outline-warning-custom btn-size-small-custom me-2"
+                @click.prevent="editBlockTime(activeBlockTime)">
+          <fa-icon :icon="['fas','pencil']" class="me-2"></fa-icon>
+          Edit
+        </button>
+
+      </div>
+    </div>
+  </ModalComponent>
+
+
 </template>
 
 <script>
@@ -595,7 +696,12 @@ import {
 import SmallCalendar from '@/components/calendar/SmallCalendar.vue'
 import { useThemeStore } from '@/stores/theme.js'
 import { useSidebarStore } from '@/stores/sidebar.js'
-import { createBlockTime, setLength as setBlockLength, setTime as setBlockTime } from '@/repositories/BlockTimeRepository.js'
+import {
+  createBlockTime, deleteTime,
+  setLength as setBlockLength,
+  setTime as setBlockTime,
+  updateBlockTime
+} from '@/repositories/BlockTimeRepository.js'
 
 export default {
   name: 'CalendarView',
@@ -670,7 +776,10 @@ export default {
       editingAppointment: null,
       copyingAppointment: null,
       showAllExperts: false,
-      activeAppointment: null
+      activeAppointment: null,
+
+      activeBlockTime: null,
+      editingBlockTime: null
     }
   },
   watch: {
@@ -1228,6 +1337,12 @@ export default {
       this.editingAppointment.time = this.$dayjs(appointment.reservationStartTime.date).format('HH:mm')
     },
 
+    editBlockTime(appointment) {
+      this.editingBlockTime = JSON.parse(JSON.stringify(appointment))
+      this.editingBlockTime.date = this.$dayjs(appointment.startTime.date).format('YYYY-MM-DD')
+      this.editingBlockTime.time = this.$dayjs(appointment.startTime.date).format('HH:mm')
+    },
+
     confirmAppointment(appointment) {
 
       this.$swal({
@@ -1286,6 +1401,41 @@ export default {
               this.getCalendar()
               //todo update from api
               this.activeAppointment.status = 'cancelled_expert'
+            } else {
+              this.$swal({
+                title: 'Error',
+                text: response.message,
+                icon: 'error',
+                showConfirmButton: true
+              })
+            }
+          }
+        )
+      })
+
+
+    },
+    deleteBlockTime(blockTime) {
+
+      this.$swal({
+        title: 'Delete block time',
+        text: 'Are you sure you want to delete block time?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (!result.isConfirmed) return
+        deleteTime(this.token, blockTime.id).then(response => {
+            if (response.code === 200) {
+              this.$swal({
+                title: 'Success',
+                text: ' Deleted',
+                icon: 'success',
+                showConfirmButton: true
+              })
+              this.getCalendar()
+              this.activeBlockTime = null;
             } else {
               this.$swal({
                 title: 'Error',
@@ -1408,9 +1558,39 @@ export default {
 
     },
 
-    updateAppointmentTime(event) {
+    updateBlockTime() {
 
-      console.log(event)
+      updateBlockTime(this.token,
+        this.editingBlockTime.id,
+        this.editingBlockTime.expert.id,
+        this.editingBlockTime.date + ' ' + this.editingBlockTime.time,
+        this.editingBlockTime.duration,
+        this.editingBlockTime.comment,
+        this.editingBlockTime.color
+      ).then(response => {
+        if (response.code === 200) {
+          this.$swal({
+            title: 'Success',
+            text: 'Block time updated',
+            icon: 'success',
+            showConfirmButton: true
+          })
+          this.editingBlockTime = null
+          //todo get active appointment one more time to update the view
+          this.getCalendar()
+        } else {
+          this.$swal({
+            title: 'Error',
+            text: response.message,
+            icon: 'error',
+            showConfirmButton: true
+          })
+        }
+      })
+
+    },
+
+    updateAppointmentTime(event) {
 
       if(event.event.type === "block"){
         //this is block time
@@ -1566,6 +1746,12 @@ export default {
     showAppointmentDetails(event) {
 
       this.activeAppointment = event
+
+    },
+
+    showBlockTimeDetails(blockTime) {
+
+      this.activeBlockTime = blockTime
 
     },
     formatTime(time) {
