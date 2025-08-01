@@ -249,7 +249,7 @@ export default {
         address: '',
         email: '',
         phone: '',
-        time_zone: 'America/New_York_UTC-05:00',
+        time_zone: 'America/New_York',
         slot_size: '10',
         email_confirmation_required: ''
       },
