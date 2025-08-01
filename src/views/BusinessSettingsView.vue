@@ -164,15 +164,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- Selected Timezone Display -->
-            <div class="form-text mt-2">
-              <small class="text-muted">
-                <i class="fas fa-globe me-1"></i>
-                UTC: {{ utcTime }} | Timezone: {{ selectedTimezone }} |
-                Offset: {{ getOffsetFromCombined(businessData.time_zone) }}
-              </small>
-            </div>
           </div>
 
           <!-- Slot Size -->
@@ -267,60 +258,95 @@ export default {
       // Properly structured timezone database
       allTimezones: {
         'North America': [
-          { value: 'Pacific/Honolulu', label: 'Hawaii Time (Honolulu)', currentTime: '' },          // UTC-10:00
-          { value: 'America/Anchorage', label: 'Alaska Time (Anchorage)', currentTime: '' },        // UTC-09:00
-          { value: 'America/Los_Angeles', label: 'Pacific Time (Los Angeles, Seattle)', currentTime: '' }, // UTC-08:00
-          { value: 'America/Vancouver', label: 'Pacific Time (Vancouver)', currentTime: '' },       // UTC-08:00
-          { value: 'America/Denver', label: 'Mountain Time (Denver, Phoenix)', currentTime: '' },   // UTC-07:00
-          { value: 'America/Chicago', label: 'Central Time (Chicago, Dallas)', currentTime: '' },   // UTC-06:00
-          { value: 'America/Mexico_City', label: 'Central Time (Mexico City)', currentTime: '' },   // UTC-06:00
-          { value: 'America/New_York', label: 'Eastern Time (New York, Miami)', currentTime: '' },  // UTC-05:00
-          { value: 'America/Toronto', label: 'Eastern Time (Toronto, Montreal)', currentTime: '' }  // UTC-05:00
+          { value: 'Pacific/Midway', label: 'Pacific/Midway (Midway Island, Samoa)', currentTime: '' },
+          { value: 'Pacific/Honolulu', label: 'Pacific/Honolulu (Hawaii)', currentTime: '' },
+          { value: 'America/Juneau', label: 'America/Juneau (Alaska)', currentTime: '' },
+          { value: 'America/Los_Angeles', label: 'America/Los_Angeles (Pacific Time)', currentTime: '' },
+          { value: 'America/Tijuana', label: 'America/Tijuana (Tijuana)', currentTime: '' },
+          { value: 'America/Boise', label: 'America/Boise (Mountain Time)', currentTime: '' },
+          { value: 'America/Phoenix', label: 'America/Phoenix (Arizona)', currentTime: '' },
+          { value: 'America/Dawson', label: 'America/Dawson (Dawson, Yukon)', currentTime: '' },
+          { value: 'America/Chicago', label: 'America/Chicago (Central Time)', currentTime: '' },
+          { value: 'America/Regina', label: 'America/Regina (Saskatchewan)', currentTime: '' },
+          { value: 'America/Mexico_City', label: 'America/Mexico_City (Guadalajara, Mexico City, Monterrey)', currentTime: '' },
+          { value: 'America/Belize', label: 'America/Belize (Central America)', currentTime: '' },
+          { value: 'America/Detroit', label: 'America/Detroit (Eastern Time)', currentTime: '' },
+          { value: 'America/St_Johns', label: 'America/St_Johns (Newfoundland and Labrador)', currentTime: '' }
         ],
         'South America': [
-          { value: 'America/Lima', label: 'Peru Time (Lima)', currentTime: '' },                    // UTC-05:00
-          { value: 'America/Bogota', label: 'Colombia Time (Bogotá)', currentTime: '' },            // UTC-05:00
-          { value: 'America/Santiago', label: 'Chile Time (Santiago)', currentTime: '' },           // UTC-04:00
-          { value: 'America/Argentina/Buenos_Aires', label: 'Argentina Time (Buenos Aires)', currentTime: '' }, // UTC-03:00
-          { value: 'America/Sao_Paulo', label: 'Brazil Time (São Paulo, Rio)', currentTime: '' }    // UTC-03:00
+          { value: 'America/Bogota', label: 'America/Bogota (Bogota, Lima, Quito)', currentTime: '' },
+          { value: 'America/Caracas', label: 'America/Caracas (Caracas, La Paz)', currentTime: '' },
+          { value: 'America/Santiago', label: 'America/Santiago (Santiago)', currentTime: '' },
+          { value: 'America/Sao_Paulo', label: 'America/Sao_Paulo (Brasilia)', currentTime: '' },
+          { value: 'America/Montevideo', label: 'America/Montevideo (Montevideo)', currentTime: '' },
+          { value: 'America/Argentina/Buenos_Aires', label: 'America/Argentina/Buenos_Aires (Buenos Aires, Georgetown)', currentTime: '' }
         ],
         'Europe': [
-          { value: 'Europe/London', label: 'GMT (London, Dublin)', currentTime: '' },               // UTC+00:00
-          { value: 'Europe/Paris', label: 'Central European Time (Paris, Berlin, Rome)', currentTime: '' }, // UTC+01:00
-          { value: 'Europe/Athens', label: 'Eastern European Time (Athens, Helsinki)', currentTime: '' }, // UTC+02:00
-          { value: 'Europe/Istanbul', label: 'Turkey Time (Istanbul)', currentTime: '' },           // UTC+03:00
-          { value: 'Europe/Moscow', label: 'Moscow Time (Moscow)', currentTime: '' }                // UTC+03:00
+          { value: 'Europe/London', label: 'Europe/London (Edinburgh, London)', currentTime: '' },
+          { value: 'Europe/Dublin', label: 'Europe/Dublin (Dublin)', currentTime: '' },
+          { value: 'Europe/Lisbon', label: 'Europe/Lisbon (Lisbon)', currentTime: '' },
+          { value: 'Europe/Brussels', label: 'Europe/Brussels (Brussels, Copenhagen, Madrid, Paris)', currentTime: '' },
+          { value: 'Europe/Amsterdam', label: 'Europe/Amsterdam (Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna)', currentTime: '' },
+          { value: 'Europe/Belgrade', label: 'Europe/Belgrade (Belgrade, Bratislava, Budapest, Ljubljana, Prague)', currentTime: '' },
+          { value: 'Europe/Sarajevo', label: 'Europe/Sarajevo (Sarajevo, Skopje, Warsaw, Zagreb)', currentTime: '' },
+          { value: 'Europe/Bucharest', label: 'Europe/Bucharest (Bucharest)', currentTime: '' },
+          { value: 'Europe/Helsinki', label: 'Europe/Helsinki (Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius)', currentTime: '' },
+          { value: 'Europe/Athens', label: 'Europe/Athens (Athens)', currentTime: '' },
+          { value: 'Europe/Moscow', label: 'Europe/Moscow (Istanbul, Minsk, Moscow, St. Petersburg, Volgograd)', currentTime: '' }
         ],
         'Asia': [
-          { value: 'Asia/Jerusalem', label: 'Israel Time (Jerusalem, Tel Aviv)', currentTime: '' }, // UTC+02:00
-          { value: 'Asia/Riyadh', label: 'Arabia Time (Riyadh, Kuwait)', currentTime: '' },         // UTC+03:00
-          { value: 'Asia/Tehran', label: 'Iran Time (Tehran)', currentTime: '' },                   // UTC+03:30
-          { value: 'Asia/Dubai', label: 'Gulf Time (Dubai, Abu Dhabi)', currentTime: '' },          // UTC+04:00
-          { value: 'Asia/Kolkata', label: 'India Time (Mumbai, Delhi, Bangalore)', currentTime: '' }, // UTC+05:30
-          { value: 'Asia/Bangkok', label: 'Indochina Time (Bangkok, Ho Chi Minh)', currentTime: '' }, // UTC+07:00
-          { value: 'Asia/Jakarta', label: 'Indonesia Time (Jakarta)', currentTime: '' },            // UTC+07:00
-          { value: 'Asia/Shanghai', label: 'China Time (Beijing, Shanghai)', currentTime: '' },     // UTC+08:00
-          { value: 'Asia/Hong_Kong', label: 'Hong Kong Time (Hong Kong)', currentTime: '' },        // UTC+08:00
-          { value: 'Asia/Singapore', label: 'Singapore Time (Singapore, Kuala Lumpur)', currentTime: '' }, // UTC+08:00
-          { value: 'Asia/Manila', label: 'Philippines Time (Manila)', currentTime: '' },            // UTC+08:00
-          { value: 'Asia/Seoul', label: 'Korea Time (Seoul)', currentTime: '' },                    // UTC+09:00
-          { value: 'Asia/Tokyo', label: 'Japan Time (Tokyo, Osaka)', currentTime: '' }              // UTC+09:00
-        ],
-        'Middle East': [
-          { value: 'Asia/Jerusalem', label: 'Israel Time (Jerusalem, Tel Aviv)', currentTime: '' }, // UTC+02:00
-          { value: 'Asia/Riyadh', label: 'Arabia Time (Riyadh, Kuwait)', currentTime: '' },         // UTC+03:00
-          { value: 'Asia/Tehran', label: 'Iran Time (Tehran)', currentTime: '' }                    // UTC+03:30
+          { value: 'Asia/Jerusalem', label: 'Asia/Jerusalem (Jerusalem)', currentTime: '' },
+          { value: 'Asia/Kuwait', label: 'Asia/Kuwait (Kuwait, Riyadh)', currentTime: '' },
+          { value: 'Asia/Baghdad', label: 'Asia/Baghdad (Baghdad)', currentTime: '' },
+          { value: 'Asia/Tehran', label: 'Asia/Tehran (Tehran)', currentTime: '' },
+          { value: 'Asia/Dubai', label: 'Asia/Dubai (Abu Dhabi, Muscat)', currentTime: '' },
+          { value: 'Asia/Baku', label: 'Asia/Baku (Baku, Tbilisi, Yerevan)', currentTime: '' },
+          { value: 'Asia/Kabul', label: 'Asia/Kabul (Kabul)', currentTime: '' },
+          { value: 'Asia/Yekaterinburg', label: 'Asia/Yekaterinburg (Ekaterinburg)', currentTime: '' },
+          { value: 'Asia/Karachi', label: 'Asia/Karachi (Islamabad, Karachi, Tashkent)', currentTime: '' },
+          { value: 'Asia/Kolkata', label: 'Asia/Kolkata (Chennai, Kolkata, Mumbai, New Delhi)', currentTime: '' },
+          { value: 'Asia/Kathmandu', label: 'Asia/Kathmandu (Kathmandu)', currentTime: '' },
+          { value: 'Asia/Dhaka', label: 'Asia/Dhaka (Astana, Dhaka)', currentTime: '' },
+          { value: 'Asia/Colombo', label: 'Asia/Colombo (Sri Jayawardenepura)', currentTime: '' },
+          { value: 'Asia/Almaty', label: 'Asia/Almaty (Almaty, Novosibirsk)', currentTime: '' },
+          { value: 'Asia/Rangoon', label: 'Asia/Rangoon (Yangon Rangoon)', currentTime: '' },
+          { value: 'Asia/Bangkok', label: 'Asia/Bangkok (Bangkok, Hanoi, Jakarta)', currentTime: '' },
+          { value: 'Asia/Krasnoyarsk', label: 'Asia/Krasnoyarsk (Krasnoyarsk)', currentTime: '' },
+          { value: 'Asia/Shanghai', label: 'Asia/Shanghai (Beijing, Chongqing, Hong Kong SAR, Urumqi)', currentTime: '' },
+          { value: 'Asia/Kuala_Lumpur', label: 'Asia/Kuala_Lumpur (Kuala Lumpur, Singapore)', currentTime: '' },
+          { value: 'Asia/Taipei', label: 'Asia/Taipei (Taipei)', currentTime: '' },
+          { value: 'Asia/Irkutsk', label: 'Asia/Irkutsk (Irkutsk, Ulaanbaatar)', currentTime: '' },
+          { value: 'Asia/Seoul', label: 'Asia/Seoul (Seoul)', currentTime: '' },
+          { value: 'Asia/Tokyo', label: 'Asia/Tokyo (Osaka, Sapporo, Tokyo)', currentTime: '' },
+          { value: 'Asia/Yakutsk', label: 'Asia/Yakutsk (Yakutsk)', currentTime: '' },
+          { value: 'Asia/Vladivostok', label: 'Asia/Vladivostok (Vladivostok)', currentTime: '' },
+          { value: 'Asia/Magadan', label: 'Asia/Magadan (Magadan, Solomon Islands, New Caledonia)', currentTime: '' },
+          { value: 'Asia/Kamchatka', label: 'Asia/Kamchatka (Kamchatka, Marshall Islands)', currentTime: '' }
         ],
         'Africa': [
-          { value: 'Africa/Lagos', label: 'West Africa Time (Lagos, Accra)', currentTime: '' },     // UTC+01:00
-          { value: 'Africa/Cairo', label: 'Egypt Time (Cairo)', currentTime: '' },                  // UTC+02:00
-          { value: 'Africa/Johannesburg', label: 'South Africa Time (Johannesburg, Cape Town)', currentTime: '' }, // UTC+02:00
-          { value: 'Africa/Nairobi', label: 'East Africa Time (Nairobi, Addis Ababa)', currentTime: '' } // UTC+03:00
+          { value: 'Africa/Casablanca', label: 'Africa/Casablanca (Casablanca, Monrovia)', currentTime: '' },
+          { value: 'Africa/Algiers', label: 'Africa/Algiers (West Central Africa)', currentTime: '' },
+          { value: 'Africa/Cairo', label: 'Africa/Cairo (Cairo)', currentTime: '' },
+          { value: 'Africa/Harare', label: 'Africa/Harare (Harare, Pretoria)', currentTime: '' },
+          { value: 'Africa/Nairobi', label: 'Africa/Nairobi (Nairobi)', currentTime: '' }
+        ],
+        'Atlantic': [
+          { value: 'Atlantic/Azores', label: 'Atlantic/Azores (Azores)', currentTime: '' },
+          { value: 'Atlantic/Cape_Verde', label: 'Atlantic/Cape_Verde (Cape Verde Islands)', currentTime: '' },
+          { value: 'Atlantic/Canary', label: 'Atlantic/Canary (Canary Islands)', currentTime: '' },
+          { value: 'America/Godthab', label: 'America/Godthab (Greenland)', currentTime: '' }
         ],
         'Oceania': [
-          { value: 'Australia/Perth', label: 'Australian Western Time (Perth)', currentTime: '' },  // UTC+08:00
-          { value: 'Australia/Sydney', label: 'Australian Eastern Time (Sydney, Melbourne)', currentTime: '' }, // UTC+10:00
-          { value: 'Pacific/Auckland', label: 'New Zealand Time (Auckland)', currentTime: '' }      // UTC+12:00
+          { value: 'Australia/Perth', label: 'Australia/Perth (Perth)', currentTime: '' },
+          { value: 'Australia/Darwin', label: 'Australia/Darwin (Darwin)', currentTime: '' },
+          { value: 'Australia/Adelaide', label: 'Australia/Adelaide (Adelaide)', currentTime: '' },
+          { value: 'Australia/Brisbane', label: 'Australia/Brisbane (Brisbane)', currentTime: '' },
+          { value: 'Australia/Sydney', label: 'Australia/Sydney (Canberra, Melbourne, Sydney)', currentTime: '' },
+          { value: 'Australia/Hobart', label: 'Australia/Hobart (Hobart)', currentTime: '' },
+          { value: 'Pacific/Guam', label: 'Pacific/Guam (Guam, Port Moresby)', currentTime: '' },
+          { value: 'Pacific/Fiji', label: 'Pacific/Fiji (Fiji Islands)', currentTime: '' },
+          { value: 'Pacific/Auckland', label: 'Pacific/Auckland (Auckland, Wellington)', currentTime: '' },
+          { value: 'Pacific/Tongatapu', label: 'Pacific/Tongatapu (Nuku\'alofa)', currentTime: '' }
         ]
       },
 
@@ -413,11 +439,8 @@ export default {
       if (timezoneValue && typeof timezoneValue === 'string') {
         this.selectedTimezone = timezoneValue;
 
-        // Get the offset for this timezone
-        const timezoneOffset = this.getTimezoneOffset(timezoneValue);
-
         // Store the combined value for backend storage
-        this.businessData.time_zone = `${timezoneValue}_UTC${timezoneOffset}`;
+        this.businessData.time_zone = `${timezoneValue}`;
       }
     },
 
@@ -476,27 +499,6 @@ export default {
       }
     },
 
-    // Helper method to extract timezone value from the combined string
-    getTimezoneValueFromCombined(combinedString) {
-      if (!combinedString) return '';
-
-      if (combinedString.includes('_UTC')) {
-        return combinedString.split('_UTC')[0];
-      }
-
-      return combinedString;
-    },
-
-    // Helper method to extract offset from the combined string
-    getOffsetFromCombined(combinedString) {
-      if (!combinedString) return '';
-
-      if (combinedString.includes('_UTC')) {
-        return combinedString.split('_UTC')[1] || '';
-      }
-
-      return '';
-    },
 
     // Enhanced label retrieval with fallback handling
     getSelectedTimezoneLabel() {
@@ -511,107 +513,6 @@ export default {
       return `${this.selectedTimezone || 'No timezone selected'}`
     },
 
-    // Find a timezone by its UTC offset
-    findTimezoneByOffset(targetOffset) {
-      if (!targetOffset) {
-        return 'America/New_York'; // Default fallback
-      }
-
-      // Normalize the target offset format
-      targetOffset = targetOffset.trim();
-
-      // Create a map to store offsets to timezone options
-      const offsetMap = new Map();
-
-      // Current date for consistent comparison
-      const now = new Date();
-
-      // Populate the map with all timezones and their current offsets
-      Object.values(this.allTimezones).forEach(region => {
-        if (Array.isArray(region)) {
-          region.forEach(tz => {
-            try {
-              // Get the formatted offset for this timezone
-              const formatter = new Intl.DateTimeFormat('en', {
-                timeZone: tz.value,
-                timeZoneName: 'longOffset'
-              });
-
-              const parts = formatter.formatToParts(now);
-              const offsetPart = parts.find(part => part.type === 'timeZoneName');
-
-              if (offsetPart && offsetPart.value) {
-                // Extract just the offset part (e.g., "+02:00")
-                const tzOffset = offsetPart.value.replace('GMT', '');
-
-                // If this timezone matches our target offset, add it to the map
-                if (!offsetMap.has(tzOffset)) {
-                  offsetMap.set(tzOffset, []);
-                }
-                offsetMap.get(tzOffset).push(tz.value);
-              }
-            } catch (error) {
-              console.warn(`Error processing timezone: ${tz.value}`, error);
-            }
-          });
-        }
-      });
-
-      // First, try to find an exact match
-      if (offsetMap.has(targetOffset)) {
-        // Prefer common/major timezones if multiple options exist
-        const candidates = offsetMap.get(targetOffset);
-
-        // Prioritization logic for multiple timezones with the same offset
-        const preferredRegions = ['America', 'Europe', 'Asia', 'Australia'];
-
-        // Try to find a timezone in a preferred region
-        for (const region of preferredRegions) {
-          const preferred = candidates.find(tz => tz.startsWith(region + '/'));
-          if (preferred) return preferred;
-        }
-
-        // If no preferred region found, just return the first one
-        return candidates[0];
-      }
-
-      // If no exact match, try to find the closest offset
-      // This handles cases where the offset might have slight formatting differences
-      const normalizedTarget = this.normalizeOffset(targetOffset);
-
-      for (const [offset, timezones] of offsetMap.entries()) {
-        if (this.normalizeOffset(offset) === normalizedTarget) {
-          return timezones[0]; // Return the first timezone with matching normalized offset
-        }
-      }
-
-      // If still no match, return a default timezone
-      console.warn(`No timezone found for offset: ${targetOffset}, using default`);
-      return 'America/New_York';
-    },
-
-    // Helper method to normalize offset format for comparison
-    normalizeOffset(offset) {
-      // Remove any non-numeric characters except the sign and colon
-      const sign = offset.startsWith('-') ? '-' : '+';
-      const parts = offset.replace(/[^0-9:]/g, '').split(':');
-
-      if (parts.length === 2) {
-        // Ensure two digits for hours and minutes
-        const hours = parts[0].padStart(2, '0');
-        const minutes = parts[1].padStart(2, '0');
-        return `${sign}${hours}:${minutes}`;
-      }
-
-      // Handle case where offset might be in hours only
-      if (parts.length === 1) {
-        const hours = parts[0].padStart(2, '0');
-        return `${sign}${hours}:00`;
-      }
-
-      return offset; // Return as is if we can't normalize
-    },
-
     // Updated to handle combined timezone format
     async loadBusinessData() {
       this.isInitialLoading = true;
@@ -622,26 +523,7 @@ export default {
           console.log("data", data);
           console.log("timezone", data.time_zone);
           // Extract timezone value from the combined string if it exists
-          let timezoneValue = '';
-          let timezoneOffset = '+00:00';
 
-          if (data.time_zone) {
-            // Check if the timeZone contains the separator
-            if (data.time_zone.includes('_UTC')) {
-              // Split at the _UTC marker
-              const parts = data.time_zone.split('_UTC');
-              timezoneValue = parts[0];
-              timezoneOffset = parts[1] || '+00:00';
-            } else {
-              // Handle legacy data that might only have offset
-              timezoneValue = this.findTimezoneByOffset(data.time_zone);
-              timezoneOffset = data.time_zone;
-            }
-          } else {
-            // Default values if no timezone is set
-            timezoneValue = 'America/New_York';
-            timezoneOffset = '-05:00';
-          }
 
           this.businessData = {
             name: data.name || '',
@@ -649,14 +531,14 @@ export default {
             address: data.address || '',
             email: data.email || '',
             phone: data.phone || '',
-            time_zone: `${timezoneValue}_UTC${timezoneOffset}`, // Store combined value
+            time_zone: data.time_zone, // Store combined value
             slot_size: data.slotSize ? data.slotSize.toString() : '30',
             logo: data.logo || '',
             email_confirmation_required: data.email_confirmation_required
           };
 
           // Set the selected timezone for the dropdown
-          this.selectedTimezone = timezoneValue;
+          this.selectedTimezone = data.time_zone;
 
           // Update the UI to show the selected timezone
           this.$nextTick(() => {
@@ -721,14 +603,6 @@ export default {
         this.isLoading = false;
       }
     },
-
-    resetForm() {
-      if (this.originalData) {
-        this.businessData = JSON.parse(JSON.stringify(this.originalData));
-        // Extract the timezone value from the combined string
-        this.selectedTimezone = this.getTimezoneValueFromCombined(this.businessData.time_zone);
-      }
-    }
   },
 
   mounted() {
