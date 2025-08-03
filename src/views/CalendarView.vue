@@ -847,10 +847,11 @@ export default {
       return useThemeStore().theme
     },
     options() {
+      const company = useAuthStore().company;
       return {
         dayStep: this.dayStep,
         showHourGrid: true,
-        hourGridMinutes: 10,
+        hourGridMinutes: company['slotSize'],
         dayStartHour: this.staringHour,
         dayEndHour: this.endingHour
       }

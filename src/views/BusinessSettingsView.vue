@@ -532,7 +532,7 @@ export default {
             email: data.email || '',
             phone: data.phone || '',
             time_zone: data.time_zone, // Store combined value
-            slot_size: data.slotSize ? data.slotSize.toString() : '30',
+            slot_size: data.slot_size || '10',
             logo: data.logo || '',
             email_confirmation_required: data.email_confirmation_required
           };
