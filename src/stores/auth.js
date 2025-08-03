@@ -6,7 +6,8 @@ export const useAuthStore = defineStore('auth', {
       token: null,
       user: null,
       company: null,
-      companyPackage: null
+      companyPackage: null,
+      permissions: [],
     }
   },
 
@@ -23,5 +24,8 @@ export const useAuthStore = defineStore('auth', {
     setCompanyPackage(newPackage) {
       this.companyPackage = newPackage
     },
+    setPermissions(newPermissions) {
+      this.permissions = newPermissions
+    }
   }
 })

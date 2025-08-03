@@ -147,6 +147,7 @@ router.beforeResolve((to, from, next) => {
         const auth = useAuthStore()
         auth.setUser(data)
         auth.setToken(token)
+        auth.setPermissions(data.permissions || [])
         auth.setCompany(data.company)
         auth.setCompanyPackage(data.package)
         if(data.password_change_required && to.name !== 'password-enforced') {
