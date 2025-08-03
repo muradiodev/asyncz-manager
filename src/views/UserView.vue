@@ -60,8 +60,9 @@
                     <strong>Status: </strong>
                     <StatusBadge :status="companyUser.status" />
                   </p>
+                  <!-- todo update permission name -->
                   <button class="btn-outline-custom"
-                          v-if="!editing"
+                          v-if="permissions.indexOf('MANAGE_USERS') >= 0"
                           @click.prevent="editing = true">
                     edit
                   </button>
@@ -160,7 +161,8 @@
 
                 <div>
                   <div class="form-check form-switch" v-for="p in permissions" :key="p">
-                    <input class="form-check-input" :value="p" type="checkbox" v-model="companyUser.permissions" role="switch"
+                    <input class="form-check-input" :value="p" type="checkbox" v-model="companyUser.permissions"
+                           role="switch"
                            :id="`permission_${p}`" @change="permissionChanged(p, $event)">
                     <label class="form-check-label" :for="`permission_${p}`">{{ p }}</label>
                   </div>
@@ -228,7 +230,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useAuthStore, ['token', 'user']),
+    ...mapState(useAuthStore, ['token', 'user', 'permissions']),
     data() {
       return this.expertList
     },
@@ -288,27 +290,34 @@ export default {
 
     permissionChanged(permission, $event) {
 
-      if($event.target.checked){
+      //todo fix permission name
+      if(this.permissions.indexOf("MANAGE_USER_PERMISSIONS") < 0) {
+        customAlert('Error', `Permission "${permission}" is not available for this user.`, 'error')
+        return
+      }
+
+
+      if ($event.target.checked) {
 
         addPermission(this.token, this.userId, permission).then(res => {
           if (res.code === 200) {
-            console.log(this);
-            toast(this,'success', 'Permission added');
+            console.log(this)
+            toast(this, 'success', 'Permission added')
           } else {
-            customAlert(`Error ${res.code}`, res.message, 'error');
+            customAlert(`Error ${res.code}`, res.message, 'error')
           }
-          this.$emit('updated');
-        });
+          this.$emit('updated')
+        })
 
-      } else  {
+      } else {
         removePermission(this.token, this.userId, permission).then(res => {
           if (res.code === 200) {
-            toast(this,'success', 'Permission removed');
+            toast(this, 'success', 'Permission removed')
           } else {
-            customAlert(`Error ${res.code}`, res.message, 'error');
+            customAlert(`Error ${res.code}`, res.message, 'error')
           }
-          this.$emit('updated');
-        });
+          this.$emit('updated')
+        })
       }
 
     }
