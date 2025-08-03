@@ -149,6 +149,7 @@
 import { mapActions } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { login } from '@/repositories/AuthRepository'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'LoginView',
@@ -181,12 +182,7 @@ export default {
             this.$router.push({ name: 'home' })
           }
         } else {
-          this.$swal({
-            title: this.$t('general.error'),
-            text: result.message,
-            icon: 'error',
-            showConfirmButton: true
-          })
+          toast.error(result.message);
         }
       })
     },

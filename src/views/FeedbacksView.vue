@@ -152,6 +152,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import { sendFeedback } from '@/repositories/FeedbackRepository.js'
 import { uploadMultipleImages } from '@/repositories/UploadRepository.js'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'FeedbacksView',
@@ -194,20 +195,12 @@ export default {
       const maxSize = 5 * 1024 * 1024 // 5MB
 
       if (!validTypes.includes(file.type)) {
-        this.$swal({
-          title: 'Invalid File Type',
-          text: 'Please select only PNG, JPG, or JPEG files.',
-          icon: 'error'
-        })
+        toast.error('Please select only PNG, JPG, or JPEG files.');
         return false
       }
 
       if (file.size > maxSize) {
-        this.$swal({
-          title: 'File Too Large',
-          text: 'Please select files smaller than 5MB.',
-          icon: 'error'
-        })
+        toast.error('Please select files smaller than 5MB.')
         return false
       }
 
@@ -220,11 +213,7 @@ export default {
 
     async createFeedback() {
       if (!this.feedbackData.title.trim()) {
-        this.$swal({
-          title: 'Validation Error',
-          text: 'Please enter a title for your feedback.',
-          icon: 'error'
-        })
+        toast.error('Please enter a title for your feedback.');
         return
       }
 
@@ -272,22 +261,13 @@ export default {
         )
 
         if (response.code === 200) {
-          this.$swal({
-            title: 'Success!',
-            text: 'Your feedback has been submitted successfully.',
-            icon: 'success'
-          }).then(() => {
-            this.resetForm()
-          })
+          toast.success('Your feedback has been submitted successfully.');
+          this.resetForm();
         } else {
           throw new Error(response.message || 'Failed to submit feedback')
         }
       } catch (error) {
-        this.$swal({
-          title: 'Error',
-          text: error.message || 'Failed to submit feedback. Please try again.',
-          icon: 'error'
-        })
+        toast.error(error.message || 'Failed to submit feedback. Please try again.');
       } finally {
         this.isSubmitting = false
       }

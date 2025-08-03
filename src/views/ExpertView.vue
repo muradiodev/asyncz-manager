@@ -254,6 +254,7 @@ import ExpertProcedures from '@/views/ExpertProcedures.vue'
 import ExpertSchedules from '@/views/ExpertSchedules.vue'
 import { getBranches } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -345,11 +346,7 @@ export default {
           this.expert = response.expert
           this.user = response.user;
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     },
@@ -359,11 +356,7 @@ export default {
         if (response.code === 200) {
           this.editing = false
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     }

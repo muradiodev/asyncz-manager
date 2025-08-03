@@ -175,6 +175,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import { saveAccount, setPassword } from '@/repositories/AuthRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'AccountView',
@@ -233,27 +234,13 @@ export default {
       saveAccount(this.token, this.user.expert.name, this.user.expert.about)
         .then(response => {
           if (response.code === 200) {
-            this.$swal({
-              title: 'Success',
-              text: response.message,
-              icon: 'success'
-            }).then(() => {
-              window.location.reload()
-            })
+            toast.success('Changes saved successfully');
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error'
-            })
+            toast.error(response.message);
           }
         })
         .catch(error => {
-          this.$swal({
-            title: 'Error',
-            text: error.message || 'An error occurred',
-            icon: 'error'
-          })
+          toast.error(error.message || 'An error occurred');
         })
         .finally(() => {
           this.isAccountLoading = false;
@@ -264,27 +251,13 @@ export default {
       saveAccount(this.token, this.user.name, null)
         .then(response => {
           if (response.code === 200) {
-            this.$swal({
-              title: 'Success',
-              text: response.message,
-              icon: 'success'
-            }).then(() => {
-              window.location.reload()
-            })
+            toast.success('Changes saved successfully');
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error'
-            })
+            toast.error(response.message);
           }
         })
         .catch(error => {
-          this.$swal({
-            title: 'Error',
-            text: error.message || 'An error occurred',
-            icon: 'error'
-          })
+          toast.error(error.message || 'An error occurred');
         })
         .finally(() => {
           this.isAccountLoading = false;
@@ -295,26 +268,14 @@ export default {
       setPassword(this.token, this.passwordNew, null)
         .then(response => {
           if (response.code === 200) {
-            this.$swal({
-              title: 'Success',
-              text: 'Password updated',
-              icon: 'success'
-            })
+            toast.success('Password updated');
             this.passwordNew = null
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error'
-            })
+            toast.error(response.error);
           }
         })
         .catch(error => {
-          this.$swal({
-            title: 'Error',
-            text: error.message || 'An error occurred',
-            icon: 'error'
-          })
+          toast.error(error.message || 'An error occurred');
         })
         .finally(() => {
           this.isPasswordLoading = false;

@@ -204,6 +204,7 @@ import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import StatusBadge from '@/views/StatusBadge.vue'
 import { getPermissionsList, updateUserPermission } from '@/repositories/PermissionsRepository.js'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -269,11 +270,7 @@ export default {
         if (response.code === 200) {
           this.permissions = response.permissions
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     },

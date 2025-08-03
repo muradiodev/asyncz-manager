@@ -90,6 +90,7 @@ import ModalComponent from '@/components/ModalComponent.vue'
 import { getProcedures, createProcedure, updateProcedure, deleteProcedure } from '@/repositories/ProceduresRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -186,11 +187,7 @@ export default {
             this.closeModal()
             this.$router.push({ name: 'procedure', params: { id: response.id } })
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error'
-            })
+            toast.error(response.message);
           }
         }
       )
@@ -203,9 +200,9 @@ export default {
         if (response.code === 200) {
           this.getItemList()
           this.closeModal()
-          this.$swal({ title: 'Saved!', text: 'Procedure updated.', icon: 'success' })
+          toast.success('Procedure updated!')
         } else {
-          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
+          toast.error(response.message);
         }
       })
     },
@@ -227,9 +224,9 @@ export default {
       deleteProcedure(this.token, id).then((response) => {
         if (response.code === 200) {
           this.getItemList()
-          this.$swal({ title: 'Deleted!', text: 'Procedure deleted.', icon: 'success' })
+          toast.success('Procedure deleted.');
         } else {
-          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
+          toast.error(response.message);
         }
       })
     },
@@ -252,10 +249,10 @@ export default {
         const link = copyBtn.getAttribute('data-link');
         navigator.clipboard.writeText(link)
           .then(() => {
-            this.$swal({ title: 'Copied!', text: 'Link copied to clipboard.', icon: 'success' });
+            toast.success('Link copied to clipboard.');
           })
           .catch(() => {
-            this.$swal({ title: 'Oops!', text: 'Failed to copy the link.', icon: 'error' });
+            toast.error('Failed to copy the link.')
           });
       }
 

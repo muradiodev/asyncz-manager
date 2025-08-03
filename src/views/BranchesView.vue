@@ -109,6 +109,7 @@ import { getBranches, getBranch, createBranch, updateBranch, deleteBranch } from
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
+import { toast } from 'vue3-toastify'
 
 
 DataTable.use(DataTablesLib);
@@ -211,9 +212,9 @@ export default {
         if (response.code === 200) {
           await this.getShareLinks();
           this.getBranches();
-          this.$swal({ title: 'Deleted!', text: 'Branch deleted.', icon: 'success' });
+          toast.success('Branch deleted.');
         } else {
-          this.$swal({ title: 'Error', text: response.message, icon: 'error' });
+          toast.error(response.message);
         }
       });
     },
@@ -224,17 +225,9 @@ export default {
           this.getBranches()
           this.addNewItem = false
           this.newItemDetails = { name: '' }
-          this.$swal({
-            title: 'Success',
-            text: 'New branch added successfully',
-            icon: 'success'
-          })
+          toast.success('New branch added successfully');
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     },
@@ -248,11 +241,7 @@ export default {
 
         if (response.code && response.code !== 200) {
           // Handle error
-          this.$swal({
-            title: 'Error',
-            text: `Failed to load branch details: ${response.message}`,
-            icon: 'error'
-          });
+          toast.error(`Failed to load branch details: ${response.message}`)
           this.editModalVisible = false;
           return;
         }
@@ -268,11 +257,7 @@ export default {
         };
       } catch (error) {
         console.error('Error fetching branch details:', error);
-        this.$swal({
-          title: 'Error',
-          text: 'Failed to load branch details. Please try again.',
-          icon: 'error'
-        });
+        toast.error('Failed to load branch details. Please try again.');
         this.editModalVisible = false;
       } finally {
         this.isLoading = false;
@@ -288,9 +273,9 @@ export default {
           await this.getShareLinks();
           this.getBranches();
           this.editModalVisible = false;
-          this.$swal({ title: 'Saved!', text: 'Branch updated.', icon: 'success' });
+          toast.success('Branch updated.');
         } else {
-          this.$swal({ title: 'Error', text: response.message, icon: 'error' });
+          toast.error(response.message);
         }
       })
     },
@@ -315,10 +300,11 @@ export default {
         const link = copyBtn.getAttribute('data-link');
         navigator.clipboard.writeText(link)
           .then(() => {
-            this.$swal({ title: 'Copied!', text: 'Link copied to clipboard.', icon: 'success' });
+            toast.success('Link copied to clipboard.')
           })
           .catch(() => {
-            this.$swal({ title: 'Oops!', text: 'Failed to copy the link.', icon: 'error' });
+            toast.error('Failed to copy the link.');
+            toast.error()
           });
       }
 

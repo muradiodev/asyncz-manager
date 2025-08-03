@@ -28,6 +28,7 @@ import { mapState } from 'pinia'
 import { getProcedures } from '@/repositories/ProceduresRepository.js'
 import { addExpertProcedure, getExpertProcedures, removeExpertProcedure } from '@/repositories/ExpertsRepository.js'
 import { useAuthStore } from '@/stores/auth.js'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'ExpertProcedures',
@@ -82,14 +83,8 @@ export default {
     updateExpertProcedure(procedure, checked) {
       if (checked) {
         if (procedure.expertProcedure) {
-          this.$swal({
-            title: 'Error!',
-            text: 'This procedure is already added to the expert',
-            icon: 'error',
-            confirmButtonText: 'Ok'
-          }).then(() => {
-            this.getExpertProcedures()
-          })
+          toast.error('This procedure is already added to the expert');
+          this.getExpertProcedures()
         } else {
           addExpertProcedure(this.token, this.expertId, procedure.id).then(() => {
             this.getExpertProcedures()
@@ -97,14 +92,8 @@ export default {
         }
       } else {
         if (!procedure.expertProcedure) {
-          this.$swal({
-            title: 'Error!',
-            text: 'This procedure is already removed from the expert',
-            icon: 'error',
-            confirmButtonText: 'Ok'
-          }).then(() => {
-            this.getExpertProcedures()
-          })
+          toast.error('This procedure is already removed from the expert');
+          this.getExpertProcedures();
         } else {
           this.$swal({
             title: 'Are you sure?',

@@ -188,6 +188,7 @@ import { mapActions, mapState } from 'pinia'
 import { useAuthStore } from '@/stores/auth'
 import { registerStart, registerVerify, setPassword } from '@/repositories/AuthRepository'
 import { customAlert } from '@/utils/utils.js'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'RegisterView',
@@ -248,12 +249,7 @@ export default {
     goTo2() {this.status = 'verify'},
     goTo3() {this.status = 'password'},
     goToFinish() {
-      this.$swal({
-        title: 'You are registered!',
-        text: 'You can now login to your account',
-        icon: 'success',
-        showConfirmButton: true
-      })
+      toast.success('You can now login to your account');
     },
 
     loginOwner() {
@@ -261,19 +257,9 @@ export default {
         (result) => {
           if (result.code === 200) {
             this.status = 'verify'
-            this.$swal({
-              title: 'Verification Email Sent',
-              text: 'You will receive an email with a verification code. Please check your  spam box too.',
-              icon: 'success',
-              showConfirmButton: true
-            })
+            toast.info('You will receive an email with a verification code. Please check your  spam box too.');
           } else {
-            this.$swal({
-              title: this.$t('general.error'),
-              text: result.message,
-              icon: 'error',
-              showConfirmButton: true
-            })
+            toast.error(result.message);
           }
         }
       )
@@ -291,19 +277,9 @@ export default {
           localStorage.setItem('token', result.token)
           this.setToken(result.token)
           this.status = 'password'
-          this.$swal({
-            title: 'Your account created',
-            text: 'Please set password for feature logins.',
-            icon: 'success',
-            showConfirmButton: true
-          })
+          toast.success('Please set password for feature logins.');
         } else {
-          this.$swal({
-            title: this.$t('general.error'),
-            text: result.message,
-            icon: 'error',
-            showConfirmButton: true
-          })
+          toast.error(result.message);
         }
       })
     },
@@ -321,11 +297,7 @@ export default {
             }
           })
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     },

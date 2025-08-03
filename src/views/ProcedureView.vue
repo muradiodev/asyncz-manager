@@ -207,6 +207,7 @@ import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import StatusBadge from '@/views/StatusBadge.vue'
 import { getProcedure, saveProcedure } from '@/repositories/ProceduresRepository.js'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -278,11 +279,7 @@ export default {
         if (response.code === 200) {
           this.procedure = response.procedure
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     },
@@ -292,11 +289,7 @@ export default {
         if (response.code === 200) {
           this.editing = false
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     }

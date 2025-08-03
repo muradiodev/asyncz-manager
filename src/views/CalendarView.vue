@@ -702,6 +702,7 @@ import {
   setTime as setBlockTime,
   updateBlockTime
 } from '@/repositories/BlockTimeRepository.js'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'CalendarView',
@@ -1095,22 +1096,12 @@ export default {
         this.newItemDetails.color
       ).then(response => {
         if (response.code === 200) {
-          this.$swal({
-            title: 'Success',
-            text: 'Time blocked successfully',
-            icon: 'success',
-            showConfirmButton: true
-          })
+          toast.success('Time blocked successfully');
           this.blockTimeModalOpen = false
           this.copyingAppointment = null
           this.getCalendar()
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error',
-            showConfirmButton: true
-          })
+          toast.error(response.message)
         }
       })
 
@@ -1125,12 +1116,7 @@ export default {
           if (response.code === 200) {
             this.activeAppointment = response.appointment
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error',
-              showConfirmButton: true
-            })
+            toast.error(response.message);
           }
         })
 
@@ -1144,12 +1130,7 @@ export default {
             this.eventList = response.appointments
             this.blockTimeList = response.blockTimes;
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error',
-              showConfirmButton: true
-            })
+            toast.error(response.message);
           }
         })
       }
@@ -1168,12 +1149,7 @@ export default {
             this.selectedSchedules = this.schedules.map(s => s.expert.id)
           }
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error',
-            showConfirmButton: true
-          })
+          toast.error(response.message);
         }
       })
     },
@@ -1357,22 +1333,12 @@ export default {
         if (!result.isConfirmed) return
         confirm(this.token, appointment.id).then(response => {
             if (response.code === 200) {
-              this.$swal({
-                title: 'Success',
-                text: 'Appointment confirmed',
-                icon: 'success',
-                showConfirmButton: true
-              })
+              toast.success('Appointment confirmed');
               this.getCalendar()
               //todo update from api
               this.activeAppointment.status = 'confirmed'
             } else {
-              this.$swal({
-                title: 'Error',
-                text: response.message,
-                icon: 'error',
-                showConfirmButton: true
-              })
+              toast.error(response.message);
             }
           }
         )
@@ -1393,22 +1359,12 @@ export default {
         if (!result.isConfirmed) return
         cancel(this.token, appointment.id).then(response => {
             if (response.code === 200) {
-              this.$swal({
-                title: 'Success',
-                text: 'Appointment cancelled',
-                icon: 'success',
-                showConfirmButton: true
-              })
+              toast.success('Appointment cancelled');
               this.getCalendar()
               //todo update from api
               this.activeAppointment.status = 'cancelled_expert'
             } else {
-              this.$swal({
-                title: 'Error',
-                text: response.message,
-                icon: 'error',
-                showConfirmButton: true
-              })
+              toast.error(response.message);
             }
           }
         )
@@ -1429,21 +1385,11 @@ export default {
         if (!result.isConfirmed) return
         deleteTime(this.token, blockTime.id).then(response => {
             if (response.code === 200) {
-              this.$swal({
-                title: 'Success',
-                text: ' Deleted',
-                icon: 'success',
-                showConfirmButton: true
-              })
+              toast.success('Deleted!');
               this.getCalendar()
               this.activeBlockTime = null;
             } else {
-              this.$swal({
-                title: 'Error',
-                text: response.message,
-                icon: 'error',
-                showConfirmButton: true
-              })
+              toast.error(response.message);
             }
           }
         )
@@ -1501,22 +1447,12 @@ export default {
         this.newItemDetails.sendEmail ? 1 : 0
       ).then(response => {
         if (response.code === 200) {
-          this.$swal({
-            title: 'Success',
-            text: 'Appointment created',
-            icon: 'success',
-            showConfirmButton: true
-          })
+          toast.success('Appointment created');
           this.newAppointmentIsOpen = false
           this.copyingAppointment = null
           this.getCalendar()
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error',
-            showConfirmButton: true
-          })
+          toast.error(response.message);
         }
       })
 
@@ -1538,22 +1474,12 @@ export default {
         this.editingAppointment.color
       ).then(response => {
         if (response.code === 200) {
-          this.$swal({
-            title: 'Success',
-            text: 'Appointment updated',
-            icon: 'success',
-            showConfirmButton: true
-          })
+          toast.success('Appointment updated');
           this.editingAppointment = null
           //todo get active appointment one more time to update the view
           this.getCalendar()
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error',
-            showConfirmButton: true
-          })
+          toast.error(response.message);
         }
       })
 
@@ -1570,22 +1496,12 @@ export default {
         this.editingBlockTime.color
       ).then(response => {
         if (response.code === 200) {
-          this.$swal({
-            title: 'Success',
-            text: 'Block time updated',
-            icon: 'success',
-            showConfirmButton: true
-          })
+          toast.success('Block time updated');
           this.editingBlockTime = null
           //todo get active appointment one more time to update the view
           this.getCalendar()
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error',
-            showConfirmButton: true
-          })
+          toast.error(response.message);
         }
       })
 
@@ -1608,20 +1524,10 @@ export default {
           if (!result.isConfirmed) return
           setBlockTime(this.token, event.event.id, event.time.format('YYYY-MM-DD HH:mm:ss'), event.expert.id).then(response => {
               if (response.code === 200) {
-                this.$swal({
-                  title: 'Success',
-                  text: 'Block time updated',
-                  icon: 'success',
-                  showConfirmButton: true
-                })
+                toast.success('Block time updated.')
                 this.getCalendar()
               } else {
-                this.$swal({
-                  title: 'Error',
-                  text: response.message,
-                  icon: 'error',
-                  showConfirmButton: true
-                })
+                toast.error(response.message);
               }
             }
           )
@@ -1642,20 +1548,10 @@ export default {
           if (!result.isConfirmed) return
           setTime(this.token, event.event.id, event.time.format('YYYY-MM-DD HH:mm:ss'), event.expert.id).then(response => {
               if (response.code === 200) {
-                this.$swal({
-                  title: 'Success',
-                  text: 'Appointment time updated',
-                  icon: 'success',
-                  showConfirmButton: true
-                })
+                toast.success('Appointment time updated');
                 this.getCalendar()
               } else {
-                this.$swal({
-                  title: 'Error',
-                  text: response.message,
-                  icon: 'error',
-                  showConfirmButton: true
-                })
+                toast.error(response.message);
               }
             }
           )
@@ -1682,20 +1578,10 @@ export default {
         }
         setLength(this.token, event.event.id, event.newLength).then(response => {
             if (response.code === 200) {
-              this.$swal({
-                title: 'Success',
-                text: 'Appointment updated',
-                icon: 'success',
-                showConfirmButton: true
-              })
+              toast.success('Appointment updated');
               this.getCalendar()
             } else {
-              this.$swal({
-                title: 'Error',
-                text: response.message,
-                icon: 'error',
-                showConfirmButton: true
-              })
+              toast.error(response.message);
             }
           }
         )
@@ -1722,20 +1608,10 @@ export default {
         }
         setBlockLength(this.token, event.block.id, event.newLength).then(response => {
             if (response.code === 200) {
-              this.$swal({
-                title: 'Success',
-                text: 'Block updated',
-                icon: 'success',
-                showConfirmButton: true
-              })
+              toast.success('Block updated');
               this.getCalendar()
             } else {
-              this.$swal({
-                title: 'Error',
-                text: response.message,
-                icon: 'error',
-                showConfirmButton: true
-              })
+              toast.error(response.message);
             }
           }
         )

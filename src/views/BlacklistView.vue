@@ -68,8 +68,8 @@ import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import { createBlacklist, deleteBlacklist, getBlackList } from '@/repositories/BlacklistRepository.js'
-import { customAlert, customAsk } from '@/utils/utils.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -116,9 +116,9 @@ export default {
           this.getItemList()
           this.addNewItem = false
           this.newItemDetails = { keyword: '' }
-          this.$swal({ title: 'Success', text: 'New blacklist added successfully', icon: 'success' })
+          toast.success('New blacklist added successfully');
         } else {
-          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
+          toast.error(response.message);
         }
       })
     },
@@ -140,9 +140,9 @@ export default {
       deleteBlacklist(this.token, id).then(response => {
         if (response.code === 200) {
           this.getItemList()
-          this.$swal({ title: 'Deleted!', text: 'Blacklist deleted.', icon: 'success' })
+          toast.success('Blacklist deleted.');
         } else {
-          this.$swal({ title: 'Error', text: response.message, icon: 'error' })
+          toast.error(response.message);
         }
       })
     },

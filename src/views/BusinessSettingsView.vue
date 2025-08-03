@@ -231,6 +231,7 @@ import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import { getBusinessData, saveBusinessData } from '@/repositories/BusinessDataRepository.js'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'BusinessSettingsView',
@@ -548,11 +549,7 @@ export default {
           this.originalData = JSON.parse(JSON.stringify(this.businessData));
         }
       } catch (error) {
-        this.$swal({
-          title: 'Error',
-          text: 'Failed to load business data',
-          icon: 'error'
-        });
+        toast.error('Failed to load business data');
         console.error('Error loading business data:', error);
       } finally {
         this.isInitialLoading = false;
@@ -579,25 +576,13 @@ export default {
         });
 
         if (response.code === 200) {
-          this.$swal({
-            title: 'Success',
-            text: response.message || 'Business settings updated successfully',
-            icon: 'success'
-          });
+          toast.success(response.message || 'Business settings updated successfully');
           this.originalData = JSON.parse(JSON.stringify(this.businessData));
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message || 'Failed to update business settings',
-            icon: 'error'
-          });
+          toast.error(response.message || 'Failed to update business settings');
         }
       } catch (error) {
-        this.$swal({
-          title: 'Error',
-          text: 'An unexpected error occurred',
-          icon: 'error'
-        });
+        toast.error('An unexpected error occurred');
         console.error('Error saving business data:', error);
       } finally {
         this.isLoading = false;

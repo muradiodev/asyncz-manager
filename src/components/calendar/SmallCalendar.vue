@@ -17,6 +17,7 @@ import { getSmallCalendar } from '@/repositories/GeneralDataRepository.js'
 import { mapState } from 'pinia'
 import { useAuthStore } from '@/stores/auth.js'
 import { useThemeStore } from '@/stores/theme.js'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'SmallCalendar',
@@ -100,12 +101,7 @@ export default {
           if (response.code === 200) {
             this.eventDays = response.calendar
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error',
-              showConfirmButton: true
-            })
+            toast.error(response.message);
           }
         })
       }

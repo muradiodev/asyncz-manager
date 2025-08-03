@@ -78,6 +78,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import { setPassword } from '@/repositories/AuthRepository.js'
 import { customAlert, customAsk } from '@/utils/utils.js'
+import { toast } from 'vue3-toastify'
 
 export default {
   name: 'PasswordEnforcedView',
@@ -100,20 +101,12 @@ export default {
       this.isPasswordLoading = true
 
       if(!this.passwordNew || !this.passwordConfirm) {
-        this.$swal({
-          title: 'Error',
-          text: 'Please fill in all fields.',
-          icon: 'error'
-        })
+        toast.error('Please fill in all fields.');
         this.isPasswordLoading = false
         return
       }
       if (this.passwordNew !== this.passwordConfirm) {
-        this.$swal({
-          title: 'Error',
-          text: 'Passwords do not match.',
-          icon: 'error'
-        })
+        toast.error('Passwords do not match.');
         this.isPasswordLoading = false
         return
       }
@@ -135,19 +128,11 @@ export default {
               }
             )
           } else {
-            this.$swal({
-              title: 'Error',
-              text: response.message,
-              icon: 'error'
-            })
+            toast.error(response.message);
           }
         })
         .catch(error => {
-          this.$swal({
-            title: 'Error',
-            text: error.message || 'An error occurred',
-            icon: 'error'
-          })
+          toast.error(error.message || 'An error occurred');
         })
         .finally(() => {
           this.isPasswordLoading = false

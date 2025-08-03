@@ -120,6 +120,7 @@ import { createUser, getUsers /*, deleteUser*/ } from '@/repositories/CompanyUse
 import { getBranches } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib);
 DataTable.use(DataTablesCore);
@@ -247,11 +248,7 @@ export default {
           };
 
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          });
+          toast.error(response.message);
         }
       });
     },
@@ -294,7 +291,7 @@ export default {
       });
       */
       // For now, just show a fake alert (remove this when you add real API)
-      this.$swal({ title: 'Demo', text: 'Delete user API not implemented', icon: 'info' });
+      toast.info('Delete user API not implemented');
     },
 
     rerenderTable() {
@@ -327,10 +324,10 @@ export default {
         const link = copyBtn.getAttribute('data-link');
         navigator.clipboard.writeText(link)
           .then(() => {
-            this.$swal({ title: 'Copied!', text: 'Link copied to clipboard.', icon: 'success' });
+            toast.success('Link copied to clipboard');
           })
           .catch(() => {
-            this.$swal({ title: 'Oops!', text: 'Failed to copy the link.', icon: 'error' });
+            toast.error('Failed to copy the link');
           });
       }
 

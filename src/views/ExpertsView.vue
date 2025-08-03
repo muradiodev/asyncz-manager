@@ -110,6 +110,7 @@ import {mapState} from "pinia";
 import ModalComponent from '@/components/ModalComponent.vue'
 import { getBranches } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib);
 DataTable.use(DataTablesCore);
@@ -191,11 +192,7 @@ export default {
 
           this.$router.push({name: 'expert', params: {id: response.id}});
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          });
+          toast.error(response.message);
         }
       });
     }

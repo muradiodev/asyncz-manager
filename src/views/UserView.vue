@@ -165,6 +165,7 @@ import StatusBadge from '@/views/StatusBadge.vue'
 import { getBranches } from '@/repositories/BranchRepository.js'
 import { getUser, saveUser } from '@/repositories/CompanyUserRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
+import { toast } from 'vue3-toastify'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -228,11 +229,7 @@ export default {
         if (response.code === 200) {
           this.companyUser = response.user
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     },
@@ -242,11 +239,7 @@ export default {
         if (response.code === 200) {
           this.editing = false
         } else {
-          this.$swal({
-            title: 'Error',
-            text: response.message,
-            icon: 'error'
-          })
+          toast.error(response.message);
         }
       })
     }
