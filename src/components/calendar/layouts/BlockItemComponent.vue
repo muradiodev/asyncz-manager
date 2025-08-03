@@ -110,14 +110,24 @@ export default {
     },
 
     style() {
+      const backgroundStyle = `repeating-linear-gradient(
+        45deg,
+        #e9ecef,
+        #e9ecef 8px,
+        #dee2e6 8px,
+        #dee2e6 16px
+      )`
+
       return {
         top: this.coordinates.start + 'px',
         height: this.coordinates.height + 'px',
         width: this.columnWidth - (this.isDragging ? 5 : 0) + 'px',
         left: (this.scheduleListOrder * this.columnWidth + (this.isDragging ? 5 : 0)) + 'px',
-        'background-color': this.block.color || 'grey'
+        'background': backgroundStyle,
+        'color': this.block.color || '#495057'
       }
     }
+
 
   },
 
