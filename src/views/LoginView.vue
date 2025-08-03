@@ -55,7 +55,7 @@
               <input v-model.trim="password" type="password" id="exampleInputPassword" required />
             </div>
 
-            <button type="submit" class="btn-primary-custom">{{ $t('general.submit') }}</button>
+            <button type="submit" class="btn-primary-custom">{{ $t('login.login') }}</button>
           </form>
         </div>
 

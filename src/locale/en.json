@@ -26,7 +26,8 @@
     "newPassword": "New password",
     "setMyNewPassword": "Set my new password",
     "verificationCodeSent": "Verification code sent to your email",
-    "passwordUpdated": "Your password updated successfully"
+    "passwordUpdated": "Your password updated successfully",
+    "login": "Login"
   },
   "language": {
     "current": "English",
