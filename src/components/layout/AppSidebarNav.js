@@ -235,12 +235,6 @@ const AppSidebarNav = defineComponent({
       },
       {
         component: 'CNavItem',
-        name: 'Permissions',
-        to: '/dashboard/permissions',
-        icon: 'cil-lock-locked',
-      },
-      {
-        component: 'CNavItem',
         name: 'Feedback',
         to: '/dashboard/feedbacks',
         icon: 'cil-comment-square',
