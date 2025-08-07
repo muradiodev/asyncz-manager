@@ -135,11 +135,14 @@ const router = createRouter({
 router.beforeResolve((to, from, next) => {
   let token = localStorage.getItem('token')
 
+
   if (token) {
+    const auth = useAuthStore();
+    auth.setLoading(true);
     //decoding token
     getAccount(token).then(({ code, data }) => {
       if (code === 200) {
-        const auth = useAuthStore()
+        auth.setLoading(false);
         auth.setUser(data)
         auth.setToken(token)
         auth.setPermissions(data.permissions || [])
