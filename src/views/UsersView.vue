@@ -106,21 +106,26 @@
     </form>
   </ModalComponent>
 
+  <ModalComponent title="User permissions" v-if="permissionUserId" @modalClose="permissionUserId = null">
+     <UserPermissionView :user-id="permissionUserId" @close="permissionUserId = null"></UserPermissionView>
+  </ModalComponent>
+
 </template>
 
 <script>
-import DataTable from 'datatables.net-vue3';
-import DataTablesCore from 'datatables.net';
-import DataTablesLib from 'datatables.net-bs5';
+import DataTable from 'datatables.net-vue3'
+import DataTablesCore from 'datatables.net'
+import DataTablesLib from 'datatables.net-bs5'
 
-import { useAuthStore } from "@/stores/auth.js";
-import { mapState } from "pinia";
+import { useAuthStore } from '@/stores/auth.js'
+import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
-import { createUser, getUsers /*, deleteUser*/ } from '@/repositories/CompanyUserRepository.js'
+import { createUser, getUsers } from '@/repositories/CompanyUserRepository.js'
 import { getBranches } from '@/repositories/BranchRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
 import { toast } from 'vue3-toastify'
+import UserPermissionView from '@/views/UserPermissionView.vue'
 
 DataTable.use(DataTablesLib);
 DataTable.use(DataTablesCore);
@@ -139,6 +144,7 @@ export default {
       branchList: [],
       userList: [],
       shareLinks: [],
+      permissionUserId: null,
       columns: [
         {title: 'ID', data: 'id', orderable: true},
 
@@ -200,6 +206,9 @@ export default {
       </button>
       <button class="btn btn-outline-danger btn-sm user-delete-btn" data-id="${row.id}" style="padding:4px 8px;">
         <i class="fas fa-trash"></i>
+      </button>
+      <button class="btn btn-outline-primary btn-sm user-permission-btn" data-id="${row.id}" style="padding:4px 8px;">
+        <i class="fas fa-key"></i>
       </button>
     `;
           }
@@ -344,9 +353,15 @@ export default {
         const user = this.userList.find(u => String(u.id) === String(id));
         if (user) this.confirmDeleteUser(user);
       }
+
+      const permissionBtn = event.target.closest('.user-permission-btn');
+      if (permissionBtn) {
+        this.permissionUserId = permissionBtn.getAttribute('data-id');
+      }
     });
   },
   components: {
+    UserPermissionView,
     AppBreadcrumb,
     ModalComponent,
     DataTable

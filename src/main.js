@@ -32,7 +32,7 @@ import {
   faCheck,
   faPlus,
   faCalendar,
-  faUsers, faBuilding, faListCheck, faFileText, faUser, faBan
+  faUsers, faBuilding, faListCheck, faFileText, faUser, faBan, faCheckSquare
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -40,7 +40,7 @@ library.add(
   faSearch, faTimes,
   faPrint, faCopy, faPencil,
   faEye, faEyeSlash,
-  faCheck,
+  faCheck, faCheckSquare,
   faPlus,faCalendar, faUsers,
   faBuilding, faListCheck, faFileText, faUser, faBan
 )

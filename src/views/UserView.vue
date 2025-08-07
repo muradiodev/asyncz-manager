@@ -142,36 +142,6 @@
             </div>
 
 
-            <div class="col-md-6">
-
-              <div v-if="!editing">
-
-                <p>Permissions</p>
-
-                <div v-for="p in companyUser.permissions" :key="p">
-                  {{ p }}
-                </div>
-                <div class="alert alert-warning" v-if="companyUser.permissions.length<1">
-                  There are no permissions assigned to this user.
-                </div>
-
-              </div>
-              <div v-else>
-                <p>Permissions</p>
-
-                <div>
-                  <div class="form-check form-switch" v-for="p in permissions" :key="p">
-                    <input class="form-check-input" :value="p" type="checkbox" v-model="companyUser.permissions"
-                           role="switch"
-                           :id="`permission_${p}`" @change="permissionChanged(p, $event)">
-                    <label class="form-check-label" :for="`permission_${p}`">{{ p }}</label>
-                  </div>
-                </div>
-
-              </div>
-
-
-            </div>
 
 
           </div>
@@ -213,7 +183,6 @@ export default {
     return {
 
       companyUser: null,
-      permissions: [],
 
       editing: false,
 
@@ -266,11 +235,6 @@ export default {
       getUser(this.token, this.userId).then(response => {
         if (response.code === 200) {
           this.companyUser = response.user
-
-          getUserPermissions(this.token, this.companyUser.role).then(permissions => {
-            this.permissions = permissions
-          })
-
         } else {
           toast.error(response.message)
         }
@@ -286,41 +250,6 @@ export default {
         }
       })
     },
-
-
-    permissionChanged(permission, $event) {
-
-      //todo fix permission name
-      if(this.permissions.indexOf("MANAGE_USER_PERMISSIONS") < 0) {
-        customAlert('Error', `Permission "${permission}" is not available for this user.`, 'error')
-        return
-      }
-
-
-      if ($event.target.checked) {
-
-        addPermission(this.token, this.userId, permission).then(res => {
-          if (res.code === 200) {
-            console.log(this)
-            toast(this, 'success', 'Permission added')
-          } else {
-            customAlert(`Error ${res.code}`, res.message, 'error')
-          }
-          this.$emit('updated')
-        })
-
-      } else {
-        removePermission(this.token, this.userId, permission).then(res => {
-          if (res.code === 200) {
-            toast(this, 'success', 'Permission removed')
-          } else {
-            customAlert(`Error ${res.code}`, res.message, 'error')
-          }
-          this.$emit('updated')
-        })
-      }
-
-    }
   },
   mounted() {
     this.getUser()
