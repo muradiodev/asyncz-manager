@@ -6,14 +6,14 @@
           <AppBreadcrumb
             :breadcrumbs="[
               { name: 'Dashboard', path: '/dashboard', active: false },
-              { name: 'Procedures', path: '/dashboard/procedures', active: true }
+              { name: 'Services', path: '/dashboard/procedures', active: true }
             ]"
           />
         </div>
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0"> Procedures</span>
+          <span class="h2 mb-0"> Services</span>
           <button class="btn-outline-success-custom w-25" @click="openCreateModal">
-            <i class="fas fa-plus me-1"></i> Add Procedure
+            <i class="fas fa-plus me-1"></i> Add service
           </button>
         </div>
       </CContainer>
@@ -33,7 +33,7 @@
 
   <!-- CREATE / EDIT MODAL -->
   <ModalComponent
-    :title="isEditing ? 'Edit Procedure' : 'New Procedure'"
+    title="New service"
     size="md"
     v-if="addNewItem"
     @modalClose="closeModal"
@@ -67,6 +67,19 @@
             />
             <span class="input-group-text">minute(s)</span>
           </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="procedureColor" class="form-label fw-bold">Color</label>
+            <input
+              type="color"
+              class="form-control form-control-color"
+              id="procedureLength"
+              v-model.number="newItemDetails.color"
+              required
+              min="1"
+              placeholder="Length"
+              autocomplete="off"
+            />
         </div>
         <div class="col-12">
           <button type="submit" class="btn-success-custom w-50 fw-bold py-2">
@@ -104,12 +117,19 @@ export default {
       newItemDetails: {
         id: null,
         name: '',
-        length: ''
+        length: '',
+        color: '',
       },
       itemList: [],
       columns: [
         { title: 'ID', data: 'id', orderable: true },
         { title: 'Name', data: 'name', orderable: true },
+        {
+          title: 'Color',
+          data: (row) => {
+            return  '<span class="badge" style="background-color: ' + row.color + ';">&nbsp;</span>'
+          }
+        },
         {
           title: 'Status',
           data: (row) => {
@@ -180,7 +200,7 @@ export default {
       this.newItemDetails = { id: null, name: '', length: '' }
     },
     createNewItem() {
-      createProcedure(this.token, this.newItemDetails.name, this.newItemDetails.length).then(
+      createProcedure(this.token, this.newItemDetails.name, this.newItemDetails.color, this.newItemDetails.length).then(
         (response) => {
           if (response.code === 200) {
             this.getItemList()

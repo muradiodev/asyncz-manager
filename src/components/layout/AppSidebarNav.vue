@@ -84,7 +84,7 @@ export default {
           icon: 'cil-user'
         },
         {
-          name: 'Procedures',
+          name: 'Services',
           to: {
             name: 'procedures'
           },

@@ -9,7 +9,7 @@
           <router-link :to="{name: 'home'}">Home</router-link>
         </li>
         <li class="breadcrumb-item">
-          <router-link :to="{name: 'procedures'}">Procedures</router-link>
+          <router-link :to="{name: 'procedures'}">Services</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page" v-if="procedure">
           {{ procedure.name }}
@@ -45,15 +45,17 @@
               <p>
                 <strong>About: </strong> <br>
                 {{ procedure.about || '-' }}
-              </p>
-              <p>
+                <br>
                 <strong>Length: </strong>
                 {{ procedure.length || '-' }} minute(s)
-              </p>
-
-              <p>
+                <br>
                 <strong>Status: </strong>
                 <StatusBadge :status="procedure.status" />
+                <br>
+                <strong>Color: </strong>
+                <span class="badge" :style="{ backgroundColor: procedure.color|| '#ccc' }">
+                  &nbsp;
+                </span>
               </p>
 
               <button class="btn-outline-custom" @click.prevent="editing = true">
@@ -87,13 +89,13 @@
                   </div>
 
                   <div class="col-md-6 mb-3">
-                    <label for="color" class="form-label">Lenght</label>
+                    <label for="length" class="form-label">Length</label>
                     <div class="input-group">
 
                     <input
                       type="number"
                       class="form-control"
-                      id="color"
+                      id="length"
                       v-model.number="procedure.length"
                       step="1"
                       required
@@ -102,6 +104,18 @@
                         minute(s)
                       </div>
                     </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="color" class="form-label">Color</label>
+
+                    <input
+                      type="color"
+                      class="form-control form-control-color"
+                      id="color"
+                      v-model.number="procedure.color"
+                      step="1"
+                      required
+                    />
                   </div>
 
                   <div class="col-md-6 mb-3">
@@ -285,7 +299,7 @@ export default {
     },
 
     saveProcedure() {
-      saveProcedure(this.token, this.procedureId, this.procedure.name, this.procedure.about, this.procedure.length, this.procedure.status ? 1 : 0).then(response => {
+      saveProcedure(this.token, this.procedureId, this.procedure.name,this.procedure.color, this.procedure.about, this.procedure.length, this.procedure.status ? 1 : 0).then(response => {
         if (response.code === 200) {
           this.editing = false
         } else {
