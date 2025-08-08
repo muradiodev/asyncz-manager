@@ -130,7 +130,29 @@
               <p class="text-muted mb-4">Update your password</p>
 
               <form @submit.prevent="updatePassword">
-                <div class="row">
+                  <div class="col-6 mb-3">
+                    <label for="currentPassword" class="form-label">Current password</label>
+                    <div class="input-group">
+                      <input
+                        :type="showCurrentPassword ? 'text' : 'password'"
+                        class="form-control"
+                        id="currentPassword"
+                        v-model="passwordCurrent"
+                        required
+                        :disabled="isPasswordLoading"
+                      />
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary"
+                        @click.prevent="showCurrentPassword=!showCurrentPassword"
+                        :disabled="isPasswordLoading"
+                      >
+                        <fa-icon :icon="['fas','eye-slash']" v-if="showCurrentPassword"></fa-icon>
+                        <fa-icon :icon="['fas','eye']" v-else></fa-icon>
+                      </button>
+                    </div>
+                  </div>
+
                   <div class="col-6 mb-3">
                     <label for="password" class="form-label">New password</label>
                     <div class="input-group">
@@ -160,7 +182,6 @@
                       {{ isPasswordLoading ? 'Saving...' : 'Save Changes' }}
                     </button>
                   </div>
-                </div>
               </form>
             </div>
           </div>
@@ -183,7 +204,9 @@ export default {
   data() {
     return {
       showPassword: false,
+      showCurrentPassword: false,
       passwordNew: null,
+      passwordCurrent: null,
       phone: '',
       firstName: '',
       lastName: '',
@@ -265,11 +288,12 @@ export default {
     },
     updatePassword() {
       this.isPasswordLoading = true;
-      setPassword(this.token, this.passwordNew, null)
+      setPassword(this.token, this.passwordNew, this.passwordCurrent)
         .then(response => {
           if (response.code === 200) {
             toast.success('Password updated');
-            this.passwordNew = null
+            this.passwordNew = null;
+            this.passwordCurrent = null;
           } else {
             toast.error(response.error);
           }

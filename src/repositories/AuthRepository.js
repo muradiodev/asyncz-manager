@@ -94,11 +94,10 @@ export async function saveAccount(token, name, about) {
     })
 }
 
-export async function setPassword(token, password) {
-
-
+export async function setPassword(token, password, currentPassword) {
   return await Repository.postForm(`${baseUrl}/manager/password?token=${token}`, {
-    password
+    password,
+    currentPassword
   })
     .then((response) => {
       if (response.data) {
@@ -112,3 +111,4 @@ export async function setPassword(token, password) {
       return { code: 501, message: error }
     })
 }
+
