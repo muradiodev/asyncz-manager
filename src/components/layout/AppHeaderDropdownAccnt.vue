@@ -51,29 +51,29 @@ export default {
         Account
       </CDropdownItem>
 
-      <CDropdownItem @click="$router.push({name:'billing'})" class="d-flex align-items-center py-2">
-        <CIcon :icon="cilDollar" class="me-2" />
-        Billing
-      </CDropdownItem>
+<!--      <CDropdownItem @click="$router.push({name:'billing'})" class="d-flex align-items-center py-2">-->
+<!--        <CIcon :icon="cilDollar" class="me-2" />-->
+<!--        Billing-->
+<!--      </CDropdownItem>-->
 
-      <CDropdownItem @click="$router.push({name:'permissions'})" class="d-flex align-items-center py-2">
-        <CIcon :icon="cilShieldAlt" class="me-2" />
-        Permissions
-      </CDropdownItem>
+<!--      <CDropdownItem @click="$router.push({name:'permissions'})" class="d-flex align-items-center py-2">-->
+<!--        <CIcon :icon="cilShieldAlt" class="me-2" />-->
+<!--        Permissions-->
+<!--      </CDropdownItem>-->
 
       <CDropdownItem @click="$router.push({name:'business-settings'})" class="d-flex align-items-center py-2">
         <CIcon :icon="cilSettings" class="me-2" />
         Business Settings
       </CDropdownItem>
 
-      <CDropdownItem @click="$router.push({name:'language'})" class="d-flex align-items-center justify-content-between py-2">
-        <div class="d-flex align-items-center">
-          <CIcon :icon="cilGlobeAlt" class="me-2" />
-          Language
-        </div>
-        <CIcon icon="cil-chevron-right" />
-      </CDropdownItem>
-      <CDropdownDivider />
+<!--      <CDropdownItem @click="$router.push({name:'language'})" class="d-flex align-items-center justify-content-between py-2">-->
+<!--        <div class="d-flex align-items-center">-->
+<!--          <CIcon :icon="cilGlobeAlt" class="me-2" />-->
+<!--          Language-->
+<!--        </div>-->
+<!--        <CIcon icon="cil-chevron-right" />-->
+<!--      </CDropdownItem>-->
+<!--      <CDropdownDivider />-->
 
       <CDropdownItem @click="logout" class="d-flex align-items-center py-2">
         <CIcon :icon="cilAccountLogout" class="me-2" />
