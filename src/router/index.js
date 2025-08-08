@@ -91,8 +91,8 @@ const router = createRouter({
           name: 'experts',
           component: () => import('../views/ExpertsView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: ['experts_view', 'admin']
+            requiresAuth: true,
+            permissions: ['MANAGE_USERS']
           }
         },
         {
@@ -100,8 +100,8 @@ const router = createRouter({
           name: 'expert',
           component: () => import('../views/ExpertView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: ['experts_view', 'admin']
+            requiresAuth: true,
+            permissions: ['MANAGE_USERS']
           }
         },
         {
@@ -190,12 +190,17 @@ const router = createRouter({
     {
       path: '/404',
       name: '404',
-      component: () => import('../views/NotFoundView.vue')
+      component: () => import('../views/custom_error_pages/NotFoundView.vue')
     },
     {
       path: '/401',
       name: '401',
-      component: () => import('../views/UnauthorizedView.vue')
+      component: () => import('../views/custom_error_pages/UnauthorizedView.vue')
+    },
+    {
+      path: '/403',
+      name: '403',
+      component: () => import('../views/custom_error_pages/NotAllowedView.vue')
     },
     {
       path: '/:pathMatch(.*)*',
@@ -233,7 +238,7 @@ router.beforeResolve((to, from, next) => {
           if (!hasPermission(userPermissions, requiredPermissions)) {
             // User doesn't have required permissions
             console.warn(`Access denied to ${to.path}. Required permissions:`, requiredPermissions, 'User permissions:', userPermissions)
-            next({ name: '401', query: { back: to.path } })
+            next({ name: '403', query: { back: to.path } })
             return
           }
         }

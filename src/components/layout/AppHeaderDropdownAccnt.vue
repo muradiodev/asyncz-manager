@@ -3,9 +3,7 @@ import avatar from '@/assets/images/avatar.jpg'
 import { cilAccountLogout , cilUser, cilDollar, cilShieldAlt, cilSettings, cilGlobeAlt} from '@coreui/icons'
 import { customAsk } from '@/utils/utils.js'
 import { useAuthStore } from '@/stores/auth.js'
-
-const auth = useAuthStore();
-
+import { mapState } from 'pinia'
 
 export default {
   data() {
@@ -17,7 +15,6 @@ export default {
       cilShieldAlt: cilShieldAlt,
       cilSettings: cilSettings,
       cilGlobeAlt: cilGlobeAlt,
-      permissions: auth.permissions || []
     }
   },
 
@@ -37,6 +34,9 @@ export default {
       )
     },
   },
+  computed: {
+    ...mapState(useAuthStore, ['permissions']),
+  }
 }
 </script>
 
