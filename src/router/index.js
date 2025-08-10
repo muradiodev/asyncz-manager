@@ -118,8 +118,8 @@ const router = createRouter({
           name: 'user',
           component: () => import('../views/UserView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: ['users_view', 'users_manage', 'admin']
+            requiresAuth: true,
+            permissions: ['MANAGE_USERS']
           }
         },
         {
@@ -127,8 +127,8 @@ const router = createRouter({
           name: 'branches',
           component: () => import('../views/BranchesView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: ['branches_manage', 'admin']
+            requiresAuth: true,
+            permissions: ['MANAGE_BRANCH_DATA']
           }
         },
         {
@@ -137,7 +137,7 @@ const router = createRouter({
           component: () => import('../views/CustomersView.vue'),
           meta: {
             requiresAuth: false,
-            permissions: ['customers_view', 'staff', 'admin']
+            permissions: []
           }
         },
         {
@@ -145,8 +145,8 @@ const router = createRouter({
           name: 'procedures',
           component: () => import('../views/ProceduresView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: ['procedures_manage', 'admin']
+            requiresAuth: true,
+            permissions: ['MANAGE_SERVICES']
           }
         },
         {
@@ -154,8 +154,8 @@ const router = createRouter({
           name: 'procedure',
           component: () => import('../views/ProcedureView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: ['procedures_view', 'procedures_manage', 'admin']
+            requiresAuth: true,
+            permissions: ['MANAGE_SERVICES']
           }
         },
         {
@@ -164,7 +164,7 @@ const router = createRouter({
           component: () => import('../views/BlacklistView.vue'),
           meta: {
             requiresAuth: false,
-            permissions: ['blacklist_manage', 'admin']
+            permissions: []
           }
         },
         {
@@ -172,8 +172,8 @@ const router = createRouter({
           name: 'subscription',
           component: () => import('../views/SubscriptionView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: ['subscription_manage', 'admin']
+            requiresAuth: true,
+            permissions: ['MANAGE_SUBSCRIPTION']
           }
         },
         {
@@ -182,7 +182,7 @@ const router = createRouter({
           component: () => import('../views/FeedbacksView.vue'),
           meta: {
             requiresAuth: false,
-            permissions: ['feedbacks_view', 'staff', 'admin']
+            permissions: []
           }
         }
       ]

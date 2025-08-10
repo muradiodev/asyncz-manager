@@ -233,7 +233,7 @@ const AppSidebarNav = defineComponent({
         name: 'Branches',
         to: '/dashboard/branches',
         icon: 'cil-factory',
-        permissions: []
+        permissions: ['MANAGE_BRANCH_DATA']
       },
       // {
       //   component: 'CNavItem',
@@ -254,7 +254,7 @@ const AppSidebarNav = defineComponent({
         name: 'Procedures',
         to: '/dashboard/procedures',
         icon: 'cil-list-rich',
-        permissions: []
+        permissions: ['MANAGE_SERVICES']
       },
       {
         component: 'CNavItem',
@@ -275,7 +275,7 @@ const AppSidebarNav = defineComponent({
         name: 'Subscription',
         to: '/dashboard/subscription',
         icon: 'cil-dollar',
-        permissions: []
+        permissions: ['MANAGE_SUBSCRIPTION']
       },
       {
         component: 'CNavItem',
