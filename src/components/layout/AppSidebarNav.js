@@ -233,7 +233,7 @@ const AppSidebarNav = defineComponent({
         name: 'Branches',
         to: '/dashboard/branches',
         icon: 'cil-factory',
-        permissions: ['MANAGE_BRANCH_DATA']
+        permissions: ['VIEW_BRANCH_DATA', 'MANAGE_BRANCH_DATA']
       },
       // {
       //   component: 'CNavItem',

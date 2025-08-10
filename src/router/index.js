@@ -128,7 +128,7 @@ const router = createRouter({
           component: () => import('../views/BranchesView.vue'),
           meta: {
             requiresAuth: true,
-            permissions: ['MANAGE_BRANCH_DATA']
+            permissions: ['VIEW_BRANCH_DATA', 'MANAGE_BRANCH_DATA']
           }
         },
         {
