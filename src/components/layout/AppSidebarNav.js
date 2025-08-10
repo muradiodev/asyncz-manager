@@ -261,7 +261,7 @@ const AppSidebarNav = defineComponent({
         name: 'Customer List',
         to: '/dashboard/customers',
         icon: 'cil-user',
-        permissions: []
+        permissions: ['VIEW_CUSTOMERS']
       },
       {
         component: 'CNavItem',

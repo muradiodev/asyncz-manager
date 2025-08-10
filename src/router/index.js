@@ -136,8 +136,8 @@ const router = createRouter({
           name: 'customers',
           component: () => import('../views/CustomersView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: []
+            requiresAuth: true,
+            permissions: ['VIEW_CUSTOMERS']
           }
         },
         {
