@@ -146,7 +146,7 @@ const router = createRouter({
           component: () => import('../views/ProceduresView.vue'),
           meta: {
             requiresAuth: true,
-            permissions: ['MANAGE_SERVICES']
+            permissions: ['VIEW_SERVICES', 'MANAGE_SERVICES']
           }
         },
         {
@@ -155,7 +155,7 @@ const router = createRouter({
           component: () => import('../views/ProcedureView.vue'),
           meta: {
             requiresAuth: true,
-            permissions: ['MANAGE_SERVICES']
+            permissions: ['VIEW_SERVICES', 'MANAGE_SERVICES']
           }
         },
         {

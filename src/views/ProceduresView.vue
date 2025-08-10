@@ -12,7 +12,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Procedures</span>
-          <button class="btn-outline-success-custom w-25" @click="openCreateModal">
+          <button class="btn-outline-success-custom w-25" @click="openCreateModal" :disabled="!canManageService">
             <i class="fas fa-plus me-1"></i> Add Procedure
           </button>
         </div>
@@ -143,13 +143,20 @@ export default {
           orderable: false,
           data: null,
           render: (data, type, row) => {
+            const manageServiceDisabled   = this.canManageService ? '' : 'disabled';
+
             return `
-              <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${row.id}" style="padding:4px 8px; margin-right:3px;">
-                <i class="fas fa-pen"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;">
-                <i class="fas fa-trash"></i>
-              </button>
+              <span title="${!this.canManageService ? 'No permission' : 'Edit service'}">
+                <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${row.id}" style="padding:4px 8px; margin-right:3px;" ${manageServiceDisabled}>
+                  <i class="fas fa-pen"></i>
+                </button>
+              </span>
+              <span title="${!this.canManageService ? 'No permission' : 'Delete service'}">
+                <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;" ${manageServiceDisabled}>
+                  <i class="fas fa-trash"></i>
+                </button>
+              </span>
+
             `
           }
         }
@@ -157,9 +164,19 @@ export default {
     }
   },
   computed: {
-    ...mapState(useAuthStore, ['token', 'user'])
+    ...mapState(useAuthStore, ['token', 'user', 'permissions']),
+
+    canManageService() {
+      return this.hasAnyPermission(['MANAGE_SERVICES']);
+    },
   },
   methods: {
+    hasPermission(p) {
+      return Array.isArray(this.permissions) && this.permissions.includes(p);
+    },
+    hasAnyPermission(list) {
+      return Array.isArray(list) && list.some(p => this.hasPermission(p));
+    },
     async getShareLinks() {
       this.shareLinks = await getShareLinks(this.token);
     },
