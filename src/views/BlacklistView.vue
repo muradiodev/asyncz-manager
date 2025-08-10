@@ -10,7 +10,7 @@
         </div>
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0"> Blacklist </span>
-          <button class="btn-outline-success-custom" @click="addNewItem = true" v-if="enabled">
+          <button class="btn-outline-success-custom" @click="addNewItem = true" v-if="enabled" :disabled="!canManageBlackList">
             <i class="fas fa-plus me-1"></i> Add Blacklist
           </button>
         </div>
@@ -88,10 +88,14 @@ export default {
           orderable: false,
           data: null,
           render: (data, type, row) => {
+            const manageBlacklistDisabled   = this.canManageBlackList ? '' : 'disabled';
+
             return `
-              <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;">
-                <i class="fas fa-trash"></i>
-              </button>
+              <span title="${!this.canManageBlackList ? 'No permission' : 'Delete service'}">
+                <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;" ${manageBlacklistDisabled}>
+                  <i class="fas fa-trash"></i>
+                </button>
+              </span>
             `
           }
         }
@@ -99,11 +103,21 @@ export default {
     }
   },
   computed: {
-    ...mapState(useAuthStore, ['token', 'user','companyPackage']),
+    ...mapState(useAuthStore, ['token', 'user', 'companyPackage', 'permissions']),
     data() { return this.itemList },
-    enabled() { return this.companyPackage && this.companyPackage.blacklist }
+    enabled() { return this.companyPackage && this.companyPackage.blacklist },
+
+    canManageBlackList() {
+      return this.hasAnyPermission(['MANAGE_BLACKLIST']);
+    }
   },
   methods: {
+    hasPermission(p) {
+      return Array.isArray(this.permissions) && this.permissions.includes(p);
+    },
+    hasAnyPermission(list) {
+      return Array.isArray(list) && list.some(p => this.hasPermission(p));
+    },
     getItemList() {
       getBlackList(this.token).then(response => {
         this.itemList = response

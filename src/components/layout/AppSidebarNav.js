@@ -268,7 +268,7 @@ const AppSidebarNav = defineComponent({
         name: 'Blacklist',
         to: '/dashboard/blacklist',
         icon: 'cil-ban',
-        permissions: []
+        permissions: ['VIEW_BLACKLIST']
       },
       {
         component: 'CNavItem',

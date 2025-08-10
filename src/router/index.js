@@ -163,8 +163,8 @@ const router = createRouter({
           name: 'blacklist',
           component: () => import('../views/BlacklistView.vue'),
           meta: {
-            requiresAuth: false,
-            permissions: []
+            requiresAuth: true,
+            permissions: ['VIEW_BLACKLIST']
           }
         },
         {
