@@ -1,51 +1,42 @@
 <template>
-
   <CContainer class="px-4 mt-4" fluid>
     <div class="container-fluid">
-
       <div class="row">
-        <div class="  col-lg-auto order-2 order-lg-1">
-
+        <div class="col-lg-auto order-2 order-lg-1">
           <div class="mb-3">
-
             <div class="dropdown">
               <button class="btn-dropdown-custom btn-medium-custom dropdown-toggle" type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown" aria-expanded="false">
-                New
+                {{ $t('calendar.sidebar.new') }}
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">Appointment</a></li>
+                <li>
+                  <a class="dropdown-item" href="#" @click.prevent="startNewEventFromScratch">
+                    {{ $t('calendar.sidebar.newAppointment') }}
+                  </a>
+                </li>
                 <li>
                   <a class="dropdown-item" target="_blank" href="https://scheduler.asyncz.com/"
-                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 8px;
-            margin: 4px 0;
-            padding: 10px 15px;
-            transition: transform 0.2s ease;
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);"
+                     style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; margin: 4px 0; padding: 10px 15px; transition: transform 0.2s ease; box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);"
                      onmouseover="this.style.transform='translateY(-1px)'"
                      onmouseout="this.style.transform='translateY(0)'">
-                    🚀 Collabriq Scheduler
+                    {{ $t('calendar.sidebar.externalScheduler') }}
                   </a>
                 </li>
               </ul>
             </div>
-
           </div>
 
           <div class="card mb-4">
             <div class="card-body">
-              <SmallCalendar
-                :value="currentDate"
-                @calendarDayClick="calendarDayClick" />
+              <SmallCalendar :value="currentDate" @calendarDayClick="calendarDayClick" />
             </div>
           </div>
 
           <div class="card">
             <div class="card-header">
-              Branches & Experts
+              {{ $t('calendar.sidebar.branchesExperts') }}
             </div>
             <ul class="list-group list-group-flush">
               <template v-for="b in expertMap" :key="b.branch.id">
@@ -79,34 +70,27 @@
               </template>
             </ul>
           </div>
-
-
         </div>
-        <div class="col-md order-1 order-lg-2 p-0" id="calendarView">
 
+        <div class="col-md order-1 order-lg-2 p-0" id="calendarView">
           <div class="row justify-content-between mb-3">
             <div class="col-md col-6 order-2 order-md-1">
               <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="goToToday">
-                Today
+                {{ $t('calendar.buttons.today') }}
               </a>
-
               <a href="#" class="btn btn-outline-secondary me-2" @click.prevent="prevView">
                 <fa-icon :icon="['fas', 'chevron-left']" />
               </a>
-
-              <a href="#" class="btn  btn-outline-secondary ms-2" @click.prevent="nextView">
+              <a href="#" class="btn btn-outline-secondary ms-2" @click.prevent="nextView">
                 <fa-icon :icon="['fas', 'chevron-right']" />
               </a>
             </div>
 
-            <div class="col-md  col-12 order-1 order-md-2 text-center">
-              <h3>
-                {{ calendarTitle }}
-              </h3>
+            <div class="col-md col-12 order-1 order-md-2 text-center">
+              <h3>{{ calendarTitle }}</h3>
             </div>
 
-
-            <div class="col-md  col-6 order-3 order-md-3 text-end">
+            <div class="col-md col-6 order-3 order-md-3 text-end">
               <div class="dropdown">
                 <button class="btn-dropdown-custom btn-dropdown-outline-custom dropdown-toggle" type="button"
                         id="dropdownMenuButton1"
@@ -124,36 +108,30 @@
             </div>
           </div>
 
-
           <div v-if="copyingAppointment">
             <div class="alert alert-warning">
               <div class="d-flex justify-content-between w-100">
                 <div>
-                  <strong>Click any available slot to create a copy of appointment</strong> <br>
+                  <strong>{{ $t('calendar.copyBanner.title') }}</strong><br>
                   <div class="small">
-                    <strong>Customer:</strong> <span>{{ copyingAppointment.name }} {{ copyingAppointment.surname
-                    }} </span>
-                    <br>
-                    <strong>Phone:</strong> <span>{{ copyingAppointment.phone }} </span>
-                    <br>
-                    <strong>Email:</strong> <span>{{ copyingAppointment.email }} </span>
-                    <br>
-                    <strong>Procedure:</strong> <span>{{ copyingAppointment.procedure.name }}</span>
-                    <br>
-                    <strong>Expert:</strong> <span>{{ copyingAppointment.expert.fullName }}</span>
-
-                    <br>
+                    <strong>{{ $t('calendar.copyBanner.customer') }}:</strong>
+                    <span>{{ copyingAppointment.name }} {{ copyingAppointment.surname }}</span><br>
+                    <strong>{{ $t('calendar.copyBanner.phone') }}:</strong>
+                    <span>{{ copyingAppointment.phone }}</span><br>
+                    <strong>{{ $t('calendar.copyBanner.email') }}:</strong>
+                    <span>{{ copyingAppointment.email }}</span><br>
+                    <strong>{{ $t('calendar.copyBanner.procedure') }}:</strong>
+                    <span>{{ copyingAppointment.procedure.name }}</span><br>
+                    <strong>{{ $t('calendar.copyBanner.expert') }}:</strong>
+                    <span>{{ copyingAppointment.expert.fullName }}</span><br>
 
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox"
-                             v-model="showAllExperts" id="flexCheckDefault">
+                      <input class="form-check-input" type="checkbox" v-model="showAllExperts" id="flexCheckDefault">
                       <label class="form-check-label" for="flexCheckDefault">
-                        Copy to another expert
+                        {{ $t('calendar.copyBanner.copyToAnotherExpert') }}
                       </label>
                     </div>
                   </div>
-
-
                 </div>
                 <div>
                   <a href="#" @click.prevent="copyingAppointment=null" class="text-secondary">
@@ -164,9 +142,9 @@
             </div>
           </div>
 
-
           <div v-if="readyToBuildLayout">
             <CalendarVerticalLayout
+              v-if="view===VIEW_VERTICAL"
               :current-date="currentDate"
               :start-date="startDate"
               :end-date="endDate"
@@ -177,10 +155,8 @@
               :blocks="visibleBlocks"
               :screen-width="screenWidth"
               :screen-height="screenHeight"
-              v-if="view===VIEW_VERTICAL"
               @hourSlotClicked="showQuickActionModal"
               @hourSlotDropped="updateAppointmentTime"
-
               @dayClicked="openDayDailyView"
               @eventClicked="showAppointmentDetails"
               @appResized="updateAppointmentLength"
@@ -188,8 +164,8 @@
               @blockResized="updateBlockTimeLength"
             />
 
-
             <CalendarMonthLayout
+              v-if="view===VIEW_MONTH"
               :current-date="currentDate"
               :start-date="startDate"
               :end-date="endDate"
@@ -199,26 +175,17 @@
               :events="visibleEvents"
               :screen-width="screenWidth"
               :screen-height="screenHeight"
-              v-if="view===VIEW_MONTH"
               @dayClicked="openDayDailyView"
               @eventClicked="showAppointmentDetails"
             />
-
-
           </div>
         </div>
       </div>
-
     </div>
   </CContainer>
 
   <!-- Quick Action Modal -->
-  <ModalComponent
-    title="Choose Action"
-    v-if="quickActionModalOpen"
-    @modalClose="quickActionModalOpen = false"
-    size="sm"
-  >
+  <ModalComponent :title="$t('calendar.quickAction.title')" v-if="quickActionModalOpen" @modalClose="quickActionModalOpen = false" size="sm">
     <div class="text-center" style="max-width:320px; margin:0 auto;">
       <div>
         <div class="fw-bold">
@@ -229,115 +196,73 @@
         </div>
       </div>
       <div style="display: flex; flex-direction: column; align-items: center;">
-        <button
-          class="btn-primary-custom"
-          @click="selectAddAppointment"
-          style="margin-bottom: 6px; padding-top: 4px; padding-bottom: 4px;"
-        >
-          New
+        <button class="btn-primary-custom" @click="selectAddAppointment" style="margin-bottom: 6px; padding-top: 4px; padding-bottom: 4px;">
+          {{ $t('calendar.quickAction.new') }}
         </button>
-        <button
-          class="btn btn-light btn-medium-custom"
-          @click="selectBlockTime"
-          style="margin-top: 0; padding-top: 4px; padding-bottom: 4px; border: 1.5px solid #bcbcbc;"
-        >
-          Block Time
+        <button class="btn btn-light btn-medium-custom" @click="selectBlockTime" style="margin-top: 0; padding-top: 4px; padding-bottom: 4px; border: 1.5px solid #bcbcbc;">
+          {{ $t('calendar.quickAction.blockTime') }}
         </button>
-
       </div>
     </div>
   </ModalComponent>
 
-
   <!-- Block Time Modal -->
-  <ModalComponent
-    title="Block Time"
-    v-if="blockTimeModalOpen"
-    @modalClose="blockTimeModalOpen = false"
-    size="md"
-  >
+  <ModalComponent :title="$t('calendar.blockTimeModal.title')" v-if="blockTimeModalOpen" @modalClose="blockTimeModalOpen = false" size="md">
     <form @submit.prevent="crateBlockTime" class="clean-form">
       <div class="form-field">
-        <label>Expert</label>
+        <label>{{ $t('calendar.blockTimeModal.labels.expert') }}</label>
         <select v-model="blockTimeDetails.expert" required class="modern-input">
-          <option value="">Choose expert...</option>
-          <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
-            {{ expert.name }}
-          </option>
+          <option value="">{{ $t('calendar.blockTimeModal.labels.chooseExpert') }}</option>
+          <option v-for="expert in expertList" :key="expert.id" :value="expert.id">{{ expert.name }}</option>
         </select>
       </div>
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Date</label>
+          <label>{{ $t('calendar.blockTimeModal.labels.date') }}</label>
           <input type="date" v-model="blockTimeDetails.date" required class="modern-input" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Time</label>
+          <label>{{ $t('calendar.blockTimeModal.labels.time') }}</label>
           <input type="time" v-model="blockTimeDetails.time" required class="modern-input" />
         </div>
       </div>
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Duration (minutes)</label>
-          <input
-            type="number"
-            v-model="blockTimeDetails.duration"
-            required
-            class="modern-input"
-            min="1"
-            max="480"
-            placeholder="e.g. 30"
-          />
+          <label>{{ $t('calendar.blockTimeModal.labels.duration') }}</label>
+          <input type="number" v-model="blockTimeDetails.duration" required class="modern-input" min="1" max="480" :placeholder="$t('calendar.blockTimeModal.labels.durationPlaceholder')" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Reason</label>
-          <input
-            type="text"
-            v-model="blockTimeDetails.reason"
-            required
-            class="modern-input"
-            placeholder="Break, Lunch, etc."
-          />
+          <label>{{ $t('calendar.blockTimeModal.labels.reason') }}</label>
+          <input type="text" v-model="blockTimeDetails.reason" required class="modern-input" :placeholder="$t('calendar.blockTimeModal.labels.reasonPlaceholder')" />
         </div>
       </div>
 
       <div class="form-actions" style="margin-top: 18px;">
-        <button type="button" class="btn-cancel-custom" @click="blockTimeModalOpen = false">
-          Cancel
-        </button>
-        <button type="submit" class="btn-create-custom">
-          Save
-        </button>
+        <button type="button" class="btn-cancel-custom" @click="blockTimeModalOpen = false">{{ $t('calendar.blockTimeModal.actions.cancel') }}</button>
+        <button type="submit" class="btn-create-custom">{{ $t('calendar.blockTimeModal.actions.save') }}</button>
       </div>
     </form>
   </ModalComponent>
 
-
   <!-- New Appointment Modal -->
-  <ModalComponent
-    title="New Appointment"
-    v-if="newAppointmentIsOpen"
-    @modalClose="newAppointmentIsOpen = false"
-  >
+  <ModalComponent :title="$t('calendar.newAppointmentModal.title')" v-if="newAppointmentIsOpen" @modalClose="newAppointmentIsOpen = false">
     <form @submit.prevent="createNewAppointment" class="modern-body clean-form">
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Expert <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.expert') }} <span style="color:#e74c3c">*</span></label>
           <select v-model="newItemDetails.expert" required class="modern-input">
-            <option value="">Choose expert...</option>
-            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
-              {{ expert.name }}
-            </option>
+            <option value="">{{ $t('calendar.newAppointmentModal.labels.chooseExpert') }}</option>
+            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">{{ expert.name }}</option>
           </select>
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Service <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.service') }} <span style="color:#e74c3c">*</span></label>
           <select v-model="newItemDetails.procedure" required class="modern-input">
-            <option value="">Choose service...</option>
+            <option value="">{{ $t('calendar.newAppointmentModal.labels.chooseService') }}</option>
             <option v-for="procedure in selectedExpertProcedureList" :key="procedure.id" :value="procedure.id">
-              {{ procedure.name }} ({{ procedure.length }} min)
+              {{ procedure.name }} ({{ procedure.length }} {{ $t('calendar.newAppointmentModal.labels.min') }})
             </option>
           </select>
         </div>
@@ -345,90 +270,75 @@
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Date <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.date') }} <span style="color:#e74c3c">*</span></label>
           <input type="date" v-model="newItemDetails.date" required class="modern-input" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Time <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.time') }} <span style="color:#e74c3c">*</span></label>
           <input type="time" v-model="newItemDetails.time" required class="modern-input" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Duration <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.duration') }} <span style="color:#e74c3c">*</span></label>
           <div style="display: flex;">
-            <input type="number" min="15" v-model="newItemDetails.length" required class="modern-input"
-                   style="flex:1;" />
-            <span
-              style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
+            <input type="number" min="15" v-model="newItemDetails.length" required class="modern-input" style="flex:1;" />
+            <span style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">{{ $t('calendar.newAppointmentModal.labels.min') }}</span>
           </div>
         </div>
       </div>
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>First Name <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.firstName') }} <span style="color:#e74c3c">*</span></label>
           <input type="text" v-model="newItemDetails.name" required class="modern-input" autocomplete="given-name" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Last Name <span style="color:#e74c3c">*</span></label>
-          <input type="text" v-model="newItemDetails.surname" required class="modern-input"
-                 autocomplete="family-name" />
+          <label>{{ $t('calendar.newAppointmentModal.labels.lastName') }} <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="newItemDetails.surname" required class="modern-input" autocomplete="family-name" />
         </div>
       </div>
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Phone <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.phone') }} <span style="color:#e74c3c">*</span></label>
           <input type="tel" v-model="newItemDetails.phone" required class="modern-input" autocomplete="tel" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Email</label>
+          <label>{{ $t('calendar.newAppointmentModal.labels.email') }}</label>
           <input type="email" v-model="newItemDetails.email" class="modern-input" autocomplete="email" />
           <div class="checkbox-wrapper" style="margin-top: 8px;">
             <input type="checkbox" id="sendEmail" v-model="newItemDetails.sendEmail" class="me-2" />
-            <label for="sendEmail" style="font-size: 0.93em;">Send confirmation email</label>
+            <label for="sendEmail" style="font-size: 0.93em;">{{ $t('calendar.newAppointmentModal.labels.sendConfirmationEmail') }}</label>
           </div>
         </div>
       </div>
 
       <div class="form-field full-width">
-        <label>Additional Notes</label>
-        <textarea v-model="newItemDetails.notes" class="modern-input" rows="2"
-                  placeholder="Any special requests or information?"></textarea>
+        <label>{{ $t('calendar.newAppointmentModal.labels.additionalNotes') }}</label>
+        <textarea v-model="newItemDetails.notes" class="modern-input" rows="2" :placeholder="$t('calendar.newAppointmentModal.labels.notesPlaceholder')"></textarea>
       </div>
 
       <div class="form-actions" style="margin-top: 18px;">
-        <button type="button" class="btn-cancel-custom" @click="newAppointmentIsOpen = false">
-          Cancel
-        </button>
-        <button type="submit" class="btn-create-custom">
-          Create Appointment
-        </button>
+        <button type="button" class="btn-cancel-custom" @click="newAppointmentIsOpen = false">{{ $t('calendar.newAppointmentModal.actions.cancel') }}</button>
+        <button type="submit" class="btn-create-custom">{{ $t('calendar.newAppointmentModal.actions.create') }}</button>
       </div>
     </form>
   </ModalComponent>
 
-
   <!-- Edit Appointment Modal -->
-  <ModalComponent
-    title="Edit Appointment"
-    v-if="editingAppointment"
-    @modalClose="editingAppointment = null"
-  >
+  <ModalComponent :title="$t('calendar.editAppointmentModal.title')" v-if="editingAppointment" @modalClose="editingAppointment = null">
     <form @submit.prevent="updateAppointment" class="modern-body clean-form">
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Expert <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editAppointmentModal.labels.expert') }} <span style="color:#e74c3c">*</span></label>
           <select v-model="editingAppointment.expert.id" required class="modern-input">
-            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
-              {{ expert.name }}
-            </option>
+            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">{{ expert.name }}</option>
           </select>
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Procedure <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editAppointmentModal.labels.procedure') }} <span style="color:#e74c3c">*</span></label>
           <select v-model="editingAppointment.procedure.id" required class="modern-input">
             <option v-for="procedure in selectedExpertProcedureListUpdate" :key="procedure.id" :value="procedure.id">
-              {{ procedure.name }} ({{ procedure.length }} min)
+              {{ procedure.name }} ({{ procedure.length }} {{ $t('calendar.editAppointmentModal.labels.min') }})
             </option>
           </select>
         </div>
@@ -436,241 +346,211 @@
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Date <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editAppointmentModal.labels.date') }} <span style="color:#e74c3c">*</span></label>
           <input type="date" v-model="editingAppointment.date" required class="modern-input" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Time <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editAppointmentModal.labels.time') }} <span style="color:#e74c3c">*</span></label>
           <input type="time" v-model="editingAppointment.time" required class="modern-input" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Length <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editAppointmentModal.labels.length') }} <span style="color:#e74c3c">*</span></label>
           <div style="display: flex;">
-            <input type="number" v-model="editingAppointment.reservationLength" required class="modern-input"
-                   style="flex:1;" />
-            <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
+            <input type="number" v-model="editingAppointment.reservationLength" required class="modern-input" style="flex:1;" />
+            <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">{{ $t('calendar.editAppointmentModal.labels.min') }}</span>
           </div>
         </div>
       </div>
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>First Name <span style="color:#e74c3c">*</span></label>
-          <input type="text" v-model="editingAppointment.name" required class="modern-input"
-                 autocomplete="given-name" />
+          <label>{{ $t('calendar.editAppointmentModal.labels.firstName') }} <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="editingAppointment.name" required class="modern-input" autocomplete="given-name" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Last Name <span style="color:#e74c3c">*</span></label>
-          <input type="text" v-model="editingAppointment.surname" required class="modern-input"
-                 autocomplete="family-name" />
+          <label>{{ $t('calendar.editAppointmentModal.labels.lastName') }} <span style="color:#e74c3c">*</span></label>
+          <input type="text" v-model="editingAppointment.surname" required class="modern-input" autocomplete="family-name" />
         </div>
       </div>
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Phone <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editAppointmentModal.labels.phone') }} <span style="color:#e74c3c">*</span></label>
           <input type="text" v-model="editingAppointment.phone" required class="modern-input" autocomplete="tel" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Email</label>
+          <label>{{ $t('calendar.editAppointmentModal.labels.email') }}</label>
           <input type="email" v-model="editingAppointment.email" class="modern-input" autocomplete="email" />
         </div>
       </div>
 
       <div class="form-field full-width">
-        <label>Notes</label>
+        <label>{{ $t('calendar.editAppointmentModal.labels.notes') }}</label>
         <textarea v-model="editingAppointment.notes" class="modern-input" rows="2"></textarea>
       </div>
 
       <div class="form-actions" style="margin-top: 18px;">
-        <button type="button" class="btn-cancel-custom" @click="editingAppointment = null">
-          Cancel
-        </button>
-        <button type="submit" class="btn-success-custom">
-          Update
-        </button>
+        <button type="button" class="btn-cancel-custom" @click="editingAppointment = null">{{ $t('calendar.editAppointmentModal.actions.cancel') }}</button>
+        <button type="submit" class="btn-success-custom">{{ $t('calendar.editAppointmentModal.actions.update') }}</button>
       </div>
     </form>
   </ModalComponent>
 
-
-  <!-- Edit Appointment Modal -->
-  <ModalComponent
-    title="Edit block time"
-    v-if="editingBlockTime"
-    @modalClose="editingBlockTime = null"
-  >
+  <!-- Edit Block Time Modal -->
+  <ModalComponent :title="$t('calendar.editBlockTimeModal.title')" v-if="editingBlockTime" @modalClose="editingBlockTime = null">
     <form @submit.prevent="updateBlockTime" class="modern-body clean-form">
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Expert <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editBlockTimeModal.labels.expert') }} <span style="color:#e74c3c">*</span></label>
           <select v-model="editingBlockTime.expert.id" required class="modern-input">
-            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">
-              {{ expert.name }}
-            </option>
+            <option v-for="expert in expertList" :key="expert.id" :value="expert.id">{{ expert.name }}</option>
           </select>
         </div>
       </div>
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
-          <label>Date <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editBlockTimeModal.labels.date') }} <span style="color:#e74c3c">*</span></label>
           <input type="date" v-model="editingBlockTime.date" required class="modern-input" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Time <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editBlockTimeModal.labels.time') }} <span style="color:#e74c3c">*</span></label>
           <input type="time" v-model="editingBlockTime.time" required class="modern-input" />
         </div>
         <div class="form-field" style="flex:1;">
-          <label>Length <span style="color:#e74c3c">*</span></label>
+          <label>{{ $t('calendar.editBlockTimeModal.labels.length') }} <span style="color:#e74c3c">*</span></label>
           <div style="display: flex;">
-            <input type="number" v-model="editingBlockTime.duration" required class="modern-input"
-                   style="flex:1;" />
-            <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">min</span>
+            <input type="number" v-model="editingBlockTime.duration" required class="modern-input" style="flex:1;" />
+            <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">{{ $t('calendar.editBlockTimeModal.labels.min') }}</span>
           </div>
         </div>
       </div>
 
-
       <div class="form-field full-width">
-        <label>Comment</label>
+        <label>{{ $t('calendar.editBlockTimeModal.labels.comment') }}</label>
         <textarea v-model="editingBlockTime.comment" class="modern-input" rows="2"></textarea>
       </div>
 
       <div class="form-actions" style="margin-top: 18px;">
-        <button type="button" class="btn-cancel-custom" @click="editingBlockTime = null">
-          Cancel
-        </button>
-        <button type="submit" class="btn-success-custom">
-          Update
-        </button>
+        <button type="button" class="btn-cancel-custom" @click="editingBlockTime = null">{{ $t('calendar.editBlockTimeModal.actions.cancel') }}</button>
+        <button type="submit" class="btn-success-custom">{{ $t('calendar.editBlockTimeModal.actions.update') }}</button>
       </div>
     </form>
   </ModalComponent>
 
-
   <!-- Appointment Details Modal -->
-  <ModalComponent
-    title="Appointment Details"
-    v-if="activeAppointment"
-    @modalClose="activeAppointment = null"
-  >
+  <ModalComponent :title="$t('calendar.appointmentDetails.title')" v-if="activeAppointment" @modalClose="activeAppointment = null">
     <div class="modern-body" style="padding-bottom: 8px;">
       <div class="row" style="margin-bottom:12px;">
         <div class="col-md-6 mb-3">
-          <div class="mb-1"><span
-            class="small text-secondary">Expert:</span><br /><strong>{{ activeAppointment.expert.fullName }}</strong>
-          </div>
-          <div class="mb-1"><span
-            class="small text-secondary">Procedure:</span><br /><strong>{{ activeAppointment.procedure.name }}</strong>
-          </div>
-          <div class="mb-1"><span
-            class="small text-secondary">Starts:</span><br /><strong>{{ formatTime(activeAppointment.reservationStartTime.date)
-            }}</strong></div>
           <div class="mb-1">
-            <span class="small text-secondary">Duration:</span><br />
-            <strong>{{ activeAppointment.reservationLength }} min</strong>
-            <span class="text-danger small"
-                  v-if="activeAppointment.reservationLength !== activeAppointment.procedure['length']">
-            (originally {{ activeAppointment.procedure['length'] }} min)
-          </span>
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.expert') }}:</span><br />
+            <strong>{{ activeAppointment.expert.fullName }}</strong>
           </div>
           <div class="mb-1">
-            <span class="small text-secondary">Status:</span><br />
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.procedure') }}:</span><br />
+            <strong>{{ activeAppointment.procedure.name }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.starts') }}:</span><br />
+            <strong>{{ formatTime(activeAppointment.reservationStartTime.date) }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.duration') }}:</span><br />
+            <strong>{{ activeAppointment.reservationLength }} {{ $t('calendar.editAppointmentModal.labels.min') }}</strong>
+            <span class="text-danger small" v-if="activeAppointment.reservationLength !== activeAppointment.procedure['length']">
+              ({{ $t('calendar.appointmentDetails.labels.originally', { length: activeAppointment.procedure['length'] }) }})
+            </span>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.status') }}:</span><br />
             <span class="badge bg-primary">{{ activeAppointment.status }}</span>
           </div>
         </div>
         <div class="col-md-6 mb-3">
-          <div class="mb-1"><span class="small text-secondary">Customer:</span><br /><strong>{{ activeAppointment.name
-            }} {{ activeAppointment.surname }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Phone:</span><br /><strong>{{ activeAppointment.phone
-            }}</strong></div>
-          <div class="mb-1"><span class="small text-secondary">Email:</span><br /><strong>{{ activeAppointment.email
-            }}</strong></div>
-          <div class="mb-1"><span
-            class="small text-secondary">Notes:</span><br /><strong>{{ activeAppointment.notes || '-' }}</strong></div>
-          <div class="mb-1"><span
-            class="small text-secondary">Requested at:</span><br /><strong>{{ formatTime(activeAppointment.requestTime.date)
-            }}</strong></div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.customer') }}:</span><br />
+            <strong>{{ activeAppointment.name }} {{ activeAppointment.surname }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.phone') }}:</span><br />
+            <strong>{{ activeAppointment.phone }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.email') }}:</span><br />
+            <strong>{{ activeAppointment.email }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.notes') }}:</span><br />
+            <strong>{{ activeAppointment.notes || '-' }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.appointmentDetails.labels.requestedAt') }}:</span><br />
+            <strong>{{ formatTime(activeAppointment.requestTime.date) }}</strong>
+          </div>
         </div>
       </div>
+
       <div class="form-actions" style="margin-top:0; gap:10px;">
-        <button class="btn-success-custom me-2" v-if="activeAppointment.status === 'new'"
-                @click.prevent="confirmAppointment(activeAppointment)">
+        <button class="btn-success-custom me-2" v-if="activeAppointment.status === 'new'" @click.prevent="confirmAppointment(activeAppointment)">
           <fa-icon :icon="['fas','check']" class="me-2"></fa-icon>
-          Confirm
+          {{ $t('calendar.appointmentDetails.actions.confirm') }}
         </button>
-        <button class="btn-danger-custom me-2" v-if="activeAppointment.status === 'confirmed'"
-                @click.prevent="cancelAppointment(activeAppointment)">
+        <button class="btn-danger-custom me-2" v-if="activeAppointment.status === 'confirmed'" @click.prevent="cancelAppointment(activeAppointment)">
           <fa-icon :icon="['fas','times']" class="me-2"></fa-icon>
-          Cancel
+          {{ $t('calendar.appointmentDetails.actions.cancel') }}
         </button>
-        <button class="btn-outline-warning-custom btn-size-small-custom me-2"
-                @click.prevent="editAppointment(activeAppointment)">
+        <button class="btn-outline-warning-custom btn-size-small-custom me-2" @click.prevent="editAppointment(activeAppointment)">
           <fa-icon :icon="['fas','pencil']" class="me-2"></fa-icon>
-          Edit
+          {{ $t('calendar.appointmentDetails.actions.edit') }}
         </button>
-        <button class="btn-outline-info-custom btn-outline-primary-custom me-2"
-                @click.prevent="copyAppointment(activeAppointment)">
+        <button class="btn-outline-info-custom btn-outline-primary-custom me-2" @click.prevent="copyAppointment(activeAppointment)">
           <fa-icon :icon="['fas','copy']" class="me-2"></fa-icon>
-          Copy
+          {{ $t('calendar.appointmentDetails.actions.copy') }}
         </button>
         <button class="btn-outline-custom btn-outline-dark-custom" @click.prevent="printAppointment(activeAppointment)">
           <fa-icon :icon="['fas','print']" class="me-2"></fa-icon>
-          Print
+          {{ $t('calendar.appointmentDetails.actions.print') }}
         </button>
-
       </div>
     </div>
   </ModalComponent>
 
-
-<!-- Block time Details Modal -->
-  <ModalComponent
-    title="Block time details"
-    v-if="activeBlockTime"
-    @modalClose="activeBlockTime = null"
-  >
+  <!-- Block time Details Modal -->
+  <ModalComponent :title="$t('calendar.blockTimeDetails.title')" v-if="activeBlockTime" @modalClose="activeBlockTime = null">
     <div class="modern-body" style="padding-bottom: 8px;">
       <div class="row" style="margin-bottom:12px;">
         <div class="col-md-12 mb-3">
-          <div class="mb-1"><span
-            class="small text-secondary">Expert:</span><br /><strong>{{ activeBlockTime.expert.fullName }}</strong>
-          </div>
-          <div class="mb-1"><span
-            class="small text-secondary">Starts:</span><br />
-            <strong>{{ formatTime(activeBlockTime.startTime.date)
-            }}</strong></div>
           <div class="mb-1">
-            <span class="small text-secondary">Duration:</span><br />
-            <strong>{{ activeBlockTime.duration }} min</strong>
+            <span class="small text-secondary">{{ $t('calendar.blockTimeDetails.labels.expert') }}:</span><br />
+            <strong>{{ activeBlockTime.expert.fullName }}</strong>
           </div>
-
           <div class="mb-1">
-            <span class="small text-secondary">Comment:</span><br />
+            <span class="small text-secondary">{{ $t('calendar.blockTimeDetails.labels.starts') }}:</span><br />
+            <strong>{{ formatTime(activeBlockTime.startTime.date) }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.blockTimeDetails.labels.duration') }}:</span><br />
+            <strong>{{ activeBlockTime.duration }} {{ $t('calendar.editAppointmentModal.labels.min') }}</strong>
+          </div>
+          <div class="mb-1">
+            <span class="small text-secondary">{{ $t('calendar.blockTimeDetails.labels.comment') }}:</span><br />
             <strong>{{ activeBlockTime.comment || '-' }}</strong>
           </div>
-
         </div>
       </div>
       <div class="form-actions" style="margin-top:0; gap:10px;">
-
-        <button class="btn-danger-custom me-2"
-                @click.prevent="deleteBlockTime(activeBlockTime)">
+        <button class="btn-danger-custom me-2" @click.prevent="deleteBlockTime(activeBlockTime)">
           <fa-icon :icon="['fas','times']" class="me-2"></fa-icon>
-          Delete
+          {{ $t('calendar.blockTimeDetails.actions.delete') }}
         </button>
-        <button class="btn-outline-warning-custom btn-size-small-custom me-2"
-                @click.prevent="editBlockTime(activeBlockTime)">
+        <button class="btn-outline-warning-custom btn-size-small-custom me-2" @click.prevent="editBlockTime(activeBlockTime)">
           <fa-icon :icon="['fas','pencil']" class="me-2"></fa-icon>
-          Edit
+          {{ $t('calendar.blockTimeDetails.actions.edit') }}
         </button>
-
       </div>
     </div>
   </ModalComponent>
-
-
 </template>
 
 <script>

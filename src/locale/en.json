@@ -15,7 +15,8 @@
     "security": "Security",
     "blacklist": "Blacklist",
     "branches": "Branches",
-    "businessSettings": "Business Settings"
+    "businessSettings": "Business Settings",
+    "calendar": "Calendar"
   },
   "language": {
     "current": "English",
@@ -241,7 +242,234 @@
     }
   },
   "calendar": {
-
+    "sidebar": {
+      "new": "New",
+      "newAppointment": "Appointment",
+      "externalScheduler": "🚀 Collabriq Scheduler",
+      "branchesExperts": "Branches & Experts"
+    },
+    "buttons": {
+      "today": "Today",
+      "prev": "Previous",
+      "next": "Next",
+      "new": "New",
+      "blockTime": "Block Time",
+      "cancel": "Cancel",
+      "save": "Save",
+      "create": "Create",
+      "update": "Update",
+      "confirm": "Confirm",
+      "copy": "Copy",
+      "edit": "Edit",
+      "print": "Print",
+      "delete": "Delete",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "views": {
+      "day": "Day",
+      "day3": "3 Days",
+      "week": "Week",
+      "month": "Month"
+    },
+    "copyBanner": {
+      "title": "Click any available slot to create a copy of appointment",
+      "customer": "Customer",
+      "phone": "Phone",
+      "email": "Email",
+      "procedure": "Procedure",
+      "expert": "Expert",
+      "copyToAnotherExpert": "Copy to another expert"
+    },
+    "quickAction": {
+      "title": "Choose Action",
+      "new": "New",
+      "blockTime": "Block Time"
+    },
+    "blockTimeModal": {
+      "title": "Block Time",
+      "labels": {
+        "expert": "Expert",
+        "chooseExpert": "Choose expert...",
+        "date": "Date",
+        "time": "Time",
+        "duration": "Duration (minutes)",
+        "durationPlaceholder": "e.g. 30",
+        "reason": "Reason",
+        "reasonPlaceholder": "Break, Lunch, etc."
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "save": "Save"
+      }
+    },
+    "newAppointmentModal": {
+      "title": "New Appointment",
+      "labels": {
+        "expert": "Expert",
+        "chooseExpert": "Choose expert...",
+        "service": "Service",
+        "chooseService": "Choose service...",
+        "date": "Date",
+        "time": "Time",
+        "duration": "Duration",
+        "min": "min",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone",
+        "email": "Email",
+        "sendConfirmationEmail": "Send confirmation email",
+        "additionalNotes": "Additional Notes",
+        "notesPlaceholder": "Any special requests or information?"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "create": "Create Appointment"
+      }
+    },
+    "editAppointmentModal": {
+      "title": "Edit Appointment",
+      "labels": {
+        "expert": "Expert",
+        "procedure": "Procedure",
+        "date": "Date",
+        "time": "Time",
+        "length": "Length",
+        "min": "min",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone",
+        "email": "Email",
+        "notes": "Notes"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "update": "Update"
+      }
+    },
+    "editBlockTimeModal": {
+      "title": "Edit block time",
+      "labels": {
+        "expert": "Expert",
+        "date": "Date",
+        "time": "Time",
+        "length": "Length",
+        "min": "min",
+        "comment": "Comment"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "update": "Update"
+      }
+    },
+    "appointmentDetails": {
+      "title": "Appointment Details",
+      "labels": {
+        "expert": "Expert",
+        "procedure": "Procedure",
+        "starts": "Starts",
+        "duration": "Duration",
+        "status": "Status",
+        "customer": "Customer",
+        "phone": "Phone",
+        "email": "Email",
+        "notes": "Notes",
+        "requestedAt": "Requested at",
+        "originally": "originally {length} min"
+      },
+      "actions": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "copy": "Copy",
+        "print": "Print"
+      }
+    },
+    "blockTimeDetails": {
+      "title": "Block time details",
+      "labels": {
+        "expert": "Expert",
+        "starts": "Starts",
+        "duration": "Duration",
+        "comment": "Comment"
+      },
+      "actions": {
+        "delete": "Delete",
+        "edit": "Edit"
+      }
+    },
+    "swal": {
+      "confirmAppointment": {
+        "title": "Confirm appointment",
+        "text": "Are you sure you want to confirm the appointment?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "cancelAppointment": {
+        "title": "Cancel appointment",
+        "text": "Are you sure you want to cancel the appointment?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "deleteBlockTime": {
+        "title": "Delete block time",
+        "text": "Are you sure you want to delete block time?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateBlockTime": {
+        "title": "Update block time",
+        "text": "Are you sure you want to update the block?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateAppointmentTime": {
+        "title": "Update appointment time",
+        "text": "Are you sure you want to update the appointment?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateAppointmentLength": {
+        "title": "Update appointment length",
+        "text": "Are you sure you want to update the appointment?",
+        "lengthHtml": "Length: {minutes} minutes",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateBlockTimeLength": {
+        "title": "Update block time length",
+        "text": "Are you sure you want to update the block?",
+        "lengthHtml": "Length: {minutes} minutes",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "expertTimeHtml": "<p><strong>Expert: </strong>{expert}</p><p><strong>Time: </strong>{time}</p>"
+    },
+    "toasts": {
+      "timeBlocked": "Time blocked successfully",
+      "appointmentConfirmed": "Appointment confirmed",
+      "appointmentCancelled": "Appointment cancelled",
+      "deleted": "Deleted!",
+      "appointmentTimeUpdated": "Appointment time updated",
+      "blockTimeUpdated": "Block time updated.",
+      "appointmentUpdated": "Appointment updated",
+      "blockUpdated": "Block updated",
+      "appointmentCreated": "Appointment created"
+    },
+    "print": {
+      "title": "Print",
+      "heading": "Appointment details",
+      "labels": {
+        "expert": "Expert",
+        "procedure": "Procedure",
+        "starts": "Starts",
+        "duration": "Duration",
+        "minute": "minute",
+        "customer": "Customer",
+        "phone": "Phone",
+        "email": "Email"
+      }
+    }
   },
   "colorComponent": {
 
