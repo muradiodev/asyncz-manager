@@ -784,7 +784,45 @@
     }
   },
   "passwordEnforced": {
+    "title": "Password update",
+    "subtitle": "You are required to change your password. Please enter a new password below.",
 
+    "labels": {
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password"
+    },
+
+    "placeholders": {
+      "newPassword": "Enter a strong password",
+      "confirmPassword": "Re-enter your password"
+    },
+
+    "actions": {
+      "update": "Update",
+      "updating": "Updating...",
+      "logout": "Logout"
+    },
+
+    "validation": {
+      "mismatch": "Please ensure both passwords match."
+    },
+
+    "toasts": {
+      "fillAllFields": "Please fill in all fields.",
+      "mismatch": "Passwords do not match.",
+      "genericError": "An error occurred"
+    },
+
+    "dialog": {
+      "success": {
+        "title": "Success",
+        "text": "Your password has been updated successfully."
+      },
+      "logout": {
+        "title": "Logout",
+        "text": "Are you sure you want to logout?"
+      }
+    }
   },
   "procedures": {
 

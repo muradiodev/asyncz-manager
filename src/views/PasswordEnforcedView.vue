@@ -1,35 +1,27 @@
 <template>
-
-
   <CContainer class="px-4 pb-4" md>
     <div v-if="!user">
       <!-- loading-->
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">{{ $t('general.loading') }}</span>
         </div>
       </div>
     </div>
 
     <div class="d-flex justify-content-center align-items-center" style="height: 90vh" v-else>
-
-
-      <!-- Tab content -->
-
       <div class="card border-0 shadow-sm" style="max-width: 500px;">
         <div class="card-body p-4">
+          <img src="@/assets/images/logo.png" style="height: 50px;" class="mb-3" alt="Logo" />
 
-          <img src="@/assets/images/logo.png" style="height: 50px;" class="mb-3">
-
-          <h5 class="mb-3">Password update</h5>
+          <h5 class="mb-3">{{ $t('passwordEnforced.title') }}</h5>
           <p class="text-muted mb-4">
-            You are required to change your password. Please enter a new password below.
+            {{ $t('passwordEnforced.subtitle') }}
           </p>
 
           <form @submit.prevent="updatePassword">
-
             <div class="mb-3">
-              <label for="password" class="form-label">New password</label>
+              <label for="password" class="form-label">{{ $t('passwordEnforced.labels.newPassword') }}</label>
               <input
                 type="password"
                 class="form-control"
@@ -38,10 +30,12 @@
                 v-model="passwordNew"
                 required
                 :disabled="isPasswordLoading"
+                :placeholder="$t('passwordEnforced.placeholders.newPassword')"
               />
             </div>
+
             <div class="mb-3">
-              <label for="password-repeat" class="form-label">Confirm password</label>
+              <label for="password-repeat" class="form-label">{{ $t('passwordEnforced.labels.confirmPassword') }}</label>
               <input
                 type="password"
                 class="form-control"
@@ -50,20 +44,21 @@
                 v-model="passwordConfirm"
                 required
                 :disabled="isPasswordLoading"
+                :placeholder="$t('passwordEnforced.placeholders.confirmPassword')"
               />
               <div class="form-text text-danger" v-if="passwordConfirm && passwordConfirm !== passwordNew">
-                Please ensure both passwords match.
+                {{ $t('passwordEnforced.validation.mismatch') }}
               </div>
             </div>
+
             <div class="mb-3 d-flex justify-content-between align-items-center">
               <button type="submit" class="btn btn-primary-custom" :disabled="isPasswordLoading">
-                <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2" role="status"
-                      aria-hidden="true"></span>
-                {{ isPasswordLoading ? 'Updating...' : 'Update' }}
+                <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                {{ isPasswordLoading ? $t('passwordEnforced.actions.updating') : $t('passwordEnforced.actions.update') }}
               </button>
 
               <button type="button" class="btn btn-secondary-custom ms-3" :disabled="isPasswordLoading" @click="logout">
-                Logout
+                {{ $t('passwordEnforced.actions.logout') }}
               </button>
             </div>
           </form>
@@ -100,13 +95,13 @@ export default {
     updatePassword() {
       this.isPasswordLoading = true
 
-      if(!this.passwordNew || !this.passwordConfirm) {
-        toast.error('Please fill in all fields.');
+      if (!this.passwordNew || !this.passwordConfirm) {
+        toast.error(this.$t('passwordEnforced.toasts.fillAllFields'))
         this.isPasswordLoading = false
         return
       }
       if (this.passwordNew !== this.passwordConfirm) {
-        toast.error('Passwords do not match.');
+        toast.error(this.$t('passwordEnforced.toasts.mismatch'))
         this.isPasswordLoading = false
         return
       }
@@ -115,8 +110,8 @@ export default {
         .then(response => {
           if (response.code === 200) {
             customAlert(
-              'Success',
-              'Your password has been updated successfully.',
+              this.$t('passwordEnforced.dialog.success.title'),
+              this.$t('passwordEnforced.dialog.success.text'),
               'success',
               () => {
                 let next = this.$route['query']['next']
@@ -128,36 +123,29 @@ export default {
               }
             )
           } else {
-            toast.error(response.message);
+            toast.error(response.message)
           }
         })
         .catch(error => {
-          toast.error(error.message || 'An error occurred');
+          toast.error(error.message || this.$t('passwordEnforced.toasts.genericError'))
         })
         .finally(() => {
           this.isPasswordLoading = false
         })
     },
 
-
     logout() {
-
-
       customAsk(
-        'Logout',
-        'Are you sure you want to logout?',
+        this.$t('passwordEnforced.dialog.logout.title'),
+        this.$t('passwordEnforced.dialog.logout.text'),
         'warning',
         () => {
           localStorage.removeItem('token')
           window.location.reload()
         },
-        () => {
-
-        }
+        () => {}
       )
     }
-  },
-  mounted() {
   }
 }
 </script>
