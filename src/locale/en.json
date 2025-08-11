@@ -11,7 +11,63 @@
   },
   "navigation": {
     "dashboard": "Dashboard",
-    "account": "Account"
+    "account": "Account",
+    "security": "Security"
+  },
+
+  "language": {
+    "current": "English",
+    "list": {
+        "en": "English"
+    }
+  },
+
+  "account": {
+    "accountSettings": "Account Settings",
+    "accountInformation": "Account Information",
+    "updateYourPersonalInformation": "Update Your Personal Information"
+  },
+  "aiScheduler": {
+
+  },
+  "blacklist": {
+
+  },
+  "branches": {
+
+  },
+  "businessSettings": {
+
+  },
+  "calendar": {
+
+  },
+  "colorComponent": {
+
+  },
+  "customers": {
+
+  },
+  "dashboard": {
+
+  },
+  "expertProcedures": {
+
+  },
+  "expertSchedules": {
+
+  },
+  "experts": {
+
+  },
+  "expert": {
+
+  },
+  "feedbacks": {
+
+  },
+  "home": {
+
   },
   "login": {
     "welcome": "Welcome!",
@@ -29,10 +85,35 @@
     "passwordUpdated": "Your password updated successfully",
     "login": "Login"
   },
-  "language": {
-    "current": "English",
-    "list": {
-        "en": "English"
-    }
+  "passwordEnforced": {
+
+  },
+  "procedures": {
+
+  },
+  "procedure": {
+
+  },
+  "register": {
+
+  },
+  "splash": {
+
+  },
+  "statusBadge": {
+
+  },
+  "subscription": {
+
+  },
+  "userPermission": {
+
+  },
+  "users": {
+
+  },
+  "user": {
+
   }
+
 }

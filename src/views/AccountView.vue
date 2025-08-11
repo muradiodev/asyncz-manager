@@ -4,13 +4,13 @@
       <CContainer class="px-4" lg>
         <div class="mb-4">
           <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Account', path: '/dashboard/account', active: true }
+            { name: this.$t('navigation.dashboard'), path: '/dashboard', active: false },
+            { name: this.$t('navigation.account'), path: '/dashboard/account', active: true }
           ]" />
         </div>
 
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0">Account Settings</span>
+          <span class="h2 mb-0">{{ $t('account.accountSettings') }}</span>
         </div>
       </CContainer>
     </CCardBody>
@@ -21,7 +21,7 @@
       <!-- loading-->
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">{{ $t('general.loading') }}</span>
         </div>
       </div>
     </div>
@@ -30,10 +30,10 @@
       <!-- Tabs navigation -->
       <ul class="nav nav-tabs mb-4">
         <li class="nav-item">
-          <a class="nav-link active" data-bs-toggle="tab" href="#account">Account</a>
+          <a class="nav-link active" data-bs-toggle="tab" href="#account">{{ $t('navigation.account') }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" href="#security">Security</a>
+          <a class="nav-link" data-bs-toggle="tab" href="#security">{{ $t('navigation.security') }}</a>
         </li>
       </ul>
 
@@ -43,8 +43,8 @@
         <div class="tab-pane fade show active" id="account">
           <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-              <h5 class="mb-3">Account Information</h5>
-              <p class="text-muted mb-4">Update your personal information</p>
+              <h5 class="mb-3">{{ $t('account.accountInformation') }}</h5>
+              <p class="text-muted mb-4">{{ $t('account.updateYourPersonalInformation') }}</p>
 
               <form @submit.prevent="user.expert ? updateAccount() : updateAccountManager()">
                 <div class="row">
