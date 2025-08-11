@@ -644,7 +644,47 @@
     }
   },
   "experts": {
-
+    "title": "Experts",
+    "add": "Add Expert",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "branch": "Branch",
+        "name": "Name",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+    "modalCreate": {
+      "title": "New Expert",
+      "labels": {
+        "branch": "Branch",
+        "fullName": "Full name",
+        "email": "E-mail",
+        "password": "Password"
+      },
+      "actions": {
+        "create": "Create"
+      }
+    },
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete expert \"{name}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+    "toasts": {
+      "created": "New expert added successfully",
+      "updated": "Expert updated.",
+      "deleted": "Expert deleted."
+    },
+    "errors": {
+      "loadFailed": "Failed to load experts list. Please try again."
+    }
   },
   "expert": {
 
