@@ -825,7 +825,62 @@
     }
   },
   "procedures": {
+    "title": "Services",
+    "add": "Add service",
+    "lengthUnit": "minute(s)",
 
+    "modalCreate": {
+      "title": "New service",
+      "labels": {
+        "name": "Name",
+        "length": "Length",
+        "color": "Color"
+      },
+      "placeholders": {
+        "name": "Procedure name",
+        "length": "Length"
+      },
+      "actions": {
+        "create": "Create Procedure",
+        "closePalette": "Close"
+      }
+    },
+
+    "modalEdit": {
+      "actions": {
+        "save": "Save Changes"
+      }
+    },
+
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "color": "Color",
+        "status": "Status",
+        "length": "Length",
+        "publicLink": "Public Link",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete procedure \"{name}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+
+    "toasts": {
+      "updated": "Procedure updated!",
+      "deleted": "Procedure deleted.",
+      "linkCopied": "Link copied to clipboard.",
+      "linkCopyFailed": "Failed to copy the link."
+    }
   },
   "procedure": {
 

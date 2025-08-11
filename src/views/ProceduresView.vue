@@ -5,15 +5,15 @@
         <div class="mb-4">
           <AppBreadcrumb
             :breadcrumbs="[
-              { name: 'Dashboard', path: '/dashboard', active: false },
-              { name: 'Services', path: '/dashboard/procedures', active: true }
+              { name: $t('general.dashboard'), path: '/dashboard', active: false },
+              { name: $t('procedures.title'), path: '/dashboard/procedures', active: true }
             ]"
           />
         </div>
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0"> Services</span>
+          <span class="h2 mb-0">{{ $t('procedures.title') }}</span>
           <button class="btn-outline-success-custom w-25" @click="openCreateModal">
-            <i class="fas fa-plus me-1"></i> Add service
+            <i class="fas fa-plus me-1"></i> {{ $t('procedures.add') }}
           </button>
         </div>
       </CContainer>
@@ -33,7 +33,7 @@
 
   <!-- CREATE / EDIT MODAL -->
   <ModalComponent
-    title="New service"
+    :title="$t('procedures.modalCreate.title')"
     size="md"
     v-if="addNewItem"
     @modalClose="closeModal"
@@ -41,19 +41,19 @@
     <form @submit.prevent="isEditing ? submitEdit() : createNewItem()">
       <div class="row gy-3">
         <div class="col-12">
-          <label for="procedureName" class="form-label fw-bold">Name</label>
+          <label for="procedureName" class="form-label fw-bold">{{ $t('procedures.modalCreate.labels.name') }}</label>
           <input
             type="text"
             class="form-control"
             id="procedureName"
             v-model="newItemDetails.name"
             required
-            placeholder="Procedure name"
+            :placeholder="$t('procedures.modalCreate.placeholders.name')"
             autocomplete="off"
           />
         </div>
         <div class="col-12 col-md-6">
-          <label for="procedureLength" class="form-label fw-bold">Length</label>
+          <label for="procedureLength" class="form-label fw-bold">{{ $t('procedures.modalCreate.labels.length') }}</label>
           <div class="input-group">
             <input
               type="number"
@@ -62,16 +62,15 @@
               v-model.number="newItemDetails.length"
               required
               min="1"
-              placeholder="Length"
+              :placeholder="$t('procedures.modalCreate.placeholders.length')"
               autocomplete="off"
             />
-            <span class="input-group-text">minute(s)</span>
+            <span class="input-group-text">{{ $t('procedures.lengthUnit') }}</span>
           </div>
         </div>
         <div class="col-12 col-md-6">
-          <label for="procedureColor" class="form-label fw-bold">Color</label>
+          <label for="procedureColor" class="form-label fw-bold">{{ $t('procedures.modalCreate.labels.color') }}</label>
           <div class="color-selector-container">
-            <!-- Selected color display that toggles palette when clicked -->
             <div
               class="selected-color-display"
               @click="toggleColorPalette"
@@ -81,8 +80,6 @@
                 <font-awesome-icon :icon="faPencil()" />
               </span>
             </div>
-
-            <!-- Color palette (only shown when expanded) -->
             <div v-if="showColorPalette" class="color-palette-container">
               <div class="color-palette">
                 <div
@@ -94,7 +91,6 @@
                   @click="selectColor(color)"
                 ></div>
               </div>
-
               <div class="mt-2 d-flex justify-content-between">
                 <div>&nbsp;&nbsp;&nbsp;</div>
                 <button
@@ -102,7 +98,7 @@
                   class="btn btn-sm btn-outline-secondary"
                   @click="showColorPalette = false"
                 >
-                  Close
+                  {{ $t('procedures.modalCreate.actions.closePalette') }}
                 </button>
               </div>
             </div>
@@ -111,7 +107,7 @@
         <div class="col-12">
           <button type="submit" class="btn-success-custom w-50 fw-bold py-2">
             <i :class="isEditing ? 'fas fa-pen me-2' : 'fas fa-plus me-2'"></i>
-            {{ isEditing ? 'Save Changes' : 'Create Procedure' }}
+            {{ isEditing ? $t('procedures.modalEdit.actions.save') : $t('procedures.modalCreate.actions.create') }}
           </button>
         </div>
       </div>
