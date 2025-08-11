@@ -25,7 +25,40 @@
   "account": {
     "accountSettings": "Account Settings",
     "accountInformation": "Account Information",
-    "updateYourPersonalInformation": "Update Your Personal Information"
+    "updateYourPersonalInformation": "Update your personal information",
+
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "description": "Description"
+    },
+    "placeholders": {
+      "phone": "+1 (555) 000-0000",
+      "about": "Tell us about yourself"
+    },
+    "hints": {
+      "emailLocked": "Email cannot be changed. Contact support if you need to update your email."
+    },
+    "actions": {
+      "saveChanges": "Save Changes",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "saved": "Changes saved successfully"
+    },
+    "security": {
+      "passwordSettings": "Password Settings",
+      "updateYourPassword": "Update your password",
+      "labels": {
+        "currentPassword": "Current password",
+        "newPassword": "New password"
+      },
+      "messages": {
+        "passwordUpdated": "Password updated"
+      }
+    }
   },
   "aiScheduler": {
 
