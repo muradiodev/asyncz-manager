@@ -955,7 +955,96 @@
     "inactive": "Inactive"
   },
   "subscription": {
+    "title": "Subscription",
 
+    "common": {
+      "unlimited": "unlimited"
+    },
+
+    "nonManager": {
+      "active": {
+        "title": "Active Subscription",
+        "text": "You have an active {name} subscription valid until {until}."
+      },
+      "notice": {
+        "title": "Subscription Notice",
+        "text": "Your company is subscribed to a package. Please contact your administrator for more information."
+      }
+    },
+
+    "manager": {
+      "current": {
+        "trialBadge": "Trial",
+        "validUntil": "Valid until: {date}",
+        "features": {
+          "branches": "Branches:",
+          "experts": "Experts:",
+          "procedures": "Procedures:",
+          "appointments": "Appointments:",
+          "blacklist": "Blacklist:"
+        },
+        "actions": {
+          "cancel": "Cancel"
+        }
+      },
+
+      "empty": {
+        "title": "No Active Subscription",
+        "text": "You don't have an active subscription. Please choose a package from the list below."
+      },
+
+      "planPicker": {
+        "title": "Choose your plan",
+        "period": {
+          "monthly": "Monthly",
+          "yearly": "Yearly",
+          "perMonth": "/month",
+          "perYear": "/year"
+        },
+        "price": {
+          "free": "FREE"
+        },
+        "features": {
+          "branches": "Branches:",
+          "experts": "Experts:",
+          "procedures": "Procedures:",
+          "appointments": "Appointments:",
+          "blacklist": "Blacklist:"
+        },
+        "actions": {
+          "selectPlan": "Select Plan"
+        },
+        "trialAvailable": "{days} days trial available"
+      },
+
+      "noPackages": {
+        "title": "No Packages Available",
+        "text": "There are no packages available at the moment. Please try again later or contact support."
+      }
+    },
+
+    "dialogs": {
+      "subscribeConfirm": {
+        "title": "Subscription",
+        "text": "Are you sure you want to subscribe to this package?"
+      },
+      "subscribeSuccess": {
+        "title": "Success",
+        "text": "You have successfully subscribed to the package."
+      },
+      "paymentRequired": {
+        "title": "Payment Required",
+        "text": "You need to complete the payment to activate your subscription."
+      },
+      "cancelConfirm": {
+        "title": "Cancel Subscription",
+        "text": "Are you sure you want to cancel your subscription? This action cannot be undone."
+      },
+      "cancelSuccess": {
+        "title": "Success",
+        "text": "Your subscription has been cancelled."
+      }
+    }
   },
   "userPermission": {
 
