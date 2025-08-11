@@ -1061,7 +1061,69 @@
     }
   },
   "users": {
-
+    "title": "Users",
+    "breadcrumb": {
+      "dashboard": "Dashboard",
+      "users": "Users"
+    },
+    "actions": {
+      "add": "Add User",
+      "create": "Create User",
+      "edit": "Edit User",
+      "delete": "Delete User",
+      "permissions": "User permissions"
+    },
+    "form": {
+      "role": {
+        "label": "Role",
+        "placeholder": "Select role...",
+        "manager": "Company manager",
+        "branch": "Branch manager",
+        "expert": "Expert"
+      },
+      "branch": {
+        "label": "Branch",
+        "placeholder": "Select branch..."
+      },
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Enter full name"
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "Enter e-mail"
+      }
+    },
+    "table": {
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "branch": "Branch",
+      "role": "Role",
+      "status": "Status",
+      "publicLink": "Public Link",
+      "actions": "Actions",
+      "roles": {
+        "expert": "Expert",
+        "branchManager": "Branch manager",
+        "companyManager": "Company manager"
+      },
+      "statusValues": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+    "confirm": {
+      "deleteTitle": "Are you sure?",
+      "deleteText": "Delete user \"{user}\"?",
+      "yes": "Yes, delete",
+      "cancel": "Cancel"
+    },
+    "toast": {
+      "linkCopied": "Link copied to clipboard",
+      "linkCopyFailed": "Failed to copy the link",
+      "deleteApiNotImplemented": "Delete user API not implemented"
+    }
   },
   "user": {
 
