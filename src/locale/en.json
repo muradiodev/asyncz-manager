@@ -12,9 +12,9 @@
   "navigation": {
     "dashboard": "Dashboard",
     "account": "Account",
-    "security": "Security"
+    "security": "Security",
+    "blacklist": "Blacklist"
   },
-
   "language": {
     "current": "English",
     "list": {
@@ -113,7 +113,34 @@
     }
   },
   "blacklist": {
-
+    "title": "Blacklist",
+    "add": "Add Blacklist",
+    "notSubscribed": "Your company is not subscribed to a package that includes the blacklist feature.",
+    "table": {
+      "columns": {
+        "keyword": "Keyword",
+        "action": "Action"
+      }
+    },
+    "modalCreate": {
+      "title": "New Blacklist",
+      "labels": {
+        "keyword": "Keyword"
+      },
+      "actions": {
+        "create": "Create"
+      }
+    },
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete blacklist \"{value}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+    "toasts": {
+      "created": "New blacklist added successfully",
+      "deleted": "Blacklist deleted."
+    }
   },
   "branches": {
 
