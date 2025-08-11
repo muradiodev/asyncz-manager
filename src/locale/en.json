@@ -61,7 +61,56 @@
     }
   },
   "aiScheduler": {
-
+    "placeholder": "💡 Schedule for Jane Doe, abc@example.com, +12345, 31 December 14:30, notes: Initial consultation..",
+    "hint": "🤖 I'm AI - Use me!",
+    "tooltips": {
+      "voiceInput": "Voice input",
+      "stopRecording": "Stop recording",
+      "submit": "Submit"
+    },
+    "status": {
+      "recording": "Recording...",
+      "processing": "Processing..."
+    },
+    "errors": {
+      "microphoneDenied": "Microphone access denied",
+      "processingError": "Processing error",
+      "saveError": "Save error",
+      "httpError": "HTTP error! status: {status}",
+      "processingFailed": "Processing failed",
+      "saveFailed": "Save failed"
+    },
+    "modals": {
+      "confirmAppointment": {
+        "title": "Confirm Appointment",
+        "labels": {
+          "firstName": "First Name *",
+          "lastName": "Last Name *",
+          "email": "Email",
+          "phone": "Phone",
+          "dateTime": "Appointment Date & Time",
+          "notes": "Notes",
+          "expertNotes": "Expert Notes"
+        },
+        "validation": {
+          "firstNameRequired": "First name is required",
+          "lastNameRequired": "Last name is required",
+          "emailInvalid": "Please enter a valid email address"
+        },
+        "originalInput": {
+          "title": "Original Input"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "save": "Save Appointment",
+          "saving": "Saving..."
+        }
+      },
+      "success": {
+        "title": "Success!",
+        "ok": "OK"
+      }
+    }
   },
   "blacklist": {
 
