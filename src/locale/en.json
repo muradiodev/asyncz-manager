@@ -1126,7 +1126,23 @@
     }
   },
   "user": {
-
+    "labels": {
+      "email": "Email:",
+      "branch": "Branch:",
+      "status": "Status:",
+      "name": "Name"
+    },
+    "actions": {
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "alerts": {
+      "currentlyLoggedIn": "This user is currently logged in. Please be careful when editing."
+    },
+    "form": {
+      "allBranches": "-all branches-"
+    }
   },
   "colorComponent": {
 
