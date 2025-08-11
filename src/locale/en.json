@@ -907,7 +907,45 @@
     }
   },
   "register": {
-
+    "steps": {
+      "general": "General Info",
+      "verify": "Verify Email",
+      "password": "Set Password"
+    },
+    "titles": {
+      "createAccount": "Create Your Account",
+      "verifyEmail": "Verify Your Email",
+      "setPassword": "Set Your Password"
+    },
+    "fields": {
+      "companyName": "Company Name",
+      "companyEmail": "Company Email",
+      "adminName": "Your Full Name",
+      "adminEmail": "Your Email",
+      "emailAddress": "Email Address",
+      "verificationCode": "Verification Code",
+      "newPassword": "New Password"
+    },
+    "placeholders": {
+      "enterCode": "Enter code",
+      "enterPassword": "Enter a strong password"
+    },
+    "helpers": {
+      "companyEmailVisible": "This email will be visible to your customers.",
+      "adminEmailNotVisible": "This email will be used to login to your account and won't be visible to customers."
+    },
+    "actions": {
+      "continue": "Continue",
+      "verifyContinue": "Verify & Continue",
+      "completeRegistration": "Complete Registration",
+      "backToLogin": "Back to Login"
+    },
+    "messages": {
+      "verificationCodeSent": "You will receive an email with a verification code. Please check your spam box too.",
+      "setPasswordPrompt": "Please set password for future logins.",
+      "loginReady": "You can now login to your account",
+      "passwordUpdated": "Password updated"
+    }
   },
   "splash": {
 

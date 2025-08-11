@@ -32,8 +32,9 @@
             </ul>
           </div>
         </div>
+
         <div class="back-to-login">
-          <router-link to="/login" class="back-link">← Back to Login</router-link>
+          <router-link to="/login" class="back-link">← {{ $t('register.actions.backToLogin') }}</router-link>
         </div>
 
         <!-- Progress indicator -->
@@ -49,20 +50,17 @@
             }"
           >
             <div class="step-number">{{ getStepNumber(index) }}</div>
-            <div class="step-label">{{ step }}</div>
+            <div class="step-label">{{ $t(`register.steps.${index}`) }}</div>
           </div>
         </div>
 
         <!-- Step 1: General Info -->
         <div v-if="status === 'general'" class="form-step">
-          <h2>Create Your Account</h2>
-
-
-
+          <h2>{{ $t('register.titles.createAccount') }}</h2>
 
           <form @submit.prevent="loginOwner">
             <div class="form-group">
-              <label for="companyNameInput">Company Name</label>
+              <label for="companyNameInput">{{ $t('register.fields.companyName') }}</label>
               <input
                 v-model.trim="companyName"
                 type="text"
@@ -73,18 +71,18 @@
             </div>
 
             <div class="form-group">
-              <label for="companyEmailInput">Company Email</label>
+              <label for="companyEmailInput">{{ $t('register.fields.companyEmail') }}</label>
               <input
                 v-model.trim="companyEmail"
                 type="email"
                 id="companyEmailInput"
                 autocomplete="company-email"
               />
-              <span class="helper-text">This email will be visible to your customers.</span>
+              <span class="helper-text">{{ $t('register.helpers.companyEmailVisible') }}</span>
             </div>
 
             <div class="form-group">
-              <label for="adminNameInput">Your Full Name</label>
+              <label for="adminNameInput">{{ $t('register.fields.adminName') }}</label>
               <input
                 v-model.trim="adminName"
                 type="text"
@@ -95,30 +93,29 @@
             </div>
 
             <div class="form-group">
-              <label for="adminEmailInput">Your Email</label>
+              <label for="adminEmailInput">{{ $t('register.fields.adminEmail') }}</label>
               <input
                 v-model.trim="adminEmail"
                 type="email"
                 id="adminEmailInput"
                 autocomplete="email"
               />
-              <span class="helper-text"
-                >This email will be used to login to your account and won't be visible to
-                customers.</span
-              >
+              <span class="helper-text">
+                {{ $t('register.helpers.adminEmailNotVisible') }}
+              </span>
             </div>
 
-            <button type="submit" class="btn-primary-custom">Continue</button>
+            <button type="submit" class="btn-primary-custom">{{ $t('register.actions.continue') }}</button>
           </form>
         </div>
 
         <!-- Step 2: Verify Email -->
         <div v-if="status === 'verify'" class="form-step">
-          <h2>Verify Your Email</h2>
+          <h2>{{ $t('register.titles.verifyEmail') }}</h2>
 
           <form @submit.prevent="registerVerify">
             <div class="form-group">
-              <label for="verifyEmail">Email Address</label>
+              <label for="verifyEmail">{{ $t('register.fields.emailAddress') }}</label>
               <input
                 v-model="adminEmail"
                 type="email"
@@ -129,28 +126,28 @@
             </div>
 
             <div class="form-group">
-              <label for="verifyOtp">Verification Code</label>
+              <label for="verifyOtp">{{ $t('register.fields.verificationCode') }}</label>
               <input
                 v-model.trim="otp"
                 type="text"
                 id="verifyOtp"
                 required
                 class="verification-input"
-                placeholder="Enter code"
+                :placeholder="$t('register.placeholders.enterCode')"
               />
             </div>
 
-            <button type="submit" class="btn-primary-custom">Verify & Continue</button>
+            <button type="submit" class="btn-primary-custom">{{ $t('register.actions.verifyContinue') }}</button>
           </form>
         </div>
 
         <!-- Step 3: Set Password -->
         <div v-if="status === 'password'" class="form-step">
-          <h2>Set Your Password</h2>
+          <h2>{{ $t('register.titles.setPassword') }}</h2>
 
           <form @submit.prevent="updatePassword">
             <div class="form-group">
-              <label for="passwordEmail">Email Address</label>
+              <label for="passwordEmail">{{ $t('register.fields.emailAddress') }}</label>
               <input
                 v-model="adminEmail"
                 type="email"
@@ -161,17 +158,17 @@
             </div>
 
             <div class="form-group">
-              <label for="newPassword">New Password</label>
+              <label for="newPassword">{{ $t('register.fields.newPassword') }}</label>
               <input
                 v-model.trim="newPassword"
                 type="password"
                 id="newPassword"
                 required
-                placeholder="Enter a strong password"
+                :placeholder="$t('register.placeholders.enterPassword')"
               />
             </div>
 
-            <button type="submit" class="btn-primary-custom">Complete Registration</button>
+            <button type="submit" class="btn-primary-custom">{{ $t('register.actions.completeRegistration') }}</button>
           </form>
         </div>
       </div>
