@@ -14,7 +14,8 @@
     "account": "Account",
     "security": "Security",
     "blacklist": "Blacklist",
-    "branches": "Branches"
+    "branches": "Branches",
+    "businessSettings": "Business Settings"
   },
   "language": {
     "current": "English",
@@ -204,7 +205,40 @@
     }
   },
   "businessSettings": {
-
+    "title": "Business Settings",
+    "labels": {
+      "businessName": "Business Name",
+      "businessDescription": "Business Description",
+      "businessAddress": "Business Address",
+      "businessPhone": "Business Phone",
+      "businessEmail": "Business Email",
+      "businessTimezone": "Business Timezone",
+      "slotSizeInMinutes": "Slot Size in Minutes",
+      "requireEmailConfirmation": "Require Email Confirmation",
+      "requireEmailConfirmationVisuallyHidden": "Require Email Confirmation",
+      "searchTimezoneOrCity": "Search timezone or city..."
+    },
+    "help": {
+      "requireEmailConfirmation": "When enabled, clients will need to confirm their email address when booking appointments."
+    },
+    "options": {
+      "slotSizes": {
+        "10": "10",
+        "15": "15",
+        "30": "30",
+        "60": "60"
+      }
+    },
+    "actions": {
+      "saveChanges": "Save Changes",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "loadFailed": "Failed to load business data",
+      "updateFailed": "Failed to update business settings",
+      "updatedSuccessfully": "Business settings updated successfully",
+      "unexpectedError": "An unexpected error occurred"
+    }
   },
   "calendar": {
 
