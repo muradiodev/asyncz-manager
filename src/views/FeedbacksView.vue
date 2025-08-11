@@ -4,10 +4,10 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link :to="{name: 'home'}">Home</router-link>
+          <router-link :to="{ name: 'home' }">{{ $t('navigation.home') }}</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-          Create Feedback
+          {{ $t('feedbacks.breadcrumb.create') }}
         </li>
       </ol>
     </nav>
@@ -16,36 +16,36 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <h4 class="mb-0">Create New Feedback</h4>
+            <h4 class="mb-0">{{ $t('feedbacks.title') }}</h4>
           </div>
           <div class="card-body">
             <form @submit.prevent="createFeedback">
               <div class="row">
                 <div class="col-md-12 mb-3">
-                  <label for="title" class="form-label">Title</label>
+                  <label for="title" class="form-label">{{ $t('feedbacks.form.labels.title') }}</label>
                   <input
                     type="text"
                     class="form-control"
                     id="title"
                     v-model="feedbackData.title"
                     required
-                    placeholder="Enter feedback title..."
+                    :placeholder="$t('feedbacks.form.placeholders.title')"
                   />
                 </div>
 
                 <div class="col-md-12 mb-3">
-                  <label for="description" class="form-label">Description</label>
+                  <label for="description" class="form-label">{{ $t('feedbacks.form.labels.description') }}</label>
                   <textarea
                     class="form-control"
                     id="description"
                     v-model="feedbackData.description"
                     rows="4"
-                    placeholder="Enter your feedback description..."
+                    :placeholder="$t('feedbacks.form.placeholders.description')"
                   ></textarea>
                 </div>
 
                 <div class="col-md-12 mb-3">
-                  <label for="images" class="form-label">Images (PNG, JPG, JPEG)</label>
+                  <label for="images" class="form-label">{{ $t('feedbacks.form.labels.images') }}</label>
                   <input
                     type="file"
                     class="form-control"
@@ -54,17 +54,17 @@
                     multiple
                     accept=".png,.jpg,.jpeg,image/png,image/jpeg"
                   />
-                  <small class="form-text text-muted">You can select multiple images (PNG, JPG, JPEG only, max 5MB each)</small>
+                  <small class="form-text text-muted">{{ $t('feedbacks.form.help.images') }}</small>
 
                   <!-- Preview selected images -->
                   <div v-if="selectedImages.length > 0" class="mt-3">
-                    <label class="form-label">Selected Images:</label>
+                    <label class="form-label">{{ $t('feedbacks.form.labels.selectedImages') }}</label>
                     <div class="row">
                       <div v-for="(image, index) in selectedImages" :key="index" class="col-md-3 mb-2">
                         <div class="position-relative">
                           <img
                             :src="image.preview"
-                            :alt="`Selected image ${index + 1}`"
+                            :alt="$t('feedbacks.preview.alt', { index: index + 1 })"
                             class="img-fluid rounded shadow-sm"
                             style="max-height: 150px; object-fit: cover; width: 100%;"
                           >
@@ -73,6 +73,7 @@
                             class="btn btn-danger btn-sm position-absolute"
                             @click="removeImage(index)"
                             style="top: 5px; right: 5px;"
+                            aria-label="Remove image"
                           >
                             ×
                           </button>
@@ -91,9 +92,9 @@
                   >
                     <span v-if="isSubmitting">
                       <span class="spinner-border spinner-border-sm me-2" role="status"></span>
-                      Creating...
+                      {{ $t('feedbacks.actions.creating') }}
                     </span>
-                    <span v-else>Create Feedback</span>
+                    <span v-else>{{ $t('feedbacks.actions.create') }}</span>
                   </button>
 
                   <button
@@ -102,7 +103,7 @@
                     @click="resetForm"
                     :disabled="isSubmitting"
                   >
-                    Reset
+                    {{ $t('feedbacks.actions.reset') }}
                   </button>
                 </div>
               </div>
@@ -111,33 +112,33 @@
         </div>
       </div>
 
-      <!-- Optional: Show recent feedbacks or instructions -->
+      <!-- Side panel -->
       <div class="col-md-4">
         <div class="card">
           <div class="card-header">
-            <h5 class="mb-0">Guidelines</h5>
+            <h5 class="mb-0">{{ $t('feedbacks.guidelines.title') }}</h5>
           </div>
           <div class="card-body">
             <ul class="list-unstyled">
               <li class="mb-2">
                 <i class="fas fa-check text-success me-2"></i>
-                Provide a clear and descriptive title
+                {{ $t('feedbacks.guidelines.items.clearTitle') }}
               </li>
               <li class="mb-2">
                 <i class="fas fa-check text-success me-2"></i>
-                Include detailed description of your feedback
+                {{ $t('feedbacks.guidelines.items.detailedDescription') }}
               </li>
               <li class="mb-2">
                 <i class="fas fa-check text-success me-2"></i>
-                Add relevant images if applicable
+                {{ $t('feedbacks.guidelines.items.addImages') }}
               </li>
               <li class="mb-2">
                 <i class="fas fa-info text-info me-2"></i>
-                Supported formats: PNG, JPG, JPEG
+                {{ $t('feedbacks.guidelines.items.supportedFormats') }}
               </li>
               <li class="mb-2">
                 <i class="fas fa-info text-info me-2"></i>
-                Maximum file size: 5MB per image
+                {{ $t('feedbacks.guidelines.items.maxSize') }}
               </li>
             </ul>
           </div>
@@ -146,7 +147,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'

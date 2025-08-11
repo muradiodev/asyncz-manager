@@ -18,7 +18,8 @@
     "businessSettings": "Business Settings",
     "calendar": "Calendar",
     "customers": "Customers",
-    "users": "Users"
+    "users": "Users",
+    "feedbacks": "Feedbacks"
   },
   "language": {
     "current": "English",
@@ -694,7 +695,58 @@
     }
   },
   "feedbacks": {
-
+    "breadcrumb": {
+      "create": "Create Feedback"
+    },
+    "title": "Create New Feedback",
+    "form": {
+      "labels": {
+        "title": "Title",
+        "description": "Description",
+        "images": "Images (PNG, JPG, JPEG)",
+        "selectedImages": "Selected Images:"
+      },
+      "placeholders": {
+        "title": "Enter feedback title...",
+        "description": "Enter your feedback description..."
+      },
+      "help": {
+        "images": "You can select multiple images (PNG, JPG, JPEG only, max 5MB each)"
+      }
+    },
+    "preview": {
+      "alt": "Selected image {index}"
+    },
+    "actions": {
+      "create": "Create Feedback",
+      "creating": "Creating...",
+      "reset": "Reset"
+    },
+    "guidelines": {
+      "title": "Guidelines",
+      "items": {
+        "clearTitle": "Provide a clear and descriptive title",
+        "detailedDescription": "Include detailed description of your feedback",
+        "addImages": "Add relevant images if applicable",
+        "supportedFormats": "Supported formats: PNG, JPG, JPEG",
+        "maxSize": "Maximum file size: 5MB per image"
+      }
+    },
+    "swal": {
+      "uploadWarning": {
+        "title": "Upload Warning",
+        "text": "{failed} image(s) failed to upload. Continue with {success} successful upload(s)?",
+        "confirm": "Continue",
+        "cancel": "Cancel"
+      }
+    },
+    "toasts": {
+      "invalidType": "Please select only PNG, JPG, or JPEG files.",
+      "fileTooLarge": "Please select files smaller than 5MB.",
+      "titleRequired": "Please enter a title for your feedback.",
+      "submitSuccess": "Your feedback has been submitted successfully.",
+      "submitFailed": "Failed to submit feedback. Please try again."
+    }
   },
   "home": {
 
