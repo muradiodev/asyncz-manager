@@ -13,7 +13,8 @@
     "dashboard": "Dashboard",
     "account": "Account",
     "security": "Security",
-    "blacklist": "Blacklist"
+    "blacklist": "Blacklist",
+    "branches": "Branches"
   },
   "language": {
     "current": "English",
@@ -143,7 +144,64 @@
     }
   },
   "branches": {
-
+    "title": "Branches",
+    "add": "Add Branch",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "status": "Status",
+        "publicLink": "Public Link",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+    "modalCreate": {
+      "title": "New Branch",
+      "labels": {
+        "branchName": "Branch name"
+      },
+      "actions": {
+        "create": "Create"
+      }
+    },
+    "modalEdit": {
+      "title": "Edit Branch",
+      "loading": "Loading...",
+      "loadingBranchData": "Loading branch data...",
+      "labels": {
+        "branchName": "Branch Name",
+        "description": "Description",
+        "status": "Status"
+      },
+      "options": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "actions": {
+        "save": "Save"
+      }
+    },
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete branch \"{name}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+    "toasts": {
+      "created": "New branch added successfully",
+      "updated": "Branch updated.",
+      "deleted": "Branch deleted.",
+      "linkCopied": "Link copied to clipboard.",
+      "linkCopyFailed": "Failed to copy the link.",
+      "loadFailed": "Failed to load branch details. Please try again."
+    },
+    "errors": {
+      "loadFailed": "Failed to load branch details: {message}"
+    }
   },
   "businessSettings": {
 
