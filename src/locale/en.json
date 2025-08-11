@@ -1047,7 +1047,18 @@
     }
   },
   "userPermission": {
-
+    "title": "Permissions for",
+    "loggedInWarning": "This user is currently logged in. Please be careful when editing.",
+    "noPermissions": "There are no permissions assigned to this user.",
+    "actions": {
+      "edit": "Edit Permissions"
+    },
+    "permissionListTitle": "Permissions",
+    "loading": "Loading user...",
+    "toast": {
+      "permissionAdded": "Permission added",
+      "permissionRemoved": "Permission removed"
+    }
   },
   "users": {
 
