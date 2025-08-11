@@ -19,7 +19,8 @@
     "calendar": "Calendar",
     "customers": "Customers",
     "users": "Users",
-    "feedbacks": "Feedbacks"
+    "feedbacks": "Feedbacks",
+    "home": "Home"
   },
   "language": {
     "current": "English",
@@ -883,7 +884,27 @@
     }
   },
   "procedure": {
-
+    "labels": {
+      "about": "About:",
+      "length": "Length:",
+      "status": "Status:",
+      "color": "Color:"
+    },
+    "form": {
+      "labels": {
+        "name": "Name",
+        "description": "Description",
+        "length": "Length",
+        "color": "Color",
+        "status": "Status"
+      }
+    },
+    "actions": {
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "closePalette": "Close"
+    }
   },
   "register": {
 
