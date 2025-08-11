@@ -1,50 +1,71 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title mb-0">Expert work schedules</h5>
+      <h5 class="card-title mb-0">{{ $t('expertSchedules.title') }}</h5>
     </div>
 
     <div class="card-body">
       <table class="table table-striped table-borderless">
         <thead>
         <tr>
-          <th>Day</th>
-          <th>Start</th>
-          <th>Break start</th>
-          <th>Break end</th>
-          <th>End</th>
+          <th>{{ $t('expertSchedules.table.headers.day') }}</th>
+          <th>{{ $t('expertSchedules.table.headers.start') }}</th>
+          <th>{{ $t('expertSchedules.table.headers.breakStart') }}</th>
+          <th>{{ $t('expertSchedules.table.headers.breakEnd') }}</th>
+          <th>{{ $t('expertSchedules.table.headers.end') }}</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="schedule in scheduleList" :key="schedule.day">
           <td>{{ schedule.day }}. {{ schedule.dayName }}</td>
           <td>
-            <input class="form-control form-control-sm" type="time" v-model="schedule.start"
-                   @change="schedule.start = $event.target.value">
+            <input
+              class="form-control form-control-sm"
+              type="time"
+              v-model="schedule.start"
+              @change="schedule.start = $event.target.value"
+            />
           </td>
           <td>
-            <input class="form-control form-control-sm" type="time" v-model="schedule.breakStart"
-                   @change="schedule.breakStart = $event.target.value">
+            <input
+              class="form-control form-control-sm"
+              type="time"
+              v-model="schedule.breakStart"
+              @change="schedule.breakStart = $event.target.value"
+            />
           </td>
           <td>
-            <input class="form-control form-control-sm" type="time" v-model="schedule.breakEnd"
-                   @change="schedule.breakEnd = $event.target.value">
+            <input
+              class="form-control form-control-sm"
+              type="time"
+              v-model="schedule.breakEnd"
+              @change="schedule.breakEnd = $event.target.value"
+            />
           </td>
           <td>
-            <input class="form-control form-control-sm" type="time" v-model="schedule.end"
-                   @change="schedule.end = $event.target.value">
+            <input
+              class="form-control form-control-sm"
+              type="time"
+              v-model="schedule.end"
+              @change="schedule.end = $event.target.value"
+            />
           </td>
         </tr>
         </tbody>
       </table>
     </div>
-    <div class="card-footer">
-      <button class="btn-success-custom" @click="saveChanges">Save</button>
-      <button class="btn-outline-danger-custom ms-3" @click="getExpertSchedules">Reset changes</button>
-    </div>
 
+    <div class="card-footer">
+      <button class="btn-success-custom" @click="saveChanges">
+        {{ $t('expertSchedules.actions.save') }}
+      </button>
+      <button class="btn-outline-danger-custom ms-3" @click="getExpertSchedules">
+        {{ $t('expertSchedules.actions.reset') }}
+      </button>
+    </div>
   </div>
 </template>
+
 <script>
 import { mapState } from 'pinia'
 import {

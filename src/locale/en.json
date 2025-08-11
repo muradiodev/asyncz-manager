@@ -616,7 +616,32 @@
     }
   },
   "expertSchedules": {
-
+    "title": "Expert work schedules",
+    "table": {
+      "headers": {
+        "day": "Day",
+        "start": "Start",
+        "breakStart": "Break start",
+        "breakEnd": "Break end",
+        "end": "End"
+      }
+    },
+    "actions": {
+      "save": "Save",
+      "reset": "Reset changes"
+    },
+    "toasts": {
+      "saved": "Changes saved successfully"
+    },
+    "weekdays": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
   },
   "experts": {
 
