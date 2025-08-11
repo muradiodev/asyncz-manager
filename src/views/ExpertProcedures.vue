@@ -1,26 +1,33 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title mb-0">Expert Procedures</h5>
+      <h5 class="card-title mb-0">{{ $t('expertProcedures.title') }}</h5>
     </div>
 
     <div class="list-group list-group-flush">
       <div class="list-group-item">
-
-        <div class="form-check form-switch my-2" v-for="procedure in procedureList" :key="procedure.id">
-          <input class="form-check-input" type="checkbox" role="switch"
-                 :id="`procedure-${procedure.id}`"
-                 :checked="procedure.expertProcedure>0"
-                 @change.prevent="updateExpertProcedure(procedure, $event.target.checked)"
-          >
+        <div
+          class="form-check form-switch my-2"
+          v-for="procedure in procedureList"
+          :key="procedure.id"
+        >
+          <input
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            :id="`procedure-${procedure.id}`"
+            :checked="procedure.expertProcedure > 0"
+            @change.prevent="updateExpertProcedure(procedure, $event.target.checked)"
+          />
           <label class="form-check-label" :for="`procedure-${procedure.id}`">
-            {{ procedure.name }} <span class="badge bg-secondary">{{ procedure.length }} min</span>
+            {{ procedure.name }}
+            <span class="badge bg-secondary">
+              {{ procedure.length }} {{ $t('expertProcedures.lengthUnit') }}
+            </span>
           </label>
         </div>
-
       </div>
     </div>
-
   </div>
 </template>
 <script>

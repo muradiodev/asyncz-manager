@@ -599,11 +599,21 @@
       "retry": "Retry"
     }
   },
-  "dashboard": {
-
-  },
   "expertProcedures": {
-
+    "title": "Expert Procedures",
+    "lengthUnit": "min",
+    "toasts": {
+      "alreadyAdded": "This procedure is already added to the expert",
+      "alreadyRemoved": "This procedure is already removed from the expert"
+    },
+    "swal": {
+      "remove": {
+        "title": "Are you sure?",
+        "text": "This procedure will be removed from the expert",
+        "confirm": "Yes",
+        "cancel": "No"
+      }
+    }
   },
   "expertSchedules": {
 
@@ -667,6 +677,9 @@
 
   },
   "colorComponent": {
+
+  },
+  "dashboard": {
 
   }
 }
