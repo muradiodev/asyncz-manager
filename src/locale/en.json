@@ -16,7 +16,8 @@
     "blacklist": "Blacklist",
     "branches": "Branches",
     "businessSettings": "Business Settings",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "customers": "Customers"
   },
   "language": {
     "current": "English",
@@ -471,11 +472,44 @@
       }
     }
   },
-  "colorComponent": {
-
-  },
   "customers": {
-
+    "title": "Customers",
+    "table": {
+      "columns": {
+        "index": "#",
+        "name": "Name",
+        "surname": "Surname",
+        "email": "Email",
+        "actions": "Actions"
+      },
+      "empty": {
+        "iconLabel": "No appointments found for this customer."
+      }
+    },
+    "modal": {
+      "title": "Customer Details",
+      "loadingTitle": "Loading...",
+      "loadingAppointments": "Loading customer appointments...",
+      "total": "Total: {count}",
+      "columns": {
+        "index": "#",
+        "service": "Service",
+        "expert": "Expert",
+        "startTime": "Start Time",
+        "length": "Length",
+        "status": "Status",
+        "notes": "Notes"
+      },
+      "lengthUnit": "min",
+      "close": "Close"
+    },
+    "status": {
+      "confirmed": "confirmed",
+      "cancelledExpert": "cancelled_expert",
+      "cancelled": "cancelled",
+      "new": "new",
+      "other": "other"
+    }
   },
   "dashboard": {
 
@@ -543,6 +577,8 @@
   },
   "user": {
 
-  }
+  },
+  "colorComponent": {
 
+  }
 }
