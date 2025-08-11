@@ -765,7 +765,23 @@
     "setMyNewPassword": "Set my new password",
     "verificationCodeSent": "Verification code sent to your email",
     "passwordUpdated": "Your password updated successfully",
-    "login": "Login"
+    "login": "Login",
+
+    "subtitles": {
+      "enterEmail": "Enter your email to receive a verification code",
+      "enterCode": "Enter the verification code and set a new password"
+    },
+    "placeholders": {
+      "verificationCode": "Enter code",
+      "newPassword": "Enter a strong password"
+    },
+    "actions": {
+      "backToLogin": "Back to Login"
+    },
+    "register": {
+      "prompt": "Don't have an account?",
+      "cta": "Register for free"
+    }
   },
   "passwordEnforced": {
 

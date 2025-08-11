@@ -62,7 +62,7 @@
         <!-- Forgot Password Form -->
         <div v-if="status === 'FORGET'" class="form-step">
           <h2>{{ $t('login.forgotPasswordTitle') }}</h2>
-          <p class="subtitle">Enter your email to receive a verification code</p>
+          <p class="subtitle">{{ $t('login.subtitles.enterEmail') }}</p>
 
           <form @submit.prevent="forgetPassword">
             <div class="form-group">
@@ -72,7 +72,7 @@
 
             <div class="form-actions">
               <button type="button" class="btn-secondary-custom" @click="status = 'LOGIN'">
-                Back to Login
+                {{ $t('login.actions.backToLogin') }}
               </button>
               <button type="submit" class="btn-primary-custom">
                 {{ $t('login.getVerificationCode') }}
@@ -84,7 +84,7 @@
         <!-- Verify Code & Set New Password -->
         <div v-if="status === 'FORGET_VERIFY'" class="form-step">
           <h2>{{ $t('login.forgotPasswordTitle') }}</h2>
-          <p class="subtitle">Enter the verification code and set a new password</p>
+          <p class="subtitle">{{ $t('login.subtitles.enterCode') }}</p>
 
           <form @submit.prevent="forgetPasswordVerify">
             <div class="form-group">
@@ -106,7 +106,7 @@
                 id="forgetVerifyOtp"
                 required
                 class="verification-input"
-                placeholder="Enter code"
+                placeholder="{{ $t('login.placeholders.verificationCode') }}"
               />
             </div>
 
@@ -117,7 +117,7 @@
                 type="password"
                 id="forgetVerifyPassword"
                 required
-                placeholder="Enter a strong password"
+                placeholder="{{ $t('login.placeholders.newPassword') }}"
               />
             </div>
 
@@ -130,9 +130,9 @@
         <!-- Register prompt -->
         <div class="register-prompt">
           <p>
-            Don't have an account?
+            {{ $t('login.register.prompt') }}
             <router-link :to="{ name: 'register', query: { back: $route.query.back } }">
-              Register for free
+              {{ $t('login.register.cta') }}
             </router-link>
           </p>
         </div>
