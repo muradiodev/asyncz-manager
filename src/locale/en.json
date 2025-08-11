@@ -511,6 +511,94 @@
       "other": "other"
     }
   },
+  "dashboardHome": {
+    "loading": {
+      "title": "Loading...",
+      "body": "Loading dashboard data..."
+    },
+    "greeting": "Welcome back, {name}!",
+    "dateFilter": {
+      "title": "Filter by Date Range:",
+      "from": "From:",
+      "to": "To:",
+      "apply": "Apply",
+      "reset": "Reset",
+      "currentFilter": "Current Filter:",
+      "allTime": "All time",
+      "allTimeFrom": "All time (from Jan 2023)",
+      "quick": {
+        "7d": "7 Days",
+        "30d": "30 Days",
+        "3m": "3 Months",
+        "6m": "6 Months",
+        "1y": "Last Year",
+        "all": "All Time"
+      }
+    },
+    "quickStats": {
+      "today": {
+        "valueLabel": "Today's Appointments"
+      },
+      "month": {
+        "valueLabel": "This Month"
+      },
+      "experts": {
+        "valueLabel": "Active Experts"
+      },
+      "services": {
+        "valueLabel": "Active Services"
+      }
+    },
+    "chart": {
+      "title": "Appointments Overview",
+      "toggleType": "Toggle Chart Type",
+      "summary": {
+        "totalAppointments": "Total appointments",
+        "completionRate": "Completion rate: {rate}%"
+      },
+      "legend": {
+        "appointments": "Appointments",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "ranges": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month"
+      }
+    },
+    "upcoming": {
+      "title": "Upcoming Appointments",
+      "subtitle": "Next 7 days (booked & confirmed only)",
+      "total": "{count} total",
+      "more": "+{count} more appointments",
+      "empty": "No upcoming appointments"
+    },
+    "topServices": {
+      "title": "Top Services",
+      "tooltip": "Most booked services in selected period",
+      "subtitle": "Most booked services ({filter})",
+      "table": {
+        "service": "Services",
+        "bookings": "Bookings"
+      },
+      "empty": "No data available for selected period."
+    },
+    "topExperts": {
+      "title": "Top Experts",
+      "tooltip": "Experts by total appointments in selected period",
+      "subtitle": "Experts by total appointments ({filter})",
+      "table": {
+        "name": "Name",
+        "appointments": "Appointments"
+      },
+      "empty": "No data available for selected period."
+    },
+    "error": {
+      "failed": "Failed to load dashboard data. Please try again.",
+      "retry": "Retry"
+    }
+  },
   "dashboard": {
 
   },
