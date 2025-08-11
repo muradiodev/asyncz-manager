@@ -951,7 +951,8 @@
 
   },
   "statusBadge": {
-
+    "active": "Active",
+    "inactive": "Inactive"
   },
   "subscription": {
 
