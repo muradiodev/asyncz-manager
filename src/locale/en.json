@@ -17,7 +17,8 @@
     "branches": "Branches",
     "businessSettings": "Business Settings",
     "calendar": "Calendar",
-    "customers": "Customers"
+    "customers": "Customers",
+    "users": "Users"
   },
   "language": {
     "current": "English",
@@ -687,7 +688,10 @@
     }
   },
   "expert": {
-
+    "labels": {
+      "about": "About",
+      "color": "Color"
+    }
   },
   "feedbacks": {
 

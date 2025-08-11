@@ -1,89 +1,79 @@
 <template>
-
   <CCard class="mb-4 border-0 rounded-0">
     <CCardBody>
       <CContainer class="px-4" lg>
-
         <div class="mb-4">
-          <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Users', path: '/dashboard/users', active: false },
-            { name:  expert?.fullName, path: '/expert/' + expertId, active: true }
-          ]" />
+          <AppBreadcrumb
+            :breadcrumbs="[
+              { name: $t('navigation.dashboard'), path: '/dashboard', active: false },
+              { name: $t('navigation.users'), path: '/dashboard/users', active: false },
+              { name: expert?.fullName, path: '/expert/' + expertId, active: true }
+            ]"
+          />
         </div>
 
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="h2 mb-0">
-            {{expert?.fullName}}
+            {{ expert?.fullName }}
           </span>
         </div>
       </CContainer>
     </CCardBody>
   </CCard>
 
-
-
-
-
   <CContainer class="px-4" lg>
-
-
-
     <div v-if="!expert">
       <!-- loading-->
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">{{ $t('general.loading') }}</span>
         </div>
       </div>
     </div>
 
     <div v-else>
-
-
-      <div class="row ">
-
+      <div class="row">
         <div class="col-md-6 mb-3">
           <div class="card">
             <div class="card-body" v-if="!editing">
-
               <p>
-                <strong>About: </strong> <br>
+                <strong>{{ $t('expert.labels.about') }} </strong><br />
                 {{ expert.about || '-' }}
               </p>
               <p class="mb-1">
-                <strong>Email: </strong>
+                <strong>{{ $t('account.labels.email') }}: </strong>
                 {{ user.email }}
               </p>
               <p class="mb-1">
-                <strong>Color: </strong>
+                <strong>{{ $t('expert.labels.color') }}: </strong>
                 <ColorComponent :expert="expert" />
               </p>
               <p class="mb-1">
-                <strong>Branch: </strong>
+                <strong>{{ $t('experts.modalCreate.labels.branch') }}: </strong>
                 {{ expert.branch ? expert.branch.name : '-' }}
               </p>
               <p>
-                <strong>Status: </strong>
+                <strong>{{ $t('calendar.appointmentDetails.labels.status') }}: </strong>
                 <StatusBadge :status="expert.status" />
               </p>
-              <button class="btn-outline-custom"
-                      v-if="!editing"
-                      @click.prevent="editing = true">
-                edit
+              <button
+                class="btn-outline-custom"
+                v-if="!editing"
+                @click.prevent="editing = true"
+              >
+                {{ $t('calendar.buttons.edit') }}
               </button>
             </div>
+
             <div class="card-body" v-else>
-
               <form @submit.prevent="saveExpert">
-
                 <div class="row">
                   <div class="col-md-12 mb-3">
-                    <label for="branch" class="form-label">Branch</label>
+                    <label for="branch" class="form-label">{{ $t('experts.modalCreate.labels.branch') }}</label>
                     <select
                       type="text"
                       class="form-control"
-                      id="fullName"
+                      id="branch"
                       v-model="branchId"
                       required
                     >
@@ -92,8 +82,9 @@
                       </option>
                     </select>
                   </div>
+
                   <div class="col-md-12 mb-3">
-                    <label for="fullName" class="form-label">Full name</label>
+                    <label for="fullName" class="form-label">{{ $t('experts.modalCreate.labels.fullName') }}</label>
                     <input
                       type="text"
                       class="form-control"
@@ -104,7 +95,7 @@
                   </div>
 
                   <div class="col-md-12 mb-3">
-                    <label for="about" class="form-label">Description</label>
+                    <label for="about" class="form-label">{{ $t('account.labels.description') }}</label>
                     <textarea
                       class="form-control"
                       id="about"
@@ -113,18 +104,18 @@
                   </div>
 
                   <div class="col-md-12 mb-3">
-                    <label for="fullName" class="form-label">Email</label>
+                    <label for="email" class="form-label">{{ $t('account.labels.email') }}</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="fullName"
+                      id="email"
                       v-model="user.email"
                       required
                     />
                   </div>
 
                   <div class="col-md-6 mb-3">
-                    <label for="color" class="form-label">Color</label>
+                    <label for="color" class="form-label">{{ $t('expert.labels.color') }}</label>
                     <input
                       type="color"
                       class="form-control"
@@ -135,67 +126,51 @@
                   </div>
 
                   <div class="col-md-6 mb-3">
-                    <label for="color" class="form-label">Status</label>
+                    <label for="status" class="form-label">{{ $t('calendar.appointmentDetails.labels.status') }}</label>
                     <select
                       class="form-control"
-                      id="color"
+                      id="status"
                       v-model="expert.status"
                       required
                     >
-                      <option :value="true">Active</option>
-                      <option :value="false">Inactive</option>
+                      <option :value="true">{{ $t('branches.modalEdit.options.active') }}</option>
+                      <option :value="false">{{ $t('branches.modalEdit.options.inactive') }}</option>
                     </select>
                   </div>
 
                   <div class="col-md-12">
-                    <button class="btn-success-custom">Save</button>
-
-                    <button class="btn-outline-custom" @click.prevent="editing = false">Cancel</button>
+                    <button class="btn-success-custom">{{ $t('calendar.buttons.save') }}</button>
+                    <button class="btn-outline-custom" @click.prevent="editing = false">
+                      {{ $t('calendar.buttons.cancel') }}
+                    </button>
                   </div>
-
-
                 </div>
-
-
               </form>
-
             </div>
           </div>
         </div>
 
-
         <div class="col-md-6 mb-3">
-
           <ExpertProcedures :expert-id="expertId" />
-
         </div>
 
         <div class="col-md-12">
-
           <ExpertSchedules :expert-id="expertId" />
-
         </div>
-
-
       </div>
-
 
       <div class="my-4" v-if="1>2">
-        <DataTable class="table table-striped table-bordered"
-                   :columns="columns"
-                   :data='data'>
-        </DataTable>
-
+        <DataTable class="table table-striped table-bordered" :columns="columns" :data="data" />
       </div>
-
     </div>
   </CContainer>
-  <ModalComponent title="new expert" v-if="addNewItem" @modalClose="addNewItem = false">
+
+  <ModalComponent :title="$t('experts.modalCreate.title')" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
         <div class="col-md-12">
           <div class="mb-3">
-            <label for="newUserName" class="form-label">Full name</label>
+            <label for="newUserName" class="form-label">{{ $t('experts.modalCreate.labels.fullName') }}</label>
             <input
               type="text"
               class="form-control"
@@ -207,7 +182,7 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="newEmail" class="form-label">E-mail</label>
+            <label for="newEmail" class="form-label">{{ $t('experts.modalCreate.labels.email') }}</label>
             <input
               type="email"
               class="form-control"
@@ -219,7 +194,7 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="newPassword" class="form-label">Password</label>
+            <label for="newPassword" class="form-label">{{ $t('experts.modalCreate.labels.password') }}</label>
             <input
               type="password"
               class="form-control"
@@ -230,12 +205,11 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn-success-custom">Create</button>
+          <button class="btn-success-custom">{{ $t('experts.modalCreate.actions.create') }}</button>
         </div>
       </div>
     </form>
   </ModalComponent>
-
 </template>
 
 <script>
