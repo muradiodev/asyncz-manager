@@ -1,100 +1,92 @@
 <template>
-
   <CCard class="mb-4 border-0 rounded-0">
     <CCardBody>
       <CContainer class="px-4" lg>
-
         <div class="mb-4">
           <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Experts', path: '/dashboard/experts', active: true }
+            { name: $t('general.dashboard'), path: '/dashboard', active: false },
+            { name: $t('experts.title'), path: '/dashboard/experts', active: true }
           ]" />
         </div>
 
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0"> Experts</span>
+          <span class="h2 mb-0">{{ $t('experts.title') }}</span>
           <button class="btn-primary-custom ms-4" @click="addNewItem = true">
-            + Add new
+            + {{ $t('experts.add') }}
           </button>
         </div>
       </CContainer>
     </CCardBody>
   </CCard>
 
-
-
-
-
   <CContainer class="px-4" lg>
-
     <CCard class="mb-4">
       <CCardBody>
-      <DataTable class="table table-striped table-bordered"
-                 :columns="columns"
-                 :data='data'>
-      </DataTable>
+        <DataTable
+          class="table table-striped table-bordered"
+          :columns="columns"
+          :data="data">
+        </DataTable>
       </CCardBody>
     </CCard>
   </CContainer>
 
-  <ModalComponent title="new expert" v-if="addNewItem" @modalClose="addNewItem = false">
+  <ModalComponent :title="$t('experts.modalCreate.title')" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
         <div class="col-md-12">
           <div class="mb-3">
-            <label for="newBranch" class="form-label">Branch</label>
+            <label for="newBranch" class="form-label">{{ $t('experts.modalCreate.labels.branch') }}</label>
             <select
               class="form-control"
               id="newBranch"
               v-model="newItemDetails.branchId"
-              required
-            >
-              <option v-for="branch in branchList" :value="branch.id" :key="branch.id">{{ branch.name }}</option>
+              required>
+              <option v-for="branch in branchList" :value="branch.id" :key="branch.id">
+                {{ branch.name }}
+              </option>
             </select>
           </div>
         </div>
         <div class="col-md-12">
           <div class="mb-3">
-            <label for="newUserName" class="form-label">Full name</label>
+            <label for="newUserName" class="form-label">{{ $t('experts.modalCreate.labels.fullName') }}</label>
             <input
               type="text"
               class="form-control"
               id="newUserName"
               v-model="newItemDetails.fullName"
-              required
-            />
+              required />
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="newEmail" class="form-label">E-mail</label>
+            <label for="newEmail" class="form-label">{{ $t('experts.modalCreate.labels.email') }}</label>
             <input
               type="email"
               class="form-control"
               id="newEmail"
               v-model="newItemDetails.email"
-              required
-            />
+              required />
           </div>
-        </div><div class="col-md-6">
+        </div>
+        <div class="col-md-6">
           <div class="mb-3">
-            <label for="newPassword" class="form-label">Password</label>
+            <label for="newPassword" class="form-label">{{ $t('experts.modalCreate.labels.password') }}</label>
             <input
               type="password"
               class="form-control"
               id="newPassword"
               v-model="newItemDetails.password"
-              required
-            />
+              required />
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn-success-custom">Create</button>
+          <button class="btn-success-custom">{{ $t('experts.modalCreate.actions.create') }}</button>
         </div>
       </div>
     </form>
   </ModalComponent>
-
 </template>
 
 <script>

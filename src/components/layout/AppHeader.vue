@@ -151,52 +151,46 @@ watch(colorMode, (newValue) => {
             <i class="fas fa-link"></i>
           </button>
 
-
-          <!-- Collapsed search - just icon -->
-          <button
-            v-if="!isSearchExpanded"
-            type="button"
-            class="btn btn-outline-success border-0"
-            @click.stop="expandSearch"
-            data-bs-toggle="tooltip"
-            data-bs-placement="bottom"
-            title="Search"
-            style="transition: all 0.3s ease;"
-            @mouseenter="$event.target.querySelector('i').style.color = 'white'"
-            @mouseleave="$event.target.querySelector('i').style.color = ''"
-          >
-            <i class="fas fa-search"></i>
-          </button>
-
-
-
-
-
-          <!-- Expanded search form -->
-          <div v-if="isSearchExpanded" class="d-flex">
-            <div class="input-group">
-              <span class="input-group-text bg-body-secondary border-0 ps-3" id="search-addon">
-                <CIcon icon="cil-magnifying-glass" size="lg" />
-              </span>
-              <input
-                ref="searchInput"
-                v-model="searchQuery"
-                placeholder="Search..."
-                aria-label="Search"
-                aria-describedby="search-addon"
-                class="form-control bg-body-secondary border-0"
-                type="search"
-                :style="{ minWidth: isMobile ? '200px' : '250px' }"
-              />
-              <button
-                type="button"
-                class="btn btn-outline-secondary border-0 px-3"
-                @click.stop="collapseSearch"
-              >
-                ×
-              </button>
-            </div>
-          </div>
+<!--          &lt;!&ndash; Collapsed search - just icon &ndash;&gt;-->
+<!--          <button-->
+<!--            v-if="!isSearchExpanded"-->
+<!--            type="button"-->
+<!--            class="btn btn-outline-success border-0"-->
+<!--            @click.stop="expandSearch"-->
+<!--            data-bs-toggle="tooltip"-->
+<!--            data-bs-placement="bottom"-->
+<!--            title="Search"-->
+<!--            style="transition: all 0.3s ease;"-->
+<!--            @mouseenter="$event.target.querySelector('i').style.color = 'white'"-->
+<!--            @mouseleave="$event.target.querySelector('i').style.color = ''"-->
+<!--          >-->
+<!--            <i class="fas fa-search"></i>-->
+<!--          </button>-->
+<!--          &lt;!&ndash; Expanded search form &ndash;&gt;-->
+<!--          <div v-if="isSearchExpanded" class="d-flex">-->
+<!--            <div class="input-group">-->
+<!--              <span class="input-group-text bg-body-secondary border-0 ps-3" id="search-addon">-->
+<!--                <CIcon icon="cil-magnifying-glass" size="lg" />-->
+<!--              </span>-->
+<!--              <input-->
+<!--                ref="searchInput"-->
+<!--                v-model="searchQuery"-->
+<!--                placeholder="Search..."-->
+<!--                aria-label="Search"-->
+<!--                aria-describedby="search-addon"-->
+<!--                class="form-control bg-body-secondary border-0"-->
+<!--                type="search"-->
+<!--                :style="{ minWidth: isMobile ? '200px' : '250px' }"-->
+<!--              />-->
+<!--              <button-->
+<!--                type="button"-->
+<!--                class="btn btn-outline-secondary border-0 px-3"-->
+<!--                @click.stop="collapseSearch"-->
+<!--              >-->
+<!--                ×-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
 
         <!-- Mobile/Tablet compact buttons -->

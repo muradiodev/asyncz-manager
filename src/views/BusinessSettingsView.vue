@@ -3,16 +3,11 @@
     <CCardBody>
       <CContainer class="px-4" lg>
         <div class="mb-4">
-          <AppBreadcrumb
-            :breadcrumbs="[
-              { name: 'Dashboard', path: '/dashboard', active: false },
-              { name: 'Business Settings', path: '/dashboard/business-settings', active: true }
-            ]"
-          />
+          <AppBreadcrumb :breadcrumbs="breadcrumbs" />
         </div>
 
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0">Business Settings</span>
+          <span class="h2 mb-0">{{ $t('businessSettings.title') }}</span>
         </div>
       </CContainer>
     </CCardBody>
@@ -22,7 +17,7 @@
     <div v-if="isInitialLoading">
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">{{ $t('general.loading') }}</span>
         </div>
       </div>
     </div>
@@ -32,7 +27,7 @@
         <form @submit.prevent="saveChanges">
           <!-- Business Name -->
           <div class="mb-4">
-            <label for="businessName" class="form-label fw-bold">Business Name</label>
+            <label for="businessName" class="form-label fw-bold">{{ $t('businessSettings.labels.businessName') }}</label>
             <input
               type="text"
               class="form-control"
@@ -44,7 +39,7 @@
 
           <!-- Business Description -->
           <div class="mb-4">
-            <label for="businessAbout" class="form-label fw-bold">Business Description</label>
+            <label for="businessAbout" class="form-label fw-bold">{{ $t('businessSettings.labels.businessDescription') }}</label>
             <textarea
               class="form-control"
               id="businessAbout"
@@ -56,7 +51,7 @@
 
           <!-- Business Address -->
           <div class="mb-4">
-            <label for="businessAddress" class="form-label fw-bold">Business Address</label>
+            <label for="businessAddress" class="form-label fw-bold">{{ $t('businessSettings.labels.businessAddress') }}</label>
             <textarea
               class="form-control"
               id="businessAddress"
@@ -68,7 +63,7 @@
 
           <!-- Business Phone -->
           <div class="mb-4">
-            <label for="businessPhone" class="form-label fw-bold">Business Phone</label>
+            <label for="businessPhone" class="form-label fw-bold">{{ $t('businessSettings.labels.businessPhone') }}</label>
             <input
               type="tel"
               class="form-control"
@@ -80,7 +75,7 @@
 
           <!-- Business Email -->
           <div class="mb-4">
-            <label for="businessEmail" class="form-label fw-bold">Business Email</label>
+            <label for="businessEmail" class="form-label fw-bold">{{ $t('businessSettings.labels.businessEmail') }}</label>
             <input
               type="email"
               class="form-control"
@@ -92,10 +87,9 @@
 
           <!-- Timezone Selector as Dropdown -->
           <div class="mb-4">
-            <label for="businessTimezone" class="form-label fw-bold">Business Timezone</label>
+            <label for="businessTimezone" class="form-label fw-bold">{{ $t('businessSettings.labels.businessTimezone') }}</label>
 
             <div class="dropdown w-100">
-              <!-- Dropdown Button -->
               <button
                 class="form-control d-flex justify-content-between align-items-center text-start"
                 type="button"
@@ -108,17 +102,13 @@
                 <i class="fas fa-chevron-down"></i>
               </button>
 
-              <!-- Dropdown Menu -->
-              <div
-                class="dropdown-menu w-100 p-0 timezone-dropdown-menu"
-                aria-labelledby="timezoneDropdown"
-              >
+              <div class="dropdown-menu w-100 p-0 timezone-dropdown-menu" aria-labelledby="timezoneDropdown">
                 <!-- Search Input -->
                 <div class="p-2 border-bottom">
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Search timezone or city..."
+                    :placeholder="$t('businessSettings.labels.searchTimezoneOrCity')"
                     v-model="timezoneSearch"
                     @input="filterTimezones"
                   />
@@ -126,7 +116,6 @@
 
                 <!-- Timezone Groups Container -->
                 <div class="timezone-selector" style="max-height: 400px; overflow-y: auto;">
-                  <!-- Fixed Dynamic Groups with proper error handling -->
                   <template v-for="(timezones, regionName) in filteredTimezones" :key="regionName">
                     <div
                       v-if="timezones && Array.isArray(timezones) && timezones.length > 0"
@@ -168,17 +157,17 @@
 
           <!-- Slot Size -->
           <div class="mb-4">
-            <label for="slotSize" class="form-label fw-bold">Slot Size in Minutes</label>
+            <label for="slotSize" class="form-label fw-bold">{{ $t('businessSettings.labels.slotSizeInMinutes') }}</label>
             <select
               class="form-select"
               id="slotSize"
               v-model="businessData.slot_size"
               :disabled="isLoading"
             >
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="60">60</option>
+              <option value="10">{{ $t('businessSettings.options.slotSizes.10') }}</option>
+              <option value="15">{{ $t('businessSettings.options.slotSizes.15') }}</option>
+              <option value="30">{{ $t('businessSettings.options.slotSizes.30') }}</option>
+              <option value="60">{{ $t('businessSettings.options.slotSizes.60') }}</option>
             </select>
           </div>
 
@@ -195,14 +184,13 @@
                   style="width: 2.5em; height: 1.25em"
                 />
                 <label class="form-check-label visually-hidden" for="email_confirmation_required">
-                  Require Email Confirmation
+                  {{ $t('businessSettings.labels.requireEmailConfirmationVisuallyHidden') }}
                 </label>
               </div>
               <div>
-                <h6 class="mb-1">Require Email Confirmation</h6>
+                <h6 class="mb-1">{{ $t('businessSettings.labels.requireEmailConfirmation') }}</h6>
                 <p class="text-muted small mb-0">
-                  When enabled, clients will need to confirm their email address when booking
-                  appointments.
+                  {{ $t('businessSettings.help.requireEmailConfirmation') }}
                 </p>
               </div>
             </div>
@@ -217,7 +205,7 @@
                 role="status"
                 aria-hidden="true"
               ></span>
-              {{ isLoading ? 'Saving...' : 'Save Changes' }}
+              {{ isLoading ? $t('businessSettings.actions.saving') : $t('businessSettings.actions.saveChanges') }}
             </button>
           </div>
         </form>

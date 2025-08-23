@@ -3,15 +3,12 @@
     <CCardBody>
       <CContainer class="px-4" lg>
         <div class="mb-4">
-          <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Branches', path: '/dashboard/branches', active: true }
-          ]" />
+          <AppBreadcrumb :breadcrumbs="breadcrumbs" />
         </div>
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0">Branches</span>
+          <span class="h2 mb-0">{{ $t('branches.title') }}</span>
           <button class="btn-outline-success-custom" @click="addNewItem = true">
-            <i class="fas fa-plus m-1"></i> Add Branch
+            <i class="fas fa-plus m-1"></i> {{ $t('branches.add') }}
           </button>
         </div>
       </CContainer>
@@ -31,12 +28,12 @@
   </CContainer>
 
   <!-- CREATE MODAL -->
-  <ModalComponent title="New Branch" size="md" v-if="addNewItem" @modalClose="addNewItem = false">
+  <ModalComponent :title="$t('branches.modalCreate.title')" size="md" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
         <div class="col-md-12">
           <div class="mb-3">
-            <label for="newName" class="form-label">Branch name</label>
+            <label for="newName" class="form-label">{{ $t('branches.modalCreate.labels.branchName') }}</label>
             <input
               type="text"
               class="form-control"
@@ -47,24 +44,24 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn-success-custom w-100">Create</button>
+          <button class="btn-success-custom w-100">{{ $t('branches.modalCreate.actions.create') }}</button>
         </div>
       </div>
     </form>
   </ModalComponent>
 
   <!-- EDIT MODAL -->
-  <ModalComponent title="Edit Branch" size="md" v-if="editModalVisible" @modalClose="editModalVisible = false">
+  <ModalComponent :title="$t('branches.modalEdit.title')" size="md" v-if="editModalVisible" @modalClose="editModalVisible = false">
     <div v-if="isLoading" class="text-center py-4">
       <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span class="visually-hidden">{{ $t('branches.modalEdit.loading') }}</span>
       </div>
-      <p class="mt-2">Loading branch data...</p>
+      <p class="mt-2">{{ $t('branches.modalEdit.loadingBranchData') }}</p>
     </div>
     <form @submit.prevent="submitEdit" v-else>
       <div class="row">
         <div class="col-12 mb-3">
-          <label class="form-label" for="editBranchName">Branch Name</label>
+          <label class="form-label" for="editBranchName">{{ $t('branches.modalEdit.labels.branchName') }}</label>
           <input
             id="editBranchName"
             type="text"
@@ -74,7 +71,7 @@
           />
         </div>
         <div class="col-12 mb-3">
-          <label class="form-label" for="editBranchabout">Description</label>
+          <label class="form-label" for="editBranchabout">{{ $t('branches.modalEdit.labels.description') }}</label>
           <input
             id="editBranchabout"
             type="text"
@@ -84,14 +81,14 @@
           />
         </div>
         <div class="col-12 mb-3">
-          <label class="form-label">Status</label>
+          <label class="form-label">{{ $t('branches.modalEdit.labels.status') }}</label>
           <select class="form-select" v-model="editItem.status">
-            <option :value="true">Active</option>
-            <option :value="false">Inactive</option>
+            <option :value="true">{{ $t('branches.modalEdit.options.active') }}</option>
+            <option :value="false">{{ $t('branches.modalEdit.options.inactive') }}</option>
           </select>
         </div>
         <div class="col-12">
-          <button type="submit" class="btn-success-custom w-100">Save</button>
+          <button type="submit" class="btn-success-custom w-100">{{ $t('branches.modalEdit.actions.save') }}</button>
         </div>
       </div>
     </form>

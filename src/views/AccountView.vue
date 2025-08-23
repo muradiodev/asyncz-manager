@@ -3,14 +3,11 @@
     <CCardBody>
       <CContainer class="px-4" lg>
         <div class="mb-4">
-          <AppBreadcrumb :breadcrumbs="[
-            { name: 'Dashboard', path: '/dashboard', active: false },
-            { name: 'Account', path: '/dashboard/account', active: true }
-          ]" />
+          <AppBreadcrumb :breadcrumbs="breadcrumbs" />
         </div>
 
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0">Account Settings</span>
+          <span class="h2 mb-0">{{ $t('account.accountSettings') }}</span>
         </div>
       </CContainer>
     </CCardBody>
@@ -21,7 +18,7 @@
       <!-- loading-->
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">{{ $t('general.loading') }}</span>
         </div>
       </div>
     </div>
@@ -30,10 +27,10 @@
       <!-- Tabs navigation -->
       <ul class="nav nav-tabs mb-4">
         <li class="nav-item">
-          <a class="nav-link active" data-bs-toggle="tab" href="#account">Account</a>
+          <a class="nav-link active" data-bs-toggle="tab" href="#account">{{ $t('navigation.account') }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="tab" href="#security">Security</a>
+          <a class="nav-link" data-bs-toggle="tab" href="#security">{{ $t('navigation.security') }}</a>
         </li>
       </ul>
 
@@ -43,13 +40,13 @@
         <div class="tab-pane fade show active" id="account">
           <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-              <h5 class="mb-3">Account Information</h5>
-              <p class="text-muted mb-4">Update your personal information</p>
+              <h5 class="mb-3">{{ $t('account.accountInformation') }}</h5>
+              <p class="text-muted mb-4">{{ $t('account.updateYourPersonalInformation') }}</p>
 
               <form @submit.prevent="user.expert ? updateAccount() : updateAccountManager()">
                 <div class="row">
                   <div class="col-md-6 mb-3">
-                    <label for="firstName" class="form-label">First name</label>
+                    <label for="firstName" class="form-label">{{ $t('account.labels.firstName') }}</label>
                     <input
                       type="text"
                       class="form-control"
@@ -62,7 +59,7 @@
                   </div>
 
                   <div class="col-md-6 mb-3">
-                    <label for="lastName" class="form-label">Last name</label>
+                    <label for="lastName" class="form-label">{{ $t('account.labels.lastName') }}</label>
                     <input
                       type="text"
                       class="form-control"
@@ -75,7 +72,7 @@
                   </div>
 
                   <div class="col-12 mb-3">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label">{{ $t('account.labels.email') }}</label>
                     <input
                       type="email"
                       class="form-control"
@@ -83,29 +80,29 @@
                       :value="user.email || ''"
                       disabled
                     />
-                    <small class="text-muted">Email cannot be changed. Contact support if you need to update your email.</small>
+                    <small class="text-muted">{{ $t('account.hints.emailLocked') }}</small>
                   </div>
 
                   <div class="col-12 mb-3">
-                    <label for="phone" class="form-label">Phone</label>
+                    <label for="phone" class="form-label">{{ $t('account.labels.phone') }}</label>
                     <input
                       type="tel"
                       class="form-control"
                       id="phone"
                       v-model="phone"
-                      placeholder="+1 (555) 000-0000"
+                      :placeholder="$t('account.placeholders.phone')"
                       :disabled="isAccountLoading"
                     />
                   </div>
 
                   <div class="col-12 mb-4" v-if="user.expert">
-                    <label for="about" class="form-label">Description</label>
+                    <label for="about" class="form-label">{{ $t('account.labels.description') }}</label>
                     <textarea
                       class="form-control"
                       rows="4"
                       id="about"
                       v-model="user.expert.about"
-                      placeholder="Tell us about yourself"
+                      :placeholder="$t('account.placeholders.about')"
                       :disabled="isAccountLoading"
                     ></textarea>
                   </div>
@@ -113,7 +110,7 @@
                   <div class="col-12">
                     <button type="submit" class="btn btn-primary-custom" :disabled="isAccountLoading">
                       <span v-if="isAccountLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                      {{ isAccountLoading ? 'Saving...' : 'Save Changes' }}
+                      {{ isAccountLoading ? $t('account.actions.saving') : $t('account.actions.saveChanges') }}
                     </button>
                   </div>
                 </div>
@@ -126,62 +123,64 @@
         <div class="tab-pane fade" id="security">
           <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-              <h5 class="mb-3">Password Settings</h5>
-              <p class="text-muted mb-4">Update your password</p>
+              <h5 class="mb-3">{{ $t('account.security.passwordSettings') }}</h5>
+              <p class="text-muted mb-4">{{ $t('account.security.updateYourPassword') }}</p>
 
               <form @submit.prevent="updatePassword">
-                  <div class="col-6 mb-3">
-                    <label for="currentPassword" class="form-label">Current password</label>
-                    <div class="input-group">
-                      <input
-                        :type="showCurrentPassword ? 'text' : 'password'"
-                        class="form-control"
-                        id="currentPassword"
-                        v-model="passwordCurrent"
-                        required
-                        :disabled="isPasswordLoading"
-                      />
-                      <button
-                        type="button"
-                        class="btn btn-outline-secondary"
-                        @click.prevent="showCurrentPassword=!showCurrentPassword"
-                        :disabled="isPasswordLoading"
-                      >
-                        <fa-icon :icon="['fas','eye-slash']" v-if="showCurrentPassword"></fa-icon>
-                        <fa-icon :icon="['fas','eye']" v-else></fa-icon>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="col-6 mb-3">
-                    <label for="password" class="form-label">New password</label>
-                    <div class="input-group">
-                      <input
-                        :type="showPassword ? 'text' : 'password'"
-                        class="form-control"
-                        id="password"
-                        v-model="passwordNew"
-                        required
-                        :disabled="isPasswordLoading"
-                      />
-                      <button
-                        type="button"
-                        class="btn btn-outline-secondary"
-                        @click.prevent="showPassword=!showPassword"
-                        :disabled="isPasswordLoading"
-                      >
-                        <fa-icon :icon="['fas','eye-slash']" v-if="showPassword"></fa-icon>
-                        <fa-icon :icon="['fas','eye']" v-else></fa-icon>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-primary-custom" :disabled="isPasswordLoading">
-                      <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                      {{ isPasswordLoading ? 'Saving...' : 'Save Changes' }}
+                <div class="col-6 mb-3">
+                  <label for="currentPassword" class="form-label">{{ $t('account.security.labels.currentPassword') }}</label>
+                  <div class="input-group">
+                    <input
+                      :type="showCurrentPassword ? 'text' : 'password'"
+                      class="form-control"
+                      id="currentPassword"
+                      v-model="passwordCurrent"
+                      required
+                      :disabled="isPasswordLoading"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      @click.prevent="showCurrentPassword=!showCurrentPassword"
+                      :disabled="isPasswordLoading"
+                      :aria-label="showCurrentPassword ? 'Hide' : 'Show'"
+                    >
+                      <fa-icon :icon="['fas','eye-slash']" v-if="showCurrentPassword"></fa-icon>
+                      <fa-icon :icon="['fas','eye']" v-else></fa-icon>
                     </button>
                   </div>
+                </div>
+
+                <div class="col-6 mb-3">
+                  <label for="password" class="form-label">{{ $t('account.security.labels.newPassword') }}</label>
+                  <div class="input-group">
+                    <input
+                      :type="showPassword ? 'text' : 'password'"
+                      class="form-control"
+                      id="password"
+                      v-model="passwordNew"
+                      required
+                      :disabled="isPasswordLoading"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      @click.prevent="showPassword=!showPassword"
+                      :disabled="isPasswordLoading"
+                      :aria-label="showPassword ? 'Hide' : 'Show'"
+                    >
+                      <fa-icon :icon="['fas','eye-slash']" v-if="showPassword"></fa-icon>
+                      <fa-icon :icon="['fas','eye']" v-else></fa-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary-custom" :disabled="isPasswordLoading">
+                    <span v-if="isPasswordLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    {{ isPasswordLoading ? $t('account.actions.saving') : $t('account.actions.saveChanges') }}
+                  </button>
+                </div>
               </form>
             </div>
           </div>

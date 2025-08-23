@@ -4,10 +4,10 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <router-link :to="{ name: 'home' }">Home</router-link>
+          <router-link :to="{ name: 'home' }">{{ $t('navigation.home') }}</router-link>
         </li>
         <li class="breadcrumb-item">
-          <router-link :to="{ name: 'procedures' }">Services</router-link>
+          <router-link :to="{ name: 'procedures' }">{{ $t('procedures.title') }}</router-link>
         </li>
         <li class="breadcrumb-item active" aria-current="page" v-if="procedure">
           {{ procedure.name }}
@@ -19,7 +19,7 @@
       <!-- loading-->
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">{{ $t('general.loading') }}</span>
         </div>
       </div>
     </div>
@@ -36,28 +36,28 @@
           <div class="card">
             <div class="card-body" v-if="!editing">
               <p>
-                <strong>About: </strong> <br />
+                <strong>{{ $t('procedure.labels.about') }} </strong> <br />
                 {{ procedure.about || '-' }}
                 <br />
-                <strong>Length: </strong>
-                {{ procedure.length || '-' }} minute(s)
+                <strong>{{ $t('procedure.labels.length') }} </strong>
+                {{ procedure.length || '-' }} {{ $t('procedures.lengthUnit') }}
                 <br />
-                <strong>Status: </strong>
+                <strong>{{ $t('procedure.labels.status') }} </strong>
                 <StatusBadge :status="procedure.status" />
                 <br />
-                <strong>Color: </strong>
+                <strong>{{ $t('procedure.labels.color') }} </strong>
                 <span class="badge" :style="{ backgroundColor: procedure.color || '#ccc' }">
                   &nbsp;
                 </span>
               </p>
 
-              <button class="btn-outline-custom" @click.prevent="editing = true">edit</button>
+              <button class="btn-outline-custom" @click.prevent="editing = true">{{ $t('procedure.actions.edit') }}</button>
             </div>
             <div class="card-body" v-else>
               <form @submit.prevent="saveProcedure">
                 <div class="row">
                   <div class="col-md-12 mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">{{ $t('procedure.form.labels.name') }}</label>
                     <input
                       type="text"
                       class="form-control"
@@ -68,12 +68,12 @@
                   </div>
 
                   <div class="col-md-12 mb-3">
-                    <label for="about" class="form-label">Description</label>
+                    <label for="about" class="form-label">{{ $t('procedure.form.labels.description') }}</label>
                     <textarea class="form-control" id="about" v-model="procedure.about"></textarea>
                   </div>
 
                   <div class="col-md-6 mb-3">
-                    <label for="length" class="form-label">Length</label>
+                    <label for="length" class="form-label">{{ $t('procedure.form.labels.length') }}</label>
                     <div class="input-group">
                       <input
                         type="number"
@@ -83,16 +83,15 @@
                         step="1"
                         required
                       />
-                      <div class="input-group-text">minute(s)</div>
+                      <div class="input-group-text">{{ $t('procedures.lengthUnit') }}</div>
                     </div>
                   </div>
 
                   <!--  Color Section -->
                   <div class="col-md-6 mb-3">
-                    <label for="color" class="form-label">Color</label>
+                    <label for="color" class="form-label">{{ $t('procedure.form.labels.color') }}</label>
 
                     <div class="color-selector-container">
-                      <!-- Selected color display that toggles palette when clicked -->
                       <div
                         class="selected-color-display"
                         @click="toggleColorPalette"
@@ -103,7 +102,6 @@
                         </span>
                       </div>
 
-                      <!-- Color palette (only shown when expanded) -->
                       <div v-if="showColorPalette" class="color-palette-container">
                         <div class="color-palette">
                           <div
@@ -117,21 +115,13 @@
                         </div>
 
                         <div class="mt-2 d-flex justify-content-between">
-                          <div>
-<!--                            <span-->
-<!--                              class="badge"-->
-<!--                              :style="{ backgroundColor: procedure.color || '#ccc' }"-->
-<!--                            >-->
-                              &nbsp;&nbsp;&nbsp;
-<!--                            </span>-->
-<!--                            <span class="ms-2">{{ procedure.color || 'None selected' }}</span>-->
-                          </div>
+                          <div>&nbsp;&nbsp;&nbsp;</div>
                           <button
                             type="button"
                             class="btn btn-sm btn-outline-secondary"
                             @click="showColorPalette = false"
                           >
-                            Close
+                            {{ $t('procedure.actions.closePalette') }}
                           </button>
                         </div>
                       </div>
@@ -139,18 +129,18 @@
                   </div>
 
                   <div class="col-md-6 mb-3">
-                    <label for="color" class="form-label">Status</label>
+                    <label for="color" class="form-label">{{ $t('procedure.form.labels.status') }}</label>
                     <select class="form-control" id="color" v-model="procedure.status" required>
-                      <option :value="true">Active</option>
-                      <option :value="false">Inactive</option>
+                      <option :value="true">{{ $t('procedures.table.status.active') }}</option>
+                      <option :value="false">{{ $t('procedures.table.status.inactive') }}</option>
                     </select>
                   </div>
 
                   <div class="col-md-12">
-                    <button class="btn-success-custom">Save</button>
+                    <button class="btn-success-custom">{{ $t('procedure.actions.save') }}</button>
 
                     <button class="btn-outline-custom" @click.prevent="editing = false">
-                      Cancel
+                      {{ $t('procedure.actions.cancel') }}
                     </button>
                   </div>
                 </div>
@@ -167,12 +157,13 @@
     </div>
   </div>
 
-  <ModalComponent title="new expert" v-if="addNewItem" @modalClose="addNewItem = false">
+  <!-- This modal reuses existing expert labels; only the static title/button replaced -->
+  <ModalComponent :title="$t('experts.modalCreate.title').toLowerCase()" v-if="addNewItem" @modalClose="addNewItem = false">
     <form @submit.prevent="createNewItem">
       <div class="row">
         <div class="col-md-12">
           <div class="mb-3">
-            <label for="newUserName" class="form-label">Full name</label>
+            <label for="newUserName" class="form-label">{{ $t('experts.modalCreate.labels.fullName') }}</label>
             <input
               type="text"
               class="form-control"
@@ -184,7 +175,7 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="newEmail" class="form-label">E-mail</label>
+            <label for="newEmail" class="form-label">{{ $t('experts.modalCreate.labels.email') }}</label>
             <input
               type="email"
               class="form-control"
@@ -196,7 +187,7 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="newPassword" class="form-label">Password</label>
+            <label for="newPassword" class="form-label">{{ $t('experts.modalCreate.labels.password') }}</label>
             <input
               type="password"
               class="form-control"
@@ -207,7 +198,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <button class="btn-success-custom">Create</button>
+          <button class="btn-success-custom">{{ $t('experts.modalCreate.actions.create') }}</button>
         </div>
       </div>
     </form>

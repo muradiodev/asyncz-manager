@@ -1,7 +1,8 @@
 <template>
-  <span v-if="status" class="badge bg-success">active</span>
-  <span v-else class="badge bg-danger">inactive</span>
+  <span v-if="status" class="badge bg-success">{{ $t('statusBadge.active') }}</span>
+  <span v-else class="badge bg-danger">{{ $t('statusBadge.inactive') }}</span>
 </template>
+
 <script>
 export default {
   name: 'StatusBadge',
