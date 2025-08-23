@@ -14,12 +14,12 @@
       </p>
 
       <div class="error-actions">
-        <button @click="goToLogin" class="btn btn-primary">
+        <router-link to="/login" class="btn btn-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z" fill="currentColor"/>
           </svg>
           Login Again
-        </button>
+        </router-link>
 
         <button @click="goBack" class="btn btn-secondary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,18 +60,6 @@ import { useAuthStore } from '@/stores/auth.js'
 
 const router = useRouter()
 const authStore = useAuthStore()
-
-const goToLogin = () => {
-  // Clear any existing auth data
-  authStore.logout()
-  localStorage.removeItem('token')
-
-  // Redirect to login with current path as back parameter
-  router.push({
-    name: 'login',
-    query: { back: router.currentRoute.value.fullPath }
-  })
-}
 
 const goBack = () => {
   if (window.history.length > 1) {

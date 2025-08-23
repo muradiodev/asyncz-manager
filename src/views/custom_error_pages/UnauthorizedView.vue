@@ -1,28 +1,28 @@
 <template>
-  <div class="error-container">
+  <div class="error-container" role="main" aria-labelledby="error-title">
     <div class="error-content">
-      <div class="error-icon">
-        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="error-icon" aria-hidden="true">
+        <svg width="120" height="120" viewBox="0 0 24 24" fill="none">
           <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM15.1 8H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="#EF4444"/>
         </svg>
       </div>
 
       <h1 class="error-code">401</h1>
-      <h2 class="error-title">Access Denied</h2>
+      <h2 id="error-title" class="error-title">Unauthorized</h2>
       <p class="error-description">
-        You don't have permission to access this resource. Please log in with appropriate credentials or contact your administrator.
+        You need to sign in to access this resource, or your session has expired.
       </p>
 
       <div class="error-actions">
         <button @click="goToLogin" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z" fill="currentColor"/>
           </svg>
           Login Again
         </button>
 
         <button @click="goBack" class="btn btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/>
           </svg>
           Go Back
@@ -33,20 +33,21 @@
         <div class="detail-card">
           <h3>Common Reasons:</h3>
           <ul>
-            <li>Your session has expired</li>
-            <li>Insufficient permissions for this resource</li>
-            <li>Account has been suspended or deactivated</li>
-            <li>Invalid authentication token</li>
+            <li>Not signed in, or your session has expired</li>
+            <li>Invalid, missing, or malformed authentication token</li>
+            <li>Authorization header not provided or unsupported scheme</li>
+            <li>Token expired (or clock skew made it appear expired)</li>
+            <li>Signed in with a different account than expected</li>
           </ul>
         </div>
 
         <div class="detail-card">
           <h3>What you can do:</h3>
           <ul>
-            <li>Try logging in again</li>
-            <li>Clear your browser cache and cookies</li>
-            <li>Contact your system administrator</li>
-            <li>Check if your account is active</li>
+            <li>Login again (you’ll be returned to your previous page)</li>
+            <li>If it persists, clear cookies or try an incognito window</li>
+            <li>Verify you’re using the correct account</li>
+            <li>If you expect access, contact your administrator</li>
           </ul>
         </div>
       </div>
@@ -55,22 +56,22 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth.js'
 
 const router = useRouter()
 const authStore = useAuthStore()
 
-const goToLogin = () => {
-  // Clear any existing auth data
-  authStore.logout()
-  localStorage.removeItem('token')
 
-  // Redirect to login with current path as back parameter
-  router.push({
-    name: 'login',
-    query: { back: router.currentRoute.value.fullPath }
-  })
+const showTech = ref(false)
+
+const goToLogin = () => {
+  // Clear auth data (adapt to your store shape)
+  try { authStore.logout?.() } catch {}
+  localStorage.removeItem('token')
+  // Redirect to login, preserving current route as "back"
+  router.push({ name: 'login', query: { back: router.currentRoute.value.fullPath } })
 }
 
 const goBack = () => {
@@ -80,6 +81,7 @@ const goBack = () => {
     router.push('/dashboard')
   }
 }
+
 </script>
 
 <style scoped>
@@ -98,13 +100,11 @@ const goBack = () => {
   padding: 3rem;
   text-align: center;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  max-width: 600px;
+  max-width: 720px;
   width: 100%;
 }
 
-.error-icon {
-  margin-bottom: 2rem;
-}
+.error-icon { margin-bottom: 2rem; }
 
 .error-code {
   font-size: 6rem;
@@ -149,25 +149,24 @@ const goBack = () => {
   transition: all 0.2s;
 }
 
-.btn-primary {
-  background: #EF4444;
-  color: white;
-}
+.btn-primary { background: #EF4444; color: white; }
+.btn-primary:hover { background: #DC2626; transform: translateY(-1px); }
 
-.btn-primary:hover {
-  background: #DC2626;
-  transform: translateY(-1px);
-}
+.btn-secondary { background: #F3F4F6; color: #374151; border: 1px solid #D1D5DB; }
+.btn-secondary:hover { background: #E5E7EB; transform: translateY(-1px); }
 
-.btn-secondary {
-  background: #F3F4F6;
+.btn-tertiary {
+  background: #F9FAFB;
   color: #374151;
-  border: 1px solid #D1D5DB;
+  border: 1px dashed #D1D5DB;
 }
+.btn-tertiary:hover { background: #F3F4F6; }
 
-.btn-secondary:hover {
-  background: #E5E7EB;
-  transform: translateY(-1px);
+.btn-link {
+  background: transparent;
+  color: #6B7280;
+  text-decoration: underline;
+  padding: 0.25rem 0.5rem;
 }
 
 .error-details {
@@ -179,9 +178,7 @@ const goBack = () => {
   padding-top: 2rem;
 }
 
-.detail-card {
-  text-align: left;
-}
+.detail-card { text-align: left; }
 
 .detail-card h3 {
   color: #374151;
@@ -190,11 +187,7 @@ const goBack = () => {
   margin-bottom: 1rem;
 }
 
-.detail-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+.detail-card ul { list-style: none; padding: 0; margin: 0; }
 
 .detail-card li {
   color: #6B7280;
@@ -212,30 +205,33 @@ const goBack = () => {
   left: 0;
 }
 
-.detail-card li:last-child {
-  border-bottom: none;
+.detail-card li:last-child { border-bottom: none; }
+
+.tech-details {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  background: #FAFAFA;
 }
 
+.tech-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem 1rem;
+  text-align: left;
+  margin-bottom: .75rem;
+}
+
+.tech-item span { color: #374151; font-weight: 600; margin-right: .5rem; }
+.tech-item code { color: #111827; background: #F3F4F6; padding: .125rem .375rem; border-radius: 4px; }
+
 @media (max-width: 768px) {
-  .error-content {
-    padding: 2rem;
-  }
-
-  .error-code {
-    font-size: 4rem;
-  }
-
-  .error-title {
-    font-size: 1.5rem;
-  }
-
-  .error-actions {
-    flex-direction: column;
-  }
-
-  .error-details {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
+  .error-content { padding: 2rem; }
+  .error-code { font-size: 4rem; }
+  .error-title { font-size: 1.5rem; }
+  .error-actions { flex-direction: column; }
+  .error-details { grid-template-columns: 1fr; gap: 1rem; }
+  .tech-grid { grid-template-columns: 1fr; }
 }
 </style>
