@@ -344,7 +344,7 @@
       </div>
 
       <div class="form-row" style="gap:18px;">
-        <div class="form-field" style="flex:1;">
+        <div class="form-field" style="flex:1.2;">
           <label>Date <span style="color:#e74c3c">*</span></label>
           <input type="date" v-model="newItemDetails.date" required class="modern-input" />
         </div>
