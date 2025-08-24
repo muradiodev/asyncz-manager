@@ -541,6 +541,24 @@ body {
   width: 100%;
 }
 
+/* Add this new media query for medium screens */
+@media (max-width: 991px) and (min-width: 769px) {
+  .date-time-row {
+    flex-wrap: wrap;
+  }
+  .date-time-row .form-field {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 200px;
+  }
+  .date-time-row .form-field:nth-child(3) {
+    width: 200px;
+    flex: 1 1 100%;
+  }
+  .date-time-row-span {
+    flex: 1.25
+  }
+}
+
 label {
   font-weight: 500;
   margin-bottom: 6px;

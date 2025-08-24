@@ -268,7 +268,7 @@
         </div>
       </div>
 
-      <div class="form-row" style="gap:18px;">
+      <div class="form-row date-time-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
           <label>{{ $t('calendar.newAppointmentModal.labels.date') }} <span style="color:#e74c3c">*</span></label>
           <input type="date" v-model="newItemDetails.date" required class="modern-input" />
@@ -280,11 +280,12 @@
         <div class="form-field" style="flex:1;">
           <label>{{ $t('calendar.newAppointmentModal.labels.duration') }} <span style="color:#e74c3c">*</span></label>
           <div style="display: flex;">
-            <input type="number" min="15" v-model="newItemDetails.length" required class="modern-input" style="flex:1;" />
-            <span style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">{{ $t('calendar.newAppointmentModal.labels.min') }}</span>
+            <input type="number" min="15" v-model="newItemDetails.length" required class="modern-input" style="flex:1;"/>
+            <span class="date-time-row-span" style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">{{ $t('calendar.newAppointmentModal.labels.min') }}</span>
           </div>
         </div>
       </div>
+
 
       <div class="form-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
@@ -344,7 +345,7 @@
         </div>
       </div>
 
-      <div class="form-row" style="gap:18px;">
+      <div class="form-row date-time-row" style="gap:18px;">
         <div class="form-field" style="flex:1;">
           <label>{{ $t('calendar.editAppointmentModal.labels.date') }} <span style="color:#e74c3c">*</span></label>
           <input type="date" v-model="editingAppointment.date" required class="modern-input" />
@@ -357,7 +358,7 @@
           <label>{{ $t('calendar.editAppointmentModal.labels.length') }} <span style="color:#e74c3c">*</span></label>
           <div style="display: flex;">
             <input type="number" v-model="editingAppointment.reservationLength" required class="modern-input" style="flex:1;" />
-            <span class="input-group-text" style="margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">{{ $t('calendar.editAppointmentModal.labels.min') }}</span>
+            <span class="date-time-row-span" style="align-self:center; margin-left:8px; font-size: 0.95em; color: var(--muted-foreground)">{{ $t('calendar.editAppointmentModal.labels.min') }}</span>
           </div>
         </div>
       </div>
