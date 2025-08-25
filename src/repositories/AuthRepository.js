@@ -94,8 +94,25 @@ export async function saveAccount(token, name, about) {
     })
 }
 
-export async function setPassword(token, password, currentPassword) {
+export async function setPassword(token, password) {
   return await Repository.postForm(`${baseUrl}/manager/password?token=${token}`, {
+    password
+  })
+    .then((response) => {
+      if (response.data) {
+        return response.data
+      } else {
+        return { code: 500, message: 'Internal Server Error' }
+      }
+    })
+    .catch((error) => {
+      console.log(JSON.stringify(error))
+      return { code: 501, message: error }
+    })
+}
+
+export async function setNewPassword(token, password, currentPassword) {
+  return await Repository.postForm(`${baseUrl}/manager/new-password?token=${token}`, {
     password,
     currentPassword
   })

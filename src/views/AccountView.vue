@@ -193,7 +193,7 @@
 <script>
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
-import { saveAccount, setPassword } from '@/repositories/AuthRepository.js'
+import { saveAccount, setNewPassword } from '@/repositories/AuthRepository.js'
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import { toast } from 'vue3-toastify'
 
@@ -287,7 +287,7 @@ export default {
     },
     updatePassword() {
       this.isPasswordLoading = true;
-      setPassword(this.token, this.passwordNew, this.passwordCurrent)
+      setNewPassword(this.token, this.passwordNew, this.passwordCurrent)
         .then(response => {
           if (response.code === 200) {
             toast.success('Password updated');

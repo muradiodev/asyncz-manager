@@ -71,7 +71,7 @@
 <script>
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
-import { setPassword } from '@/repositories/AuthRepository.js'
+import { setNewPassword } from '@/repositories/AuthRepository.js'
 import { customAlert, customAsk } from '@/utils/utils.js'
 import { toast } from 'vue3-toastify'
 
@@ -106,7 +106,7 @@ export default {
         return
       }
 
-      setPassword(this.token, this.passwordNew, null)
+      setNewPassword(this.token, this.passwordNew)
         .then(response => {
           if (response.code === 200) {
             customAlert(
