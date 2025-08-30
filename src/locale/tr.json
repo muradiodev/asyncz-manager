@@ -1,0 +1,1129 @@
+{
+  "general": {
+    "loading": "Yükleniyor...",
+    "dashboard": "Gösterge Paneli",
+    "attention": "Dikkat",
+    "ok": "Tamam",
+    "error": "Hata",
+    "success": "Başarı",
+    "continue": "Devam Et",
+    "submit": "Gönder"
+  },
+  "navigation": {
+    "dashboard": "Gösterge Paneli",
+    "account": "Hesap",
+    "security": "Güvenlik",
+    "blacklist": "Karaliste",
+    "branches": "Şubeler",
+    "businessSettings": "İş Ayarları",
+    "calendar": "Takvim",
+    "customers": "Müşteriler",
+    "users": "Kullanıcılar",
+    "feedbacks": "Geri Bildirimler",
+    "home": "Ana Sayfa"
+  },
+  "language": {
+    "current": "Türkçe",
+    "list": {
+      "tr": "Türkçe"
+    }
+  },
+  "account": {
+    "accountSettings": "Hesap Ayarları",
+    "accountInformation": "Hesap Bilgileri",
+    "updateYourPersonalInformation": "Kişisel bilgilerinizi güncelleyin",
+    "labels": {
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "description": "Açıklama"
+    },
+    "placeholders": {
+      "phone": "+90 (555) 000-0000",
+      "about": "Kendinizden bahsedin"
+    },
+    "hints": {
+      "emailLocked": "E-posta değiştirilemez. E-postanızı güncellemek için destekle iletişime geçin."
+    },
+    "actions": {
+      "saveChanges": "Değişiklikleri Kaydet",
+      "saving": "Kaydediliyor..."
+    },
+    "messages": {
+      "saved": "Değişiklikler başarıyla kaydedildi"
+    },
+    "security": {
+      "passwordSettings": "Şifre Ayarları",
+      "updateYourPassword": "Şifrenizi güncelleyin",
+      "labels": {
+        "currentPassword": "Mevcut şifre",
+        "newPassword": "Yeni şifre"
+      },
+      "messages": {
+        "passwordUpdated": "Şifre güncellendi"
+      }
+    }
+  },
+  "aiScheduler": {
+    "placeholder": "💡 Jane Doe için randevu ayarla, abc@example.com, +12345, 31 Aralık 14:30, notlar: İlk danışma..",
+    "hint": "🤖 Ben AI - Beni kullanın!",
+    "tooltips": {
+      "voiceInput": "Sesli girdi",
+      "stopRecording": "Kaydı durdur",
+      "submit": "Gönder"
+    },
+    "status": {
+      "recording": "Kaydediliyor...",
+      "processing": "İşleniyor..."
+    },
+    "errors": {
+      "microphoneDenied": "Mikrofon erişimi reddedildi",
+      "processingError": "İşleme hatası",
+      "saveError": "Kaydetme hatası",
+      "httpError": "HTTP hatası! durum: {status}",
+      "processingFailed": "İşleme başarısız oldu",
+      "saveFailed": "Kaydetme başarısız oldu"
+    },
+    "modals": {
+      "confirmAppointment": {
+        "title": "Randevuyu Onayla",
+        "labels": {
+          "firstName": "Ad *",
+          "lastName": "Soyad *",
+          "email": "E-posta",
+          "phone": "Telefon",
+          "dateTime": "Randevu Tarih & Zamanı",
+          "notes": "Notlar",
+          "expertNotes": "Uzman Notları"
+        },
+        "validation": {
+          "firstNameRequired": "Ad gereklidir",
+          "lastNameRequired": "Soyad gereklidir",
+          "emailInvalid": "Lütfen geçerli bir e-posta adresi girin"
+        },
+        "originalInput": {
+          "title": "Orijinal Girdi"
+        },
+        "actions": {
+          "cancel": "İptal",
+          "save": "Randevuyu Kaydet",
+          "saving": "Kaydediliyor..."
+        }
+      },
+      "success": {
+        "title": "Başarı!",
+        "ok": "Tamam"
+      }
+    }
+  },
+  "blacklist": {
+    "title": "Karaliste",
+    "add": "Karaliste Ekle",
+    "notSubscribed": "Şirketiniz, karaliste özelliğini içeren bir pakete abone değil.",
+    "table": {
+      "columns": {
+        "keyword": "Anahtar Kelime",
+        "action": "Eylem"
+      }
+    },
+    "modalCreate": {
+      "title": "Yeni Karaliste",
+      "labels": {
+        "keyword": "Anahtar Kelime"
+      },
+      "actions": {
+        "create": "Oluştur"
+      }
+    },
+    "confirm": {
+      "title": "Emin misiniz?",
+      "text": "Karalisteyi sil \"{value}\"?",
+      "confirmButton": "Evet, sil",
+      "cancelButton": "İptal"
+    },
+    "toasts": {
+      "created": "Yeni karaliste başarıyla eklendi",
+      "deleted": "Karaliste silindi."
+    }
+  },
+  "branches": {
+    "title": "Şubeler",
+    "add": "Şube Ekle",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "İsim",
+        "status": "Durum",
+        "publicLink": "Halka Açık Bağlantı",
+        "actions": "Eylemler"
+      },
+      "status": {
+        "active": "aktif",
+        "inactive": "pasif"
+      }
+    },
+    "modalCreate": {
+      "title": "Yeni Şube",
+      "labels": {
+        "branchName": "Şube adı"
+      },
+      "actions": {
+        "create": "Oluştur"
+      }
+    },
+    "modalEdit": {
+      "title": "Şubeyi Düzenle",
+      "loading": "Yükleniyor...",
+      "loadingBranchData": "Şube verileri yükleniyor...",
+      "labels": {
+        "branchName": "Şube Adı",
+        "description": "Açıklama",
+        "status": "Durum"
+      },
+      "options": {
+        "active": "Aktif",
+        "inactive": "Pasif"
+      },
+      "actions": {
+        "save": "Kaydet"
+      }
+    },
+    "confirm": {
+      "title": "Emin misiniz?",
+      "text": "Şubeyi sil \"{name}\"?",
+      "confirmButton": "Evet, sil",
+      "cancelButton": "İptal"
+    },
+    "toasts": {
+      "created": "Yeni şube başarıyla eklendi",
+      "updated": "Şube güncellendi.",
+      "deleted": "Şube silindi.",
+      "linkCopied": "Bağlantı panoya kopyalandı.",
+      "linkCopyFailed": "Bağlantıyı kopyalama başarısız.",
+      "loadFailed": "Şube detayları yüklenemedi. Lütfen tekrar deneyin."
+    },
+    "errors": {
+      "loadFailed": "Şube detayları yüklenemedi: {message}"
+    }
+  },
+  "businessSettings": {
+    "title": "İş Ayarları",
+    "labels": {
+      "businessName": "İşletme Adı",
+      "businessDescription": "İşletme Açıklaması",
+      "businessAddress": "İşletme Adresi",
+      "businessPhone": "İşletme Telefonu",
+      "businessEmail": "İşletme E-postası",
+      "businessTimezone": "İşletme Zaman Dilimi",
+      "slotSizeInMinutes": "Slot Boyutu Dakika",
+      "requireEmailConfirmation": "E-posta Onayı Gerektir",
+      "requireEmailConfirmationVisuallyHidden": "E-posta Onayı Gerektir",
+      "searchTimezoneOrCity": "Zaman dilimi veya şehir arayın..."
+    },
+    "help": {
+      "requireEmailConfirmation": "Etkinleştirildiğinde, müşteriler randevu alırken e-posta adreslerini onaylamak zorunda kalacaklardır."
+    },
+    "options": {
+      "slotSizes": {
+        "10": "10",
+        "15": "15",
+        "30": "30",
+        "60": "60"
+      }
+    },
+    "actions": {
+      "saveChanges": "Değişiklikleri Kaydet",
+      "saving": "Kaydediliyor..."
+    },
+    "messages": {
+      "loadFailed": "İş verileri yüklenemedi",
+      "updateFailed": "İş ayarları güncellenemedi",
+      "updatedSuccessfully": "İş ayarları başarıyla güncellendi",
+      "unexpectedError": "Beklenmedik bir hata oluştu"
+    }
+  },
+  "calendar": {
+    "sidebar": {
+      "new": "Yeni",
+      "newAppointment": "Randevu",
+      "externalScheduler": "🚀 Collabriq Takvim",
+      "branchesExperts": "Şubeler & Uzmanlar"
+    },
+    "buttons": {
+      "today": "Bugün",
+      "prev": "Önceki",
+      "next": "Sonraki",
+      "new": "Yeni",
+      "blockTime": "Zaman Blokla",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "create": "Oluştur",
+      "update": "Güncelle",
+      "confirm": "Onayla",
+      "copy": "Kopyala",
+      "edit": "Düzenle",
+      "print": "Yazdır",
+      "delete": "Sil",
+      "yes": "Evet",
+      "no": "Hayır"
+    },
+    "views": {
+      "day": "Gün",
+      "day3": "3 Gün",
+      "week": "Hafta",
+      "month": "Ay"
+    },
+    "copyBanner": {
+      "title": "Randevunun bir kopyasını oluşturmak için mevcut bir slot'a tıklayın",
+      "customer": "Müşteri",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "procedure": "Prosedür",
+      "expert": "Uzman",
+      "copyToAnotherExpert": "Başka bir uzmana kopyala"
+    },
+    "quickAction": {
+      "title": "Eylem Seçin",
+      "new": "Yeni",
+      "blockTime": "Zaman Blokla"
+    },
+    "blockTimeModal": {
+      "title": "Zaman Blokla",
+      "labels": {
+        "expert": "Uzman",
+        "chooseExpert": "Uzman seçin...",
+        "date": "Tarih",
+        "time": "Zaman",
+        "duration": "Süre (dakika)",
+        "durationPlaceholder": "örn. 30",
+        "reason": "Sebep",
+        "reasonPlaceholder": "Ara, Öğle Yemeği, vb."
+      },
+      "actions": {
+        "cancel": "İptal",
+        "save": "Kaydet"
+      }
+    },
+    "newAppointmentModal": {
+      "title": "Yeni Randevu",
+      "labels": {
+        "expert": "Uzman",
+        "chooseExpert": "Uzman seçin...",
+        "service": "Hizmet",
+        "chooseService": "Hizmet seçin...",
+        "date": "Tarih",
+        "time": "Zaman",
+        "duration": "Süre",
+        "min": "dakika",
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "phone": "Telefon",
+        "email": "E-posta",
+        "sendConfirmationEmail": "Onay e-postası gönder",
+        "additionalNotes": "Ek Notlar",
+        "notesPlaceholder": "Herhangi bir özel istek veya bilgi?"
+      },
+      "actions": {
+        "cancel": "İptal",
+        "create": "Randevu Oluştur"
+      }
+    },
+    "editAppointmentModal": {
+      "title": "Randevuyu Düzenle",
+      "labels": {
+        "expert": "Uzman",
+        "procedure": "Prosedür",
+        "date": "Tarih",
+        "time": "Zaman",
+        "length": "Uzunluk",
+        "min": "dakika",
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "phone": "Telefon",
+        "email": "E-posta",
+        "notes": "Notlar"
+      },
+      "actions": {
+        "cancel": "İptal",
+        "update": "Güncelle"
+      }
+    },
+    "editBlockTimeModal": {
+      "title": "Blok zamanı düzenle",
+      "labels": {
+        "expert": "Uzman",
+        "date": "Tarih",
+        "time": "Zaman",
+        "length": "Uzunluk",
+        "min": "dakika",
+        "comment": "Yorum"
+      },
+      "actions": {
+        "cancel": "İptal",
+        "update": "Güncelle"
+      }
+    },
+    "appointmentDetails": {
+      "title": "Randevu Detayları",
+      "labels": {
+        "expert": "Uzman",
+        "procedure": "Prosedür",
+        "starts": "Başlıyor",
+        "duration": "Süre",
+        "status": "Durum",
+        "customer": "Müşteri",
+        "phone": "Telefon",
+        "email": "E-posta",
+        "notes": "Notlar",
+        "requestedAt": "Talep edildi",
+        "originally": "ilk olarak {length} dk"
+      },
+      "actions": {
+        "confirm": "Onayla",
+        "cancel": "İptal",
+        "edit": "Düzenle",
+        "copy": "Kopyala",
+        "print": "Yazdır"
+      }
+    },
+    "blockTimeDetails": {
+      "title": "Blok zaman detayları",
+      "labels": {
+        "expert": "Uzman",
+        "starts": "Başlıyor",
+        "duration": "Süre",
+        "comment": "Yorum"
+      },
+      "actions": {
+        "delete": "Sil",
+        "edit": "Düzenle"
+      }
+    },
+    "swal": {
+      "confirmAppointment": {
+        "title": "Randevuyu onayla",
+        "text": "Randevuyu onaylamak istediğinizden emin misiniz?",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      },
+      "cancelAppointment": {
+        "title": "Randevuyu iptal et",
+        "text": "Randevuyu iptal etmek istediğinizden emin misiniz?",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      },
+      "deleteBlockTime": {
+        "title": "Blok zamanı sil",
+        "text": "Blok zamanı silmek istediğinizden emin misiniz?",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      },
+      "updateBlockTime": {
+        "title": "Blok zamanı güncelle",
+        "text": "Blok zamanını güncellemek istediğinizden emin misiniz?",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      },
+      "updateAppointmentTime": {
+        "title": "Randevu zamanını güncelle",
+        "text": "Randevu zamanını güncellemek istediğinizden emin misiniz?",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      },
+      "updateAppointmentLength": {
+        "title": "Randevu süresini güncelle",
+        "text": "Randevu süresini güncellemek istediğinizden emin misiniz?",
+        "lengthHtml": "Uzunluk: {minutes} dakika",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      },
+      "updateBlockTimeLength": {
+        "title": "Blok zaman uzunluğunu güncelle",
+        "text": "Blok zamanını güncellemek istediğinizden emin misiniz?",
+        "lengthHtml": "Uzunluk: {minutes} dakika",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      },
+      "expertTimeHtml": "<p><strong>Uzman: </strong>{expert}</p><p><strong>Zaman: </strong>{time}</p>"
+    },
+    "toasts": {
+      "timeBlocked": "Zaman başarıyla bloklandı",
+      "appointmentConfirmed": "Randevu onaylandı",
+      "appointmentCancelled": "Randevu iptal edildi",
+      "deleted": "Silindi!",
+      "appointmentTimeUpdated": "Randevu zamanı güncellendi",
+      "blockTimeUpdated": "Blok zamanı güncellendi.",
+      "appointmentUpdated": "Randevu güncellendi",
+      "blockUpdated": "Blok güncellendi",
+      "appointmentCreated": "Randevu oluşturuldu"
+    },
+    "print": {
+      "title": "Yazdır",
+      "heading": "Randevu detayları",
+      "labels": {
+        "expert": "Uzman",
+        "procedure": "Prosedür",
+        "starts": "Başlıyor",
+        "duration": "Süre",
+        "minute": "dakika",
+        "customer": "Müşteri",
+        "phone": "Telefon",
+        "email": "E-posta"
+      }
+    }
+  },
+  "customers": {
+    "title": "Müşteriler",
+    "table": {
+      "columns": {
+        "index": "#",
+        "name": "İsim",
+        "surname": "Soyad",
+        "email": "E-posta",
+        "actions": "Eylemler"
+      },
+      "empty": {
+        "iconLabel": "Bu müşteri için randevu bulunamadı."
+      }
+    },
+    "modal": {
+      "title": "Müşteri Detayları",
+      "loadingTitle": "Yükleniyor...",
+      "loadingAppointments": "Müşteri randevuları yükleniyor...",
+      "total": "Toplam: {count}",
+      "columns": {
+        "index": "#",
+        "service": "Hizmet",
+        "expert": "Uzman",
+        "startTime": "Başlangıç Zamanı",
+        "length": "Uzunluk",
+        "status": "Durum",
+        "notes": "Notlar"
+      },
+      "lengthUnit": "dk",
+      "close": "Kapat"
+    },
+    "status": {
+      "confirmed": "onaylı",
+      "cancelledExpert": "iptal_uzman",
+      "cancelled": "iptal",
+      "new": "yeni",
+      "other": "diğer"
+    }
+  },
+  "dashboardHome": {
+    "loading": {
+      "title": "Yükleniyor...",
+      "body": "Gösterge paneli verileri yükleniyor..."
+    },
+    "greeting": "Tekrar hoş geldiniz, {name}!",
+    "dateFilter": {
+      "title": "Tarih Aralığına Göre Filtrele:",
+      "from": "Başlangıç:",
+      "to": "Bitiş:",
+      "apply": "Uygula",
+      "reset": "Sıfırla",
+      "currentFilter": "Geçerli Filtre:",
+      "allTime": "Her zaman",
+      "allTimeFrom": "Her zaman (Ocak 2023'ten itibaren)",
+      "quick": {
+        "7d": "7 Gün",
+        "30d": "30 Gün",
+        "3m": "3 Ay",
+        "6m": "6 Ay",
+        "1y": "Son Yıl",
+        "all": "Tüm Zamanlar"
+      }
+    },
+    "quickStats": {
+      "today": {
+        "valueLabel": "Bugünün Randevuları"
+      },
+      "month": {
+        "valueLabel": "Bu Ay"
+      },
+      "experts": {
+        "valueLabel": "Aktif Uzmanlar"
+      },
+      "services": {
+        "valueLabel": "Aktif Hizmetler"
+      }
+    },
+    "chart": {
+      "title": "Randevular Genel Görünümü",
+      "toggleType": "Grafik Türünü Değiştir",
+      "summary": {
+        "totalAppointments": "Toplam randevular",
+        "completionRate": "Tamamlanma oranı: {rate}%"
+      },
+      "legend": {
+        "appointments": "Randevular",
+        "completed": "Tamamlanan",
+        "cancelled": "İptal Edilen"
+      },
+      "ranges": {
+        "day": "Gün",
+        "week": "Hafta",
+        "month": "Ay"
+      }
+    },
+    "upcoming": {
+      "title": "Yaklaşan Randevular",
+      "subtitle": "Sonraki 7 gün (rezervasyonlu & onaylı sadece)",
+      "total": "{count} toplam",
+      "more": "+{count} daha fazla randevu",
+      "empty": "Yaklaşan randevu yok"
+    },
+    "topServices": {
+      "title": "En İyi Hizmetler",
+      "tooltip": "Seçilen dönemde en çok rezervasyon yapılan hizmetler",
+      "subtitle": "En çok rezervasyon yapılan hizmetler ({filter})",
+      "table": {
+        "service": "Hizmetler",
+        "bookings": "Rezervasyonlar"
+      },
+      "empty": "Seçilen dönem için veri yok."
+    },
+    "topExperts": {
+      "title": "En İyi Uzmanlar",
+      "tooltip": "Seçilen dönemde toplam randevu sayısına göre uzmanlar",
+      "subtitle": "Toplam randevu sayısına göre uzmanlar ({filter})",
+      "table": {
+        "name": "İsim",
+        "appointments": "Randevular"
+      },
+      "empty": "Seçilen dönem için veri yok."
+    },
+    "error": {
+      "failed": "Gösterge paneli verileri yüklenemedi. Lütfen tekrar deneyin.",
+      "retry": "Tekrar Dene"
+    }
+  },
+  "expertProcedures": {
+    "title": "Uzman Prosedürleri",
+    "lengthUnit": "dk",
+    "toasts": {
+      "alreadyAdded": "Bu prosedür zaten uzmana eklenmiş",
+      "alreadyRemoved": "Bu prosedür zaten uzmandan kaldırılmış"
+    },
+    "swal": {
+      "remove": {
+        "title": "Emin misiniz?",
+        "text": "Bu prosedür uzmandan kaldırılacak",
+        "confirm": "Evet",
+        "cancel": "Hayır"
+      }
+    }
+  },
+  "expertSchedules": {
+    "title": "Uzman Çalışma Programları",
+    "table": {
+      "headers": {
+        "day": "Gün",
+        "start": "Başlangıç",
+        "breakStart": "Ara başlangıcı",
+        "breakEnd": "Ara bitişi",
+        "end": "Bitiş"
+      }
+    },
+    "actions": {
+      "save": "Kaydet",
+      "reset": "Değişiklikleri Sıfırla"
+    },
+    "toasts": {
+      "saved": "Değişiklikler başarıyla kaydedildi"
+    },
+    "weekdays": {
+      "monday": "Pazartesi",
+      "tuesday": "Salı",
+      "wednesday": "Çarşamba",
+      "thursday": "Perşembe",
+      "friday": "Cuma",
+      "saturday": "Cumartesi",
+      "sunday": "Pazar"
+    }
+  },
+  "experts": {
+    "title": "Uzmanlar",
+    "add": "Uzman Ekle",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "branch": "Şube",
+        "name": "İsim",
+        "status": "Durum",
+        "actions": "Eylemler"
+      },
+      "status": {
+        "active": "aktif",
+        "inactive": "pasif"
+      }
+    },
+    "modalCreate": {
+      "title": "Yeni Uzman",
+      "labels": {
+        "branch": "Şube",
+        "fullName": "Tam isim",
+        "email": "E-posta",
+        "password": "Şifre"
+      },
+      "actions": {
+        "create": "Oluştur"
+      }
+    },
+    "confirm": {
+      "title": "Emin misiniz?",
+      "text": "Uzmanı sil \"{name}\"?",
+      "confirmButton": "Evet, sil",
+      "cancelButton": "İptal"
+    },
+    "toasts": {
+      "created": "Yeni uzman başarıyla eklendi",
+      "updated": "Uzman güncellendi.",
+      "deleted": "Uzman silindi."
+    },
+    "errors": {
+      "loadFailed": "Uzmanlar listesi yüklenemedi. Lütfen tekrar deneyin."
+    }
+  },
+  "expert": {
+    "labels": {
+      "about": "Hakkında",
+      "color": "Renk"
+    }
+  },
+  "feedbacks": {
+    "breadcrumb": {
+      "create": "Geri Bildirim Oluştur"
+    },
+    "title": "Yeni Geri Bildirim Oluştur",
+    "form": {
+      "labels": {
+        "title": "Başlık",
+        "description": "Açıklama",
+        "images": "Görseller (PNG, JPG, JPEG)",
+        "selectedImages": "Seçilen Görseller:"
+      },
+      "placeholders": {
+        "title": "Geri bildirim başlığını girin...",
+        "description": "Geri bildiriminizi açıklayın..."
+      },
+      "help": {
+        "images": "Birden fazla görsel seçebilirsiniz (sadece PNG, JPG, JPEG, maksimum her biri 5MB)"
+      }
+    },
+    "preview": {
+      "alt": "Seçilen görsel {index}"
+    },
+    "actions": {
+      "create": "Geri Bildirim Oluştur",
+      "creating": "Oluşturuluyor...",
+      "reset": "Sıfırla"
+    },
+    "guidelines": {
+      "title": "Rehber",
+      "items": {
+        "clearTitle": "Açık ve tanımlayıcı bir başlık verin",
+        "detailedDescription": "Geri bildiriminizin detaylı açıklamasını ekleyin",
+        "addImages": "İlgili görseller ekleyin, eğer uygunsa",
+        "supportedFormats": "Desteklenen formatlar: PNG, JPG, JPEG",
+        "maxSize": "Maksimum dosya boyutu: 5MB her görsel için"
+      }
+    },
+    "swal": {
+      "uploadWarning": {
+        "title": "Yükleme Uyarısı",
+        "text": "{failed} görsel(ler) yüklenemedi. {success} başarılı yükleme ile devam etmek ister misiniz?",
+        "confirm": "Devam et",
+        "cancel": "İptal"
+      }
+    },
+    "toasts": {
+      "invalidType": "Lütfen sadece PNG, JPG veya JPEG dosyalarını seçin.",
+      "fileTooLarge": "Lütfen 5MB'dan küçük dosyalar seçin.",
+      "titleRequired": "Lütfen geri bildiriminiz için bir başlık girin.",
+      "submitSuccess": "Geri bildiriminiz başarıyla gönderildi.",
+      "submitFailed": "Geri bildirim gönderme başarısız oldu. Lütfen tekrar deneyin."
+    }
+  },
+  "home": {},
+  "login": {
+    "welcome": "Hoş geldiniz!",
+    "emailAddress": "E-posta adresi",
+    "noShare": "E-postanızı kimseyle paylaşmayacağız.",
+    "welcomeBack": "Tekrar hoş geldiniz!",
+    "password": "Şifre",
+    "forgotPassword": "Şifremi unuttum?",
+    "forgotPasswordTitle": "Şifremi unuttum!",
+    "getVerificationCode": "Doğrulama kodunu al",
+    "verificationCode": "Doğrulama kodu",
+    "newPassword": "Yeni şifre",
+    "setMyNewPassword": "Yeni şifremi belirle",
+    "verificationCodeSent": "Doğrulama kodu e-postanıza gönderildi",
+    "passwordUpdated": "Şifreniz başarıyla güncellendi",
+    "login": "Giriş Yap",
+    "subtitles": {
+      "enterEmail": "Doğrulama kodu almak için e-postanızı girin",
+      "enterCode": "Doğrulama kodunu girin ve yeni bir şifre belirleyin"
+    },
+    "placeholders": {
+      "verificationCode": "Kodu girin",
+      "newPassword": "Güçlü bir şifre girin"
+    },
+    "actions": {
+      "backToLogin": "Giriş Sayfasına Dön"
+    },
+    "register": {
+      "prompt": "Hesabınız yok mu?",
+      "cta": "Ücretsiz kaydolun"
+    }
+  },
+  "passwordEnforced": {
+    "title": "Şifre güncelle",
+    "subtitle": "Şifrenizi değiştirmek zorundasınız. Lütfen aşağıda yeni bir şifre girin.",
+    "labels": {
+      "newPassword": "Yeni şifre",
+      "confirmPassword": "Şifreyi onaylayın"
+    },
+    "placeholders": {
+      "newPassword": "Güçlü bir şifre girin",
+      "confirmPassword": "Şifrenizi tekrar girin"
+    },
+    "actions": {
+      "update": "Güncelle",
+      "updating": "Güncelleniyor...",
+      "logout": "Çıkış Yap"
+    },
+    "validation": {
+      "mismatch": "Lütfen her iki şifrenin de eşleştiğinden emin olun."
+    },
+    "toasts": {
+      "fillAllFields": "Lütfen tüm alanları doldurun.",
+      "mismatch": "Şifreler eşleşmiyor.",
+      "genericError": "Bir hata oluştu"
+    },
+    "dialog": {
+      "success": {
+        "title": "Başarı",
+        "text": "Şifreniz başarıyla güncellendi."
+      },
+      "logout": {
+        "title": "Çıkış",
+        "text": "Çıkış yapmak istediğinizden emin misiniz?"
+      }
+    }
+  },
+  "procedures": {
+    "title": "Hizmetler",
+    "add": "Hizmet Ekle",
+    "lengthUnit": "dakika",
+    "modalCreate": {
+      "title": "Yeni hizmet",
+      "labels": {
+        "name": "İsim",
+        "length": "Uzunluk",
+        "color": "Renk"
+      },
+      "placeholders": {
+        "name": "Prosedür adı",
+        "length": "Uzunluk"
+      },
+      "actions": {
+        "create": "Prosedürü Oluştur",
+        "closePalette": "Kapat"
+      }
+    },
+    "modalEdit": {
+      "actions": {
+        "save": "Değişiklikleri Kaydet"
+      }
+    },
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "İsim",
+        "color": "Renk",
+        "status": "Durum",
+        "length": "Uzunluk",
+        "publicLink": "Halka Açık Bağlantı",
+        "actions": "Eylemler"
+      },
+      "status": {
+        "active": "aktif",
+        "inactive": "pasif"
+      }
+    },
+    "confirm": {
+      "title": "Emin misiniz?",
+      "text": "Prosedürü sil \"{name}\"?",
+      "confirmButton": "Evet, sil",
+      "cancelButton": "İptal"
+    },
+    "toasts": {
+      "updated": "Prosedür güncellendi!",
+      "deleted": "Prosedür silindi.",
+      "linkCopied": "Bağlantı panoya kopyalandı.",
+      "linkCopyFailed": "Bağlantıyı kopyalama başarısız."
+    }
+  },
+  "procedure": {
+    "labels": {
+      "about": "Hakkında:",
+      "length": "Uzunluk:",
+      "status": "Durum:",
+      "color": "Renk:"
+    },
+    "form": {
+      "labels": {
+        "name": "İsim",
+        "description": "Açıklama",
+        "length": "Uzunluk",
+        "color": "Renk",
+        "status": "Durum"
+      }
+    },
+    "actions": {
+      "edit": "Düzenle",
+      "save": "Kaydet",
+      "cancel": "İptal",
+      "closePalette": "Kapat"
+    }
+  },
+  "register": {
+    "steps": {
+      "general": "Genel Bilgiler",
+      "verify": "E-postayı Doğrula",
+      "password": "Şifre Belirle"
+    },
+    "titles": {
+      "createAccount": "Hesabınızı Oluşturun",
+      "verifyEmail": "E-posta Adresinizi Doğrulayın",
+      "setPassword": "Şifrenizi Belirleyin"
+    },
+    "fields": {
+      "companyName": "Şirket Adı",
+      "companyEmail": "Şirket E-postası",
+      "adminName": "Tam Adınız",
+      "adminEmail": "E-posta Adresiniz",
+      "emailAddress": "E-posta Adresi",
+      "verificationCode": "Doğrulama Kodu",
+      "newPassword": "Yeni Şifre"
+    },
+    "placeholders": {
+      "enterCode": "Kodu girin",
+      "enterPassword": "Güçlü bir şifre girin"
+    },
+    "helpers": {
+      "companyEmailVisible": "Bu e-posta müşterilerinize görünür olacaktır.",
+      "adminEmailNotVisible": "Bu e-posta hesabınıza giriş yapmak için kullanılacak ve müşterilere görünmeyecektir."
+    },
+    "actions": {
+      "continue": "Devam Et",
+      "verifyContinue": "Doğrula ve Devam Et",
+      "completeRegistration": "Kaydı Tamamla",
+      "backToLogin": "Giriş Sayfasına Dön"
+    },
+    "messages": {
+      "verificationCodeSent": "Doğrulama kodunu içeren bir e-posta alacaksınız. Lütfen spam kutunuzu da kontrol edin.",
+      "setPasswordPrompt": "Lütfen gelecekteki girişler için şifre belirleyin.",
+      "loginReady": "Artık hesabınıza giriş yapabilirsiniz",
+      "passwordUpdated": "Şifre güncellendi"
+    }
+  },
+  "splash": {},
+  "statusBadge": {
+    "active": "Aktif",
+    "inactive": "Pasif"
+  },
+  "subscription": {
+    "title": "Abonelik",
+    "common": {
+      "unlimited": "sınırsız"
+    },
+    "nonManager": {
+      "active": {
+        "title": "Aktif Abonelik",
+        "text": "Aktif bir {name} aboneliğiniz var, {until} tarihine kadar geçerlidir."
+      },
+      "notice": {
+        "title": "Abonelik Bildirimi",
+        "text": "Şirketiniz bir pakete abonedir. Daha fazla bilgi için yöneticinizle iletişime geçin."
+      }
+    },
+    "manager": {
+      "current": {
+        "trialBadge": "Deneme",
+        "validUntil": "Geçerlilik süresi: {date}",
+        "features": {
+          "branches": "Şubeler:",
+          "experts": "Uzmanlar:",
+          "procedures": "Prosedürler:",
+          "appointments": "Randevular:",
+          "blacklist": "Karaliste:"
+        },
+        "actions": {
+          "cancel": "İptal Et"
+        }
+      },
+      "empty": {
+        "title": "Aktif Abonelik Yok",
+        "text": "Aktif bir aboneliğiniz yok. Lütfen aşağıdaki listeden bir paket seçin."
+      },
+      "planPicker": {
+        "title": "Planınızı Seçin",
+        "period": {
+          "monthly": "Aylık",
+          "yearly": "Yıllık",
+          "perMonth": "/ay",
+          "perYear": "/yıl"
+        },
+        "price": {
+          "free": "ÜCRETSİZ"
+        },
+        "features": {
+          "branches": "Şubeler:",
+          "experts": "Uzmanlar:",
+          "procedures": "Prosedürler:",
+          "appointments": "Randevular:",
+          "blacklist": "Karaliste:"
+        },
+        "actions": {
+          "selectPlan": "Planı Seç"
+        },
+        "trialAvailable": "{days} günlük deneme mevcut"
+      },
+      "noPackages": {
+        "title": "Paket Bulunamadı",
+        "text": "Şu anda mevcut paket yok. Lütfen daha sonra tekrar deneyin veya destekle iletişime geçin."
+      }
+    },
+    "dialogs": {
+      "subscribeConfirm": {
+        "title": "Abonelik",
+        "text": "Bu pakete abone olmak istediğinizden emin misiniz?"
+      },
+      "subscribeSuccess": {
+        "title": "Başarı",
+        "text": "Pakete başarıyla abone oldunuz."
+      },
+      "paymentRequired": {
+        "title": "Ödeme Gerekiyor",
+        "text": "Aboneliğinizi aktifleştirmek için ödemeyi tamamlamanız gerekiyor."
+      },
+      "cancelConfirm": {
+        "title": "Aboneliği İptal Et",
+        "text": "Aboneliğinizi iptal etmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+      },
+      "cancelSuccess": {
+        "title": "Başarı",
+        "text": "Aboneliğiniz iptal edildi."
+      }
+    },
+    "userPermission": {
+      "title": "Kullanıcı İzinleri",
+      "loggedInWarning": "Bu kullanıcı şu anda giriş yapmış durumda. Düzenlerken dikkatli olun.",
+      "noPermissions": "Bu kullanıcıya atanmış izin yok.",
+      "actions": {
+        "edit": "İzinleri Düzenle"
+      },
+      "permissionListTitle": "İzinler",
+      "loading": "Kullanıcı yükleniyor...",
+      "toast": {
+        "permissionAdded": "İzin eklendi",
+        "permissionRemoved": "İzin kaldırıldı"
+      }
+    },
+    "users": {
+      "title": "Kullanıcılar",
+      "breadcrumb": {
+        "dashboard": "Gösterge Paneli",
+        "users": "Kullanıcılar"
+      },
+      "actions": {
+        "add": "Kullanıcı Ekle",
+        "create": "Kullanıcı Oluştur",
+        "edit": "Kullanıcıyı Düzenle",
+        "delete": "Kullanıcıyı Sil",
+        "permissions": "Kullanıcı izinleri"
+      },
+      "form": {
+        "role": {
+          "label": "Rol",
+          "placeholder": "Rol seçin...",
+          "manager": "Şirket yöneticisi",
+          "branch": "Şube yöneticisi",
+          "expert": "Uzman"
+        },
+        "branch": {
+          "label": "Şube",
+          "placeholder": "Şube seçin..."
+        },
+        "fullName": {
+          "label": "Tam Adı",
+          "placeholder": "Tam adınızı girin"
+        },
+        "email": {
+          "label": "E-posta",
+          "placeholder": "E-posta adresini girin"
+        }
+      },
+      "table": {
+        "id": "ID",
+        "name": "İsim",
+        "email": "E-posta",
+        "branch": "Şube",
+        "role": "Rol",
+        "status": "Durum",
+        "publicLink": "Halka Açık Bağlantı",
+        "actions": "Eylemler",
+        "roles": {
+          "expert": "Uzman",
+          "branchManager": "Şube yöneticisi",
+          "companyManager": "Şirket yöneticisi"
+        },
+        "statusValues": {
+          "active": "aktif",
+          "inactive": "pasif"
+        }
+      },
+      "confirm": {
+        "deleteTitle": "Emin misiniz?",
+        "deleteText": "Kullanıcıyı sil \"{user}\"?",
+        "yes": "Evet, sil",
+        "cancel": "İptal"
+      },
+      "toast": {
+        "linkCopied": "Bağlantı panoya kopyalandı",
+        "linkCopyFailed": "Bağlantıyı kopyalama başarısız",
+        "deleteApiNotImplemented": "Kullanıcı silme API'si uygulanmadı"
+      }
+    },
+    "user": {
+      "labels": {
+        "email": "E-posta:",
+        "branch": "Şube:",
+        "status": "Durum:",
+        "name": "İsim"
+      },
+      "actions": {
+        "edit": "Düzenle",
+        "save": "Kaydet",
+        "cancel": "İptal"
+      },
+      "alerts": {
+        "currentlyLoggedIn": "Bu kullanıcı şu anda giriş yapmış durumda. Düzenlerken dikkatli olun."
+      },
+      "form": {
+        "allBranches": "-tüm şubeler-"
+      }
+    },
+    "colorComponent": {
+
+    },
+    "dashboard": {
+
+    }
+  }
+}
+

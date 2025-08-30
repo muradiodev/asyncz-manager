@@ -1,0 +1,1124 @@
+{
+  "general": {
+    "loading": "Laden...",
+    "dashboard": "Dashboard",
+    "attention": "Achtung",
+    "ok": "OK",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "continue": "Fortfahren",
+    "submit": "Einreichen"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "account": "Konto",
+    "security": "Sicherheit",
+    "blacklist": "Schwarze Liste",
+    "branches": "Filialen",
+    "businessSettings": "Geschäftseinstellungen",
+    "calendar": "Kalender",
+    "customers": "Kunden",
+    "users": "Benutzer",
+    "feedbacks": "Rückmeldungen",
+    "home": "Startseite"
+  },
+  "language": {
+    "current": "Deutsch",
+    "list": {
+      "de": "Deutsch"
+    }
+  },
+  "account": {
+    "accountSettings": "Kontoeinstellungen",
+    "accountInformation": "Kontoinformationen",
+    "updateYourPersonalInformation": "Aktualisieren Sie Ihre persönlichen Informationen",
+    "labels": {
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "description": "Beschreibung"
+    },
+    "placeholders": {
+      "phone": "+49 (555) 000-0000",
+      "about": "Erzählen Sie uns von sich"
+    },
+    "hints": {
+      "emailLocked": "E-Mail kann nicht geändert werden. Kontaktieren Sie den Support, wenn Sie Ihre E-Mail aktualisieren müssen."
+    },
+    "actions": {
+      "saveChanges": "Änderungen speichern",
+      "saving": "Speichern..."
+    },
+    "messages": {
+      "saved": "Änderungen erfolgreich gespeichert"
+    },
+    "security": {
+      "passwordSettings": "Passworteinstellungen",
+      "updateYourPassword": "Aktualisieren Sie Ihr Passwort",
+      "labels": {
+        "currentPassword": "Aktuelles Passwort",
+        "newPassword": "Neues Passwort"
+      },
+      "messages": {
+        "passwordUpdated": "Passwort aktualisiert"
+      }
+    }
+  },
+  "aiScheduler": {
+    "placeholder": "💡 Termin für Jane Doe, abc@example.com, +12345, 31. Dezember 14:30, Notizen: Erstberatung..",
+    "hint": "🤖 Ich bin KI - Nutzen Sie mich!",
+    "tooltips": {
+      "voiceInput": "Sprachsteuerung",
+      "stopRecording": "Aufnahme stoppen",
+      "submit": "Einreichen"
+    },
+    "status": {
+      "recording": "Aufnahme...",
+      "processing": "Verarbeitung..."
+    },
+    "errors": {
+      "microphoneDenied": "Mikrofonzugriff verweigert",
+      "processingError": "Verarbeitungsfehler",
+      "saveError": "Speicherfehler",
+      "httpError": "HTTP-Fehler! Status: {status}",
+      "processingFailed": "Verarbeitung fehlgeschlagen",
+      "saveFailed": "Speichern fehlgeschlagen"
+    },
+    "modals": {
+      "confirmAppointment": {
+        "title": "Termin bestätigen",
+        "labels": {
+          "firstName": "Vorname *",
+          "lastName": "Nachname *",
+          "email": "E-Mail",
+          "phone": "Telefon",
+          "dateTime": "Termin Datum & Uhrzeit",
+          "notes": "Notizen",
+          "expertNotes": "Expertennotizen"
+        },
+        "validation": {
+          "firstNameRequired": "Vorname ist erforderlich",
+          "lastNameRequired": "Nachname ist erforderlich",
+          "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+        },
+        "originalInput": {
+          "title": "Ursprüngliche Eingabe"
+        },
+        "actions": {
+          "cancel": "Abbrechen",
+          "save": "Termin speichern",
+          "saving": "Speichern..."
+        }
+      },
+      "success": {
+        "title": "Erfolg!",
+        "ok": "OK"
+      }
+    }
+  },
+  "blacklist": {
+    "title": "Schwarze Liste",
+    "add": "Schwarze Liste hinzufügen",
+    "notSubscribed": "Ihr Unternehmen ist nicht für ein Paket abonniert, das die Funktion Schwarze Liste enthält.",
+    "table": {
+      "columns": {
+        "keyword": "Stichwort",
+        "action": "Aktion"
+      }
+    },
+    "modalCreate": {
+      "title": "Neue Schwarze Liste",
+      "labels": {
+        "keyword": "Stichwort"
+      },
+      "actions": {
+        "create": "Erstellen"
+      }
+    },
+    "confirm": {
+      "title": "Sind Sie sicher?",
+      "text": "Schwarze Liste \"{value}\" löschen?",
+      "confirmButton": "Ja, löschen",
+      "cancelButton": "Abbrechen"
+    },
+    "toasts": {
+      "created": "Neue schwarze Liste erfolgreich hinzugefügt",
+      "deleted": "Schwarze Liste gelöscht."
+    }
+  },
+  "branches": {
+    "title": "Filialen",
+    "add": "Filiale hinzufügen",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "status": "Status",
+        "publicLink": "Öffentlicher Link",
+        "actions": "Aktionen"
+      },
+      "status": {
+        "active": "aktiv",
+        "inactive": "inaktiv"
+      }
+    },
+    "modalCreate": {
+      "title": "Neue Filiale",
+      "labels": {
+        "branchName": "Filialname"
+      },
+      "actions": {
+        "create": "Erstellen"
+      }
+    },
+    "modalEdit": {
+      "title": "Filiale bearbeiten",
+      "loading": "Laden...",
+      "loadingBranchData": "Lade Filialdaten...",
+      "labels": {
+        "branchName": "Filialname",
+        "description": "Beschreibung",
+        "status": "Status"
+      },
+      "options": {
+        "active": "Aktiv",
+        "inactive": "Inaktiv"
+      },
+      "actions": {
+        "save": "Speichern"
+      }
+    },
+    "confirm": {
+      "title": "Sind Sie sicher?",
+      "text": "Filiale \"{name}\" löschen?",
+      "confirmButton": "Ja, löschen",
+      "cancelButton": "Abbrechen"
+    },
+    "toasts": {
+      "created": "Neue Filiale erfolgreich hinzugefügt",
+      "updated": "Filiale aktualisiert.",
+      "deleted": "Filiale gelöscht.",
+      "linkCopied": "Link in die Zwischenablage kopiert.",
+      "linkCopyFailed": "Link konnte nicht kopiert werden.",
+      "loadFailed": "Filialdetails konnten nicht geladen werden. Bitte versuchen Sie es erneut."
+    },
+    "errors": {
+      "loadFailed": "Filialdetails konnten nicht geladen werden: {message}"
+    }
+  },
+  "businessSettings": {
+    "title": "Geschäftseinstellungen",
+    "labels": {
+      "businessName": "Geschäftsname",
+      "businessDescription": "Geschäftsbeschreibung",
+      "businessAddress": "Geschäftsadresse",
+      "businessPhone": "Geschäftstelefon",
+      "businessEmail": "Geschäfts-E-Mail",
+      "businessTimezone": "Geschäftszeitzone",
+      "slotSizeInMinutes": "Slotgröße in Minuten",
+      "requireEmailConfirmation": "E-Mail-Bestätigung erforderlich",
+      "requireEmailConfirmationVisuallyHidden": "E-Mail-Bestätigung erforderlich",
+      "searchTimezoneOrCity": "Zeitzone oder Stadt suchen..."
+    },
+    "help": {
+      "requireEmailConfirmation": "Wenn aktiviert, müssen Kunden ihre E-Mail-Adresse bei der Buchung von Terminen bestätigen."
+    },
+    "options": {
+      "slotSizes": {
+        "10": "10",
+        "15": "15",
+        "30": "30",
+        "60": "60"
+      }
+    },
+    "actions": {
+      "saveChanges": "Änderungen speichern",
+      "saving": "Speichern..."
+    },
+    "messages": {
+      "loadFailed": "Laden der Geschäftsdaten fehlgeschlagen",
+      "updateFailed": "Aktualisierung der Geschäftseinstellungen fehlgeschlagen",
+      "updatedSuccessfully": "Geschäftseinstellungen erfolgreich aktualisiert",
+      "unexpectedError": "Ein unerwarteter Fehler ist aufgetreten"
+    }
+  },
+  "calendar": {
+    "sidebar": {
+      "new": "Neu",
+      "newAppointment": "Termin",
+      "externalScheduler": "🚀 Collabriq Scheduler",
+      "branchesExperts": "Filialen & Experten"
+    },
+    "buttons": {
+      "today": "Heute",
+      "prev": "Vorherige",
+      "next": "Nächste",
+      "new": "Neu",
+      "blockTime": "Zeit blockieren",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "create": "Erstellen",
+      "update": "Aktualisieren",
+      "confirm": "Bestätigen",
+      "copy": "Kopieren",
+      "edit": "Bearbeiten",
+      "print": "Drucken",
+      "delete": "Löschen",
+      "yes": "Ja",
+      "no": "Nein"
+    },
+    "views": {
+      "day": "Tag",
+      "day3": "3 Tage",
+      "week": "Woche",
+      "month": "Monat"
+    },
+    "copyBanner": {
+      "title": "Klicken Sie auf einen verfügbaren Slot, um eine Kopie des Termins zu erstellen",
+      "customer": "Kunde",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "procedure": "Verfahren",
+      "expert": "Experte",
+      "copyToAnotherExpert": "Kopieren zu einem anderen Experten"
+    },
+    "quickAction": {
+      "title": "Aktion wählen",
+      "new": "Neu",
+      "blockTime": "Zeit blockieren"
+    },
+    "blockTimeModal": {
+      "title": "Zeit blockieren",
+      "labels": {
+        "expert": "Experte",
+        "chooseExpert": "Experten wählen...",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "duration": "Dauer (Minuten)",
+        "durationPlaceholder": "z.B. 30",
+        "reason": "Grund",
+        "reasonPlaceholder": "Pause, Mittagessen, etc."
+      },
+      "actions": {
+        "cancel": "Abbrechen",
+        "save": "Speichern"
+      }
+    },
+    "newAppointmentModal": {
+      "title": "Neuer Termin",
+      "labels": {
+        "expert": "Experte",
+        "chooseExpert": "Experten wählen...",
+        "service": "Dienstleistung",
+        "chooseService": "Dienstleistung wählen...",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "duration": "Dauer",
+        "min": "min",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "sendConfirmationEmail": "Bestätigungs-E-Mail senden",
+        "additionalNotes": "Zusätzliche Notizen",
+        "notesPlaceholder": "Besondere Anfragen oder Informationen?"
+      },
+      "actions": {
+        "cancel": "Abbrechen",
+        "create": "Termin erstellen"
+      }
+    },
+    "editAppointmentModal": {
+      "title": "Termin bearbeiten",
+      "labels": {
+        "expert": "Experte",
+        "procedure": "Verfahren",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "length": "Länge",
+        "min": "min",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "notes": "Notizen"
+      },
+      "actions": {
+        "cancel": "Abbrechen",
+        "update": "Aktualisieren"
+      }
+    },
+    "editBlockTimeModal": {
+      "title": "Blockzeit bearbeiten",
+      "labels": {
+        "expert": "Experte",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "length": "Länge",
+        "min": "min",
+        "comment": "Kommentar"
+      },
+      "actions": {
+        "cancel": "Abbrechen",
+        "update": "Aktualisieren"
+      }
+    },
+    "appointmentDetails": {
+      "title": "Termin Details",
+      "labels": {
+        "expert": "Experte",
+        "procedure": "Verfahren",
+        "starts": "Beginnt",
+        "duration": "Dauer",
+        "status": "Status",
+        "customer": "Kunde",
+        "phone": "Telefon",
+        "email": "E-Mail",
+        "notes": "Notizen",
+        "requestedAt": "Angefordert am",
+        "originally": "ursprünglich {length} min"
+      },
+      "actions": {
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen",
+        "edit": "Bearbeiten",
+        "copy": "Kopieren",
+        "print": "Drucken"
+      }
+    },
+    "blockTimeDetails": {
+      "title": "Blockzeit Details",
+      "labels": {
+        "expert": "Experte",
+        "starts": "Beginnt",
+        "duration": "Dauer",
+        "comment": "Kommentar"
+      },
+      "actions": {
+        "delete": "Löschen",
+        "edit": "Bearbeiten"
+      }
+    },
+    "swal": {
+      "confirmAppointment": {
+        "title": "Termin bestätigen",
+        "text": "Sind Sie sicher, dass Sie den Termin bestätigen möchten?",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      },
+      "cancelAppointment": {
+        "title": "Termin abbrechen",
+        "text": "Sind Sie sicher, dass Sie den Termin abbrechen möchten?",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      },
+      "deleteBlockTime": {
+        "title": "Blockzeit löschen",
+        "text": "Sind Sie sicher, dass Sie die Blockzeit löschen möchten?",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      },
+      "updateBlockTime": {
+        "title": "Blockzeit aktualisieren",
+        "text": "Sind Sie sicher, dass Sie die Blockzeit aktualisieren möchten?",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      },
+      "updateAppointmentTime": {
+        "title": "Terminzeit aktualisieren",
+        "text": "Sind Sie sicher, dass Sie den Termin aktualisieren möchten?",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      },
+      "updateAppointmentLength": {
+        "title": "Terminlänge aktualisieren",
+        "text": "Sind Sie sicher, dass Sie den Termin aktualisieren möchten?",
+        "lengthHtml": "Länge: {minutes} Minuten",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      },
+      "updateBlockTimeLength": {
+        "title": "Blockzeitlänge aktualisieren",
+        "text": "Sind Sie sicher, dass Sie die Blockzeit aktualisieren möchten?",
+        "lengthHtml": "Länge: {minutes} Minuten",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      },
+      "expertTimeHtml": "<p><strong>Experte: </strong>{expert}</p><p><strong>Zeit: </strong>{time}</p>"
+    },
+    "toasts": {
+      "timeBlocked": "Zeit erfolgreich blockiert",
+      "appointmentConfirmed": "Termin bestätigt",
+      "appointmentCancelled": "Termin abgebrochen",
+      "deleted": "Gelöscht!",
+      "appointmentTimeUpdated": "Terminzeit aktualisiert",
+      "blockTimeUpdated": "Blockzeit aktualisiert.",
+      "appointmentUpdated": "Termin aktualisiert",
+      "blockUpdated": "Block aktualisiert",
+      "appointmentCreated": "Termin erstellt"
+    },
+    "print": {
+      "title": "Drucken",
+      "heading": "Termin Details",
+      "labels": {
+        "expert": "Experte",
+        "procedure": "Verfahren",
+        "starts": "Beginnt",
+        "duration": "Dauer",
+        "minute": "Minute",
+        "customer": "Kunde",
+        "phone": "Telefon",
+        "email": "E-Mail"
+      }
+    }
+  },
+  "customers": {
+    "title": "Kunden",
+    "table": {
+      "columns": {
+        "index": "#",
+        "name": "Name",
+        "surname": "Nachname",
+        "email": "E-Mail",
+        "actions": "Aktionen"
+      },
+      "empty": {
+        "iconLabel": "Für diesen Kunden wurden keine Termine gefunden."
+      }
+    },
+    "modal": {
+      "title": "Kundendetails",
+      "loadingTitle": "Laden...",
+      "loadingAppointments": "Lade Kunden-Termine...",
+      "total": "Gesamt: {count}",
+      "columns": {
+        "index": "#",
+        "service": "Dienstleistung",
+        "expert": "Experte",
+        "startTime": "Startzeit",
+        "length": "Länge",
+        "status": "Status",
+        "notes": "Notizen"
+      },
+      "lengthUnit": "min",
+      "close": "Schließen"
+    },
+    "status": {
+      "confirmed": "bestätigt",
+      "cancelledExpert": "abgebrochen_expert",
+      "cancelled": "abgebrochen",
+      "new": "neu",
+      "other": "andere"
+    }
+  },
+  "dashboardHome": {
+    "loading": {
+      "title": "Laden...",
+      "body": "Lade Dashboard-Daten..."
+    },
+    "greeting": "Willkommen zurück, {name}!",
+    "dateFilter": {
+      "title": "Nach Datumsbereich filtern:",
+      "from": "Von:",
+      "to": "Bis:",
+      "apply": "Anwenden",
+      "reset": "Zurücksetzen",
+      "currentFilter": "Aktueller Filter:",
+      "allTime": "Alle Zeiten",
+      "allTimeFrom": "Alle Zeiten (seit Jan 2023)",
+      "quick": {
+        "7d": "7 Tage",
+        "30d": "30 Tage",
+        "3m": "3 Monate",
+        "6m": "6 Monate",
+        "1y": "Letztes Jahr",
+        "all": "Alle Zeiten"
+      }
+    },
+    "quickStats": {
+      "today": {
+        "valueLabel": "Termine von heute"
+      },
+      "month": {
+        "valueLabel": "Diesen Monat"
+      },
+      "experts": {
+        "valueLabel": "Aktive Experten"
+      },
+      "services": {
+        "valueLabel": "Aktive Dienstleistungen"
+      }
+    },
+    "chart": {
+      "title": "Übersicht der Termine",
+      "toggleType": "Diagrammtyp umschalten",
+      "summary": {
+        "totalAppointments": "Gesamttermine",
+        "completionRate": "Erfolgsquote: {rate}%"
+      },
+      "legend": {
+        "appointments": "Termine",
+        "completed": "Abgeschlossen",
+        "cancelled": "Abgebrochen"
+      },
+      "ranges": {
+        "day": "Tag",
+        "week": "Woche",
+        "month": "Monat"
+      }
+    },
+    "upcoming": {
+      "title": "Bevorstehende Termine",
+      "subtitle": "Nächste 7 Tage (nur gebucht & bestätigt)",
+      "total": "{count} insgesamt",
+      "more": "+{count} weitere Termine",
+      "empty": "Keine bevorstehenden Termine"
+    },
+    "topServices": {
+      "title": "Top Dienstleistungen",
+      "tooltip": "Am häufigsten gebuchte Dienstleistungen im ausgewählten Zeitraum",
+      "subtitle": "Am häufigsten gebuchte Dienstleistungen ({filter})",
+      "table": {
+        "service": "Dienstleistungen",
+        "bookings": "Buchungen"
+      },
+      "empty": "Keine Daten für den ausgewählten Zeitraum verfügbar."
+    },
+    "topExperts": {
+      "title": "Top Experten",
+      "tooltip": "Experten nach Gesamtterminen im ausgewählten Zeitraum",
+      "subtitle": "Experten nach Gesamtterminen ({filter})",
+      "table": {
+        "name": "Name",
+        "appointments": "Termine"
+      },
+      "empty": "Keine Daten für den ausgewählten Zeitraum verfügbar."
+    },
+    "error": {
+      "failed": "Laden der Dashboard-Daten fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "retry": "Erneut versuchen"
+    }
+  },
+  "expertProcedures": {
+    "title": "Expertenverfahren",
+    "lengthUnit": "min",
+    "toasts": {
+      "alreadyAdded": "Dieses Verfahren ist bereits dem Experten hinzugefügt",
+      "alreadyRemoved": "Dieses Verfahren ist bereits vom Experten entfernt"
+    },
+    "swal": {
+      "remove": {
+        "title": "Sind Sie sicher?",
+        "text": "Dieses Verfahren wird vom Experten entfernt",
+        "confirm": "Ja",
+        "cancel": "Nein"
+      }
+    }
+  },
+  "expertSchedules": {
+    "title": "Arbeitspläne der Experten",
+    "table": {
+      "headers": {
+        "day": "Tag",
+        "start": "Start",
+        "breakStart": "Pause beginnt",
+        "breakEnd": "Pause endet",
+        "end": "Ende"
+      }
+    },
+    "actions": {
+      "save": "Speichern",
+      "reset": "Änderungen zurücksetzen"
+    },
+    "toasts": {
+      "saved": "Änderungen erfolgreich gespeichert"
+    },
+    "weekdays": {
+      "monday": "Montag",
+      "tuesday": "Dienstag",
+      "wednesday": "Mittwoch",
+      "thursday": "Donnerstag",
+      "friday": "Freitag",
+      "saturday": "Samstag",
+      "sunday": "Sonntag"
+    }
+  },
+  "experts": {
+    "title": "Experten",
+    "add": "Experten hinzufügen",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "branch": "Filiale",
+        "name": "Name",
+        "status": "Status",
+        "actions": "Aktionen"
+      },
+      "status": {
+        "active": "aktiv",
+        "inactive": "inaktiv"
+      }
+    },
+    "modalCreate": {
+      "title": "Neuer Experte",
+      "labels": {
+        "branch": "Filiale",
+        "fullName": "Vollständiger Name",
+        "email": "E-Mail",
+        "password": "Passwort"
+      },
+      "actions": {
+        "create": "Erstellen"
+      }
+    },
+    "confirm": {
+      "title": "Sind Sie sicher?",
+      "text": "Experte \"{name}\" löschen?",
+      "confirmButton": "Ja, löschen",
+      "cancelButton": "Abbrechen"
+    },
+    "toasts": {
+      "created": "Neuer Experte erfolgreich hinzugefügt",
+      "updated": "Experte aktualisiert.",
+      "deleted": "Experte gelöscht."
+    },
+    "errors": {
+      "loadFailed": "Laden der Expertenliste fehlgeschlagen. Bitte versuchen Sie es erneut."
+    }
+  },
+  "expert": {
+    "labels": {
+      "about": "Über",
+      "color": "Farbe"
+    }
+  },
+  "feedbacks": {
+    "breadcrumb": {
+      "create": "Feedback erstellen"
+    },
+    "title": "Neues Feedback erstellen",
+    "form": {
+      "labels": {
+        "title": "Titel",
+        "description": "Beschreibung",
+        "images": "Bilder (PNG, JPG, JPEG)",
+        "selectedImages": "Ausgewählte Bilder:"
+      },
+      "placeholders": {
+        "title": "Geben Sie den Titel des Feedbacks ein...",
+        "description": "Geben Sie Ihre Feedbackbeschreibung ein..."
+      },
+      "help": {
+        "images": "Sie können mehrere Bilder auswählen (nur PNG, JPG, JPEG, max. 5MB pro Bild)"
+      }
+    },
+    "preview": {
+      "alt": "Ausgewähltes Bild {index}"
+    },
+    "actions": {
+      "create": "Feedback erstellen",
+      "creating": "Erstellen...",
+      "reset": "Zurücksetzen"
+    },
+    "guidelines": {
+      "title": "Richtlinien",
+      "items": {
+        "clearTitle": "Geben Sie einen klaren und beschreibenden Titel an",
+        "detailedDescription": "Fügen Sie eine detaillierte Beschreibung Ihres Feedbacks hinzu",
+        "addImages": "Fügen Sie relevante Bilder hinzu, falls zutreffend",
+        "supportedFormats": "Unterstützte Formate: PNG, JPG, JPEG",
+        "maxSize": "Maximale Dateigröße: 5MB pro Bild"
+      }
+    },
+    "swal": {
+      "uploadWarning": {
+        "title": "Upload-Warnung",
+        "text": "{failed} Bild(er) konnten nicht hochgeladen werden. Mit {success} erfolgreichen Upload(s) fortfahren?",
+        "confirm": "Fortfahren",
+        "cancel": "Abbrechen"
+      }
+    },
+    "toasts": {
+      "invalidType": "Bitte wählen Sie nur PNG-, JPG- oder JPEG-Dateien aus.",
+      "fileTooLarge": "Bitte wählen Sie Dateien aus, die kleiner als 5MB sind.",
+      "titleRequired": "Bitte geben Sie einen Titel für Ihr Feedback ein.",
+      "submitSuccess": "Ihr Feedback wurde erfolgreich eingereicht.",
+      "submitFailed": "Einreichung des Feedbacks fehlgeschlagen. Bitte versuchen Sie es erneut."
+    }
+  },
+  "home": {},
+  "login": {
+    "welcome": "Willkommen!",
+    "emailAddress": "E-Mail-Adresse",
+    "noShare": "Wir werden Ihre E-Mail niemals mit jemandem teilen.",
+    "welcomeBack": "Willkommen zurück!",
+    "password": "Passwort",
+    "forgotPassword": "Passwort vergessen?",
+    "forgotPasswordTitle": "Passwort vergessen!",
+    "getVerificationCode": "Verifizierungscode anfordern",
+    "verificationCode": "Verifizierungscode",
+    "newPassword": "Neues Passwort",
+    "setMyNewPassword": "Setzen Sie mein neues Passwort",
+    "verificationCodeSent": "Verifizierungscode an Ihre E-Mail gesendet",
+    "passwordUpdated": "Ihr Passwort wurde erfolgreich aktualisiert",
+    "login": "Anmelden",
+    "subtitles": {
+      "enterEmail": "Geben Sie Ihre E-Mail ein, um einen Verifizierungscode zu erhalten",
+      "enterCode": "Geben Sie den Verifizierungscode ein und setzen Sie ein neues Passwort"
+    },
+    "placeholders": {
+      "verificationCode": "Code eingeben",
+      "newPassword": "Geben Sie ein starkes Passwort ein"
+    },
+    "actions": {
+      "backToLogin": "Zurück zur Anmeldung"
+    },
+    "register": {
+      "prompt": "Haben Sie kein Konto?",
+      "cta": "Kostenlos registrieren"
+    }
+  },
+  "passwordEnforced": {
+    "title": "Passwortaktualisierung",
+    "subtitle": "Sie sind verpflichtet, Ihr Passwort zu ändern. Bitte geben Sie unten ein neues Passwort ein.",
+    "labels": {
+      "newPassword": "Neues Passwort",
+      "confirmPassword": "Passwort bestätigen"
+    },
+    "placeholders": {
+      "newPassword": "Geben Sie ein starkes Passwort ein",
+      "confirmPassword": "Geben Sie Ihr Passwort erneut ein"
+    },
+    "actions": {
+      "update": "Aktualisieren",
+      "updating": "Aktualisieren...",
+      "logout": "Abmelden"
+    },
+    "validation": {
+      "mismatch": "Bitte stellen Sie sicher, dass beide Passwörter übereinstimmen."
+    },
+    "toasts": {
+      "fillAllFields": "Bitte füllen Sie alle Felder aus.",
+      "mismatch": "Passwörter stimmen nicht überein.",
+      "genericError": "Ein Fehler ist aufgetreten"
+    },
+    "dialog": {
+      "success": {
+        "title": "Erfolg",
+        "text": "Ihr Passwort wurde erfolgreich aktualisiert."
+      },
+      "logout": {
+        "title": "Abmelden",
+        "text": "Sind Sie sicher, dass Sie sich abmelden möchten?"
+      }
+    }
+  },
+  "procedures": {
+    "title": "Dienstleistungen",
+    "add": "Dienstleistung hinzufügen",
+    "lengthUnit": "Minute(n)",
+    "modalCreate": {
+      "title": "Neue Dienstleistung",
+      "labels": {
+        "name": "Name",
+        "length": "Länge",
+        "color": "Farbe"
+      },
+      "placeholders": {
+        "name": "Verfahrensname",
+        "length": "Länge"
+      },
+      "actions": {
+        "create": "Verfahren erstellen",
+        "closePalette": "Schließen"
+      }
+    },
+    "modalEdit": {
+      "actions": {
+        "save": "Änderungen speichern"
+      }
+    },
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "color": "Farbe",
+        "status": "Status",
+        "length": "Länge",
+        "publicLink": "Öffentlicher Link",
+        "actions": "Aktionen"
+      },
+      "status": {
+        "active": "aktiv",
+        "inactive": "inaktiv"
+      }
+    },
+    "confirm": {
+      "title": "Sind Sie sicher?",
+      "text": "Verfahren \"{name}\" löschen?",
+      "confirmButton": "Ja, löschen",
+      "cancelButton": "Abbrechen"
+    },
+    "toasts": {
+      "updated": "Verfahren aktualisiert!",
+      "deleted": "Verfahren gelöscht.",
+      "linkCopied": "Link in die Zwischenablage kopiert.",
+      "linkCopyFailed": "Link konnte nicht kopiert werden."
+    }
+  },
+  "procedure": {
+    "labels": {
+      "about": "Über:",
+      "length": "Länge:",
+      "status": "Status:",
+      "color": "Farbe:"
+    },
+    "form": {
+      "labels": {
+        "name": "Name",
+        "description": "Beschreibung",
+        "length": "Länge",
+        "color": "Farbe",
+        "status": "Status"
+      }
+    },
+    "actions": {
+      "edit": "Bearbeiten",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "closePalette": "Schließen"
+    }
+  },
+  "register": {
+    "steps": {
+      "general": "Allgemeine Informationen",
+      "verify": "E-Mail bestätigen",
+      "password": "Passwort festlegen"
+    },
+    "titles": {
+      "createAccount": "Erstellen Sie Ihr Konto",
+      "verifyEmail": "Bestätigen Sie Ihre E-Mail",
+      "setPassword": "Legen Sie Ihr Passwort fest"
+    },
+    "fields": {
+      "companyName": "Firmenname",
+      "companyEmail": "Firmen-E-Mail",
+      "adminName": "Ihr vollständiger Name",
+      "adminEmail": "Ihre E-Mail",
+      "emailAddress": "E-Mail-Adresse",
+      "verificationCode": "Verifizierungscode",
+      "newPassword": "Neues Passwort"
+    },
+    "placeholders": {
+      "enterCode": "Code eingeben",
+      "enterPassword": "Geben Sie ein starkes Passwort ein"
+    },
+    "helpers": {
+      "companyEmailVisible": "Diese E-Mail wird für Ihre Kunden sichtbar sein.",
+      "adminEmailNotVisible": "Diese E-Mail wird zum Anmelden in Ihrem Konto verwendet und wird für Kunden nicht sichtbar sein."
+    },
+    "actions": {
+      "continue": "Fortfahren",
+      "verifyContinue": "Überprüfen & Fortfahren",
+      "completeRegistration": "Registrierung abschließen",
+      "backToLogin": "Zurück zur Anmeldung"
+    },
+    "messages": {
+      "verificationCodeSent": "Sie erhalten eine E-Mail mit einem Verifizierungscode. Bitte überprüfen Sie auch Ihren Spam-Ordner.",
+      "setPasswordPrompt": "Bitte legen Sie ein Passwort für zukünftige Anmeldungen fest.",
+      "loginReady": "Sie können sich jetzt in Ihr Konto einloggen",
+      "passwordUpdated": "Passwort aktualisiert"
+    }
+  },
+  "splash": {},
+  "statusBadge": {
+    "active": "Aktiv",
+    "inactive": "Inaktiv"
+  },
+  "subscription": {
+    "title": "Abonnement",
+    "common": {
+      "unlimited": "unbegrenzt"
+    },
+    "nonManager": {
+      "active": {
+        "title": "Aktives Abonnement",
+        "text": "Sie haben ein aktives {name} Abonnement, das bis {until} gültig ist."
+      },
+      "notice": {
+        "title": "Abonnement-Benachrichtigung",
+        "text": "Ihr Unternehmen ist für ein Paket abonniert. Bitte kontaktieren Sie Ihren Administrator für weitere Informationen."
+      }
+    },
+    "manager": {
+      "current": {
+        "trialBadge": "Testversion",
+        "validUntil": "Gültig bis: {date}",
+        "features": {
+          "branches": "Filialen:",
+          "experts": "Experten:",
+          "procedures": "Verfahren:",
+          "appointments": "Termine:",
+          "blacklist": "Schwarze Liste:"
+        },
+        "actions": {
+          "cancel": "Abbrechen"
+        }
+      },
+      "empty": {
+        "title": "Kein aktives Abonnement",
+        "text": "Sie haben kein aktives Abonnement. Bitte wählen Sie ein Paket aus der Liste unten aus."
+      },
+      "planPicker": {
+        "title": "Wählen Sie Ihren Plan",
+        "period": {
+          "monthly": "Monatlich",
+          "yearly": "Jährlich",
+          "perMonth": "/Monat",
+          "perYear": "/Jahr"
+        },
+        "price": {
+          "free": "KOSTENLOS"
+        },
+        "features": {
+          "branches": "Filialen:",
+          "experts": "Experten:",
+          "procedures": "Verfahren:",
+          "appointments": "Termine:",
+          "blacklist": "Schwarze Liste:"
+        },
+        "actions": {
+          "selectPlan": "Plan auswählen"
+        },
+        "trialAvailable": "{days} Tage Testversion verfügbar"
+      },
+      "noPackages": {
+        "title": "Keine Pakete verfügbar",
+        "text": "Momentan sind keine Pakete verfügbar. Bitte versuchen Sie es später erneut oder kontaktieren Sie den Support."
+      }
+    },
+    "dialogs": {
+      "subscribeConfirm": {
+        "title": "Abonnement",
+        "text": "Sind Sie sicher, dass Sie dieses Paket abonnieren möchten?"
+      },
+      "subscribeSuccess": {
+        "title": "Erfolg",
+        "text": "Sie haben erfolgreich das Paket abonniert."
+      },
+      "paymentRequired": {
+        "title": "Zahlung erforderlich",
+        "text": "Sie müssen die Zahlung abschließen, um Ihr Abonnement zu aktivieren."
+      },
+      "cancelConfirm": {
+        "title": "Abonnement kündigen",
+        "text": "Sind Sie sicher, dass Sie Ihr Abonnement kündigen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+      },
+      "cancelSuccess": {
+        "title": "Erfolg",
+        "text": "Ihr Abonnement wurde gekündigt."
+      }
+    }
+  },
+  "userPermission": {
+    "title": "Berechtigungen für",
+    "loggedInWarning": "Dieser Benutzer ist derzeit angemeldet. Bitte seien Sie vorsichtig beim Bearbeiten.",
+    "noPermissions": "Es sind keine Berechtigungen für diesen Benutzer zugewiesen.",
+    "actions": {
+      "edit": "Berechtigungen bearbeiten"
+    },
+    "permissionListTitle": "Berechtigungen",
+    "loading": "Benutzer wird geladen...",
+    "toast": {
+      "permissionAdded": "Berechtigung hinzugefügt",
+      "permissionRemoved": "Berechtigung entfernt"
+    }
+  },
+  "users": {
+    "title": "Benutzer",
+    "breadcrumb": {
+      "dashboard": "Dashboard",
+      "users": "Benutzer"
+    },
+    "actions": {
+      "add": "Benutzer hinzufügen",
+      "create": "Benutzer erstellen",
+      "edit": "Benutzer bearbeiten",
+      "delete": "Benutzer löschen",
+      "permissions": "Benutzerberechtigungen"
+    },
+    "form": {
+      "role": {
+        "label": "Rolle",
+        "placeholder": "Rolle auswählen...",
+        "manager": "Unternehmensmanager",
+        "branch": "Filialmanager",
+        "expert": "Experte"
+      },
+      "branch": {
+        "label": "Filiale",
+        "placeholder": "Filiale auswählen..."
+      },
+      "fullName": {
+        "label": "Vollständiger Name",
+        "placeholder": "Vollständigen Namen eingeben"
+      },
+      "email": {
+        "label": "E-Mail",
+        "placeholder": "E-Mail eingeben"
+      }
+    },
+    "table": {
+      "id": "ID",
+      "name": "Name",
+      "email": "E-Mail",
+      "branch": "Filiale",
+      "role": "Rolle",
+      "status": "Status",
+      "publicLink": "Öffentlicher Link",
+      "actions": "Aktionen",
+      "roles": {
+        "expert": "Experte",
+        "branchManager": "Filialmanager",
+        "companyManager": "Unternehmensmanager"
+      },
+      "statusValues": {
+        "active": "aktiv",
+        "inactive": "inaktiv"
+      }
+    },
+    "confirm": {
+      "deleteTitle": "Sind Sie sicher?",
+      "deleteText": "Benutzer \"{user}\" löschen?",
+      "yes": "Ja, löschen",
+      "cancel": "Abbrechen"
+    },
+    "toast": {
+      "linkCopied": "Link in die Zwischenablage kopiert",
+      "linkCopyFailed": "Link konnte nicht kopiert werden",
+      "deleteApiNotImplemented": "Löschen des Benutzers API nicht implementiert"
+    }
+  },
+  "user": {
+    "labels": {
+      "email": "E-Mail:",
+      "branch": "Filiale:",
+      "status": "Status:",
+      "name": "Name"
+    },
+    "actions": {
+      "edit": "Bearbeiten",
+      "save": "Speichern",
+      "cancel": "Abbrechen"
+    },
+    "alerts": {
+      "currentlyLoggedIn": "Dieser Benutzer ist derzeit angemeldet. Bitte seien Sie vorsichtig beim Bearbeiten."
+    },
+    "form": {
+      "allBranches": "-alle Filialen-"
+    }
+  },
+  "colorComponent": {},
+  "dashboard": {}
+}

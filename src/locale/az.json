@@ -1,0 +1,1124 @@
+{
+  "general": {
+    "loading": "Yüklənir...",
+    "dashboard": "İdarəetmə Paneli",
+    "attention": "Diqqət",
+    "ok": "Tamam",
+    "error": "Xəta",
+    "success": "Uğur",
+    "continue": "Davamlama",
+    "submit": "Təqdim et"
+  },
+  "navigation": {
+    "dashboard": "İdarəetmə Paneli",
+    "account": "Hesab",
+    "security": "Təhlükəsizlik",
+    "blacklist": "Qara siyahı",
+    "branches": "Filiallar",
+    "businessSettings": "Biznes Parametrləri",
+    "calendar": "Təqvim",
+    "customers": "Müştərilər",
+    "users": "İstifadəçilər",
+    "feedbacks": "Rəylər",
+    "home": "Ev"
+  },
+  "language": {
+    "current": "İngilis",
+    "list": {
+      "en": "İngilis"
+    }
+  },
+  "account": {
+    "accountSettings": "Hesab Parametrləri",
+    "accountInformation": "Hesab Məlumatları",
+    "updateYourPersonalInformation": "Şəxsi məlumatlarınızı yeniləyin",
+    "labels": {
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "email": "E-poçt",
+      "phone": "Telefon",
+      "description": "Təsvir"
+    },
+    "placeholders": {
+      "phone": "+1 (555) 000-0000",
+      "about": "Özünüz haqqında məlumat verin"
+    },
+    "hints": {
+      "emailLocked": "E-poçt dəyişdirilə bilməz. E-poçtunuzu yeniləmək üçün dəstək ilə əlaqə saxlayın."
+    },
+    "actions": {
+      "saveChanges": "Dəyişiklikləri Saxla",
+      "saving": "Saxlanılır..."
+    },
+    "messages": {
+      "saved": "Dəyişikliklər uğurla saxlanıldı"
+    },
+    "security": {
+      "passwordSettings": "Şifrə Parametrləri",
+      "updateYourPassword": "Şifrənizi yeniləyin",
+      "labels": {
+        "currentPassword": "Cari şifrə",
+        "newPassword": "Yeni şifrə"
+      },
+      "messages": {
+        "passwordUpdated": "Şifrə yeniləndi"
+      }
+    }
+  },
+  "aiScheduler": {
+    "placeholder": "💡 Jane Doe üçün cədvəl, abc@example.com, +12345, 31 Dekabr 14:30, qeydlər: İlk konsultasiya..",
+    "hint": "🤖 Mən AI - Məni istifadə edin!",
+    "tooltips": {
+      "voiceInput": "Səsli giriş",
+      "stopRecording": "Qeyd etməni dayandır",
+      "submit": "Təqdim et"
+    },
+    "status": {
+      "recording": "Qeyd olunur...",
+      "processing": "Emal olunur..."
+    },
+    "errors": {
+      "microphoneDenied": "Mikrofon girişinə icazə verilməyib",
+      "processingError": "Emal xətası",
+      "saveError": "Saxlama xətası",
+      "httpError": "HTTP xətası! status: {status}",
+      "processingFailed": "Emal uğursuz oldu",
+      "saveFailed": "Saxlama uğursuz oldu"
+    },
+    "modals": {
+      "confirmAppointment": {
+        "title": "Təqdimatı Təsdiqlə",
+        "labels": {
+          "firstName": "Ad *",
+          "lastName": "Soyad *",
+          "email": "E-poçt",
+          "phone": "Telefon",
+          "dateTime": "Təqdimat Tarixi və Vaxtı",
+          "notes": "Qeydlər",
+          "expertNotes": "Ekspert Qeydləri"
+        },
+        "validation": {
+          "firstNameRequired": "Ad tələb olunur",
+          "lastNameRequired": "Soyad tələb olunur",
+          "emailInvalid": "Zəhmət olmasa, düzgün e-poçt ünvanı daxil edin"
+        },
+        "originalInput": {
+          "title": "Orijinal Giriş"
+        },
+        "actions": {
+          "cancel": "İmtina et",
+          "save": "Təqdimatı Saxla",
+          "saving": "Saxlanılır..."
+        }
+      },
+      "success": {
+        "title": "Uğur!",
+        "ok": "Tamam"
+      }
+    }
+  },
+  "blacklist": {
+    "title": "Qara siyahı",
+    "add": "Qara siyahıya əlavə et",
+    "notSubscribed": "Şirkətiniz qara siyahı xüsusiyyətini əhatə edən bir paketə abunə deyil.",
+    "table": {
+      "columns": {
+        "keyword": "Açar söz",
+        "action": "Fəaliyyət"
+      }
+    },
+    "modalCreate": {
+      "title": "Yeni Qara Siyahı",
+      "labels": {
+        "keyword": "Açar söz"
+      },
+      "actions": {
+        "create": "Yarat"
+      }
+    },
+    "confirm": {
+      "title": "Əminsiniz?",
+      "text": "Qara siyahını silmək \"{value}\"?",
+      "confirmButton": "Bəli, sil",
+      "cancelButton": "İmtina et"
+    },
+    "toasts": {
+      "created": "Yeni qara siyahı uğurla əlavə edildi",
+      "deleted": "Qara siyahı silindi."
+    }
+  },
+  "branches": {
+    "title": "Filiallar",
+    "add": "Filial əlavə et",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Ad",
+        "status": "Status",
+        "publicLink": "İctimai Link",
+        "actions": "Fəaliyyətlər"
+      },
+      "status": {
+        "active": "aktiv",
+        "inactive": "passiv"
+      }
+    },
+    "modalCreate": {
+      "title": "Yeni Filial",
+      "labels": {
+        "branchName": "Filial adı"
+      },
+      "actions": {
+        "create": "Yarat"
+      }
+    },
+    "modalEdit": {
+      "title": "Filialı Redaktə et",
+      "loading": "Yüklənir...",
+      "loadingBranchData": "Filial məlumatları yüklənir...",
+      "labels": {
+        "branchName": "Filial Adı",
+        "description": "Təsvir",
+        "status": "Status"
+      },
+      "options": {
+        "active": "Aktiv",
+        "inactive": "Passiv"
+      },
+      "actions": {
+        "save": "Saxla"
+      }
+    },
+    "confirm": {
+      "title": "Əminsiniz?",
+      "text": "Filialı silmək \"{name}\"?",
+      "confirmButton": "Bəli, sil",
+      "cancelButton": "İmtina et"
+    },
+    "toasts": {
+      "created": "Yeni filial uğurla əlavə edildi",
+      "updated": "Filial yeniləndi.",
+      "deleted": "Filial silindi.",
+      "linkCopied": "Link clipboard-a kopyalandı.",
+      "linkCopyFailed": "Linki kopyalamaq mümkün olmadı.",
+      "loadFailed": "Filial detalları yüklənə bilmədi. Zəhmət olmasa, yenidən cəhd edin."
+    },
+    "errors": {
+      "loadFailed": "Filial detalları yüklənə bilmədi: {message}"
+    }
+  },
+  "businessSettings": {
+    "title": "Biznes Parametrləri",
+    "labels": {
+      "businessName": "Biznes Adı",
+      "businessDescription": "Biznes Təsviri",
+      "businessAddress": "Biznes Ünvanı",
+      "businessPhone": "Biznes Telefonu",
+      "businessEmail": "Biznes E-poçtu",
+      "businessTimezone": "Biznes Zaman Zonu",
+      "slotSizeInMinutes": "Slot Ölçüsü Dəqiqələrdə",
+      "requireEmailConfirmation": "E-poçt Təsdiqi Tələb Edin",
+      "requireEmailConfirmationVisuallyHidden": "E-poçt Təsdiqi Tələb Edin",
+      "searchTimezoneOrCity": "Zaman zonası və ya şəhər axtarın..."
+    },
+    "help": {
+      "requireEmailConfirmation": "Aktivləşdirildikdə, müştərilər təyinat rezervasiya edərkən e-poçt ünvanlarını təsdiqləməlidirlər."
+    },
+    "options": {
+      "slotSizes": {
+        "10": "10",
+        "15": "15",
+        "30": "30",
+        "60": "60"
+      }
+    },
+    "actions": {
+      "saveChanges": "Dəyişiklikləri Saxla",
+      "saving": "Saxlanılır..."
+    },
+    "messages": {
+      "loadFailed": "Biznes məlumatları yüklənə bilmədi",
+      "updateFailed": "Biznes parametrlərini yeniləmək mümkün olmadı",
+      "updatedSuccessfully": "Biznes parametrləri uğurla yeniləndi",
+      "unexpectedError": "Gözlənilməz bir xəta baş verdi"
+    }
+  },
+  "calendar": {
+    "sidebar": {
+      "new": "Yeni",
+      "newAppointment": "Təqdimat",
+      "externalScheduler": "🚀 Collabriq Cədvəl",
+      "branchesExperts": "Filiallar & Ekspertlər"
+    },
+    "buttons": {
+      "today": "Bu gün",
+      "prev": "Öncəki",
+      "next": "Sonrakı",
+      "new": "Yeni",
+      "blockTime": "Vaxt Blokla",
+      "cancel": "İmtina et",
+      "save": "Saxla",
+      "create": "Yarat",
+      "update": "Yenilə",
+      "confirm": "Təsdiq et",
+      "copy": "Kopyala",
+      "edit": "Redaktə et",
+      "print": "Çap et",
+      "delete": "Sil",
+      "yes": "Bəli",
+      "no": "Xeyr"
+    },
+    "views": {
+      "day": "Gün",
+      "day3": "3 Gün",
+      "week": "Həftə",
+      "month": "Ay"
+    },
+    "copyBanner": {
+      "title": "Təqdimatın bir nüsxəsini yaratmaq üçün hər hansı bir mövcud slotu vurun",
+      "customer": "Müştəri",
+      "phone": "Telefon",
+      "email": "E-poçt",
+      "procedure": "Prosedur",
+      "expert": "Ekspert",
+      "copyToAnotherExpert": "Başqa eksperte kopyala"
+    },
+    "quickAction": {
+      "title": "Fəaliyyət Seçin",
+      "new": "Yeni",
+      "blockTime": "Vaxt Blokla"
+    },
+    "blockTimeModal": {
+      "title": "Vaxt Blokla",
+      "labels": {
+        "expert": "Ekspert",
+        "chooseExpert": "Ekspert seçin...",
+        "date": "Tarix",
+        "time": "Vaxt",
+        "duration": "Müddət (dəqiqələr)",
+        "durationPlaceholder": "məsələn, 30",
+        "reason": "Səbəb",
+        "reasonPlaceholder": "İstirahət, Nahar, və s."
+      },
+      "actions": {
+        "cancel": "İmtina et",
+        "save": "Saxla"
+      }
+    },
+    "newAppointmentModal": {
+      "title": "Yeni Təqdimat",
+      "labels": {
+        "expert": "Ekspert",
+        "chooseExpert": "Ekspert seçin...",
+        "service": "Xidmət",
+        "chooseService": "Xidmət seçin...",
+        "date": "Tarix",
+        "time": "Vaxt",
+        "duration": "Müddət",
+        "min": "dəq",
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "phone": "Telefon",
+        "email": "E-poçt",
+        "sendConfirmationEmail": "Təsdiq e-poçtu göndər",
+        "additionalNotes": "Əlavə Qeydlər",
+        "notesPlaceholder": "Hər hansı xüsusi tələblər və ya məlumatlar?"
+      },
+      "actions": {
+        "cancel": "İmtina et",
+        "create": "Təqdimat Yarat"
+      }
+    },
+    "editAppointmentModal": {
+      "title": "Təqdimatı Redaktə et",
+      "labels": {
+        "expert": "Ekspert",
+        "procedure": "Prosedur",
+        "date": "Tarix",
+        "time": "Vaxt",
+        "length": "Uzunluq",
+        "min": "dəq",
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "phone": "Telefon",
+        "email": "E-poçt",
+        "notes": "Qeydlər"
+      },
+      "actions": {
+        "cancel": "İmtina et",
+        "update": "Yenilə"
+      }
+    },
+    "editBlockTimeModal": {
+      "title": "Blok vaxtını redaktə et",
+      "labels": {
+        "expert": "Ekspert",
+        "date": "Tarix",
+        "time": "Vaxt",
+        "length": "Uzunluq",
+        "min": "dəq",
+        "comment": "Şərh"
+      },
+      "actions": {
+        "cancel": "İmtina et",
+        "update": "Yenilə"
+      }
+    },
+    "appointmentDetails": {
+      "title": "Təqdimat Detalları",
+      "labels": {
+        "expert": "Ekspert",
+        "procedure": "Prosedur",
+        "starts": "Başlayır",
+        "duration": "Müddət",
+        "status": "Status",
+        "customer": "Müştəri",
+        "phone": "Telefon",
+        "email": "E-poçt",
+        "notes": "Qeydlər",
+        "requestedAt": "Tələb edilib",
+        "originally": "əvvəlcə {length} dəq"
+      },
+      "actions": {
+        "confirm": "Təsdiq et",
+        "cancel": "İmtina et",
+        "edit": "Redaktə et",
+        "copy": "Kopyala",
+        "print": "Çap et"
+      }
+    },
+    "blockTimeDetails": {
+      "title": "Blok vaxt detalları",
+      "labels": {
+        "expert": "Ekspert",
+        "starts": "Başlayır",
+        "duration": "Müddət",
+        "comment": "Şərh"
+      },
+      "actions": {
+        "delete": "Sil",
+        "edit": "Redaktə et"
+      }
+    },
+    "swal": {
+      "confirmAppointment": {
+        "title": "Təqdimatı təsdiqlə",
+        "text": "Təqdimatı təsdiqləmək istəyirsiniz?",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      },
+      "cancelAppointment": {
+        "title": "Təqdimatı ləğv et",
+        "text": "Təqdimatı ləğv etmək istəyirsiniz?",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      },
+      "deleteBlockTime": {
+        "title": "Blok vaxtını sil",
+        "text": "Blok vaxtını silmək istəyirsiniz?",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      },
+      "updateBlockTime": {
+        "title": "Blok vaxtını yenilə",
+        "text": "Bloku yeniləmək istəyirsiniz?",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      },
+      "updateAppointmentTime": {
+        "title": "Təqdimat vaxtını yenilə",
+        "text": "Təqdimatı yeniləmək istəyirsiniz?",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      },
+      "updateAppointmentLength": {
+        "title": "Təqdimat müddətini yenilə",
+        "text": "Təqdimatı yeniləmək istəyirsiniz?",
+        "lengthHtml": "Müddət: {minutes} dəqiqə",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      },
+      "updateBlockTimeLength": {
+        "title": "Blok vaxtı uzunluğunu yenilə",
+        "text": "Blok uzunluğunu yeniləmək istəyirsiniz?",
+        "lengthHtml": "Müddət: {minutes} dəqiqə",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      },
+      "expertTimeHtml": "<p><strong>Ekspert: </strong>{expert}</p><p><strong>Vaxt: </strong>{time}</p>"
+    },
+    "toasts": {
+      "timeBlocked": "Vaxt uğurla bloklandı",
+      "appointmentConfirmed": "Təqdimat təsdiqləndi",
+      "appointmentCancelled": "Təqdimat ləğv edildi",
+      "deleted": "Silindi!",
+      "appointmentTimeUpdated": "Təqdimat vaxtı yeniləndi",
+      "blockTimeUpdated": "Blok vaxtı yeniləndi.",
+      "appointmentUpdated": "Təqdimat yeniləndi",
+      "blockUpdated": "Blok yeniləndi",
+      "appointmentCreated": "Təqdimat yaradıldı"
+    },
+    "print": {
+      "title": "Çap et",
+      "heading": "Təqdimat detalları",
+      "labels": {
+        "expert": "Ekspert",
+        "procedure": "Prosedur",
+        "starts": "Başlayır",
+        "duration": "Müddət",
+        "minute": "dəqiqə",
+        "customer": "Müştəri",
+        "phone": "Telefon",
+        "email": "E-poçt"
+      }
+    }
+  },
+  "customers": {
+    "title": "Müştərilər",
+    "table": {
+      "columns": {
+        "index": "#",
+        "name": "Ad",
+        "surname": "Soyad",
+        "email": "E-poçt",
+        "actions": "Fəaliyyətlər"
+      },
+      "empty": {
+        "iconLabel": "Bu müştəri üçün heç bir təqdimat tapılmadı."
+      }
+    },
+    "modal": {
+      "title": "Müştəri Detalları",
+      "loadingTitle": "Yüklənir...",
+      "loadingAppointments": "Müştəri təqdimatları yüklənir...",
+      "total": "Cəmi: {count}",
+      "columns": {
+        "index": "#",
+        "service": "Xidmət",
+        "expert": "Ekspert",
+        "startTime": "Başlanma Vaxtı",
+        "length": "Müddət",
+        "status": "Status",
+        "notes": "Qeydlər"
+      },
+      "lengthUnit": "dəq",
+      "close": "Bağla"
+    },
+    "status": {
+      "confirmed": "təsdiqlənib",
+      "cancelledExpert": "lğv edildi ekspert",
+      "cancelled": "lğv edildi",
+      "new": "yeni",
+      "other": "digər"
+    }
+  },
+  "dashboardHome": {
+    "loading": {
+      "title": "Yüklənir...",
+      "body": "İdarəetmə paneli məlumatları yüklənir..."
+    },
+    "greeting": "Xoş gəlmisiniz, {name}!",
+    "dateFilter": {
+      "title": "Tarix aralığına görə süzgəc:",
+      "from": "Dən:",
+      "to": "A qədər:",
+      "apply": "Tətbiq et",
+      "reset": "Sıfırla",
+      "currentFilter": "Cari Süzgəc:",
+      "allTime": "Bütün zaman",
+      "allTimeFrom": "Bütün zaman (2023-cü ilin yanvarından)",
+      "quick": {
+        "7d": "7 Gün",
+        "30d": "30 Gün",
+        "3m": "3 Ay",
+        "6m": "6 Ay",
+        "1y": "Son İl",
+        "all": "Bütün Zaman"
+      }
+    },
+    "quickStats": {
+      "today": {
+        "valueLabel": "Bu günün Təqdimatları"
+      },
+      "month": {
+        "valueLabel": "Bu Ay"
+      },
+      "experts": {
+        "valueLabel": "Aktiv Ekspertlər"
+      },
+      "services": {
+        "valueLabel": "Aktiv Xidmətlər"
+      }
+    },
+    "chart": {
+      "title": "Təqdimatlar Üzrə Ümumi Görünüş",
+      "toggleType": "Qrafik Növünü Dəyiş",
+      "summary": {
+        "totalAppointments": "Cəmi təqdimatlar",
+        "completionRate": "Tamamlama dərəcəsi: {rate}%"
+      },
+      "legend": {
+        "appointments": "Təqdimatlar",
+        "completed": "Tamamlandı",
+        "cancelled": "Ləğv edildi"
+      },
+      "ranges": {
+        "day": "Gün",
+        "week": "Həftə",
+        "month": "Ay"
+      }
+    },
+    "upcoming": {
+      "title": "Gələcək Təqdimatlar",
+      "subtitle": "Son 7 gün (rezervasiya edilmiş & təsdiqlənmiş yalnız)",
+      "total": "{count} cəmi",
+      "more": "+{count} daha təqdimat",
+      "empty": "Heç bir gələcək təqdimat yoxdur"
+    },
+    "topServices": {
+      "title": "Ən Yaxşı Xidmətlər",
+      "tooltip": "Seçilmiş dövrdə ən çox rezervasiya edilən xidmətlər",
+      "subtitle": "Seçilmiş dövrdə ən çox rezervasiya edilən xidmətlər ({filter})",
+      "table": {
+        "service": "Xidmətlər",
+        "bookings": "Rezervasiyalar"
+      },
+      "empty": "Seçilmiş dövr üçün məlumat yoxdur."
+    },
+    "topExperts": {
+      "title": "Ən Yaxşı Ekspertlər",
+      "tooltip": "Seçilmiş dövrdə cəmi təqdimatlarla ekspertlər",
+      "subtitle": "Seçilmiş dövrdə cəmi təqdimatlarla ekspertlər ({filter})",
+      "table": {
+        "name": "Ad",
+        "appointments": "Təqdimatlar"
+      },
+      "empty": "Seçilmiş dövr üçün məlumat yoxdur."
+    },
+    "error": {
+      "failed": "İdarəetmə paneli məlumatları yüklənə bilmədi. Zəhmət olmasa, yenidən cəhd edin.",
+      "retry": "Yenidən cəhd et"
+    }
+  },
+  "expertProcedures": {
+    "title": "Ekspert Prosedurları",
+    "lengthUnit": "dəq",
+    "toasts": {
+      "alreadyAdded": "Bu prosedur artıq eksperte əlavə edilib",
+      "alreadyRemoved": "Bu prosedur artıq ekspertdən silinib"
+    },
+    "swal": {
+      "remove": {
+        "title": "Əminsiniz?",
+        "text": "Bu prosedur ekspertdən silinəcək",
+        "confirm": "Bəli",
+        "cancel": "Xeyr"
+      }
+    }
+  },
+  "expertSchedules": {
+    "title": "Ekspert iş cədvəlləri",
+    "table": {
+      "headers": {
+        "day": "Gün",
+        "start": "Başlanğıc",
+        "breakStart": "Mola başlanğıcı",
+        "breakEnd": "Mola sonu",
+        "end": "Son"
+      }
+    },
+    "actions": {
+      "save": "Saxla",
+      "reset": "Dəyişiklikləri sıfırla"
+    },
+    "toasts": {
+      "saved": "Dəyişikliklər uğurla saxlanıldı"
+    },
+    "weekdays": {
+      "monday": "Bazar ertəsi",
+      "tuesday": "Çərşənbə axşamı",
+      "wednesday": "Çərşənbə",
+      "thursday": "Cümə axşamı",
+      "friday": "Cümə",
+      "saturday": "Şənbə",
+      "sunday": "Bazar"
+    }
+  },
+  "experts": {
+    "title": "Ekspertlər",
+    "add": "Ekspert əlavə et",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "branch": "Filial",
+        "name": "Ad",
+        "status": "Status",
+        "actions": "Fəaliyyətlər"
+      },
+      "status": {
+        "active": "aktiv",
+        "inactive": "passiv"
+      }
+    },
+    "modalCreate": {
+      "title": "Yeni Ekspert",
+      "labels": {
+        "branch": "Filial",
+        "fullName": "Tam ad",
+        "email": "E-poçt",
+        "password": "Şifrə"
+      },
+      "actions": {
+        "create": "Yarat"
+      }
+    },
+    "confirm": {
+      "title": "Əminsiniz?",
+      "text": "Ekspert silmək \"{name}\"?",
+      "confirmButton": "Bəli, sil",
+      "cancelButton": "İmtina et"
+    },
+    "toasts": {
+      "created": "Yeni ekspert uğurla əlavə edildi",
+      "updated": "Ekspert yeniləndi.",
+      "deleted": "Ekspert silindi."
+    },
+    "errors": {
+      "loadFailed": "Ekspertlər siyahısı yüklənə bilmədi. Zəhmət olmasa, yenidən cəhd edin."
+    }
+  },
+  "expert": {
+    "labels": {
+      "about": "Haqqında",
+      "color": "Rəng"
+    }
+  },
+  "feedbacks": {
+    "breadcrumb": {
+      "create": "Rəy Yarat"
+    },
+    "title": "Yeni Rəy Yarat",
+    "form": {
+      "labels": {
+        "title": "Başlıq",
+        "description": "Təsvir",
+        "images": "Şəkillər (PNG, JPG, JPEG)",
+        "selectedImages": "Seçilmiş Şəkillər:"
+      },
+      "placeholders": {
+        "title": "Rəy başlığını daxil edin...",
+        "description": "Rəy təsvirinizi daxil edin..."
+      },
+      "help": {
+        "images": "Bir neçə şəkil seçə bilərsiniz (yalnız PNG, JPG, JPEG, maksimum 5MB hər biri)"
+      }
+    },
+    "preview": {
+      "alt": "Seçilmiş şəkil {index}"
+    },
+    "actions": {
+      "create": "Rəy Yarat",
+      "creating": "Yaradır...",
+      "reset": "Sıfırla"
+    },
+    "guidelines": {
+      "title": "İstiqamətlər",
+      "items": {
+        "clearTitle": "Aydın və təsviredici başlıq verin",
+        "detailedDescription": "Rəyinizin ətraflı təsvirini daxil edin",
+        "addImages": "Müvafiq şəkilləri əlavə edin, əgər varsa",
+        "supportedFormats": "Dəstəklənən formatlar: PNG, JPG, JPEG",
+        "maxSize": "Maksimum fayl ölçüsü: 5MB hər şəkil üçün"
+      }
+    },
+    "swal": {
+      "uploadWarning": {
+        "title": "Yükləmə Xəbərdarlığı",
+        "text": "{failed} şəkil(y)in yüklənməsi uğursuz oldu. {success} müvəffəqiyyətli yükləmə(y)lə davam edəsiniz?",
+        "confirm": "Davam et",
+        "cancel": "İmtina et"
+      }
+    },
+    "toasts": {
+      "invalidType": "Yalnız PNG, JPG və ya JPEG fayllarını seçin.",
+      "fileTooLarge": "5MB-dan kiçik fayllar seçin.",
+      "titleRequired": "Rəyiniz üçün başlıq daxil edin.",
+      "submitSuccess": "Rəyiniz uğurla təqdim edildi.",
+      "submitFailed": "Rəy təqdim etmək mümkün olmadı. Zəhmət olmasa, yenidən cəhd edin."
+    }
+  },
+  "home": {},
+  "login": {
+    "welcome": "Xoş gəlmisiniz!",
+    "emailAddress": "E-poçt ünvanı",
+    "noShare": "E-poçtunuzu heç kiminlə paylaşmayacağıq.",
+    "welcomeBack": "Yenidən xoş gəlmisiniz!",
+    "password": "Şifrə",
+    "forgotPassword": "Şifrəni unutmusan?",
+    "forgotPasswordTitle": "Şifrəni unutmusan!",
+    "getVerificationCode": "Təsdiq kodunu əldə et",
+    "verificationCode": "Təsdiq kodu",
+    "newPassword": "Yeni şifrə",
+    "setMyNewPassword": "Yeni şifrəmni təyin et",
+    "verificationCodeSent": "Təsdiq kodu e-poçtunuza göndərildi",
+    "passwordUpdated": "Şifrəniz uğurla yeniləndi",
+    "login": "Giriş",
+    "subtitles": {
+      "enterEmail": "Təsdiq kodunu almaq üçün e-poçtunuzu daxil edin",
+      "enterCode": "Təsdiq kodunu daxil edin və yeni şifrə təyin edin"
+    },
+    "placeholders": {
+      "verificationCode": "Kodu daxil edin",
+      "newPassword": "Güclü bir şifrə daxil edin"
+    },
+    "actions": {
+      "backToLogin": "Girişə qayıt"
+    },
+    "register": {
+      "prompt": "Hesabınız yoxdur?",
+      "cta": "Pulsuz qeydiyyatdan keçin"
+    }
+  },
+  "passwordEnforced": {
+    "title": "Şifrə yeniləmə",
+    "subtitle": "Şifrənizi dəyişdirməlisiniz. Zəhmət olmasa, aşağıda yeni şifrə daxil edin.",
+    "labels": {
+      "newPassword": "Yeni şifrə",
+      "confirmPassword": "Şifrəni təsdiq et"
+    },
+    "placeholders": {
+      "newPassword": "Güclü bir şifrə daxil edin",
+      "confirmPassword": "Şifrənizi yenidən daxil edin"
+    },
+    "actions": {
+      "update": "Yenilə",
+      "updating": "Yenilənir...",
+      "logout": "Çıxış"
+    },
+    "validation": {
+      "mismatch": "Zəhmət olmasa, hər iki şifrənin uyğun olduğuna əmin olun."
+    },
+    "toasts": {
+      "fillAllFields": "Zəhmət olmasa, bütün sahələri doldurun.",
+      "mismatch": "Şifrələr uyğun gəlmir.",
+      "genericError": "Bir xəta baş verdi"
+    },
+    "dialog": {
+      "success": {
+        "title": "Uğur",
+        "text": "Şifrəniz uğurla yeniləndi."
+      },
+      "logout": {
+        "title": "Çıxış",
+        "text": "Çıxış etmək istəyirsiniz?"
+      }
+    }
+  },
+  "procedures": {
+    "title": "Xidmətlər",
+    "add": "Xidmət əlavə et",
+    "lengthUnit": "dəqiqə(ələr)",
+    "modalCreate": {
+      "title": "Yeni xidmət",
+      "labels": {
+        "name": "Ad",
+        "length": "Uzunluq",
+        "color": "Rəng"
+      },
+      "placeholders": {
+        "name": "Prosedur adı",
+        "length": "Uzunluq"
+      },
+      "actions": {
+        "create": "Prosedur Yarat",
+        "closePalette": "Bağla"
+      }
+    },
+    "modalEdit": {
+      "actions": {
+        "save": "Dəyişiklikləri Saxla"
+      }
+    },
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Ad",
+        "color": "Rəng",
+        "status": "Status",
+        "length": "Uzunluq",
+        "publicLink": "İctimai Link",
+        "actions": "Fəaliyyətlər"
+      },
+      "status": {
+        "active": "aktiv",
+        "inactive": "passiv"
+      }
+    },
+    "confirm": {
+      "title": "Əminsiniz?",
+      "text": "Proseduru silmək \"{name}\"?",
+      "confirmButton": "Bəli, sil",
+      "cancelButton": "İmtina et"
+    },
+    "toasts": {
+      "updated": "Prosedur yeniləndi!",
+      "deleted": "Prosedur silindi.",
+      "linkCopied": "Link clipboard-a kopyalandı.",
+      "linkCopyFailed": "Linki kopyalamaq mümkün olmadı."
+    }
+  },
+  "procedure": {
+    "labels": {
+      "about": "Haqqında:",
+      "length": "Uzunluq:",
+      "status": "Status:",
+      "color": "Rəng:"
+    },
+    "form": {
+      "labels": {
+        "name": "Ad",
+        "description": "Təsvir",
+        "length": "Uzunluq",
+        "color": "Rəng",
+        "status": "Status"
+      }
+    },
+    "actions": {
+      "edit": "Redaktə et",
+      "save": "Saxla",
+      "cancel": "İmtina et",
+      "closePalette": "Bağla"
+    }
+  },
+  "register": {
+    "steps": {
+      "general": "Ümumi Məlumat",
+      "verify": "E-poçtu Təsdiqlə",
+      "password": "Şifrə Təyin et"
+    },
+    "titles": {
+      "createAccount": "Hesabınızı Yaradın",
+      "verifyEmail": "E-poçtunuzu Təsdiqləyin",
+      "setPassword": "Şifrənizi Təyin edin"
+    },
+    "fields": {
+      "companyName": "Şirkət Adı",
+      "companyEmail": "Şirkət E-poçtu",
+      "adminName": "Tam Adınız",
+      "adminEmail": "E-poçtunuz",
+      "emailAddress": "E-poçt Ünvanı",
+      "verificationCode": "Təsdiq Kodu",
+      "newPassword": "Yeni Şifrə"
+    },
+    "placeholders": {
+      "enterCode": "Kodu daxil edin",
+      "enterPassword": "Güclü bir şifrə daxil edin"
+    },
+    "helpers": {
+      "companyEmailVisible": "Bu e-poçt müştərilərinizə görünəcək.",
+      "adminEmailNotVisible": "Bu e-poçt hesabınıza giriş üçün istifadə olunacaq və müştərilərə görünməyəcək."
+    },
+    "actions": {
+      "continue": "Davamlama",
+      "verifyContinue": "Təsdiqlə & Davam et",
+      "completeRegistration": "Qeydiyyatı Tamamla",
+      "backToLogin": "Girişə Qayıt"
+    },
+    "messages": {
+      "verificationCodeSent": "Təsdiq kodu ilə bağlı e-poçt alacaqsınız. Zəhmət olmasa, spam qovluğunuzu da yoxlayın.",
+      "setPasswordPrompt": "Zəhmət olmasa, gələcək girişlər üçün şifrə təyin edin.",
+      "loginReady": "İndi hesabınıza giriş edə bilərsiniz",
+      "passwordUpdated": "Şifrə yeniləndi"
+    }
+  },
+  "splash": {},
+  "statusBadge": {
+    "active": "Aktiv",
+    "inactive": "Passiv"
+  },
+  "subscription": {
+    "title": "Abunəlik",
+    "common": {
+      "unlimited": "məhdudiyyətsiz"
+    },
+    "nonManager": {
+      "active": {
+        "title": "Aktiv Abunəlik",
+        "text": "Sizin {name} abunəliyiniz aktivdir və {until} tarixinə qədər etibarlıdır."
+      },
+      "notice": {
+        "title": "Abunəlik Bildirişi",
+        "text": "Şirkətiniz bir paketə abunədir. Daha ətraflı məlumat üçün administratorunuzla əlaqə saxlayın."
+      }
+    },
+    "manager": {
+      "current": {
+        "trialBadge": "Sınaq",
+        "validUntil": "Etibarlıdır: {date}",
+        "features": {
+          "branches": "Filiallar:",
+          "experts": "Ekspertlər:",
+          "procedures": "Prosedurlar:",
+          "appointments": "Təqdimatlar:",
+          "blacklist": "Qara siyahı:"
+        },
+        "actions": {
+          "cancel": "Ləğv et"
+        }
+      },
+      "empty": {
+        "title": "Aktiv Abunəlik Yoxdur",
+        "text": "Sizin aktiv abunəliyiniz yoxdur. Aşağıdakı siyahıdan paket seçin."
+      },
+      "planPicker": {
+        "title": "Planınızı Seçin",
+        "period": {
+          "monthly": "Aylıq",
+          "yearly": "İllik",
+          "perMonth": "/ay",
+          "perYear": "/il"
+        },
+        "price": {
+          "free": "PULSUZ"
+        },
+        "features": {
+          "branches": "Filiallar:",
+          "experts": "Ekspertlər:",
+          "procedures": "Prosedurlar:",
+          "appointments": "Təqdimatlar:",
+          "blacklist": "Qara siyahı:"
+        },
+        "actions": {
+          "selectPlan": "Plan Seç"
+        },
+        "trialAvailable": "{days} gün sınaq mövcuddur"
+      },
+      "noPackages": {
+        "title": "Paketlər Mövcud Deyil",
+        "text": "Hal-hazırda paketlər mövcud deyil. Zəhmət olmasa, sonra yenidən cəhd edin və ya dəstək ilə əlaqə saxlayın."
+      }
+    },
+    "dialogs": {
+      "subscribeConfirm": {
+        "title": "Abunəlik",
+        "text": "Bu pakete abunə olmaq istədiyinizə əminsiniz?"
+      },
+      "subscribeSuccess": {
+        "title": "Uğur",
+        "text": "Paketə uğurla abunə oldunuz."
+      },
+      "paymentRequired": {
+        "title": "Ödəniş Tələb Olunur",
+        "text": "Abunəliyinizi aktivləşdirmək üçün ödənişi tamamlamağınız lazımdır."
+      },
+      "cancelConfirm": {
+        "title": "Abunəliyi Ləğv Et",
+        "text": "Abunəliyinizi ləğv etmək istədiyinizə əminsiniz? Bu əməliyyat geri qaytarıla bilməz."
+      },
+      "cancelSuccess": {
+        "title": "Uğur",
+        "text": "Abunəliyiniz ləğv edildi."
+      }
+    }
+  },
+  "userPermission": {
+    "title": "İcazələr üçün",
+    "loggedInWarning": "Bu istifadəçi hal-hazırda daxil olub. Zəhmət olmasa, redaktə edərkən diqqətli olun.",
+    "noPermissions": "Bu istifadəçiyə heç bir icazə verilməyib.",
+    "actions": {
+      "edit": "İcazələri Redaktə Et"
+    },
+    "permissionListTitle": "İcazələr",
+    "loading": "İstifadəçi yüklənir...",
+    "toast": {
+      "permissionAdded": "İcazə əlavə edildi",
+      "permissionRemoved": "İcazə silindi"
+    }
+  },
+  "users": {
+    "title": "İstifadəçilər",
+    "breadcrumb": {
+      "dashboard": "İdarəetmə Paneli",
+      "users": "İstifadəçilər"
+    },
+    "actions": {
+      "add": "İstifadəçi əlavə et",
+      "create": "İstifadəçi yarat",
+      "edit": "İstifadəçini redaktə et",
+      "delete": "İstifadəçini sil",
+      "permissions": "İstifadəçi icazələri"
+    },
+    "form": {
+      "role": {
+        "label": "Vəzifə",
+        "placeholder": "Vəzifəni seçin...",
+        "manager": "Şirkət meneceri",
+        "branch": "Filial meneceri",
+        "expert": "Ekspert"
+      },
+      "branch": {
+        "label": "Filial",
+        "placeholder": "Filial seçin..."
+      },
+      "fullName": {
+        "label": "Tam Ad",
+        "placeholder": "Tam adı daxil edin"
+      },
+      "email": {
+        "label": "E-poçt",
+        "placeholder": "E-poçtu daxil edin"
+      }
+    },
+    "table": {
+      "id": "ID",
+      "name": "Ad",
+      "email": "E-poçt",
+      "branch": "Filial",
+      "role": "Vəzifə",
+      "status": "Status",
+      "publicLink": "İctimai Link",
+      "actions": "Fəaliyyətlər",
+      "roles": {
+        "expert": "Ekspert",
+        "branchManager": "Filial meneceri",
+        "companyManager": "Şirkət meneceri"
+      },
+      "statusValues": {
+        "active": "aktiv",
+        "inactive": "passiv"
+      }
+    },
+    "confirm": {
+      "deleteTitle": "Əminsiniz?",
+      "deleteText": "İstifadəçini silmək \"{user}\"?",
+      "yes": "Bəli, sil",
+      "cancel": "İmtina et"
+    },
+    "toast": {
+      "linkCopied": "Link clipboard-a kopyalandı",
+      "linkCopyFailed": "Linki kopyalamaq mümkün olmadı",
+      "deleteApiNotImplemented": "İstifadəçini silmək API-si həyata keçirilməyib"
+    }
+  },
+  "user": {
+    "labels": {
+      "email": "E-poçt:",
+      "branch": "Filial:",
+      "status": "Status:",
+      "name": "Ad"
+    },
+    "actions": {
+      "edit": "Redaktə et",
+      "save": "Saxla",
+      "cancel": "İmtina et"
+    },
+    "alerts": {
+      "currentlyLoggedIn": "Bu istifadəçi hal-hazırda daxil olub. Zəhmət olmasa, redaktə edərkən diqqətli olun."
+    },
+    "form": {
+      "allBranches": "-bütün filiallar-"
+    }
+  },
+  "colorComponent": {},
+  "dashboard": {}
+}
