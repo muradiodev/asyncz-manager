@@ -767,6 +767,12 @@
     "verificationCodeSent": "Verification code sent to your email",
     "passwordUpdated": "Your password updated successfully",
     "login": "Login",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "signingIn": "Signing in...",
+    "signingInWithGoogle": "Signing in with Google...",
+    "welcomeMessage": "Welcome{name}!",
+    "googleLoginFailed": "Google login failed. Please try again.",
 
     "subtitles": {
       "enterEmail": "Enter your email to receive a verification code",
