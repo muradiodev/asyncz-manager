@@ -3,18 +3,17 @@
     <div v-if="isLoading" class="loading-overlay-center">
       <div class="d-flex flex-column align-items-center justify-content-center">
         <div class="spinner-border text-secondary mb-3" role="status" style="width: 3rem; height: 3rem;">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">{{ $t('dashboardHome.loading.title') }}</span>
         </div>
-        <p class="text-muted">Loading dashboard data...</p>
+        <p class="text-muted">{{ $t('dashboardHome.loading.body') }}</p>
       </div>
     </div>
-
 
     <!-- Greeting -->
     <div class="row mb-4">
       <div class="col">
         <h2 class="fw-bold">
-          Welcome back, <span class="username-highlight">{{ username }}!</span>
+          {{ $t('dashboardHome.greeting', { name: username }) }}
         </h2>
       </div>
     </div>
@@ -25,13 +24,13 @@
         <div class="card shadow-sm">
           <div class="card-body py-3">
             <div class="d-flex flex-wrap align-items-center gap-3">
-              <div class="fw-semibold">Filter by Date Range:</div>
+              <div class="fw-semibold">{{ $t('dashboardHome.dateFilter.title') }}</div>
 
               <!-- Quick Range Buttons -->
               <div class="d-flex flex-wrap gap-2">
                 <button
                   class="btn-outline-primary-custom"
-                  v-for="range in quickRanges"
+                  v-for="range in quickRangesI18n"
                   :key="range.value"
                   :class="{ 'btn btn-primary': selectedQuickRange === range.value, 'btn btn-outline-secondary': selectedQuickRange !== range.value }"
                   @click="selectQuickRange(range.value)">
@@ -41,7 +40,7 @@
 
               <!-- Custom Date Range -->
               <div class="d-flex align-items-center gap-2">
-                <label class="small text-muted mb-0">From:</label>
+                <label class="small text-muted mb-0">{{ $t('dashboardHome.dateFilter.from') }}</label>
                 <input
                   type="date"
                   class="form-control form-control-sm date-input"
@@ -49,7 +48,7 @@
                   @change="onCustomDateChange"
                   :max="today">
 
-                <label class="small text-muted mb-0">To:</label>
+                <label class="small text-muted mb-0">{{ $t('dashboardHome.dateFilter.to') }}</label>
                 <input
                   type="date"
                   class="form-control form-control-sm date-input"
@@ -62,17 +61,17 @@
               <!-- Apply/Reset Buttons -->
               <div class="d-flex gap-2">
                 <button class="btn-outline-success-custom btn-sm" @click="applyDateFilter" :disabled="isLoading">
-                  <i class="bi bi-check-circle me-1"></i>Apply
+                  <i class="bi bi-check-circle me-1"></i>{{ $t('dashboardHome.dateFilter.apply') }}
                 </button>
                 <button class="btn-outline-danger-custom btn-sm" @click="resetDateFilter" :disabled="isLoading">
-                  <i class="bi bi-arrow-clockwise me-1"></i>Reset
+                  <i class="bi bi-arrow-clockwise me-1"></i>{{ $t('dashboardHome.dateFilter.reset') }}
                 </button>
               </div>
             </div>
 
             <!-- Current Filter Display -->
             <div class="mt-2 small text-muted">
-              <strong>Current Filter:</strong> {{ currentFilterText }}
+              <strong>{{ $t('dashboardHome.dateFilter.currentFilter') }}</strong> {{ currentFilterText }}
             </div>
           </div>
         </div>
@@ -85,7 +84,7 @@
         <div class="card shadow-sm h-100">
           <div class="card-body text-center">
             <div class="display-6 fw-bold text-primary">{{ quickStats.today_appointments || 0 }}</div>
-            <div class="small text-muted">Today's Appointments</div>
+            <div class="small text-muted">{{ $t('dashboardHome.quickStats.today.valueLabel') }}</div>
           </div>
         </div>
       </div>
@@ -93,7 +92,7 @@
         <div class="card shadow-sm h-100">
           <div class="card-body text-center">
             <div class="display-6 fw-bold text-success">{{ quickStats.month_appointments || 0 }}</div>
-            <div class="small text-muted">This Month</div>
+            <div class="small text-muted">{{ $t('dashboardHome.quickStats.month.valueLabel') }}</div>
           </div>
         </div>
       </div>
@@ -101,7 +100,7 @@
         <div class="card shadow-sm h-100">
           <div class="card-body text-center">
             <div class="display-6 fw-bold text-info">{{ quickStats.active_experts || 0 }}</div>
-            <div class="small text-muted">Active Experts</div>
+            <div class="small text-muted">{{ $t('dashboardHome.quickStats.experts.valueLabel') }}</div>
           </div>
         </div>
       </div>
@@ -109,7 +108,7 @@
         <div class="card shadow-sm h-100">
           <div class="card-body text-center">
             <div class="display-6 fw-bold text-warning">{{ quickStats.active_procedures || 0 }}</div>
-            <div class="small text-muted">Active Services</div>
+            <div class="small text-muted">{{ $t('dashboardHome.quickStats.services.valueLabel') }}</div>
           </div>
         </div>
       </div>
@@ -123,16 +122,18 @@
           <div class="card-body">
             <div class="d-flex flex-wrap align-items-center justify-content-between mb-2">
               <div>
-                <div class="fw-semibold mb-0" style="font-size: 1.1rem;">Appointments Overview</div>
+                <div class="fw-semibold mb-0" style="font-size: 1.1rem;">{{ $t('dashboardHome.chart.title') }}</div>
                 <div class="small text-muted">{{ currentFilterText }}</div>
               </div>
               <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-sm btn-outline-secondary" v-for="range in chartRanges" :key="range.value"
+                <button class="btn btn-sm btn-outline-secondary"
+                        v-for="range in chartRangesI18n"
+                        :key="range.value"
                         :class="{ 'btn-primary text-white': activeChartRange === range.value }"
                         @click="setActiveChartRange(range.value)">
                   {{ range.label }}
                 </button>
-                <button class="btn btn-light btn-sm ms-1" title="Toggle Chart Type" @click="toggleChartType">
+                <button class="btn btn-light btn-sm ms-1" :title="$t('dashboardHome.chart.toggleType')" @click="toggleChartType">
                   <i :class="chartType === 'line' ? 'bi bi-bar-chart-fill' : 'bi bi-graph-up'"></i>
                 </button>
               </div>
@@ -142,16 +143,15 @@
                 <span class="display-6 fw-bold">{{ dashboardSummary.total_appointments || 0 }}</span>
               </div>
               <div class="small text-muted">
-                Total appointments<br>
-                Completion rate: {{ dashboardSummary.completion_rate || 0 }}%
+                {{ $t('dashboardHome.chart.summary.totalAppointments') }}<br>
+                {{ $t('dashboardHome.chart.summary.completionRate', { rate: dashboardSummary.completion_rate || 0 }) }}
               </div>
             </div>
-            <!-- Chart -->
             <canvas id="appointmentsChart" height="120"></canvas>
             <div class="d-flex gap-4 mt-3 small text-muted">
-              <div><span class="legend-dot appts"></span>Appointments</div>
-              <div><span class="legend-dot completed"></span>Completed</div>
-              <div><span class="legend-dot cancelled"></span>Cancelled</div>
+              <div><span class="legend-dot appts"></span>{{ $t('dashboardHome.chart.legend.appointments') }}</div>
+              <div><span class="legend-dot completed"></span>{{ $t('dashboardHome.chart.legend.completed') }}</div>
+              <div><span class="legend-dot cancelled"></span>{{ $t('dashboardHome.chart.legend.cancelled') }}</div>
             </div>
           </div>
         </div>
@@ -161,23 +161,23 @@
       <div class="col-lg-4">
         <div class="card shadow-sm h-100">
           <div class="card-body">
-            <div class="fw-semibold mb-0" style="font-size: 1.1rem;">Upcoming Appointments</div>
-            <div class="small text-muted mb-2">Next 7 days (booked & confirmed only)</div>
-            <div class="display-6 fw-bold mb-2">{{ upcomingAppointments.length }} total</div>
+            <div class="fw-semibold mb-0" style="font-size: 1.1rem;">{{ $t('dashboardHome.upcoming.title') }}</div>
+            <div class="small text-muted mb-2">{{ $t('dashboardHome.upcoming.subtitle') }}</div>
+            <div class="display-6 fw-bold mb-2">{{ $t('dashboardHome.upcoming.total', { count: upcomingAppointments.length }) }}</div>
             <div v-if="upcomingAppointments.length" class="upcoming-appointments-list">
-              <div v-for="(appt, idx) in upcomingAppointments.slice(0, 5)" :key="appt.id" class="d-flex justify-content-between align-items-center mb-3">
+              <div v-for="(appt) in upcomingAppointments.slice(0, 5)" :key="appt.id" class="d-flex justify-content-between align-items-center mb-3">
                 <div>
                   <div class="fw-semibold">{{ appt.service }}</div>
-                  <div class="small text-muted">{{ formatDate(appt.date) }} at {{ appt.time }}<br>{{ appt.duration }} min</div>
+                  <div class="small text-muted">{{ formatDate(appt.date) }} {{ $t('general.at') }} {{ appt.time }}<br>{{ appt.duration }} min</div>
                   <span class="badge" :class="getStatusBadgeClass(appt.status)">{{ appt.status }}</span>
                 </div>
                 <div class="fw-bold">{{ appt.price || '' }}</div>
               </div>
               <div v-if="upcomingAppointments.length > 5" class="text-center mt-3">
-                <small class="text-muted">+{{ upcomingAppointments.length - 5 }} more appointments</small>
+                <small class="text-muted">{{ $t('dashboardHome.upcoming.more', { count: upcomingAppointments.length - 5 }) }}</small>
               </div>
             </div>
-            <div v-else class="text-muted small">No upcoming appointments</div>
+            <div v-else class="text-muted small">{{ $t('dashboardHome.upcoming.empty') }}</div>
           </div>
         </div>
       </div>
@@ -190,16 +190,16 @@
         <div class="card shadow-sm h-100">
           <div class="card-body">
             <div class="fw-semibold mb-0" style="font-size: 1.1rem;">
-              Top Services
-              <i class="bi bi-info-circle ms-1" title="Most booked services in selected period"></i>
+              {{ $t('dashboardHome.topServices.title') }}
+              <i class="bi bi-info-circle ms-1" :title="$t('dashboardHome.topServices.tooltip')"></i>
             </div>
-            <div class="small text-muted mb-2">Most booked services ({{ currentFilterText }})</div>
+            <div class="small text-muted mb-2">{{ $t('dashboardHome.topServices.subtitle', { filter: currentFilterText }) }}</div>
             <div v-if="topServices.length">
               <table class="table table-sm mb-0">
                 <thead>
                 <tr>
-                  <th>Services</th>
-                  <th>Bookings</th>
+                  <th>{{ $t('dashboardHome.topServices.table.service') }}</th>
+                  <th>{{ $t('dashboardHome.topServices.table.bookings') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -210,7 +210,7 @@
                 </tbody>
               </table>
             </div>
-            <div v-else class="text-muted small">No data available for selected period.</div>
+            <div v-else class="text-muted small">{{ $t('dashboardHome.topServices.empty') }}</div>
           </div>
         </div>
       </div>
@@ -220,16 +220,16 @@
         <div class="card shadow-sm h-100">
           <div class="card-body">
             <div class="fw-semibold mb-0" style="font-size: 1.1rem;">
-              Top Experts
-              <i class="bi bi-info-circle ms-1" title="Experts by total appointments in selected period"></i>
+              {{ $t('dashboardHome.topExperts.title') }}
+              <i class="bi bi-info-circle ms-1" :title="$t('dashboardHome.topExperts.tooltip')"></i>
             </div>
-            <div class="small text-muted mb-2">Experts by total appointments ({{ currentFilterText }})</div>
+            <div class="small text-muted mb-2">{{ $t('dashboardHome.topExperts.subtitle', { filter: currentFilterText }) }}</div>
             <div v-if="topExperts.length">
               <table class="table table-sm mb-0">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Appointments</th>
+                  <th>{{ $t('dashboardHome.topExperts.table.name') }}</th>
+                  <th>{{ $t('dashboardHome.topExperts.table.appointments') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -245,7 +245,7 @@
                 </tbody>
               </table>
             </div>
-            <div v-else class="text-muted small">No data available for selected period.</div>
+            <div v-else class="text-muted small">{{ $t('dashboardHome.topExperts.empty') }}</div>
           </div>
         </div>
       </div>
@@ -257,7 +257,7 @@
         <i class="fas fa-exclamation-triangle me-2"></i>
         {{ errorMessage }}
         <button class="btn btn-sm btn-outline-danger ms-3" @click="retryLoad">
-          <i class="fas fa-redo me-1"></i> Retry
+          <i class="fas fa-redo me-1"></i> {{ $t('dashboardHome.error.retry') }}
         </button>
       </CAlert>
     </CContainer>

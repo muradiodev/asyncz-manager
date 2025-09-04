@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('auth', {
       company: null,
       companyPackage: null,
       permissions: [],
+      isLoading: false
     }
   },
 
@@ -26,6 +27,9 @@ export const useAuthStore = defineStore('auth', {
     },
     setPermissions(newPermissions) {
       this.permissions = newPermissions
+    },
+    setLoading(isLoading) {
+      this.isLoading = isLoading
     }
   }
 })

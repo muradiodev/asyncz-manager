@@ -29,9 +29,10 @@ export async function getProcedure(token, id) {
     })
 }
 
-export async function createProcedure(token, name, length) {
+export async function createProcedure(token, name, color, length) {
   return await Repository.postForm(`${baseUrl}/manager/procedure?token=${token}`, {
     name,
+    color,
     length
   })
     .then((response) => {
@@ -46,10 +47,11 @@ export async function createProcedure(token, name, length) {
     })
 }
 
-export async function saveProcedure(token, id, name, about, length, status) {
+export async function saveProcedure(token, id, name, color, about, length, status) {
   return await Repository.postForm(`${baseUrl}/manager/procedure/${id}?token=${token}`, {
     name,
     about,
+    color,
     length,
     status
   })

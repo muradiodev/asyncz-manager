@@ -9,7 +9,7 @@
             type="text"
             v-model="messageInput"
             class="form-control-header"
-            placeholder="💡 Schedule for Jane Doe, abc@example.com, +12345, 31 December 14:30, notes: Initial consultation.."
+            :placeholder="$t('aiScheduler.placeholder')"
             :disabled="isRecording || isProcessing"
             @keyup.enter="submitTextInput"
           />
@@ -21,7 +21,7 @@
               :class="['btn-header', 'voice-btn-header', isRecording ? 'recording' : '']"
               type="button"
               :disabled="isProcessing"
-              :title="isRecording ? 'Stop recording' : 'Voice input'"
+              :title="isRecording ? $t('aiScheduler.tooltips.stopRecording') : $t('aiScheduler.tooltips.voiceInput')"
             >
               <CIcon :icon="isRecording ? icons.cilMediaStop : icons.cilMicrophone" size="sm" />
             </button>
@@ -31,7 +31,7 @@
               class="btn-header submit-btn-header"
               type="button"
               :disabled="isRecording || isProcessing || !messageInput.trim()"
-              title="Submit"
+              :title="$t('aiScheduler.tooltips.submit')"
             >
               <CIcon icon="cil-arrow-top" size="sm" />
             </button>
@@ -41,16 +41,17 @@
         <!-- Compact Status Indicators -->
         <div v-if="isRecording" class="status-indicator recording-status">
           <div class="recording-dot"></div>
-          <span>Recording...</span>
+          <span>{{ $t('aiScheduler.status.recording') }}</span>
         </div>
 
         <div v-if="isProcessing" class="status-indicator processing-status">
           <CIcon icon="cil-sync" size="sm" class="spinning" />
-          <span>Processing...</span>
+          <span>{{ $t('aiScheduler.status.processing') }}</span>
         </div>
       </div>
+
       <div class="ai-message">
-        <span>🤖 I'm AI - Use me!</span>
+        <span>{{ $t('aiScheduler.hint') }}</span>
       </div>
     </div>
 
@@ -68,7 +69,7 @@
           <div class="modal-header modern-header">
             <h5 class="modal-title">
               <CIcon icon="cil-calendar-check" size="lg" class="text-white me-2" />
-              Confirm Appointment
+              {{ $t('aiScheduler.modals.confirmAppointment.title') }}
             </h5>
             <button
               type="button"
@@ -79,7 +80,7 @@
           <div class="modal-body modern-body">
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label">First Name *</label>
+                <label class="form-label">{{ $t('aiScheduler.modals.confirmAppointment.labels.firstName') }}</label>
                 <input
                   type="text"
                   v-model="appointmentData.name"
@@ -88,11 +89,11 @@
                   :class="{ 'is-invalid': !appointmentData.name.trim() && showValidation }"
                 />
                 <div v-if="!appointmentData.name.trim() && showValidation" class="invalid-feedback">
-                  First name is required
+                  {{ $t('aiScheduler.modals.confirmAppointment.validation.firstNameRequired') }}
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Last Name *</label>
+                <label class="form-label">{{ $t('aiScheduler.modals.confirmAppointment.labels.lastName') }}</label>
                 <input
                   type="text"
                   v-model="appointmentData.surname"
@@ -104,14 +105,14 @@
                   v-if="!appointmentData.surname.trim() && showValidation"
                   class="invalid-feedback"
                 >
-                  Last name is required
+                  {{ $t('aiScheduler.modals.confirmAppointment.validation.lastNameRequired') }}
                 </div>
               </div>
             </div>
 
             <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label">Email</label>
+                <label class="form-label">{{ $t('aiScheduler.modals.confirmAppointment.labels.email') }}</label>
                 <input
                   type="email"
                   v-model="appointmentData.email"
@@ -124,11 +125,11 @@
                   v-if="appointmentData.email && !isValidEmail(appointmentData.email)"
                   class="invalid-feedback"
                 >
-                  Please enter a valid email address
+                  {{ $t('aiScheduler.modals.confirmAppointment.validation.emailInvalid') }}
                 </div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Phone</label>
+                <label class="form-label">{{ $t('aiScheduler.modals.confirmAppointment.labels.phone') }}</label>
                 <input
                   type="tel"
                   v-model="appointmentData.phone"
@@ -138,7 +139,7 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Appointment Date & Time</label>
+              <label class="form-label">{{ $t('aiScheduler.modals.confirmAppointment.labels.dateTime') }}</label>
               <input
                 type="datetime-local"
                 v-model="appointmentData.reservation_start_time"
@@ -148,7 +149,7 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Notes</label>
+              <label class="form-label">{{ $t('aiScheduler.modals.confirmAppointment.labels.notes') }}</label>
               <textarea
                 v-model="appointmentData.notes"
                 class="form-control modern-input"
@@ -157,7 +158,7 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Expert Notes</label>
+              <label class="form-label">{{ $t('aiScheduler.modals.confirmAppointment.labels.expertNotes') }}</label>
               <textarea
                 v-model="appointmentData.expert_notes"
                 class="form-control modern-input"
@@ -169,7 +170,7 @@
             <div v-if="originalText" class="original-input-display">
               <div class="original-input-header">
                 <CIcon icon="cil-quote-alt-left" size="sm" />
-                <span>Original Input</span>
+                <span>{{ $t('aiScheduler.modals.confirmAppointment.originalInput.title') }}</span>
               </div>
               <p class="original-input-text">{{ originalText }}</p>
             </div>
@@ -177,7 +178,7 @@
           <div class="modal-footer modern-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
               <CIcon icon="cil-x" size="sm" class="me-1" />
-              Cancel
+              {{ $t('aiScheduler.modals.confirmAppointment.actions.cancel') }}
             </button>
             <button
               type="button"
@@ -190,7 +191,7 @@
                 size="sm"
                 :class="[isSaving ? 'spinning' : '', 'me-1']"
               />
-              {{ isSaving ? 'Saving...' : 'Save Appointment' }}
+              {{ isSaving ? $t('aiScheduler.modals.confirmAppointment.actions.saving') : $t('aiScheduler.modals.confirmAppointment.actions.save') }}
             </button>
           </div>
         </div>
@@ -204,7 +205,7 @@
           <div class="modal-header modern-header bg-success text-white">
             <h5 class="modal-title">
               <CIcon icon="cil-check-circle" size="lg" class="me-2" />
-              Success!
+              {{ $t('aiScheduler.modals.success.title') }}
             </h5>
             <button
               type="button"
@@ -223,7 +224,7 @@
           <div class="modal-footer modern-footer">
             <button type="button" class="btn btn-success modern-btn" data-bs-dismiss="modal">
               <CIcon icon="cil-check" size="sm" class="me-1" />
-              OK
+              {{ $t('aiScheduler.modals.success.ok') }}
             </button>
           </div>
         </div>

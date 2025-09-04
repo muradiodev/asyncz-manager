@@ -32,7 +32,7 @@ import {
   faCheck,
   faPlus,
   faCalendar,
-  faUsers, faBuilding, faListCheck, faFileText, faUser, faBan
+  faUsers, faBuilding, faListCheck, faFileText, faUser, faBan, faCheckSquare
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -40,7 +40,7 @@ library.add(
   faSearch, faTimes,
   faPrint, faCopy, faPencil,
   faEye, faEyeSlash,
-  faCheck,
+  faCheck, faCheckSquare,
   faPlus,faCalendar, faUsers,
   faBuilding, faListCheck, faFileText, faUser, faBan
 )
@@ -53,17 +53,24 @@ import { createI18n } from 'vue-i18n'
 
 
 import localeEn from './locale/en.json'
+import localeAz from './locale/az.json'
+import localeDe from './locale/de.json'
+import localeTr from './locale/tr.json'
 import CoreuiVue from '@coreui/vue'
 
+const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+
 const i18n = createI18n({
-  locale: 'en',
+  locale: savedLanguage,
   fallbackLocale: 'en',
   legacy: false,
   messages: {
-    en: localeEn
+    en: localeEn,
+    de: localeDe,
+    az: localeAz,
+    tr: localeTr
   }
 })
-
 
 const app = createApp(App)
 

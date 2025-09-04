@@ -5,15 +5,15 @@
         <div class="mb-4">
           <AppBreadcrumb
             :breadcrumbs="[
-              { name: 'Dashboard', path: '/dashboard', active: false },
-              { name: 'Procedures', path: '/dashboard/procedures', active: true }
+              { name: $t('general.dashboard'), path: '/dashboard', active: false },
+              { name: $t('procedures.title'), path: '/dashboard/procedures', active: true }
             ]"
           />
         </div>
         <div class="d-flex align-items-center justify-content-between w-100">
-          <span class="h2 mb-0"> Procedures</span>
-          <button class="btn-outline-success-custom w-25" @click="openCreateModal" :disabled="!canManageService">
-            <i class="fas fa-plus me-1"></i> Add Procedure
+          <span class="h2 mb-0">{{ $t('procedures.title') }}</span>
+          <button class="btn-outline-success-custom w-25" @click="openCreateModal">
+            <i class="fas fa-plus me-1"></i> {{ $t('procedures.add') }}
           </button>
         </div>
       </CContainer>
@@ -33,7 +33,7 @@
 
   <!-- CREATE / EDIT MODAL -->
   <ModalComponent
-    :title="isEditing ? 'Edit Procedure' : 'New Procedure'"
+    :title="$t('procedures.modalCreate.title')"
     size="md"
     v-if="addNewItem"
     @modalClose="closeModal"
@@ -41,19 +41,19 @@
     <form @submit.prevent="isEditing ? submitEdit() : createNewItem()">
       <div class="row gy-3">
         <div class="col-12">
-          <label for="procedureName" class="form-label fw-bold">Name</label>
+          <label for="procedureName" class="form-label fw-bold">{{ $t('procedures.modalCreate.labels.name') }}</label>
           <input
             type="text"
             class="form-control"
             id="procedureName"
             v-model="newItemDetails.name"
             required
-            placeholder="Procedure name"
+            :placeholder="$t('procedures.modalCreate.placeholders.name')"
             autocomplete="off"
           />
         </div>
         <div class="col-12 col-md-6">
-          <label for="procedureLength" class="form-label fw-bold">Length</label>
+          <label for="procedureLength" class="form-label fw-bold">{{ $t('procedures.modalCreate.labels.length') }}</label>
           <div class="input-group">
             <input
               type="number"
@@ -62,16 +62,52 @@
               v-model.number="newItemDetails.length"
               required
               min="1"
-              placeholder="Length"
+              :placeholder="$t('procedures.modalCreate.placeholders.length')"
               autocomplete="off"
             />
-            <span class="input-group-text">minute(s)</span>
+            <span class="input-group-text">{{ $t('procedures.lengthUnit') }}</span>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="procedureColor" class="form-label fw-bold">{{ $t('procedures.modalCreate.labels.color') }}</label>
+          <div class="color-selector-container">
+            <div
+              class="selected-color-display"
+              @click="toggleColorPalette"
+              :style="{ backgroundColor: newItemDetails.color || '#ccc' }"
+            >
+              <span v-if="!showColorPalette" class="color-hint">
+                <font-awesome-icon :icon="faPencil()" />
+              </span>
+            </div>
+            <div v-if="showColorPalette" class="color-palette-container">
+              <div class="color-palette">
+                <div
+                  v-for="(color, index) in colorPalette"
+                  :key="index"
+                  class="color-swatch"
+                  :class="{ selected: newItemDetails.color === color }"
+                  :style="{ backgroundColor: color }"
+                  @click="selectColor(color)"
+                ></div>
+              </div>
+              <div class="mt-2 d-flex justify-content-between">
+                <div>&nbsp;&nbsp;&nbsp;</div>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  @click="showColorPalette = false"
+                >
+                  {{ $t('procedures.modalCreate.actions.closePalette') }}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-12">
           <button type="submit" class="btn-success-custom w-50 fw-bold py-2">
             <i :class="isEditing ? 'fas fa-pen me-2' : 'fas fa-plus me-2'"></i>
-            {{ isEditing ? 'Save Changes' : 'Create Procedure' }}
+            {{ isEditing ? $t('procedures.modalEdit.actions.save') : $t('procedures.modalCreate.actions.create') }}
           </button>
         </div>
       </div>
@@ -91,6 +127,8 @@ import { getProcedures, createProcedure, updateProcedure, deleteProcedure } from
 import AppBreadcrumb from '@/components/layout/AppBreadcrumb.vue'
 import { getShareLinks } from '@/repositories/ShareLinkRepository.js'
 import { toast } from 'vue3-toastify'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
 DataTable.use(DataTablesLib)
 DataTable.use(DataTablesCore)
@@ -101,15 +139,62 @@ export default {
     return {
       addNewItem: false,
       isEditing: false,
+      showColorPalette: false,
       newItemDetails: {
         id: null,
         name: '',
-        length: ''
+        length: '',
+        color: '',
       },
       itemList: [],
+      shareLinks: [],
+      colorPalette: [
+        // First row - light pastel colors
+        '#d4f5e9',
+        '#fbeaa0',
+        '#fde5d4',
+        '#ffd5d5',
+        '#e5d4f5',
+        // Second row - medium pastel colors
+        '#77d4aa',
+        '#ebc956',
+        '#f4a87c',
+        '#ee7e7e',
+        '#b39ddb',
+        // Third row - darker colors
+        '#15a149',
+        '#9e7b35',
+        '#b25933',
+        '#c13f3f',
+        '#5e4294',
+        // Fourth row - very light colors
+        '#e6f0ff',
+        '#d4f1f9',
+        '#e8f7d4',
+        '#fce4ec',
+        '#e0e0e0',
+        // Fifth row - medium bright colors
+        '#5b9bd5',
+        '#69c3d4',
+        '#a8ce54',
+        '#e67ab3',
+        '#8c9099',
+        // Sixth row - darker bright colors
+        '#3464c4',
+        '#2b7c93',
+        '#6b8e23',
+        '#b13e81',
+        '#4e5561'
+      ],
       columns: [
         { title: 'ID', data: 'id', orderable: true },
         { title: 'Name', data: 'name', orderable: true },
+        {
+          title: 'Color',
+          data: (row) => {
+            return  '<span class="badge" style="background-color: ' + row.color + ';">&nbsp;</span>'
+          }
+        },
         {
           title: 'Status',
           data: (row) => {
@@ -177,6 +262,17 @@ export default {
     hasAnyPermission(list) {
       return Array.isArray(list) && list.some(p => this.hasPermission(p));
     },
+    faPencil() {
+      return faPencil
+    },
+    toggleColorPalette() {
+      this.showColorPalette = !this.showColorPalette
+    },
+    selectColor(color) {
+      this.newItemDetails.color = color
+      // Optional: close palette after selection
+      // this.showColorPalette = false;
+    },
     async getShareLinks() {
       this.shareLinks = await getShareLinks(this.token);
     },
@@ -189,15 +285,17 @@ export default {
     openCreateModal() {
       this.isEditing = false
       this.addNewItem = true
-      this.newItemDetails = { id: null, name: '', length: '' }
+      this.newItemDetails = { id: null, name: '', length: '', color: '' }
+      this.showColorPalette = false
     },
     closeModal() {
       this.addNewItem = false
       this.isEditing = false
-      this.newItemDetails = { id: null, name: '', length: '' }
+      this.newItemDetails = { id: null, name: '', length: '', color: '' }
+      this.showColorPalette = false
     },
     createNewItem() {
-      createProcedure(this.token, this.newItemDetails.name, this.newItemDetails.length).then(
+      createProcedure(this.token, this.newItemDetails.name, this.newItemDetails.color, this.newItemDetails.length).then(
         (response) => {
           if (response.code === 200) {
             this.getItemList()
@@ -212,7 +310,8 @@ export default {
     submitEdit() {
       updateProcedure(this.token, this.newItemDetails.id, {
         name: this.newItemDetails.name,
-        length: this.newItemDetails.length
+        length: this.newItemDetails.length,
+        color: this.newItemDetails.color
       }).then((response) => {
         if (response.code === 200) {
           this.getItemList()
@@ -289,7 +388,74 @@ export default {
   components: {
     AppBreadcrumb,
     ModalComponent,
-    DataTable
+    DataTable,
+    FontAwesomeIcon
   }
 }
 </script>
+
+<style scoped>
+.color-selector-container {
+  position: relative;
+}
+
+.selected-color-display {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.selected-color-display:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.color-hint {
+  color: rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.color-palette-container {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  max-width: 100%;
+}
+
+.color-swatch {
+  width: 100%;
+  aspect-ratio: 1.5 / 1;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #ddd;
+}
+
+.color-swatch:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch.selected {
+  border: 3px solid #1976d2;
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.5);
+}
+</style>

@@ -118,7 +118,7 @@ export default {
         height: this.coordinates.height + 'px',
         width: this.columnWidth - (this.isDragging ? 5 : 0) + 'px',
         left: (this.scheduleListOrder * this.columnWidth + (this.isDragging ? 5 : 0)) + 'px',
-        'background-color': this.event.color || 'red'
+        'background-color': this.event.procedure.color || 'red'
       }
     }
 

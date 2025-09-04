@@ -11,7 +11,746 @@
   },
   "navigation": {
     "dashboard": "Dashboard",
-    "account": "Account"
+    "account": "Account",
+    "security": "Security",
+    "blacklist": "Blacklist",
+    "branches": "Branches",
+    "businessSettings": "Business Settings",
+    "calendar": "Calendar",
+    "customers": "Customers",
+    "users": "Users",
+    "feedbacks": "Feedbacks",
+    "home": "Home"
+  },
+  "language": {
+    "current": "English",
+    "list": {
+        "en": "English"
+    }
+  },
+
+  "account": {
+    "accountSettings": "Account Settings",
+    "accountInformation": "Account Information",
+    "updateYourPersonalInformation": "Update your personal information",
+
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "description": "Description"
+    },
+    "placeholders": {
+      "phone": "+1 (555) 000-0000",
+      "about": "Tell us about yourself"
+    },
+    "hints": {
+      "emailLocked": "Email cannot be changed. Contact support if you need to update your email."
+    },
+    "actions": {
+      "saveChanges": "Save Changes",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "saved": "Changes saved successfully"
+    },
+    "security": {
+      "passwordSettings": "Password Settings",
+      "updateYourPassword": "Update your password",
+      "labels": {
+        "currentPassword": "Current password",
+        "newPassword": "New password"
+      },
+      "messages": {
+        "passwordUpdated": "Password updated"
+      }
+    }
+  },
+  "aiScheduler": {
+    "placeholder": "💡 Schedule for Jane Doe, abc@example.com, +12345, 31 December 14:30, notes: Initial consultation..",
+    "hint": "🤖 I'm AI - Use me!",
+    "tooltips": {
+      "voiceInput": "Voice input",
+      "stopRecording": "Stop recording",
+      "submit": "Submit"
+    },
+    "status": {
+      "recording": "Recording...",
+      "processing": "Processing..."
+    },
+    "errors": {
+      "microphoneDenied": "Microphone access denied",
+      "processingError": "Processing error",
+      "saveError": "Save error",
+      "httpError": "HTTP error! status: {status}",
+      "processingFailed": "Processing failed",
+      "saveFailed": "Save failed"
+    },
+    "modals": {
+      "confirmAppointment": {
+        "title": "Confirm Appointment",
+        "labels": {
+          "firstName": "First Name *",
+          "lastName": "Last Name *",
+          "email": "Email",
+          "phone": "Phone",
+          "dateTime": "Appointment Date & Time",
+          "notes": "Notes",
+          "expertNotes": "Expert Notes"
+        },
+        "validation": {
+          "firstNameRequired": "First name is required",
+          "lastNameRequired": "Last name is required",
+          "emailInvalid": "Please enter a valid email address"
+        },
+        "originalInput": {
+          "title": "Original Input"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "save": "Save Appointment",
+          "saving": "Saving..."
+        }
+      },
+      "success": {
+        "title": "Success!",
+        "ok": "OK"
+      }
+    }
+  },
+  "blacklist": {
+    "title": "Blacklist",
+    "add": "Add Blacklist",
+    "notSubscribed": "Your company is not subscribed to a package that includes the blacklist feature.",
+    "table": {
+      "columns": {
+        "keyword": "Keyword",
+        "action": "Action"
+      }
+    },
+    "modalCreate": {
+      "title": "New Blacklist",
+      "labels": {
+        "keyword": "Keyword"
+      },
+      "actions": {
+        "create": "Create"
+      }
+    },
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete blacklist \"{value}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+    "toasts": {
+      "created": "New blacklist added successfully",
+      "deleted": "Blacklist deleted."
+    }
+  },
+  "branches": {
+    "title": "Branches",
+    "add": "Add Branch",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "status": "Status",
+        "publicLink": "Public Link",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+    "modalCreate": {
+      "title": "New Branch",
+      "labels": {
+        "branchName": "Branch name"
+      },
+      "actions": {
+        "create": "Create"
+      }
+    },
+    "modalEdit": {
+      "title": "Edit Branch",
+      "loading": "Loading...",
+      "loadingBranchData": "Loading branch data...",
+      "labels": {
+        "branchName": "Branch Name",
+        "description": "Description",
+        "status": "Status"
+      },
+      "options": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "actions": {
+        "save": "Save"
+      }
+    },
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete branch \"{name}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+    "toasts": {
+      "created": "New branch added successfully",
+      "updated": "Branch updated.",
+      "deleted": "Branch deleted.",
+      "linkCopied": "Link copied to clipboard.",
+      "linkCopyFailed": "Failed to copy the link.",
+      "loadFailed": "Failed to load branch details. Please try again."
+    },
+    "errors": {
+      "loadFailed": "Failed to load branch details: {message}"
+    }
+  },
+  "businessSettings": {
+    "title": "Business Settings",
+    "labels": {
+      "businessName": "Business Name",
+      "businessDescription": "Business Description",
+      "businessAddress": "Business Address",
+      "businessPhone": "Business Phone",
+      "businessEmail": "Business Email",
+      "businessTimezone": "Business Timezone",
+      "slotSizeInMinutes": "Slot Size in Minutes",
+      "requireEmailConfirmation": "Require Email Confirmation",
+      "requireEmailConfirmationVisuallyHidden": "Require Email Confirmation",
+      "searchTimezoneOrCity": "Search timezone or city..."
+    },
+    "help": {
+      "requireEmailConfirmation": "When enabled, clients will need to confirm their email address when booking appointments."
+    },
+    "options": {
+      "slotSizes": {
+        "10": "10",
+        "15": "15",
+        "30": "30",
+        "60": "60"
+      }
+    },
+    "actions": {
+      "saveChanges": "Save Changes",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "loadFailed": "Failed to load business data",
+      "updateFailed": "Failed to update business settings",
+      "updatedSuccessfully": "Business settings updated successfully",
+      "unexpectedError": "An unexpected error occurred"
+    }
+  },
+  "calendar": {
+    "sidebar": {
+      "new": "New",
+      "newAppointment": "Appointment",
+      "externalScheduler": "🚀 Collabriq Scheduler",
+      "branchesExperts": "Branches & Experts"
+    },
+    "buttons": {
+      "today": "Today",
+      "prev": "Previous",
+      "next": "Next",
+      "new": "New",
+      "blockTime": "Block Time",
+      "cancel": "Cancel",
+      "save": "Save",
+      "create": "Create",
+      "update": "Update",
+      "confirm": "Confirm",
+      "copy": "Copy",
+      "edit": "Edit",
+      "print": "Print",
+      "delete": "Delete",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "views": {
+      "day": "Day",
+      "day3": "3 Days",
+      "week": "Week",
+      "month": "Month"
+    },
+    "copyBanner": {
+      "title": "Click any available slot to create a copy of appointment",
+      "customer": "Customer",
+      "phone": "Phone",
+      "email": "Email",
+      "procedure": "Procedure",
+      "expert": "Expert",
+      "copyToAnotherExpert": "Copy to another expert"
+    },
+    "quickAction": {
+      "title": "Choose Action",
+      "new": "New",
+      "blockTime": "Block Time"
+    },
+    "blockTimeModal": {
+      "title": "Block Time",
+      "labels": {
+        "expert": "Expert",
+        "chooseExpert": "Choose expert...",
+        "date": "Date",
+        "time": "Time",
+        "duration": "Duration (minutes)",
+        "durationPlaceholder": "e.g. 30",
+        "reason": "Reason",
+        "reasonPlaceholder": "Break, Lunch, etc."
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "save": "Save"
+      }
+    },
+    "newAppointmentModal": {
+      "title": "New Appointment",
+      "labels": {
+        "expert": "Expert",
+        "chooseExpert": "Choose expert...",
+        "service": "Service",
+        "chooseService": "Choose service...",
+        "date": "Date",
+        "time": "Time",
+        "duration": "Duration",
+        "min": "min",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone",
+        "email": "Email",
+        "sendConfirmationEmail": "Send confirmation email",
+        "additionalNotes": "Additional Notes",
+        "notesPlaceholder": "Any special requests or information?"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "create": "Create Appointment"
+      }
+    },
+    "editAppointmentModal": {
+      "title": "Edit Appointment",
+      "labels": {
+        "expert": "Expert",
+        "procedure": "Procedure",
+        "date": "Date",
+        "time": "Time",
+        "length": "Length",
+        "min": "min",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone",
+        "email": "Email",
+        "notes": "Notes"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "update": "Update"
+      }
+    },
+    "editBlockTimeModal": {
+      "title": "Edit block time",
+      "labels": {
+        "expert": "Expert",
+        "date": "Date",
+        "time": "Time",
+        "length": "Length",
+        "min": "min",
+        "comment": "Comment"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "update": "Update"
+      }
+    },
+    "appointmentDetails": {
+      "title": "Appointment Details",
+      "labels": {
+        "expert": "Expert",
+        "procedure": "Procedure",
+        "starts": "Starts",
+        "duration": "Duration",
+        "status": "Status",
+        "customer": "Customer",
+        "phone": "Phone",
+        "email": "Email",
+        "notes": "Notes",
+        "requestedAt": "Requested at",
+        "originally": "originally {length} min"
+      },
+      "actions": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "copy": "Copy",
+        "print": "Print"
+      }
+    },
+    "blockTimeDetails": {
+      "title": "Block time details",
+      "labels": {
+        "expert": "Expert",
+        "starts": "Starts",
+        "duration": "Duration",
+        "comment": "Comment"
+      },
+      "actions": {
+        "delete": "Delete",
+        "edit": "Edit"
+      }
+    },
+    "swal": {
+      "confirmAppointment": {
+        "title": "Confirm appointment",
+        "text": "Are you sure you want to confirm the appointment?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "cancelAppointment": {
+        "title": "Cancel appointment",
+        "text": "Are you sure you want to cancel the appointment?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "deleteBlockTime": {
+        "title": "Delete block time",
+        "text": "Are you sure you want to delete block time?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateBlockTime": {
+        "title": "Update block time",
+        "text": "Are you sure you want to update the block?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateAppointmentTime": {
+        "title": "Update appointment time",
+        "text": "Are you sure you want to update the appointment?",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateAppointmentLength": {
+        "title": "Update appointment length",
+        "text": "Are you sure you want to update the appointment?",
+        "lengthHtml": "Length: {minutes} minutes",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "updateBlockTimeLength": {
+        "title": "Update block time length",
+        "text": "Are you sure you want to update the block?",
+        "lengthHtml": "Length: {minutes} minutes",
+        "confirm": "Yes",
+        "cancel": "No"
+      },
+      "expertTimeHtml": "<p><strong>Expert: </strong>{expert}</p><p><strong>Time: </strong>{time}</p>"
+    },
+    "toasts": {
+      "timeBlocked": "Time blocked successfully",
+      "appointmentConfirmed": "Appointment confirmed",
+      "appointmentCancelled": "Appointment cancelled",
+      "deleted": "Deleted!",
+      "appointmentTimeUpdated": "Appointment time updated",
+      "blockTimeUpdated": "Block time updated.",
+      "appointmentUpdated": "Appointment updated",
+      "blockUpdated": "Block updated",
+      "appointmentCreated": "Appointment created"
+    },
+    "print": {
+      "title": "Print",
+      "heading": "Appointment details",
+      "labels": {
+        "expert": "Expert",
+        "procedure": "Procedure",
+        "starts": "Starts",
+        "duration": "Duration",
+        "minute": "minute",
+        "customer": "Customer",
+        "phone": "Phone",
+        "email": "Email"
+      }
+    }
+  },
+  "customers": {
+    "title": "Customers",
+    "table": {
+      "columns": {
+        "index": "#",
+        "name": "Name",
+        "surname": "Surname",
+        "email": "Email",
+        "actions": "Actions"
+      },
+      "empty": {
+        "iconLabel": "No appointments found for this customer."
+      }
+    },
+    "modal": {
+      "title": "Customer Details",
+      "loadingTitle": "Loading...",
+      "loadingAppointments": "Loading customer appointments...",
+      "total": "Total: {count}",
+      "columns": {
+        "index": "#",
+        "service": "Service",
+        "expert": "Expert",
+        "startTime": "Start Time",
+        "length": "Length",
+        "status": "Status",
+        "notes": "Notes"
+      },
+      "lengthUnit": "min",
+      "close": "Close"
+    },
+    "status": {
+      "confirmed": "confirmed",
+      "cancelledExpert": "cancelled_expert",
+      "cancelled": "cancelled",
+      "new": "new",
+      "other": "other"
+    }
+  },
+  "dashboardHome": {
+    "loading": {
+      "title": "Loading...",
+      "body": "Loading dashboard data..."
+    },
+    "greeting": "Welcome back, {name}!",
+    "dateFilter": {
+      "title": "Filter by Date Range:",
+      "from": "From:",
+      "to": "To:",
+      "apply": "Apply",
+      "reset": "Reset",
+      "currentFilter": "Current Filter:",
+      "allTime": "All time",
+      "allTimeFrom": "All time (from Jan 2023)",
+      "quick": {
+        "7d": "7 Days",
+        "30d": "30 Days",
+        "3m": "3 Months",
+        "6m": "6 Months",
+        "1y": "Last Year",
+        "all": "All Time"
+      }
+    },
+    "quickStats": {
+      "today": {
+        "valueLabel": "Today's Appointments"
+      },
+      "month": {
+        "valueLabel": "This Month"
+      },
+      "experts": {
+        "valueLabel": "Active Experts"
+      },
+      "services": {
+        "valueLabel": "Active Services"
+      }
+    },
+    "chart": {
+      "title": "Appointments Overview",
+      "toggleType": "Toggle Chart Type",
+      "summary": {
+        "totalAppointments": "Total appointments",
+        "completionRate": "Completion rate: {rate}%"
+      },
+      "legend": {
+        "appointments": "Appointments",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "ranges": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month"
+      }
+    },
+    "upcoming": {
+      "title": "Upcoming Appointments",
+      "subtitle": "Next 7 days (booked & confirmed only)",
+      "total": "{count} total",
+      "more": "+{count} more appointments",
+      "empty": "No upcoming appointments"
+    },
+    "topServices": {
+      "title": "Top Services",
+      "tooltip": "Most booked services in selected period",
+      "subtitle": "Most booked services ({filter})",
+      "table": {
+        "service": "Services",
+        "bookings": "Bookings"
+      },
+      "empty": "No data available for selected period."
+    },
+    "topExperts": {
+      "title": "Top Experts",
+      "tooltip": "Experts by total appointments in selected period",
+      "subtitle": "Experts by total appointments ({filter})",
+      "table": {
+        "name": "Name",
+        "appointments": "Appointments"
+      },
+      "empty": "No data available for selected period."
+    },
+    "error": {
+      "failed": "Failed to load dashboard data. Please try again.",
+      "retry": "Retry"
+    }
+  },
+  "expertProcedures": {
+    "title": "Expert Procedures",
+    "lengthUnit": "min",
+    "toasts": {
+      "alreadyAdded": "This procedure is already added to the expert",
+      "alreadyRemoved": "This procedure is already removed from the expert"
+    },
+    "swal": {
+      "remove": {
+        "title": "Are you sure?",
+        "text": "This procedure will be removed from the expert",
+        "confirm": "Yes",
+        "cancel": "No"
+      }
+    }
+  },
+  "expertSchedules": {
+    "title": "Expert work schedules",
+    "table": {
+      "headers": {
+        "day": "Day",
+        "start": "Start",
+        "breakStart": "Break start",
+        "breakEnd": "Break end",
+        "end": "End"
+      }
+    },
+    "actions": {
+      "save": "Save",
+      "reset": "Reset changes"
+    },
+    "toasts": {
+      "saved": "Changes saved successfully"
+    },
+    "weekdays": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    }
+  },
+  "experts": {
+    "title": "Experts",
+    "add": "Add Expert",
+    "table": {
+      "columns": {
+        "id": "ID",
+        "branch": "Branch",
+        "name": "Name",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+    "modalCreate": {
+      "title": "New Expert",
+      "labels": {
+        "branch": "Branch",
+        "fullName": "Full name",
+        "email": "E-mail",
+        "password": "Password"
+      },
+      "actions": {
+        "create": "Create"
+      }
+    },
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete expert \"{name}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+    "toasts": {
+      "created": "New expert added successfully",
+      "updated": "Expert updated.",
+      "deleted": "Expert deleted."
+    },
+    "errors": {
+      "loadFailed": "Failed to load experts list. Please try again."
+    }
+  },
+  "expert": {
+    "labels": {
+      "about": "About",
+      "color": "Color"
+    }
+  },
+  "feedbacks": {
+    "breadcrumb": {
+      "create": "Create Feedback"
+    },
+    "title": "Create New Feedback",
+    "form": {
+      "labels": {
+        "title": "Title",
+        "description": "Description",
+        "images": "Images (PNG, JPG, JPEG)",
+        "selectedImages": "Selected Images:"
+      },
+      "placeholders": {
+        "title": "Enter feedback title...",
+        "description": "Enter your feedback description..."
+      },
+      "help": {
+        "images": "You can select multiple images (PNG, JPG, JPEG only, max 5MB each)"
+      }
+    },
+    "preview": {
+      "alt": "Selected image {index}"
+    },
+    "actions": {
+      "create": "Create Feedback",
+      "creating": "Creating...",
+      "reset": "Reset"
+    },
+    "guidelines": {
+      "title": "Guidelines",
+      "items": {
+        "clearTitle": "Provide a clear and descriptive title",
+        "detailedDescription": "Include detailed description of your feedback",
+        "addImages": "Add relevant images if applicable",
+        "supportedFormats": "Supported formats: PNG, JPG, JPEG",
+        "maxSize": "Maximum file size: 5MB per image"
+      }
+    },
+    "swal": {
+      "uploadWarning": {
+        "title": "Upload Warning",
+        "text": "{failed} image(s) failed to upload. Continue with {success} successful upload(s)?",
+        "confirm": "Continue",
+        "cancel": "Cancel"
+      }
+    },
+    "toasts": {
+      "invalidType": "Please select only PNG, JPG, or JPEG files.",
+      "fileTooLarge": "Please select files smaller than 5MB.",
+      "titleRequired": "Please enter a title for your feedback.",
+      "submitSuccess": "Your feedback has been submitted successfully.",
+      "submitFailed": "Failed to submit feedback. Please try again."
+    }
+  },
+  "home": {
+
   },
   "login": {
     "welcome": "Welcome!",
@@ -27,12 +766,392 @@
     "setMyNewPassword": "Set my new password",
     "verificationCodeSent": "Verification code sent to your email",
     "passwordUpdated": "Your password updated successfully",
-    "login": "Login"
-  },
-  "language": {
-    "current": "English",
-    "list": {
-        "en": "English"
+    "login": "Login",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "signingIn": "Signing in...",
+    "signingInWithGoogle": "Signing in with Google...",
+    "welcomeMessage": "Welcome{name}!",
+    "googleLoginFailed": "Google login failed. Please try again.",
+
+    "subtitles": {
+      "enterEmail": "Enter your email to receive a verification code",
+      "enterCode": "Enter the verification code and set a new password"
+    },
+    "placeholders": {
+      "verificationCode": "Enter code",
+      "newPassword": "Enter a strong password"
+    },
+    "actions": {
+      "backToLogin": "Back to Login"
+    },
+    "register": {
+      "prompt": "Don't have an account?",
+      "cta": "Register for free"
     }
+  },
+  "passwordEnforced": {
+    "title": "Password update",
+    "subtitle": "You are required to change your password. Please enter a new password below.",
+
+    "labels": {
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password"
+    },
+
+    "placeholders": {
+      "newPassword": "Enter a strong password",
+      "confirmPassword": "Re-enter your password"
+    },
+
+    "actions": {
+      "update": "Update",
+      "updating": "Updating...",
+      "logout": "Logout"
+    },
+
+    "validation": {
+      "mismatch": "Please ensure both passwords match."
+    },
+
+    "toasts": {
+      "fillAllFields": "Please fill in all fields.",
+      "mismatch": "Passwords do not match.",
+      "genericError": "An error occurred"
+    },
+
+    "dialog": {
+      "success": {
+        "title": "Success",
+        "text": "Your password has been updated successfully."
+      },
+      "logout": {
+        "title": "Logout",
+        "text": "Are you sure you want to logout?"
+      }
+    }
+  },
+  "procedures": {
+    "title": "Services",
+    "add": "Add service",
+    "lengthUnit": "minute(s)",
+
+    "modalCreate": {
+      "title": "New service",
+      "labels": {
+        "name": "Name",
+        "length": "Length",
+        "color": "Color"
+      },
+      "placeholders": {
+        "name": "Procedure name",
+        "length": "Length"
+      },
+      "actions": {
+        "create": "Create Procedure",
+        "closePalette": "Close"
+      }
+    },
+
+    "modalEdit": {
+      "actions": {
+        "save": "Save Changes"
+      }
+    },
+
+    "table": {
+      "columns": {
+        "id": "ID",
+        "name": "Name",
+        "color": "Color",
+        "status": "Status",
+        "length": "Length",
+        "publicLink": "Public Link",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+
+    "confirm": {
+      "title": "Are you sure?",
+      "text": "Delete procedure \"{name}\"?",
+      "confirmButton": "Yes, delete",
+      "cancelButton": "Cancel"
+    },
+
+    "toasts": {
+      "updated": "Procedure updated!",
+      "deleted": "Procedure deleted.",
+      "linkCopied": "Link copied to clipboard.",
+      "linkCopyFailed": "Failed to copy the link."
+    }
+  },
+  "procedure": {
+    "labels": {
+      "about": "About:",
+      "length": "Length:",
+      "status": "Status:",
+      "color": "Color:"
+    },
+    "form": {
+      "labels": {
+        "name": "Name",
+        "description": "Description",
+        "length": "Length",
+        "color": "Color",
+        "status": "Status"
+      }
+    },
+    "actions": {
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "closePalette": "Close"
+    }
+  },
+  "register": {
+    "steps": {
+      "general": "General Info",
+      "verify": "Verify Email",
+      "password": "Set Password"
+    },
+    "titles": {
+      "createAccount": "Create Your Account",
+      "verifyEmail": "Verify Your Email",
+      "setPassword": "Set Your Password"
+    },
+    "fields": {
+      "companyName": "Company Name",
+      "companyEmail": "Company Email",
+      "adminName": "Your Full Name",
+      "adminEmail": "Your Email",
+      "emailAddress": "Email Address",
+      "verificationCode": "Verification Code",
+      "newPassword": "New Password"
+    },
+    "placeholders": {
+      "enterCode": "Enter code",
+      "enterPassword": "Enter a strong password"
+    },
+    "helpers": {
+      "companyEmailVisible": "This email will be visible to your customers.",
+      "adminEmailNotVisible": "This email will be used to login to your account and won't be visible to customers."
+    },
+    "actions": {
+      "continue": "Continue",
+      "verifyContinue": "Verify & Continue",
+      "completeRegistration": "Complete Registration",
+      "backToLogin": "Back to Login"
+    },
+    "messages": {
+      "verificationCodeSent": "You will receive an email with a verification code. Please check your spam box too.",
+      "setPasswordPrompt": "Please set password for future logins.",
+      "loginReady": "You can now login to your account",
+      "passwordUpdated": "Password updated"
+    }
+  },
+  "splash": {
+
+  },
+  "statusBadge": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "subscription": {
+    "title": "Subscription",
+
+    "common": {
+      "unlimited": "unlimited"
+    },
+
+    "nonManager": {
+      "active": {
+        "title": "Active Subscription",
+        "text": "You have an active {name} subscription valid until {until}."
+      },
+      "notice": {
+        "title": "Subscription Notice",
+        "text": "Your company is subscribed to a package. Please contact your administrator for more information."
+      }
+    },
+
+    "manager": {
+      "current": {
+        "trialBadge": "Trial",
+        "validUntil": "Valid until: {date}",
+        "features": {
+          "branches": "Branches:",
+          "experts": "Experts:",
+          "procedures": "Procedures:",
+          "appointments": "Appointments:",
+          "blacklist": "Blacklist:"
+        },
+        "actions": {
+          "cancel": "Cancel"
+        }
+      },
+
+      "empty": {
+        "title": "No Active Subscription",
+        "text": "You don't have an active subscription. Please choose a package from the list below."
+      },
+
+      "planPicker": {
+        "title": "Choose your plan",
+        "period": {
+          "monthly": "Monthly",
+          "yearly": "Yearly",
+          "perMonth": "/month",
+          "perYear": "/year"
+        },
+        "price": {
+          "free": "FREE"
+        },
+        "features": {
+          "branches": "Branches:",
+          "experts": "Experts:",
+          "procedures": "Procedures:",
+          "appointments": "Appointments:",
+          "blacklist": "Blacklist:"
+        },
+        "actions": {
+          "selectPlan": "Select Plan"
+        },
+        "trialAvailable": "{days} days trial available"
+      },
+
+      "noPackages": {
+        "title": "No Packages Available",
+        "text": "There are no packages available at the moment. Please try again later or contact support."
+      }
+    },
+
+    "dialogs": {
+      "subscribeConfirm": {
+        "title": "Subscription",
+        "text": "Are you sure you want to subscribe to this package?"
+      },
+      "subscribeSuccess": {
+        "title": "Success",
+        "text": "You have successfully subscribed to the package."
+      },
+      "paymentRequired": {
+        "title": "Payment Required",
+        "text": "You need to complete the payment to activate your subscription."
+      },
+      "cancelConfirm": {
+        "title": "Cancel Subscription",
+        "text": "Are you sure you want to cancel your subscription? This action cannot be undone."
+      },
+      "cancelSuccess": {
+        "title": "Success",
+        "text": "Your subscription has been cancelled."
+      }
+    }
+  },
+  "userPermission": {
+    "title": "Permissions for",
+    "loggedInWarning": "This user is currently logged in. Please be careful when editing.",
+    "noPermissions": "There are no permissions assigned to this user.",
+    "actions": {
+      "edit": "Edit Permissions"
+    },
+    "permissionListTitle": "Permissions",
+    "loading": "Loading user...",
+    "toast": {
+      "permissionAdded": "Permission added",
+      "permissionRemoved": "Permission removed"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "breadcrumb": {
+      "dashboard": "Dashboard",
+      "users": "Users"
+    },
+    "actions": {
+      "add": "Add User",
+      "create": "Create User",
+      "edit": "Edit User",
+      "delete": "Delete User",
+      "permissions": "User permissions"
+    },
+    "form": {
+      "role": {
+        "label": "Role",
+        "placeholder": "Select role...",
+        "manager": "Company manager",
+        "branch": "Branch manager",
+        "expert": "Expert"
+      },
+      "branch": {
+        "label": "Branch",
+        "placeholder": "Select branch..."
+      },
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Enter full name"
+      },
+      "email": {
+        "label": "E-mail",
+        "placeholder": "Enter e-mail"
+      }
+    },
+    "table": {
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "branch": "Branch",
+      "role": "Role",
+      "status": "Status",
+      "publicLink": "Public Link",
+      "actions": "Actions",
+      "roles": {
+        "expert": "Expert",
+        "branchManager": "Branch manager",
+        "companyManager": "Company manager"
+      },
+      "statusValues": {
+        "active": "active",
+        "inactive": "inactive"
+      }
+    },
+    "confirm": {
+      "deleteTitle": "Are you sure?",
+      "deleteText": "Delete user \"{user}\"?",
+      "yes": "Yes, delete",
+      "cancel": "Cancel"
+    },
+    "toast": {
+      "linkCopied": "Link copied to clipboard",
+      "linkCopyFailed": "Failed to copy the link",
+      "deleteApiNotImplemented": "Delete user API not implemented"
+    }
+  },
+  "user": {
+    "labels": {
+      "email": "Email:",
+      "branch": "Branch:",
+      "status": "Status:",
+      "name": "Name"
+    },
+    "actions": {
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "alerts": {
+      "currentlyLoggedIn": "This user is currently logged in. Please be careful when editing."
+    },
+    "form": {
+      "allBranches": "-all branches-"
+    }
+  },
+  "colorComponent": {
+  },
+  "dashboard": {
   }
 }
