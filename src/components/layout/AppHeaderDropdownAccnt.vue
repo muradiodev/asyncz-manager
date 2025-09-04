@@ -2,6 +2,8 @@
 import avatar from '@/assets/images/avatar.jpg'
 import { cilAccountLogout , cilUser, cilDollar, cilShieldAlt, cilSettings, cilGlobeAlt} from '@coreui/icons'
 import { customAsk } from '@/utils/utils.js'
+import { useAuthStore } from '@/stores/auth.js'
+import { mapState } from 'pinia'
 
 export default {
   data() {
@@ -12,7 +14,7 @@ export default {
       cilDollar: cilDollar,
       cilShieldAlt: cilShieldAlt,
       cilSettings: cilSettings,
-      cilGlobeAlt: cilGlobeAlt
+      cilGlobeAlt: cilGlobeAlt,
     }
   },
 
@@ -32,6 +34,9 @@ export default {
       )
     },
   },
+  computed: {
+    ...mapState(useAuthStore, ['permissions']),
+  }
 }
 </script>
 
@@ -61,7 +66,7 @@ export default {
 <!--        Permissions-->
 <!--      </CDropdownItem>-->
 
-      <CDropdownItem @click="$router.push({name:'business-settings'})" class="d-flex align-items-center py-2">
+      <CDropdownItem @click="$router.push({name:'business-settings'})" class="d-flex align-items-center py-2" v-if="permissions.indexOf('BUSINESS_SETTINGS_VIEW') >= 0">
         <CIcon :icon="cilSettings" class="me-2" />
         Business Settings
       </CDropdownItem>

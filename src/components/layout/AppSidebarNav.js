@@ -1,8 +1,8 @@
-import { defineComponent, h, onMounted, ref, resolveComponent } from 'vue'
+import { defineComponent, h, onMounted, ref, resolveComponent, computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 import { CBadge, CSidebarNav, CNavItem, CNavGroup, CNavTitle } from '@coreui/vue'
-
+import { useAuthStore } from '@/stores/auth'
 
 import simplebar from 'simplebar-vue'
 import 'simplebar-vue/dist/simplebar.min.css'
@@ -39,6 +39,39 @@ const isActiveItem = (route, item) => {
   return false
 }
 
+// Helper function to check if user has required permissions
+const hasPermission = (userPermissions, requiredPermissions) => {
+  if (!requiredPermissions || requiredPermissions.length === 0) {
+    return true // No specific permissions required
+  }
+
+  if (!userPermissions || userPermissions.length === 0) {
+    return false // User has no permissions
+  }
+
+  // Check if user has at least one of the required permissions
+  return requiredPermissions.some(permission =>
+    userPermissions.includes(permission)
+  )
+}
+
+// Helper function to filter navigation items based on permissions
+const filterNavByPermissions = (navItems, userPermissions) => {
+  return navItems.filter(item => {
+    // If item has children, filter them recursively
+    if (item.items) {
+      const filteredChildren = filterNavByPermissions(item.items, userPermissions)
+      if (filteredChildren.length === 0) {
+        return false // Hide parent if no children are visible
+      }
+      item.items = filteredChildren
+    }
+
+    // Check if user has permission to see this item
+    return hasPermission(userPermissions, item.permissions)
+  })
+}
+
 const AppSidebarNav = defineComponent({
   name: 'AppSidebarNav',
   components: {
@@ -48,6 +81,7 @@ const AppSidebarNav = defineComponent({
   },
   setup() {
     const route = useRoute()
+    const auth = useAuthStore()
     const firstRender = ref(true)
 
     onMounted(() => {
@@ -178,68 +212,86 @@ const AppSidebarNav = defineComponent({
         )
     }
 
-    let nav = [
+    // Define navigation items with permissions
+    const baseNav = [
       {
         component: 'CNavItem',
         name: 'Dashboard',
         to: '/dashboard',
         icon: 'cil-speedometer',
+        permissions: [] // Always visible to authenticated users
       },
       {
         component: 'CNavItem',
         name: 'Calendar',
         to: '/dashboard/calendar',
         icon: 'cil-calendar',
+        permissions: []
       },
       {
         component: 'CNavItem',
         name: 'Branches',
         to: '/dashboard/branches',
         icon: 'cil-factory',
+        permissions: ['VIEW_BRANCH_DATA', 'MANAGE_BRANCH_DATA']
       },
       // {
       //   component: 'CNavItem',
       //   name: 'Experts',
       //   to: '/dashboard/experts',
       //   icon: 'cil-briefcase',
+      //   permissions: ['experts_view', 'admin']
       // },
       {
         component: 'CNavItem',
         name: 'Users',
         to: '/dashboard/users',
         icon: 'cil-user',
+        permissions: ['MANAGE_USERS']
       },
       {
         component: 'CNavItem',
         name: 'Procedures',
         to: '/dashboard/procedures',
         icon: 'cil-list-rich',
+        permissions: ['MANAGE_SERVICES']
       },
       {
         component: 'CNavItem',
         name: 'Customer List',
         to: '/dashboard/customers',
         icon: 'cil-user',
+        permissions: ['VIEW_CUSTOMERS']
       },
       {
         component: 'CNavItem',
         name: 'Blacklist',
         to: '/dashboard/blacklist',
         icon: 'cil-ban',
+        permissions: ['VIEW_BLACKLIST']
       },
       {
         component: 'CNavItem',
         name: 'Subscription',
         to: '/dashboard/subscription',
         icon: 'cil-dollar',
+        permissions: ['MANAGE_SUBSCRIPTION']
       },
       {
         component: 'CNavItem',
         name: 'Feedback',
         to: '/dashboard/feedbacks',
         icon: 'cil-comment-square',
+        permissions: []
       },
-    ];
+    ]
+
+    // Computed property to filter navigation based on user permissions
+    const filteredNav = computed(() => {
+      const userPermissions = auth.permissions || []
+      return filterNavByPermissions([...baseNav], userPermissions)
+    })
+
     return () =>
       h(
         CSidebarNav,
@@ -247,7 +299,7 @@ const AppSidebarNav = defineComponent({
           as: simplebar,
         },
         {
-          default: () => nav.map((item) => renderItem(item)),
+          default: () => filteredNav.value.map((item) => renderItem(item)),
         },
       )
   },
