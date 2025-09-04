@@ -501,8 +501,12 @@
         "startTime": "Start Time",
         "length": "Length",
         "status": "Status",
-        "notes": "Notes"
+        "notes": "Notes",
+        "name": "Name",
+        "surname": "Surname",
+        "phone": "Phone"
       },
+      "itemsPerPage": "Items per page:",
       "lengthUnit": "min",
       "close": "Close"
     },

@@ -499,8 +499,12 @@
         "startTime": "Başlanma Vaxtı",
         "length": "Müddət",
         "status": "Status",
-        "notes": "Qeydlər"
+        "notes": "Qeydlər",
+        "name": "Ad",
+        "surname": "Soyad",
+        "phone": "Mobil"
       },
+      "itemsPerPage": "Səhifə başına elementlər:",
       "lengthUnit": "dəq",
       "close": "Bağla"
     },

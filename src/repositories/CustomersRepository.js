@@ -15,12 +15,8 @@ export async function getCustomerList(token) {
     })
 }
 
-export async function getCustomerDetails(token,
-                                         name,
-                                         surname,
-                                         email,
-                                         phone) {
-  return await Repository.get(`${baseUrl}/manager/customers/details?token=${token}&name=${name}&surname=${surname}&email=${email}&phone=${phone}`)
+export async function getCustomerDetails(token, email) {
+  return await Repository.get(`${baseUrl}/manager/customers/details?token=${token}&email=${email}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.appointments

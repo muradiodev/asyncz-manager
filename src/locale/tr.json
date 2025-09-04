@@ -499,8 +499,12 @@
         "startTime": "Başlangıç Zamanı",
         "length": "Uzunluk",
         "status": "Durum",
-        "notes": "Notlar"
+        "notes": "Notlar",
+        "name": "Ad",
+        "surname": "Soyad",
+        "phone": "Telefon"
       },
+      "itemsPerPage": "Sayfa başına öğe:",
       "lengthUnit": "dk",
       "close": "Kapat"
     },

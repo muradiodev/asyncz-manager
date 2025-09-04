@@ -499,8 +499,12 @@
         "startTime": "Startzeit",
         "length": "Länge",
         "status": "Status",
-        "notes": "Notizen"
+        "notes": "Notizen",
+        "name": "Vorname",
+        "surname": "Nachname",
+        "phone": "Telefon"
       },
+      "itemsPerPage": "Elemente pro Seite:",
       "lengthUnit": "min",
       "close": "Schließen"
     },
