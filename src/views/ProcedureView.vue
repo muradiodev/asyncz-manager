@@ -102,7 +102,7 @@
                         </span>
                       </div>
 
-                      <div v-if="showColorPalette" class="color-palette-container">
+                      <div v-if="showColorPalette" class="color-palette-container" ref="colorPaletteContainer">
                         <div class="color-palette">
                           <div
                             v-for="(color, index) in colorPalette"
@@ -347,6 +347,24 @@ export default {
       // this.showColorPalette = false;
     },
 
+    handleClickOutside(event) {
+      if (this.showColorPalette && this.$refs.colorPaletteContainer) {
+        // Check if click is outside the color palette container and the selected color display
+        const paletteContainer = this.$refs.colorPaletteContainer
+        const colorDisplay = paletteContainer.previousElementSibling // the selected-color-display div
+
+        if (!paletteContainer.contains(event.target) && !colorDisplay.contains(event.target)) {
+          this.showColorPalette = false
+        }
+      }
+    },
+
+    handleEscKey(event) {
+      if (event.key === 'Escape' && this.showColorPalette) {
+        this.showColorPalette = false
+      }
+    },
+
     saveProcedure() {
       saveProcedure(
         this.token,
@@ -367,6 +385,13 @@ export default {
   },
   mounted() {
     this.getProcedure()
+
+    document.addEventListener('keydown', this.handleEscKey)
+    document.addEventListener('click', this.handleClickOutside)
+  },
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleEscKey)
+    document.addEventListener('click', this.handleClickOutside)
   },
   components: {
     FontAwesomeIcon,
