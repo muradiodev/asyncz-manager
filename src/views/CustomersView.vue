@@ -32,7 +32,7 @@
 
   <!-- VIEW MODAL -->
   <ModalComponent
-    :title="$t('customers.modal.title')"
+    :title="$t('customers.modal.title') + (this.selectedCustomerEmail ? ' - ' + this.selectedCustomerEmail : '')"
     size="xl"
     v-if="addNewItem"
     @modalClose="closeModal"
@@ -71,7 +71,6 @@
             <tr>
               <th scope="col" class="text-center">{{ $t('customers.modal.columns.index') }}</th>
               <th scope="col">{{ $t('customers.modal.columns.name') }}</th>
-              <th scope="col">{{ $t('customers.modal.columns.surname') }}</th>
               <th scope="col">{{ $t('customers.modal.columns.phone') }}</th>
               <th scope="col">{{ $t('customers.modal.columns.service') }}</th>
               <th scope="col">{{ $t('customers.modal.columns.expert') }}</th>
@@ -84,8 +83,7 @@
             <tbody>
             <tr v-for="(appt, index) in paginatedAppointments" :key="appt.id">
               <td class="text-center fw-bold">{{ getGlobalIndex(index) }}</td>
-              <td>{{ appt.customer?.name || '-' }}</td>
-              <td>{{ appt.customer?.surname || '-' }}</td>
+              <td>{{ appt.customer?.name + " " + appt.customer?.surname || '-' }}</td>
               <td>{{ appt.customer?.phone || '-' }}</td>
               <td>{{ appt.procedure?.name || '-' }}</td>
               <td>{{ appt.expert?.name || '-' }}</td>
@@ -153,12 +151,6 @@
             </ul>
           </nav>
         </div>
-
-        <div class="d-flex justify-content-end mt-4">
-          <button class="btn btn-light px-4" @click="closeModal">
-            <i class="fas fa-times me-2"></i> {{ $t('customers.modal.close') }}
-          </button>
-        </div>
       </div>
     </div>
   </ModalComponent>
@@ -185,6 +177,7 @@ export default {
       isEditing: false,
       isLoading: false,
       appointments: [],
+      selectedCustomerEmail: '',
       // Pagination data
       currentPage: 1,
       itemsPerPage: 10,
@@ -279,6 +272,7 @@ export default {
       this.currentPage = 1 // Reset pagination
       this.itemsPerPage = 10 // Reset items per page
       this.appointments = [] // Clear appointments
+      this.selectedCustomerEmail = '' // Clear email
       this.newItemDetails = {
         id: null,
         name: '',
@@ -333,6 +327,7 @@ export default {
       if (viewBtn) {
         const index = viewBtn.getAttribute('data-index')
         const customer = this.customerList[index]
+        this.selectedCustomerEmail = customer.email
 
         this.newItemDetails = {
           id: null,

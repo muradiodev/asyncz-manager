@@ -405,13 +405,19 @@ export default {
 }
 
 .color-palette-container {
-  margin-top: 10px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 5px;
   padding: 15px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1050;
+  min-width: 280px;
+  max-width: 400px;
 }
 
 .color-palette {
