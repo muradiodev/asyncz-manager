@@ -148,6 +148,11 @@
             </div>
           </div>
         </div>
+
+        <!-- Add the ProcedureExperts component here -->
+        <div class="col-md-6 mb-3">
+          <ProcedureExperts :procedure-id="procedureId" />
+        </div>
       </div>
 
       <div class="my-4" v-if="1 > 2">
@@ -214,6 +219,7 @@ import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import ModalComponent from '@/components/ModalComponent.vue'
 import StatusBadge from '@/views/StatusBadge.vue'
+import ProcedureExperts from '@/views/ProcedureExperts.vue'
 import { getProcedure, saveProcedure } from '@/repositories/ProceduresRepository.js'
 import { toast } from 'vue3-toastify'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -395,6 +401,7 @@ export default {
   },
   components: {
     FontAwesomeIcon,
+    ProcedureExperts,
     StatusBadge,
     ModalComponent,
     DataTable
