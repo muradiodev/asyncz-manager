@@ -219,7 +219,8 @@
       "slotSizeInMinutes": "Slot Ölçüsü Dəqiqələrdə",
       "requireEmailConfirmation": "E-poçt Təsdiqi Tələb Edin",
       "requireEmailConfirmationVisuallyHidden": "E-poçt Təsdiqi Tələb Edin",
-      "searchTimezoneOrCity": "Zaman zonası və ya şəhər axtarın..."
+      "searchTimezoneOrCity": "Zaman zonası və ya şəhər axtarın...",
+      "language": "Dil"
     },
     "help": {
       "requireEmailConfirmation": "Aktivləşdirildikdə, müştərilər təyinat rezervasiya edərkən e-poçt ünvanlarını təsdiqləməlidirlər."

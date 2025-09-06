@@ -30,19 +30,6 @@
           </button>
         </div>
 
-        <!-- Language Selector -->
-        <div class="dropdown">
-          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ currentLanguage }}
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-            <li><button class="dropdown-item" @click="changeLanguage('en')">English</button></li>
-            <li><button class="dropdown-item" @click="changeLanguage('de')">Deutsch</button></li>
-            <li><button class="dropdown-item" @click="changeLanguage('az')">Azərbaycanca</button></li>
-            <li><button class="dropdown-item" @click="changeLanguage('tr')">Türkçe</button></li>
-          </ul>
-        </div>
-
         <li class="nav-item py-1 d-none d-lg-block">
           <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
         </li>
@@ -90,24 +77,12 @@ import { useSidebarStore } from '@/stores/sidebar.js'
 import AiSchedulerView from '@/views/AiSchedulerView.vue'
 import { useThemeStore } from '@/stores/theme.js'
 import { useAuthStore } from '@/stores/auth.js'
-import { useI18n } from 'vue-i18n'
 
 const headerClassNames = ref('mb-0 p-0')
 const { colorMode, setColorMode } = useColorModes('coreui-free-vue-admin-template-theme')
 
 const sidebar = useSidebarStore()
 const themeStore = useThemeStore()
-const { t, locale } = useI18n()
-
-// Language handling
-const currentLanguage = ref(locale.value)
-
-const changeLanguage = (lang) => {
-  locale.value = lang
-  localStorage.setItem('preferredLanguage', lang)
-  currentLanguage.value = lang
-}
-
 const isSearchExpanded = ref(false)
 const searchInput = ref(null)
 const searchQuery = ref('')
@@ -194,13 +169,6 @@ onMounted(() => {
 
   document.addEventListener('click', handleClickOutside)
   window.addEventListener('resize', checkScreenSize)
-
-  // Load preferred language from local storage
-  const savedLanguage = localStorage.getItem('preferredLanguage')
-  if (savedLanguage) {
-    locale.value = savedLanguage
-    currentLanguage.value = savedLanguage
-  }
 })
 
 onUnmounted(() => {

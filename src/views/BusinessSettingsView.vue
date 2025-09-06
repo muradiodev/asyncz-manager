@@ -196,6 +196,23 @@
             </div>
           </div>
 
+          <!-- Language Selector -->
+          <div class="mb-4">
+            <label for="language" class="form-label fw-bold">{{ $t('businessSettings.labels.language') }}</label>
+            <select
+              class="form-select"
+              id="language"
+              v-model="businessData.language"
+              :disabled="isLoading"
+            >
+              <option value="en">English</option>
+              <option value="de">Deutsch</option>
+              <option value="az">Azərbaycanca</option>
+              <option value="tr">Türkçe</option>
+              <option value="ru">Русский</option>
+            </select>
+          </div>
+
           <!-- Action Buttons-->
           <div class="col-12">
             <button type="submit" class="btn btn-primary-custom" :disabled="isLoading">
@@ -220,10 +237,27 @@ import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
 import { getBusinessData, saveBusinessData } from '@/repositories/BusinessDataRepository.js'
 import { toast } from 'vue3-toastify'
+import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
 
 export default {
   name: 'BusinessSettingsView',
   components: { AppBreadcrumb },
+  setup() {
+    const { t, locale } = useI18n()
+    const currentLanguage = ref(locale.value)
+
+    const changeLanguage = (lang) => {
+      locale.value = lang
+      localStorage.setItem('preferredLanguage', lang)
+      currentLanguage.value = lang
+    }
+
+    return {
+      currentLanguage,
+      changeLanguage,
+    }
+  },
   data() {
     return {
       isInitialLoading: true,
@@ -240,7 +274,8 @@ export default {
         phone: '',
         time_zone: 'America/New_York',
         slot_size: '10',
-        email_confirmation_required: ''
+        email_confirmation_required: '',
+        language: 'en' // Default language
       },
       originalData: null,
 
@@ -523,7 +558,8 @@ export default {
             time_zone: data.time_zone, // Store combined value
             slot_size: data.slot_size || '10',
             logo: data.logo || '',
-            email_confirmation_required: data.email_confirmation_required
+            email_confirmation_required: data.email_confirmation_required,
+            language: data.language || 'en' // Default to English if not provided
           };
 
           // Set the selected timezone for the dropdown
@@ -560,12 +596,14 @@ export default {
           time_zone: this.businessData.time_zone, // Now contains both timezone and offset
           slot_size: this.businessData.slot_size,
           logo: this.businessData.logo,
-          email_confirmation_required: this.businessData.email_confirmation_required
+          email_confirmation_required: this.businessData.email_confirmation_required,
+          language: this.businessData.language // Send selected language to backend
         });
 
         if (response.code === 200) {
           toast.success(response.message || 'Business settings updated successfully');
           this.originalData = JSON.parse(JSON.stringify(this.businessData));
+          this.changeLanguage(this.businessData.language);
         } else {
           toast.error(response.message || 'Failed to update business settings');
         }

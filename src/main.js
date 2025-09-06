@@ -56,6 +56,7 @@ import localeEn from './locale/en.json'
 import localeAz from './locale/az.json'
 import localeDe from './locale/de.json'
 import localeTr from './locale/tr.json'
+import localeRu from './locale/ru.json'
 import CoreuiVue from '@coreui/vue'
 
 const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
@@ -68,7 +69,8 @@ const i18n = createI18n({
     en: localeEn,
     de: localeDe,
     az: localeAz,
-    tr: localeTr
+    tr: localeTr,
+    ru: localeRu
   }
 })
 

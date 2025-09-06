@@ -219,7 +219,8 @@
       "slotSizeInMinutes": "Slot Boyutu Dakika",
       "requireEmailConfirmation": "E-posta Onayı Gerektir",
       "requireEmailConfirmationVisuallyHidden": "E-posta Onayı Gerektir",
-      "searchTimezoneOrCity": "Zaman dilimi veya şehir arayın..."
+      "searchTimezoneOrCity": "Zaman dilimi veya şehir arayın...",
+      "language": "Dil"
     },
     "help": {
       "requireEmailConfirmation": "Etkinleştirildiğinde, müşteriler randevu alırken e-posta adreslerini onaylamak zorunda kalacaklardır."

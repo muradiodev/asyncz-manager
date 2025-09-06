@@ -221,7 +221,8 @@
       "slotSizeInMinutes": "Slot Size in Minutes",
       "requireEmailConfirmation": "Require Email Confirmation",
       "requireEmailConfirmationVisuallyHidden": "Require Email Confirmation",
-      "searchTimezoneOrCity": "Search timezone or city..."
+      "searchTimezoneOrCity": "Search timezone or city...",
+      "language": "Language"
     },
     "help": {
       "requireEmailConfirmation": "When enabled, clients will need to confirm their email address when booking appointments."

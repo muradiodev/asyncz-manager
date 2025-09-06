@@ -219,7 +219,8 @@
       "slotSizeInMinutes": "Slotgröße in Minuten",
       "requireEmailConfirmation": "E-Mail-Bestätigung erforderlich",
       "requireEmailConfirmationVisuallyHidden": "E-Mail-Bestätigung erforderlich",
-      "searchTimezoneOrCity": "Zeitzone oder Stadt suchen..."
+      "searchTimezoneOrCity": "Zeitzone oder Stadt suchen...",
+      "language": "Sprache"
     },
     "help": {
       "requireEmailConfirmation": "Wenn aktiviert, müssen Kunden ihre E-Mail-Adresse bei der Buchung von Terminen bestätigen."

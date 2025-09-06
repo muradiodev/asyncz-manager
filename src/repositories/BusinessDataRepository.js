@@ -43,7 +43,8 @@ export async function saveBusinessData(token, businessData) {
     time_zone: businessData.time_zone,
     slot_size: businessData.slot_size,
     logo: businessData.logo,
-    email_confirmation_required: businessData.email_confirmation_required
+    email_confirmation_required: businessData.email_confirmation_required,
+    language: businessData.language,
   })
     .then((response) => {
       if (response.data) {
