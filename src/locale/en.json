@@ -1001,7 +1001,7 @@
 
       "empty": {
         "title": "No Active Subscription",
-        "text": "You don't have an active subscription. Please choose a package from the list below."
+        "text": "You don't have an active subscription. Please choose a package from the list below to continue."
       },
 
       "planPicker": {

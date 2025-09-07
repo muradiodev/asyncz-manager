@@ -212,7 +212,6 @@ const router = createRouter({
 router.beforeResolve((to, from, next) => {
   let token = localStorage.getItem('token')
 
-
   if (token) {
     const auth = useAuthStore();
     auth.setLoading(true);
@@ -226,15 +225,25 @@ router.beforeResolve((to, from, next) => {
         auth.setCompany(data.company)
         auth.setCompanyPackage(data.package)
 
+        const userPermissions = data.permissions || []
+
         // Check for password change requirement
         if(data.password_change_required && to.name !== 'password-enforced') {
           next({ name: 'password-enforced', query: { back: to.path } })
           return
         }
 
+        // Check for subscription requirement
+        if (!data.package && to.name !== 'subscription') {
+          const hasSubscriptionPermission = userPermissions.includes('MANAGE_SUBSCRIPTION')
+          if (hasSubscriptionPermission) {
+            next({ name: 'subscription', query: { back: to.path } })
+            return
+          }
+        }
+
         // Check permissions for the route
         if (to.meta && to.meta.requiresAuth) {
-          const userPermissions = data.permissions || []
           const requiredPermissions = to.meta.permissions || []
 
           if (!hasPermission(userPermissions, requiredPermissions)) {
