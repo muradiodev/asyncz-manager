@@ -25,7 +25,11 @@
   "language": {
     "current": "English",
     "list": {
-        "en": "English"
+      "az": "Azerbaijani",
+      "de": "German",
+      "en": "English",
+      "ru": "Russian",
+      "tr": "Turkish"
     }
   },
 
@@ -474,6 +478,20 @@
         "phone": "Phone",
         "email": "Email"
       }
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
     }
   },
   "customers": {
@@ -1158,5 +1176,35 @@
   "colorComponent": {
   },
   "dashboard": {
+  },
+  "appSidebarNav": {
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "branches": "Branches",
+    "users": "Users",
+    "services": "Services",
+    "customerList": "Customer List",
+    "blacklist": "Blacklist",
+    "subscription": "Subscription",
+    "feedback": "Feedback"
+  },
+  "smallCalendar": {
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
+  "appFooter": {
+    "madeWith": "Made with ❤️ by "
   }
 }

@@ -23,9 +23,13 @@
     "home": "Ev"
   },
   "language": {
-    "current": "İngilis",
+    "current": "Azərbaycanca",
     "list": {
-      "en": "İngilis"
+      "az": "Azərbaycan dili",
+      "de": "Alman dili",
+      "en": "İngilis dili",
+      "ru": "Rus dili",
+      "tr": "Türk dili"
     }
   },
   "account": {
@@ -472,6 +476,20 @@
         "phone": "Telefon",
         "email": "E-poçt"
       }
+    },
+    "months": {
+      "january": "Yanvar",
+      "february": "Fevral",
+      "march": "Mart",
+      "april": "Aprel",
+      "may": "May",
+      "june": "İyun",
+      "july": "İyul",
+      "august": "Avqust",
+      "september": "Sentyabr",
+      "october": "Oktyabr",
+      "november": "Noyabr",
+      "december": "Dekabr"
     }
   },
   "customers": {
@@ -1125,5 +1143,19 @@
     }
   },
   "colorComponent": {},
-  "dashboard": {}
+  "dashboard": {},
+  "appSidebarNav": {
+    "dashboard": "İdarəetmə Paneli",
+    "calendar": "Təqvim",
+    "branches": "Filiallar",
+    "users": "İstifadəçilər",
+    "services": "Xidmətlər",
+    "customerList": "Müştəri Siyahısı",
+    "blacklist": "Qara Siyahı",
+    "subscription": "Abunə",
+    "feedback": "Rəy"
+  },
+  "appFooter": {
+    "madeWith": "❤️ ilə hazırlandı - "
+  }
 }

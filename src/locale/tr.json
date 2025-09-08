@@ -25,6 +25,10 @@
   "language": {
     "current": "Türkçe",
     "list": {
+      "az": "Azerbaycanca",
+      "de": "Almanca",
+      "en": "İngilizce",
+      "ru": "Rusça",
       "tr": "Türkçe"
     }
   },
@@ -472,6 +476,20 @@
         "phone": "Telefon",
         "email": "E-posta"
       }
+    },
+    "months": {
+      "january": "Ocak",
+      "february": "Şubat",
+      "march": "Mart",
+      "april": "Nisan",
+      "may": "Mayıs",
+      "june": "Haziran",
+      "july": "Temmuz",
+      "august": "Ağustos",
+      "september": "Eylül",
+      "october": "Ekim",
+      "november": "Kasım",
+      "december": "Aralık"
     }
   },
   "customers": {
@@ -1129,6 +1147,20 @@
     "dashboard": {
 
     }
+  },
+  "appSidebarNav": {
+    "dashboard": "Gösterge Paneli",
+    "calendar": "Takvim",
+    "branches": "Şubeler",
+    "users": "Kullanıcılar",
+    "services": "Hizmetler",
+    "customerList": "Müşteri Listesi",
+    "blacklist": "Siyah Liste",
+    "subscription": "Abonelik",
+    "feedback": "Geri Bildirim"
+  },
+  "appFooter": {
+    "madeWith": "❤️ ile yapıldı - "
   }
 }
 

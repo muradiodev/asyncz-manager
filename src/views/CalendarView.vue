@@ -608,25 +608,25 @@ export default {
       views: {
         day: {
           type: VIEW_VERTICAL,
-          title: 'Day',
+          title: this.$t('calendar.views.day'),
           dayCount: 1,
           dayStep: 1
         },
         day3: {
           type: VIEW_VERTICAL,
-          title: '3 Days',
+          title: this.$t('calendar.views.day3'),
           dayCount: 3,
           dayStep: 3
         },
         week: {
           type: VIEW_VERTICAL,
-          title: 'Week',
+          title: this.$t('calendar.views.week'),
           dayCount: 7,
           dayStep: 7
         },
         month: {
           type: VIEW_MONTH,
-          title: 'Month'
+          title: this.$t('calendar.views.month')
         }
       },
 
@@ -826,21 +826,28 @@ export default {
     },
 
     calendarTitle() {
+      if (!this.startDate || !this.endDate) return '';
 
-      if (!this.startDate || !this.endDate) return ''
+      const monthTranslationKey = 'calendar.months.'; // Base key for month translations
+      let title = '';
 
       if (this.startDate.isSame(this.endDate, 'day')) {
-        return this.startDate.format('DD MMMM YYYY')
-      }
-      // if same year
-      if (this.startDate.format('YYYY') === this.endDate.format('YYYY')) {
-        //if same month
-        if (this.startDate.format('MM') === this.endDate.format('MM')) {
-          return this.startDate.format('DD') + ' - ' + this.endDate.format('DD MMMM YYYY')
+        title = `${this.startDate.format('DD')} - ${this.$t(monthTranslationKey + this.startDate.format('MMMM').toLowerCase())} ${this.startDate.format('YYYY')}`;
+      } else {
+        // If same year
+        if (this.startDate.format('YYYY') === this.endDate.format('YYYY')) {
+          // If same month
+          if (this.startDate.format('MM') === this.endDate.format('MM')) {
+            title = `${this.startDate.format('DD')} - ${this.endDate.format('DD')} ${this.$t(monthTranslationKey + this.startDate.format('MMMM').toLowerCase())} ${this.startDate.format('YYYY')}`;
+          } else {
+            title = `${this.startDate.format('DD')} ${this.$t(monthTranslationKey + this.startDate.format('MMMM').toLowerCase())} - ${this.endDate.format('DD')} ${this.$t(monthTranslationKey + this.endDate.format('MMMM').toLowerCase())} ${this.startDate.format('YYYY')}`;
+          }
+        } else {
+          title = `${this.startDate.format('DD')} ${this.$t(monthTranslationKey + this.startDate.format('MMMM').toLowerCase())} ${this.startDate.format('YYYY')} - ${this.endDate.format('DD')} ${this.$t(monthTranslationKey + this.endDate.format('MMMM').toLowerCase())} ${this.endDate.format('YYYY')}`;
         }
-        return this.startDate.format('DD MMMM') + ' - ' + this.endDate.format('DD MMMM YYYY')
       }
-      return this.startDate.format('DD MMMM YYYY') + ' - ' + this.endDate.format('DD MMMM YYYY')
+
+      return title;
     },
 
     VIEW_VERTICAL() {

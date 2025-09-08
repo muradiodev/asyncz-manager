@@ -25,7 +25,11 @@
   "language": {
     "current": "Русский",
     "list": {
-      "ru": "Русский"
+      "az": "Азербайджанский",
+      "de": "Немецкий",
+      "en": "Английский",
+      "ru": "Русский",
+      "tr": "Турецкий"
     }
   },
   "account": {
@@ -472,6 +476,20 @@
         "phone": "Телефон",
         "email": "Электронная почта"
       }
+    },
+    "months": {
+      "january": "Январь",
+      "february": "Февраль",
+      "march": "Март",
+      "april": "Апрель",
+      "may": "Май",
+      "june": "Июнь",
+      "july": "Июль",
+      "august": "Август",
+      "september": "Сентябрь",
+      "october": "Октябрь",
+      "november": "Ноябрь",
+      "december": "Декабрь"
     }
   },
   "customers": {
@@ -1131,6 +1149,20 @@
     }
   },
   "colorComponent": {},
-  "dashboard": {}
+  "dashboard": {},
+  "appSidebarNav": {
+    "dashboard": "Панель управления",
+    "calendar": "Календарь",
+    "branches": "Филиалы",
+    "users": "Пользователи",
+    "services": "Услуги",
+    "customerList": "Список клиентов",
+    "blacklist": "Черный список",
+    "subscription": "Подписка",
+    "feedback": "Обратная связь"
+  },
+  "appFooter": {
+    "madeWith": "Сделано с ❤️ компанией "
+  }
 }
 

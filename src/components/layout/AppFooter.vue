@@ -8,7 +8,7 @@
         </a>
       </div>
       <div class="text-muted small">
-        Made with ❤️ by
+        {{ $t('appFooter.madeWith') }}
         <a href="https://deviofy.com" target="_blank" class="text-decoration-none text-primary fw-medium">
           Deviofy
         </a>

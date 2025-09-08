@@ -25,7 +25,11 @@
   "language": {
     "current": "Deutsch",
     "list": {
-      "de": "Deutsch"
+      "az": "Aserbaidschanisch",
+      "de": "Deutsch",
+      "en": "Englisch",
+      "ru": "Russisch",
+      "tr": "Türkisch"
     }
   },
   "account": {
@@ -472,6 +476,20 @@
         "phone": "Telefon",
         "email": "E-Mail"
       }
+    },
+    "months": {
+      "january": "Januar",
+      "february": "Februar",
+      "march": "März",
+      "april": "April",
+      "may": "Mai",
+      "june": "Juni",
+      "july": "Juli",
+      "august": "August",
+      "september": "September",
+      "october": "Oktober",
+      "november": "November",
+      "december": "Dezember"
     }
   },
   "customers": {
@@ -1125,5 +1143,19 @@
     }
   },
   "colorComponent": {},
-  "dashboard": {}
+  "dashboard": {},
+  "appSidebarNav": {
+    "dashboard": "Dashboard",
+    "calendar": "Kalender",
+    "branches": "Filialen",
+    "users": "Benutzer",
+    "services": "Dienstleistungen",
+    "customerList": "Kundenliste",
+    "blacklist": "Schwarze Liste",
+    "subscription": "Abonnement",
+    "feedback": "Feedback"
+  },
+  "appFooter": {
+    "madeWith": "Mit ❤️ gemacht von "
+  }
 }
