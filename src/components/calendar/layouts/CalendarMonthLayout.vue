@@ -2,7 +2,7 @@
   <div class="calendar-month-wrapper">
     <div class="calendar-month-header">
       <div class="calendar-month-cell" v-for="(w, idx) in 7" :key="idx">
-        {{ ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][idx] }}
+        {{ weekdayNames[idx] }}
       </div>
     </div>
     <div
@@ -85,7 +85,6 @@ export default {
 
   computed: {
     weekCount() {
-      // E.g. for July 2024, if the 1st is Monday (.day()=1), 31 days = 5 full weeks
       const daysTotal = this.dayList.length + this.monthStartWeekDay
       return Math.ceil(daysTotal / 7)
     },
@@ -96,7 +95,6 @@ export default {
       return (this.screenWidth - 10) / 7
     },
     columnWidthPx() {
-      //used on css side
       return this.columnWidth + 'px'
     },
     pixelPerMinute() {
@@ -105,24 +103,34 @@ export default {
       let dayLength = dayEnd.diff(dayStart, 'minutes')
       return (this.screenHeight - 30) / dayLength
     },
-
     layoutStyle() {
-      return {
-        height: this.screenHeight + 'px'
-      }
+      return { height: this.screenHeight + 'px' }
     },
-
     dayList() {
-
       let list = []
       for (let s = this.startDate; s <= this.endDate; s = s.add(1, 'day')) {
         list.push(s.clone())
       }
-
       return list
+    },
 
+    preferredLanguage() {
+      return localStorage.getItem('preferredLanguage') || 'en'
+    },
+
+    weekdayMap() {
+      return {
+        en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        tr: ['Paz', 'Pts', 'Sal', 'Çar', 'Per', 'Cum', 'Cts'],
+        de: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        ru: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+        az: ['B.', 'B.e.', 'Ç.a.', 'Ç.', 'C.a.', 'C.', 'Ş.']
+      }
+    },
+
+    weekdayNames() {
+      return this.weekdayMap[this.preferredLanguage] || this.weekdayMap.en
     }
-
   },
 
   methods: {},

@@ -9,7 +9,7 @@
         :key="day.format('YYYY-MM-DD')"
       >
         <div class="text-center week-day" @click.prevent="$emit('dayClicked',day)">
-          <div class="day-name">{{ day.format('ddd') }}</div>
+          <div class="day-name">{{ weekdayLabel(day) }}</div>
           <div>
             <span
               :class="{ 'day-number-circle': day.isSame($dayjs(), 'day') }"
@@ -135,38 +135,55 @@ export default {
       return (this.screenWidth - 42) / this.dayCount;
     },
     expertNameWidth() {
-      return (this.columnWidth) / this.schedules.length;
+      return this.columnWidth / (this.schedules.length || 1);
     },
     expertNameHeight() {
       return this.expertNameWidth / 5;
     },
     pixelPerMinute() {
-      let dayStart = this.$dayjs(this.options.dayStartHour, "HH:mm");
-      let dayEnd = this.$dayjs(this.options.dayEndHour, "HH:mm");
-      let dayLength = dayEnd.diff(dayStart, 'minutes');
-      return (this.screenHeight - 30) / dayLength;
+      const dayStart = this.$dayjs(this.options.dayStartHour, "HH:mm");
+      const dayEnd = this.$dayjs(this.options.dayEndHour, "HH:mm");
+      const dayLength = dayEnd.diff(dayStart, "minutes");
+      return (this.screenHeight - 30) / (dayLength || 1);
     },
-
     layoutStyle() {
-      return {
-        height: this.screenHeight + 'px',
-      }
+      return { height: this.screenHeight + "px" };
     },
-
     dayList() {
-
-      let list = [];
-      for (let s = this.startDate; s <= this.endDate; s = s.add(1, 'day')) {
+      const list = [];
+      for (let s = this.startDate; s <= this.endDate; s = s.add(1, "day")) {
         list.push(s.clone());
       }
-
       return list;
-
     },
 
+    // read language code (same way you do elsewhere)
+    preferredLanguage() {
+      return localStorage.getItem("preferredLanguage") || "en";
+    },
+
+    // dictionary of weekday short labels without Dayjs locales
+    weekdayMap() {
+      // Order must be Sunday(0) ... Saturday(6) to match day.day()
+      return {
+        en: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        tr: ["Paz", "Pts", "Sal", "Çar", "Per", "Cum", "Cts"],
+        de: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+        ru: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+        az: ["B.", "B.e.", "Ç.a.", "Ç.", "C.a.", "C.", "Ş."],
+      };
+    },
   },
 
-  methods: {},
+  methods: {
+    // returns localized weekday label (no Dayjs locale required)
+    weekdayLabel(day) {
+      const lang = this.preferredLanguage;
+      const names = this.weekdayMap[lang] || this.weekdayMap.en;
+      const idx = day.day(); // 0=Sun ... 6=Sat
+      return names[idx];
+    },
+  },
   mounted() {
     new Tooltip(document.body, {
       selector: '[data-bs-toggle=\'tooltipExpert\']'
