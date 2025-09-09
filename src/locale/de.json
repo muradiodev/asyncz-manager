@@ -1157,5 +1157,19 @@
   },
   "appFooter": {
     "madeWith": "Mit ❤️ gemacht von "
+  },
+  "datatable": {
+    "lengthMenu": "Einträge pro Seite",
+    "info": "Zeige _START_ bis _END_ von _TOTAL_ Einträgen",
+    "infoEmpty": "Zeige 0 bis 0 von 0 Einträgen",
+    "infoFiltered": "(gefiltert aus _MAX_ Gesamteinträgen)",
+    "zeroRecords": "Keine passenden Einträge gefunden",
+    "search": "Suche:",
+    "paginate": {
+      "first": "«",
+      "last": "»",
+      "next": "›",
+      "previous": "‹"
+    }
   }
 }

@@ -27,7 +27,9 @@
         <DataTable class="table table-sm table-hover"
                    :columns="columns"
                    :data="branchList"
-                   ref="branchesTable">
+                   ref="branchesTable"
+                   :options="dtOptions"
+                   :key="$i18n.locale">
         </DataTable>
       </CCardBody>
     </CCard>
@@ -130,19 +132,23 @@ export default {
       shareLinks: [],
       isLoading: false,
       columns: [
-        { title: 'ID', data: 'id', orderable: true },
-        { title: 'Name', data: 'name', orderable: true },
+        { title: this.$t('branches.table.columns.id'), data: 'id', orderable: true },
+        { title: this.$t('branches.table.columns.name'), data: 'name', orderable: true },
         {
-          title: 'Status',
+          title: this.$t('branches.table.columns.status'),
           orderable: true,
           data: (row) => {
-            return row.status
-              ? `<span class="badge bg-success">active</span>`
-              : `<span class="badge bg-danger">inactive</span>`;
+            const isActive = !!row.status
+            const label = isActive
+              ? this.$t('branches.table.status.active')
+              : this.$t('branches.table.status.inactive')
+            const badgeClass = isActive ? 'bg-success' : 'bg-danger'
+            return `<span class="badge ${badgeClass}">${label}</span>`
           }
         },
         {
-          title: 'Public Link', data: (row) => {
+          title: this.$t('branches.table.columns.publicLink'),
+          data: (row) => {
             const match = this.shareLinks.find(
               (shareLink) => shareLink.name == row.name && shareLink.type == "branch"
             );
@@ -150,43 +156,42 @@ export default {
             if (match && match.hash) {
               const link = `http://book.asyncz.com/?share=${match.hash}`;
               return `<button class="btn btn-outline-success btn-sm copy-link-btn" data-link="${link}">
-                <i class="fas fa-link"></i>
-              </button>`;
+          <i class="fas fa-link"></i>
+        </button>`;
             } else {
               return ``;
             }
           }
         },
         {
-          title: 'Actions',
+          title: this.$t('branches.table.columns.actions'),
           orderable: false,
           data: null,
           render: (data, type, row) => {
-            const manageBranchDisabled   = this.canManageBranch ? '' : 'disabled';
-            const editTitle              = this.canManageBranch ? 'Edit' : 'No permission to edit';
+            const manageBranchDisabled = this.canManageBranch ? '' : 'disabled';
+            const editTitle = this.canManageBranch ? 'Edit' : 'No permission to edit'; // (optional) also i18n-ize later
 
             return `
-              <span title="${manageBranchDisabled ? 'No permission' : 'Edit branch'}">
-                <button class="btn btn-outline-warning btn-sm edit-btn"
-                        data-id="${row.id}"
-                        ${manageBranchDisabled}
-                        title="${editTitle}"
-                        style="padding:4px 8px; margin-right:3px;">
-                  <i class="fas fa-pen"></i>
-                </button>
-              </span>
-              <span title="${manageBranchDisabled ? 'No permission' : 'Edit branch'}">
-                <button class="btn btn-outline-danger btn-sm delete-btn"
-                        data-id="${row.id}"
-                        ${manageBranchDisabled}
-                        title="${editTitle}"
-                        style="padding:4px 8px;">
-                  <i class="fas fa-trash"></i>
-                </button>
-              </span>
-            `;
+        <span title="${manageBranchDisabled ? 'No permission' : 'Edit branch'}">
+          <button class="btn btn-outline-warning btn-sm edit-btn"
+                  data-id="${row.id}"
+                  ${manageBranchDisabled}
+                  title="${editTitle}"
+                  style="padding:4px 8px; margin-right:3px;">
+            <i class="fas fa-pen"></i>
+          </button>
+        </span>
+        <span title="${manageBranchDisabled ? 'No permission' : 'Edit branch'}">
+          <button class="btn btn-outline-danger btn-sm delete-btn"
+                  data-id="${row.id}"
+                  ${manageBranchDisabled}
+                  title="${editTitle}"
+                  style="padding:4px 8px;">
+            <i class="fas fa-trash"></i>
+          </button>
+        </span>
+      `;
           }
-
         }
       ],
       editModalVisible: false,
@@ -204,6 +209,25 @@ export default {
     canManageBranch() {
       return this.hasAnyPermission(['branch:update', 'branches:update', 'update:branch']);
     },
+
+    dtOptions() {
+      return {
+        language: {
+          lengthMenu: `_MENU_ ${this.$t('datatable.lengthMenu')}`,
+          info: this.$t('datatable.info'),
+          infoEmpty: this.$t('datatable.infoEmpty'),
+          infoFiltered: this.$t('datatable.infoFiltered'),
+          zeroRecords: this.$t('datatable.zeroRecords'),
+          search: this.$t('datatable.search'),
+          paginate: {
+            first: this.$t('datatable.paginate.first'),
+            last: this.$t('datatable.paginate.last'),
+            next: this.$t('datatable.paginate.next'),
+            previous: this.$t('datatable.paginate.previous')
+          }
+        }
+      }
+    }
   },
   methods: {
     hasPermission(p) {

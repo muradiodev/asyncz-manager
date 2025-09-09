@@ -1163,6 +1163,20 @@
   },
   "appFooter": {
     "madeWith": "Сделано с ❤️ компанией "
+  },
+  "datatable": {
+    "lengthMenu": "записей на странице",
+    "info": "Показаны записи с _START_ по _END_ из _TOTAL_",
+    "infoEmpty": "Показаны записи с 0 по 0 из 0",
+    "infoFiltered": "(отфильтровано из _MAX_ записей)",
+    "zeroRecords": "Совпадений не найдено",
+    "search": "Поиск:",
+    "paginate": {
+      "first": "«",
+      "last": "»",
+      "next": "›",
+      "previous": "‹"
+    }
   }
 }
 

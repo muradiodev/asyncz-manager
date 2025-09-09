@@ -1157,5 +1157,19 @@
   },
   "appFooter": {
     "madeWith": "❤️ ilə hazırlandı - "
+  },
+  "datatable": {
+    "lengthMenu": "səhifə üzrə qeydlər",
+    "info": "_TOTAL_ qeyddən _START_-dən _END_-ə qədər göstərilir",
+    "infoEmpty": "0 qeyddən 0-dan 0-a qədər göstərilir",
+    "infoFiltered": "(_MAX_ ümumi qeyddən süzülüb)",
+    "zeroRecords": "Uyğun qeyd tapılmadı",
+    "search": "Axtar:",
+    "paginate": {
+      "first": "«",
+      "last": "»",
+      "next": "›",
+      "previous": "‹"
+    }
   }
 }

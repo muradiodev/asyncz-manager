@@ -1161,6 +1161,20 @@
   },
   "appFooter": {
     "madeWith": "❤️ ile yapıldı - "
+  },
+  "datatable": {
+    "lengthMenu": "sayfa başına kayıt",
+    "info": "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor",
+    "infoEmpty": "0 kayıttan 0 ile 0 arası gösteriliyor",
+    "infoFiltered": "(_MAX_ toplam kayıttan filtrelendi)",
+    "zeroRecords": "Eşleşen kayıt bulunamadı",
+    "search": "Ara:",
+    "paginate": {
+      "first": "«",
+      "last": "»",
+      "next": "›",
+      "previous": "‹"
+    }
   }
 }
 
