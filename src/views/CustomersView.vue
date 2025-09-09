@@ -25,6 +25,8 @@
           :columns="columns"
           :data="customerList"
           ref="customersTable"
+          :options="dtOptions"
+          :key="$i18n.locale"
         />
       </CCardBody>
     </CCard>
@@ -255,6 +257,25 @@ export default {
       }
 
       return pages
+    },
+    
+    dtOptions() {
+      return {
+        language: {
+          lengthMenu: `_MENU_ ${this.$t('datatable.lengthMenu')}`,
+          info: this.$t('datatable.info'),
+          infoEmpty: this.$t('datatable.infoEmpty'),
+          infoFiltered: this.$t('datatable.infoFiltered'),
+          zeroRecords: this.$t('datatable.zeroRecords'),
+          search: this.$t('datatable.search'),
+          paginate: {
+            first: this.$t('datatable.paginate.first'),
+            last: this.$t('datatable.paginate.last'),
+            next: this.$t('datatable.paginate.next'),
+            previous: this.$t('datatable.paginate.previous')
+          }
+        }
+      }
     }
   },
   methods: {

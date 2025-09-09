@@ -26,7 +26,9 @@
         <DataTable class="table table-sm table-hover"
                    :columns="columns"
                    :data="itemList"
-                   ref="proceduresTable" />
+                   ref="proceduresTable"
+                   :options="dtOptions"
+                   :key="$i18n.locale"/>
       </CCardBody>
     </CCard>
   </CContainer>
@@ -254,6 +256,25 @@ export default {
     canManageService() {
       return this.hasAnyPermission(['MANAGE_SERVICES']);
     },
+
+    dtOptions() {
+      return {
+        language: {
+          lengthMenu: `_MENU_ ${this.$t('datatable.lengthMenu')}`,
+          info: this.$t('datatable.info'),
+          infoEmpty: this.$t('datatable.infoEmpty'),
+          infoFiltered: this.$t('datatable.infoFiltered'),
+          zeroRecords: this.$t('datatable.zeroRecords'),
+          search: this.$t('datatable.search'),
+          paginate: {
+            first: this.$t('datatable.paginate.first'),
+            last: this.$t('datatable.paginate.last'),
+            next: this.$t('datatable.paginate.next'),
+            previous: this.$t('datatable.paginate.previous')
+          }
+        }
+      }
+    }
   },
   methods: {
     hasPermission(p) {

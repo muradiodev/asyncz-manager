@@ -32,12 +32,10 @@
       "tr": "Turkish"
     }
   },
-
   "account": {
     "accountSettings": "Account Settings",
     "accountInformation": "Account Information",
     "updateYourPersonalInformation": "Update your personal information",
-
     "labels": {
       "firstName": "First name",
       "lastName": "Last name",
@@ -772,9 +770,7 @@
       "submitFailed": "Failed to submit feedback. Please try again."
     }
   },
-  "home": {
-
-  },
+  "home": {},
   "login": {
     "welcome": "Welcome!",
     "emailAddress": "Email address",

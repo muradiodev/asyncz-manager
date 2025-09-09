@@ -1148,16 +1148,134 @@
 
     }
   },
+  "userPermission": {
+    "title": "İzinler -",
+    "loggedInWarning": "Bu kullanıcı şu anda oturum açmış durumda. Lütfen düzenlerken dikkatli olun.",
+    "noPermissions": "Bu kullanıcıya atanmış herhangi bir izin yok.",
+    "actions": {
+      "edit": "İzinleri Düzenle"
+    },
+    "permissionListTitle": "İzinler",
+    "loading": "Kullanıcı yükleniyor...",
+    "toast": {
+      "permissionAdded": "İzin eklendi",
+      "permissionRemoved": "İzin kaldırıldı"
+    }
+  },
+  "users": {
+    "title": "Kullanıcılar",
+    "breadcrumb": {
+      "dashboard": "Kontrol Paneli",
+      "users": "Kullanıcılar"
+    },
+    "actions": {
+      "add": "Kullanıcı Ekle",
+      "create": "Kullanıcı Oluştur",
+      "edit": "Kullanıcıyı Düzenle",
+      "delete": "Kullanıcıyı Sil",
+      "permissions": "Kullanıcı izinleri"
+    },
+    "form": {
+      "role": {
+        "label": "Rol",
+        "placeholder": "Rol seçin...",
+        "manager": "Şirket yöneticisi",
+        "branch": "Şube yöneticisi",
+        "expert": "Uzman"
+      },
+      "branch": {
+        "label": "Şube",
+        "placeholder": "Şube seçin..."
+      },
+      "fullName": {
+        "label": "Ad Soyad",
+        "placeholder": "Ad soyad girin"
+      },
+      "email": {
+        "label": "E-posta",
+        "placeholder": "E-posta girin"
+      }
+    },
+    "table": {
+      "id": "ID",
+      "name": "Ad",
+      "email": "E-posta",
+      "branch": "Şube",
+      "role": "Rol",
+      "status": "Durum",
+      "publicLink": "Genel Bağlantı",
+      "actions": "İşlemler",
+      "roles": {
+        "expert": "Uzman",
+        "branchManager": "Şube yöneticisi",
+        "companyManager": "Şirket yöneticisi"
+      },
+      "statusValues": {
+        "active": "aktif",
+        "inactive": "pasif"
+      }
+    },
+    "confirm": {
+      "deleteTitle": "Emin misiniz?",
+      "deleteText": "\"{user}\" kullanıcısını silmek istiyor musunuz?",
+      "yes": "Evet, sil",
+      "cancel": "İptal"
+    },
+    "toast": {
+      "linkCopied": "Bağlantı panoya kopyalandı",
+      "linkCopyFailed": "Bağlantı kopyalanamadı",
+      "deleteApiNotImplemented": "Kullanıcı silme API'si uygulanmamış"
+    }
+  },
+  "user": {
+    "labels": {
+      "email": "E-posta:",
+      "branch": "Şube:",
+      "status": "Durum:",
+      "name": "Ad"
+    },
+    "actions": {
+      "edit": "Düzenle",
+      "save": "Kaydet",
+      "cancel": "İptal"
+    },
+    "alerts": {
+      "currentlyLoggedIn": "Bu kullanıcı şu anda oturum açmış durumda. Lütfen düzenlerken dikkatli olun."
+    },
+    "form": {
+      "allBranches": "-tüm şubeler-"
+    }
+  },
+  "colorComponent": {
+  },
+  "dashboard": {
+  },
   "appSidebarNav": {
-    "dashboard": "Gösterge Paneli",
+    "dashboard": "Kontrol Paneli",
     "calendar": "Takvim",
     "branches": "Şubeler",
     "users": "Kullanıcılar",
     "services": "Hizmetler",
     "customerList": "Müşteri Listesi",
-    "blacklist": "Siyah Liste",
+    "blacklist": "Kara Liste",
     "subscription": "Abonelik",
     "feedback": "Geri Bildirim"
+  },
+  "smallCalendar": {
+    "months": {
+      "january": "Ocak",
+      "february": "Şubat",
+      "march": "Mart",
+      "april": "Nisan",
+      "may": "Mayıs",
+      "june": "Haziran",
+      "july": "Temmuz",
+      "august": "Ağustos",
+      "september": "Eylül",
+      "october": "Ekim",
+      "november": "Kasım",
+      "december": "Aralık"
+    }
   },
   "appFooter": {
     "madeWith": "❤️ ile yapıldı - "
@@ -1177,4 +1295,3 @@
     }
   }
 }
-
