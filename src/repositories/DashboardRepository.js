@@ -1,7 +1,7 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 export async function getDashboardData(token, startDate = null, endDate = null) {
-  let url = `${baseUrl}/api/dashboard?token=${token}`
+  let url = `${baseURL}/api/dashboard?token=${token}`
 
   if (startDate) {
     url += `&start_date=${startDate}`
@@ -31,7 +31,7 @@ export async function getDashboardData(token, startDate = null, endDate = null) 
 }
 
 export async function getQuickStats(token) {
-  const url = `${baseUrl}/api/dashboard/quick-stats?token=${token}`
+  const url = `${baseURL}/api/dashboard/quick-stats?token=${token}`
   console.log('Making quick stats request to:', url)
 
   return await Repository.get(url)
@@ -52,7 +52,7 @@ export async function getQuickStats(token) {
 }
 
 export async function getAppointmentsChart(token, startDate = null, endDate = null, groupBy = 'month') {
-  let url = `${baseUrl}/api/dashboard/appointments-chart?token=${token}&group_by=${groupBy}`
+  let url = `${baseURL}/api/dashboard/appointments-chart?token=${token}&group_by=${groupBy}`
 
   if (startDate) {
     url += `&start_date=${startDate}`
@@ -75,7 +75,7 @@ export async function getAppointmentsChart(token, startDate = null, endDate = nu
 }
 
 export async function getUpcomingAppointments(token, days = 7) {
-  return await Repository.get(`${baseUrl}/api/dashboard/upcoming-appointments?token=${token}&days=${days}`)
+  return await Repository.get(`${baseURL}/api/dashboard/upcoming-appointments?token=${token}&days=${days}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data
@@ -89,7 +89,7 @@ export async function getUpcomingAppointments(token, days = 7) {
 }
 
 export async function getTopServices(token, startDate = null, endDate = null, limit = 10) {
-  let url = `${baseUrl}/api/dashboard/top-services?token=${token}&limit=${limit}`
+  let url = `${baseURL}/api/dashboard/top-services?token=${token}&limit=${limit}`
 
   if (startDate) {
     url += `&start_date=${startDate}`
@@ -112,7 +112,7 @@ export async function getTopServices(token, startDate = null, endDate = null, li
 }
 
 export async function getTopExperts(token, startDate = null, endDate = null, limit = 10) {
-  let url = `${baseUrl}/api/dashboard/top-experts?token=${token}&limit=${limit}`
+  let url = `${baseURL}/api/dashboard/top-experts?token=${token}&limit=${limit}`
 
   if (startDate) {
     url += `&start_date=${startDate}`

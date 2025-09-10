@@ -1,11 +1,11 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 export async function uploadImage(token, imageFile) {
   const formData = new FormData()
   formData.append('token', token)
   formData.append('photo', imageFile)
 
-  return await Repository.post(`${baseUrl}/manager/upload`, formData, {
+  return await Repository.post(`${baseURL}/manager/upload`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }

@@ -1,8 +1,8 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 
 export async function getUsers(token) {
-  return await Repository.get(`${baseUrl}/manager/users?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/users?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.data
@@ -18,7 +18,7 @@ export async function getUsers(token) {
 
 
 export async function getUserPermissions(token, role) {
-  return await Repository.get(`${baseUrl}/manager/user/permissions/${role}?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/user/permissions/${role}?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.permissions
@@ -34,7 +34,7 @@ export async function getUserPermissions(token, role) {
 
 
 export async function getUser(token, id) {
-  return await Repository.get(`${baseUrl}/manager/user/${id}?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/user/${id}?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data
@@ -48,7 +48,7 @@ export async function getUser(token, id) {
 }
 
 export async function createUser(token, role, branch, name, email) {
-  return await Repository.postForm(`${baseUrl}/manager/user?token=${token}`, {
+  return await Repository.postForm(`${baseURL}/manager/user?token=${token}`, {
     role,
     branch,
     name,
@@ -67,7 +67,7 @@ export async function createUser(token, role, branch, name, email) {
 }
 
 export async function saveUser(token, id, branch, name, email,  status) {
-  return await Repository.postForm(`${baseUrl}/manager/user/${id}?token=${token}`, {
+  return await Repository.postForm(`${baseURL}/manager/user/${id}?token=${token}`, {
     name,
     email,
     branch,
@@ -91,7 +91,7 @@ export async function addPermission(token, id,permission) {
   const formData = new FormData();
   formData.append('permission', permission);
 
-  return await Repository.postForm(`${baseUrl}/${endPoint}`, formData)
+  return await Repository.postForm(`${baseURL}/${endPoint}`, formData)
     .then(response => {
       if (response.data) {
         return response.data;
@@ -111,7 +111,7 @@ export async function removePermission(token, id,permission) {
   const formData = new FormData();
   formData.append('permission', permission);
 
-  return await Repository.postForm(`${baseUrl}/${endPoint}`, formData)
+  return await Repository.postForm(`${baseURL}/${endPoint}`, formData)
     .then(response => {
       if (response.data) {
         return response.data;

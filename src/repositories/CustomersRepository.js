@@ -1,7 +1,7 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 export async function getCustomerList(token) {
-  return await Repository.get(`${baseUrl}/manager/customers?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/customers?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.customers
@@ -16,7 +16,7 @@ export async function getCustomerList(token) {
 }
 
 export async function getCustomerDetails(token, email) {
-  return await Repository.get(`${baseUrl}/manager/customers/details?token=${token}&email=${email}`)
+  return await Repository.get(`${baseURL}/manager/customers/details?token=${token}&email=${email}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.appointments

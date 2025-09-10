@@ -1,7 +1,7 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 export async function sendFeedback(token, title, description, resources) {
-  return await Repository.postForm(`${baseUrl}/manager/feedbacks`, {
+  return await Repository.postForm(`${baseURL}/manager/feedbacks`, {
     token,
     title: title,
     description: description,

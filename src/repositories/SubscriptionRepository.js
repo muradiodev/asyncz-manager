@@ -1,8 +1,8 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 
 export async function getPackageList(token) {
-  return await Repository.get(`${baseUrl}/manager/packages?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/packages?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.packages
@@ -19,7 +19,7 @@ export async function getPackageList(token) {
 
 export async function subscribe(token, packageId, period) {
 
-  return await Repository.postForm(`${baseUrl}/manager/subscribe`,  {
+  return await Repository.postForm(`${baseURL}/manager/subscribe`,  {
     token,
     package_id: packageId,
     period: period
@@ -40,7 +40,7 @@ export async function subscribe(token, packageId, period) {
 
 export async function cancelSubscription(token) {
 
-  return await Repository.postForm(`${baseUrl}/manager/cancelSubscription`,  {
+  return await Repository.postForm(`${baseURL}/manager/cancelSubscription`,  {
     token
   })
     .then((response) => {

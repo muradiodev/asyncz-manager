@@ -1,8 +1,8 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 
 export async function getBranches(token) {
-  return await Repository.get(`${baseUrl}/manager/branches?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/branches?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.branches
@@ -17,7 +17,7 @@ export async function getBranches(token) {
 }
 
 export async function getBranch(token, id) {
-  return await Repository.get(`${baseUrl}/manager/branch/${id}?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/branch/${id}?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data
@@ -31,7 +31,7 @@ export async function getBranch(token, id) {
 }
 
 export async function createBranch(token, name) {
-  return await Repository.postForm(`${baseUrl}/manager/branch?token=${token}`, {name: name })
+  return await Repository.postForm(`${baseURL}/manager/branch?token=${token}`, {name: name })
     .then((response) => {
       if (response.data) {
         return response.data
@@ -46,7 +46,7 @@ export async function createBranch(token, name) {
 
 export async function updateBranch(token, id, { name, about, status }) {
   return await Repository.postForm(
-    `${baseUrl}/manager/branch/${id}?token=${token}`,
+    `${baseURL}/manager/branch/${id}?token=${token}`,
     { name, about, status }
   )
     .then((response) => {
@@ -62,7 +62,7 @@ export async function updateBranch(token, id, { name, about, status }) {
 }
 
 export async function deleteBranch(token, id) {
-  return await Repository.delete(`${baseUrl}/manager/branch/${id}?token=${token}`)
+  return await Repository.delete(`${baseURL}/manager/branch/${id}?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data;

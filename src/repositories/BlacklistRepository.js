@@ -1,8 +1,8 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 
 export async function getBlackList(token) {
-  return await Repository.get(`${baseUrl}/manager/blacklist?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/blacklist?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.blacklist
@@ -17,7 +17,7 @@ export async function getBlackList(token) {
 }
 
 export async function createBlacklist(token, value) {
-  return await Repository.postForm(`${baseUrl}/manager/blacklist?token=${token}`, {
+  return await Repository.postForm(`${baseURL}/manager/blacklist?token=${token}`, {
     value:value
   })
     .then((response) => {
@@ -33,7 +33,7 @@ export async function createBlacklist(token, value) {
 }
 
 export async function deleteBlacklist(token, id) {
-  return await Repository.post(`${baseUrl}/manager/blacklist/${id}/delete?token=${token}`)
+  return await Repository.post(`${baseURL}/manager/blacklist/${id}/delete?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data

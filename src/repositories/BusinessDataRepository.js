@@ -1,4 +1,4 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 
 // export async function getBusinessData(token) {
@@ -17,7 +17,7 @@ import Repository, { baseUrl } from './Repository'
 // }
 
 export async function getBusinessData(token) {
-  return await Repository.get(`${baseUrl}/manager/companyProfile?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/companyProfile?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data // Return the entire response object
@@ -34,7 +34,7 @@ export async function getBusinessData(token) {
 
 export async function saveBusinessData(token, businessData) {
   console.log('Repository received data:', businessData); // Debug log
-  return await Repository.postForm(`${baseUrl}/manager/companyProfile?token=${token}`, {
+  return await Repository.postForm(`${baseURL}/manager/companyProfile?token=${token}`, {
     name: businessData.name,
     about: businessData.about,
     address: businessData.address,

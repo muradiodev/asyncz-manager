@@ -1,7 +1,7 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 export async function getPermissionsList(token) {
-  return await Repository.get(`${baseUrl}/manager/permissions?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/permissions?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.permissions
@@ -16,7 +16,7 @@ export async function getPermissionsList(token) {
 }
 
 export async function updateUserPermission(token, userId, permission) {
-  return await Repository.put(`${baseUrl}/manager/permissions/update`, {
+  return await Repository.put(`${baseURL}/manager/permissions/update`, {
     token: token,
     user_id: userId,
     permission: permission,

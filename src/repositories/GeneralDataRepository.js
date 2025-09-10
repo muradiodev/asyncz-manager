@@ -1,7 +1,7 @@
-import Repository, {baseUrl} from './Repository'
+import Repository, {baseURL} from './Repository'
 
 export async function getCalendarInfo(token, startDate, endDate) {
-    return await Repository.get(`${baseUrl}/manager/appointmentCalendar?start=${startDate}&end=${endDate}&token=${token}`)
+    return await Repository.get(`${baseURL}/manager/appointmentCalendar?start=${startDate}&end=${endDate}&token=${token}`)
         .then((response) => {
             if (response.data) {
                 return response.data
@@ -16,7 +16,7 @@ export async function getCalendarInfo(token, startDate, endDate) {
 }
 
 export async function getSmallCalendar(token, date) {
-    return await Repository.get(`${baseUrl}/manager/smallCalendar?date=${date}&token=${token}`)
+    return await Repository.get(`${baseURL}/manager/smallCalendar?date=${date}&token=${token}`)
         .then((response) => {
             if (response.data) {
                 return response.data
@@ -31,7 +31,7 @@ export async function getSmallCalendar(token, date) {
 }
 
 export async function getSchedules(token) {
-    return await Repository.get(`${baseUrl}/manager/getSchedules?token=${token}`)
+    return await Repository.get(`${baseURL}/manager/getSchedules?token=${token}`)
         .then((response) => {
             if (response.data) {
                 return response.data

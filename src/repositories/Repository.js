@@ -8,13 +8,13 @@ export const customHeaders = {
   Accept: 'application/json'
 }
 
-export const baseUrl = `${baseDomain}`
+export const baseURL = `${baseDomain}`
 export const mediaBase = `${photoBase}`
 export const thumbnailBase = `${photoBase}/photo.php?w=600&h=450&zc=1&src=`
 export const squareThumbnailBase = `${photoBase}/photo.php?w=400&h=400&zc=1&src=`
 
 export default axios.create({
-  baseUrl,
+  baseURL: baseURL,
   headers: customHeaders
 })
 

@@ -1,4 +1,4 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 import {
   signInWithPopup,
   signInWithEmailAndPassword,
@@ -28,7 +28,7 @@ onAuthStateChanged(auth, (user) => {
 
 // Existing backend auth functions
 export async function registerStart(companyName, companyEmail, adminName, adminEmail) {
-  return await Repository.postForm(`${baseUrl}/manager/register/start`, {
+  return await Repository.postForm(`${baseURL}/manager/register/start`, {
     companyName: companyName,
     companyEmail: companyEmail,
     adminName: adminName,
@@ -48,7 +48,7 @@ export async function registerStart(companyName, companyEmail, adminName, adminE
 }
 
 export async function registerVerify(companyName, companyEmail, adminName, adminEmail, otp) {
-  return await Repository.postForm(`${baseUrl}/manager/register/verify`, {
+  return await Repository.postForm(`${baseURL}/manager/register/verify`, {
     companyName: companyName,
     companyEmail: companyEmail,
     adminName: adminName,
@@ -69,7 +69,7 @@ export async function registerVerify(companyName, companyEmail, adminName, admin
 }
 
 export async function login(email, password) {
-  return await Repository.postForm(`${baseUrl}/manager/login`, {
+  return await Repository.postForm(`${baseURL}/manager/login`, {
     email: email,
     password: password
   })
@@ -93,7 +93,7 @@ export const loginWithGoogle = async () => {
     const idToken = await result.user.getIdToken()
 
     // Use Repository.post with baseUrl like your other API calls
-    const response = await Repository.post(`${baseUrl}/manager/google-login`, {
+    const response = await Repository.post(`${baseURL}/manager/google-login`, {
       idToken: idToken
     })
 
@@ -154,7 +154,7 @@ export function isFirebaseAuthReady() {
 
 // Existing backend functions
 export async function getAccount(token) {
-  return await Repository.get(`${baseUrl}/manager/me?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/me?token=${token}`)
     .then((response) => {
       if (response.data) {
         return response.data
@@ -169,7 +169,7 @@ export async function getAccount(token) {
 }
 
 export async function saveAccount(token, name, about) {
-  return await Repository.postForm(`${baseUrl}/manager/profile?token=${token}`, {
+  return await Repository.postForm(`${baseURL}/manager/profile?token=${token}`, {
     name,
     about
   })
@@ -187,7 +187,7 @@ export async function saveAccount(token, name, about) {
 }
 
 export async function setPassword(token, password) {
-  return await Repository.postForm(`${baseUrl}/manager/password?token=${token}`, {
+  return await Repository.postForm(`${baseURL}/manager/password?token=${token}`, {
     password
   })
     .then((response) => {
@@ -204,7 +204,7 @@ export async function setPassword(token, password) {
 }
 
 export async function setNewPassword(token, password, currentPassword) {
-  return await Repository.postForm(`${baseUrl}/manager/new-password?token=${token}`, {
+  return await Repository.postForm(`${baseURL}/manager/new-password?token=${token}`, {
     password,
     currentPassword
   })

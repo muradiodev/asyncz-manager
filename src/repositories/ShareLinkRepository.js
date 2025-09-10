@@ -1,7 +1,7 @@
-import Repository, { baseUrl } from './Repository'
+import Repository, { baseURL } from './Repository'
 
 export async function getShareLinks(token) {
-  return await Repository.get(`${baseUrl}/manager/share?token=${token}`)
+  return await Repository.get(`${baseURL}/manager/share?token=${token}`)
     .then((response) => {
       if (response.data && response.data.code === 200) {
         return response.data.share_list
