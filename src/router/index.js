@@ -58,11 +58,6 @@ const router = createRouter({
           }
         },
         {
-          path: '',
-          component: () => import('../views/HomeView.vue'),
-          alias: 'home'
-        },
-        {
           path: 'home',
           name: 'home',
           component: () => import('../views/HomeView.vue')
