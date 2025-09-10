@@ -774,28 +774,34 @@
   "login": {
     "welcome": "Xoş gəlmisiniz!",
     "emailAddress": "E-poçt ünvanı",
-    "noShare": "E-poçtunuzu heç kiminlə paylaşmayacağıq.",
+    "noShare": "E-poçtunuzu heç kimlə paylaşmayacağıq.",
     "welcomeBack": "Yenidən xoş gəlmisiniz!",
     "password": "Şifrə",
-    "forgotPassword": "Şifrəni unutmusan?",
-    "forgotPasswordTitle": "Şifrəni unutmusan!",
-    "getVerificationCode": "Təsdiq kodunu əldə et",
+    "forgotPassword": "Şifrəni unutmusunuz?",
+    "forgotPasswordTitle": "Şifrəni unutmusunuz!",
+    "getVerificationCode": "Təsdiq kodunu al",
     "verificationCode": "Təsdiq kodu",
     "newPassword": "Yeni şifrə",
-    "setMyNewPassword": "Yeni şifrəmni təyin et",
-    "verificationCodeSent": "Təsdiq kodu e-poçtunuza göndərildi",
+    "setMyNewPassword": "Yeni şifrəmi təyin et",
+    "verificationCodeSent": "Təsdiq kodu e-poçt ünvanınıza göndərildi",
     "passwordUpdated": "Şifrəniz uğurla yeniləndi",
-    "login": "Giriş",
+    "login": "Daxil ol",
+    "or": "və ya",
+    "continueWithGoogle": "Google ilə davam et",
+    "signingIn": "Daxil olunur...",
+    "signingInWithGoogle": "Google ilə daxil olunur...",
+    "welcomeMessage": "Xoş gəldiniz{name}!",
+    "googleLoginFailed": "Google ilə daxilolma uğursuz oldu. Yenidən cəhd edin.",
     "subtitles": {
-      "enterEmail": "Təsdiq kodunu almaq üçün e-poçtunuzu daxil edin",
+      "enterEmail": "Təsdiq kodu almaq üçün e-poçtunuzu daxil edin",
       "enterCode": "Təsdiq kodunu daxil edin və yeni şifrə təyin edin"
     },
     "placeholders": {
       "verificationCode": "Kodu daxil edin",
-      "newPassword": "Güclü bir şifrə daxil edin"
+      "newPassword": "Güclü şifrə daxil edin"
     },
     "actions": {
-      "backToLogin": "Girişə qayıt"
+      "backToLogin": "Daxil olmağa qayıt"
     },
     "register": {
       "prompt": "Hesabınız yoxdur?",

@@ -774,32 +774,38 @@
   "login": {
     "welcome": "Hoş geldiniz!",
     "emailAddress": "E-posta adresi",
-    "noShare": "E-postanızı kimseyle paylaşmayacağız.",
+    "noShare": "E-postanızı asla başkalarıyla paylaşmayacağız.",
     "welcomeBack": "Tekrar hoş geldiniz!",
     "password": "Şifre",
-    "forgotPassword": "Şifremi unuttum?",
-    "forgotPasswordTitle": "Şifremi unuttum!",
-    "getVerificationCode": "Doğrulama kodunu al",
+    "forgotPassword": "Şifrenizi mi unuttunuz?",
+    "forgotPasswordTitle": "Şifre unutuldu!",
+    "getVerificationCode": "Doğrulama kodu al",
     "verificationCode": "Doğrulama kodu",
     "newPassword": "Yeni şifre",
-    "setMyNewPassword": "Yeni şifremi belirle",
+    "setMyNewPassword": "Yeni şifremi ayarla",
     "verificationCodeSent": "Doğrulama kodu e-postanıza gönderildi",
     "passwordUpdated": "Şifreniz başarıyla güncellendi",
-    "login": "Giriş Yap",
+    "login": "Giriş yap",
+    "or": "veya",
+    "continueWithGoogle": "Google ile devam et",
+    "signingIn": "Giriş yapılıyor...",
+    "signingInWithGoogle": "Google ile giriş yapılıyor...",
+    "welcomeMessage": "Hoş geldiniz{name}!",
+    "googleLoginFailed": "Google ile giriş başarısız oldu. Lütfen tekrar deneyin.",
     "subtitles": {
       "enterEmail": "Doğrulama kodu almak için e-postanızı girin",
-      "enterCode": "Doğrulama kodunu girin ve yeni bir şifre belirleyin"
+      "enterCode": "Doğrulama kodunu girin ve yeni şifre belirleyin"
     },
     "placeholders": {
       "verificationCode": "Kodu girin",
       "newPassword": "Güçlü bir şifre girin"
     },
     "actions": {
-      "backToLogin": "Giriş Sayfasına Dön"
+      "backToLogin": "Girişe geri dön"
     },
     "register": {
       "prompt": "Hesabınız yok mu?",
-      "cta": "Ücretsiz kaydolun"
+      "cta": "Ücretsiz kayıt olun"
     }
   },
   "passwordEnforced": {

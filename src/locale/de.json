@@ -774,31 +774,37 @@
   "login": {
     "welcome": "Willkommen!",
     "emailAddress": "E-Mail-Adresse",
-    "noShare": "Wir werden Ihre E-Mail niemals mit jemandem teilen.",
+    "noShare": "Wir geben Ihre E-Mail-Adresse niemals weiter.",
     "welcomeBack": "Willkommen zurück!",
     "password": "Passwort",
     "forgotPassword": "Passwort vergessen?",
     "forgotPasswordTitle": "Passwort vergessen!",
-    "getVerificationCode": "Verifizierungscode anfordern",
-    "verificationCode": "Verifizierungscode",
+    "getVerificationCode": "Bestätigungscode anfordern",
+    "verificationCode": "Bestätigungscode",
     "newPassword": "Neues Passwort",
-    "setMyNewPassword": "Setzen Sie mein neues Passwort",
-    "verificationCodeSent": "Verifizierungscode an Ihre E-Mail gesendet",
+    "setMyNewPassword": "Mein neues Passwort festlegen",
+    "verificationCodeSent": "Der Bestätigungscode wurde an Ihre E-Mail gesendet",
     "passwordUpdated": "Ihr Passwort wurde erfolgreich aktualisiert",
     "login": "Anmelden",
+    "or": "oder",
+    "continueWithGoogle": "Mit Google fortfahren",
+    "signingIn": "Anmeldung läuft...",
+    "signingInWithGoogle": "Anmeldung mit Google...",
+    "welcomeMessage": "Willkommen{name}!",
+    "googleLoginFailed": "Google-Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.",
     "subtitles": {
-      "enterEmail": "Geben Sie Ihre E-Mail ein, um einen Verifizierungscode zu erhalten",
-      "enterCode": "Geben Sie den Verifizierungscode ein und setzen Sie ein neues Passwort"
+      "enterEmail": "Geben Sie Ihre E-Mail ein, um einen Bestätigungscode zu erhalten",
+      "enterCode": "Geben Sie den Bestätigungscode ein und legen Sie ein neues Passwort fest"
     },
     "placeholders": {
       "verificationCode": "Code eingeben",
-      "newPassword": "Geben Sie ein starkes Passwort ein"
+      "newPassword": "Ein starkes Passwort eingeben"
     },
     "actions": {
-      "backToLogin": "Zurück zur Anmeldung"
+      "backToLogin": "Zur Anmeldung zurück"
     },
     "register": {
-      "prompt": "Haben Sie kein Konto?",
+      "prompt": "Sie haben kein Konto?",
       "cta": "Kostenlos registrieren"
     }
   },

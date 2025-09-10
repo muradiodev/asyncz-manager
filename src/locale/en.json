@@ -792,7 +792,6 @@
     "signingInWithGoogle": "Signing in with Google...",
     "welcomeMessage": "Welcome{name}!",
     "googleLoginFailed": "Google login failed. Please try again.",
-
     "subtitles": {
       "enterEmail": "Enter your email to receive a verification code",
       "enterCode": "Enter the verification code and set a new password"

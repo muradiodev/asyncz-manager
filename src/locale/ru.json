@@ -773,8 +773,8 @@
   "home": {},
   "login": {
     "welcome": "Добро пожаловать!",
-    "emailAddress": "Адрес электронной почты",
-    "noShare": "Мы никогда не будем делиться вашей электронной почтой с кем-либо.",
+    "emailAddress": "Электронная почта",
+    "noShare": "Мы никогда не передадим вашу почту третьим лицам.",
     "welcomeBack": "С возвращением!",
     "password": "Пароль",
     "forgotPassword": "Забыли пароль?",
@@ -782,23 +782,23 @@
     "getVerificationCode": "Получить код подтверждения",
     "verificationCode": "Код подтверждения",
     "newPassword": "Новый пароль",
-    "setMyNewPassword": "Установить мой новый пароль",
-    "verificationCodeSent": "Код подтверждения отправлен на вашу электронную почту",
+    "setMyNewPassword": "Установить новый пароль",
+    "verificationCodeSent": "Код подтверждения отправлен на вашу почту",
     "passwordUpdated": "Ваш пароль успешно обновлен",
     "login": "Войти",
     "or": "или",
     "continueWithGoogle": "Продолжить с Google",
     "signingIn": "Вход...",
-    "signingInWithGoogle": "Вход с Google...",
-    "welcomeMessage": "Добро пожаловать {name}!",
-    "googleLoginFailed": "Не удалось войти через Google. Пожалуйста, попробуйте снова.",
+    "signingInWithGoogle": "Вход через Google...",
+    "welcomeMessage": "Добро пожаловать{name}!",
+    "googleLoginFailed": "Вход через Google не удался. Попробуйте снова.",
     "subtitles": {
-      "enterEmail": "Введите вашу электронную почту, чтобы получить код подтверждения",
+      "enterEmail": "Введите почту, чтобы получить код подтверждения",
       "enterCode": "Введите код подтверждения и установите новый пароль"
     },
     "placeholders": {
       "verificationCode": "Введите код",
-      "newPassword": "Введите надежный пароль"
+      "newPassword": "Введите надёжный пароль"
     },
     "actions": {
       "backToLogin": "Назад к входу"
