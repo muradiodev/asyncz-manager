@@ -25,11 +25,11 @@
   "language": {
     "current": "Deutsch",
     "list": {
-      "az": "Aserbaidschanisch",
+      "az": "Azərbaycanca",
       "de": "Deutsch",
-      "en": "Englisch",
-      "ru": "Russisch",
-      "tr": "Türkisch"
+      "en": "English",
+      "ru": "Русский",
+      "tr": "Türkçe"
     }
   },
   "account": {

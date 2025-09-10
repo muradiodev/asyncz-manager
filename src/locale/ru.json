@@ -25,11 +25,11 @@
   "language": {
     "current": "Русский",
     "list": {
-      "az": "Азербайджанский",
-      "de": "Немецкий",
-      "en": "Английский",
+      "az": "Azərbaycanca",
+      "de": "Deutsch",
+      "en": "English",
       "ru": "Русский",
-      "tr": "Турецкий"
+      "tr": "Türkçe"
     }
   },
   "account": {
