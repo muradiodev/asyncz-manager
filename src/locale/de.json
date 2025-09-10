@@ -70,7 +70,7 @@
     }
   },
   "aiScheduler": {
-    "placeholder": "💡 Termin für Jane Doe, abc@example.com, +12345, 31. Dezember 14:30, Notizen: Erstberatung..",
+    "placeholder": "💡 Termin für Jane Doe, {email}, +12345, 31. Dezember 14:30, Notizen: Erstberatung..",
     "hint": "🤖 Ich bin KI - Nutzen Sie mich!",
     "tooltips": {
       "voiceInput": "Sprachsteuerung",

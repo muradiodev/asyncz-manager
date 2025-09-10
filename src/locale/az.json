@@ -70,7 +70,7 @@
     }
   },
   "aiScheduler": {
-    "placeholder": "💡 Jane Doe üçün cədvəl, abc@example.com, +12345, 31 Dekabr 14:30, qeydlər: İlk konsultasiya..",
+    "placeholder": "💡 Jane Doe üçün cədvəl, {email}, +12345, 31 Dekabr 14:30, qeydlər: İlk konsultasiya..",
     "hint": "🤖 Mən AI - Məni istifadə edin!",
     "tooltips": {
       "voiceInput": "Səsli giriş",

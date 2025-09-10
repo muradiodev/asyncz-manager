@@ -9,7 +9,7 @@
             type="text"
             v-model="messageInput"
             class="form-control-header"
-            :placeholder="$t('aiScheduler.placeholder')"
+            :placeholder="$t('aiScheduler.placeholder', {email: 'abc@example.com'})"
             :disabled="isRecording || isProcessing"
             @keyup.enter="submitTextInput"
           />

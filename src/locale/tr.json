@@ -70,7 +70,7 @@
     }
   },
   "aiScheduler": {
-    "placeholder": "💡 Jane Doe için randevu ayarla, abc@example.com, +12345, 31 Aralık 14:30, notlar: İlk danışma..",
+    "placeholder": "💡 Jane Doe için randevu ayarla, {email}, +12345, 31 Aralık 14:30, notlar: İlk danışma..",
     "hint": "🤖 Ben AI - Beni kullanın!",
     "tooltips": {
       "voiceInput": "Sesli girdi",
