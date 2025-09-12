@@ -19,7 +19,7 @@
     <CCard class="mb-4" v-if="enabled">
       <CCardBody>
         <DataTable class="table table-sm table-hover"
-                   :columns="columns"
+                   :columns="computedColumns"
                    :data="itemList"
                    ref="blacklistTable"
                    :options="dtOptions"
@@ -80,25 +80,6 @@ export default {
       addNewItem: false,
       newItemDetails: { keyword: '' },
       itemList: [],
-      columns: [
-        { title: 'Keyword', data: 'value', orderable: true },
-        {
-          title: 'Action',
-          orderable: false,
-          data: null,
-          render: (data, type, row) => {
-            const manageBlacklistDisabled   = this.canManageBlackList ? '' : 'disabled';
-
-            return `
-              <span title="${!this.canManageBlackList ? 'No permission' : 'Delete service'}">
-                <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;" ${manageBlacklistDisabled}>
-                  <i class="fas fa-trash"></i>
-                </button>
-              </span>
-            `
-          }
-        }
-      ]
     }
   },
   computed: {
@@ -108,6 +89,31 @@ export default {
 
     canManageBlackList() {
       return this.hasAnyPermission(['MANAGE_BLACKLIST']);
+    },
+
+    computedColumns() {
+      const cols = [
+        { title: this.$t('blacklist.table.columns.keyword'), data: 'value', orderable: true }
+      ]
+
+      if (this.canManageBlackList) {
+        cols.push({
+          title: this.$t('blacklist.table.columns.action'),
+          orderable: false,
+          data: null,
+          render: (data, type, row) => {
+            return `
+            <span title="${this.$t('blacklist.tooltips.delete')}">
+              <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;">
+                <i class="fas fa-trash"></i>
+              </button>
+            </span>
+          `
+          }
+        })
+      }
+
+      return cols
     },
 
     dtOptions() {
