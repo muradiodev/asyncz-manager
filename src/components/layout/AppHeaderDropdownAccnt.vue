@@ -47,7 +47,7 @@ export default {
       :caret="false"
       style="transition: border-color .15s;"
     >
-      <CAvatar :src="avatar" :size="32" shape="rounded-circle" />
+      <CAvatar :src="avatar" :size="'md'" shape="rounded-circle" />
     </CDropdownToggle>
 
     <CDropdownMenu class="pt-2 pb-2">
