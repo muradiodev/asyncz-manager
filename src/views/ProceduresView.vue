@@ -188,66 +188,6 @@ export default {
         '#b13e81',
         '#4e5561'
       ],
-      columns: [
-        { title: 'ID', data: 'id', orderable: true },
-        { title: 'Name', data: 'name', orderable: true },
-        {
-          title: 'Color',
-          data: (row) => {
-            return  '<span class="badge" style="background-color: ' + row.color + ';">&nbsp;</span>'
-          }
-        },
-        {
-          title: 'Status',
-          data: (row) => {
-            return row.status
-              ? `<span class="badge bg-success">active</span>`
-              : `<span class="badge bg-danger">inactive</span>`
-          }
-        },
-        {
-          title: 'Length',
-          data: (row) => `${row.length} minute(s)`
-        },
-        {
-          title: 'Public Link', data: (row) => {
-            const match = this.shareLinks.find(
-              (shareLink) => shareLink.name == row.name && shareLink.type == "procedure"
-            );
-
-            if (match && match.hash) {
-              const link = `http://book.asyncz.com/?share=${match.hash}`;
-              return `<button class="btn btn-outline-success btn-sm copy-link-btn" data-link="${link}">
-                <i class="fas fa-link"></i>
-              </button>`;
-            } else {
-              return ``;
-            }
-          }
-        },
-        {
-          title: 'Actions',
-          orderable: false,
-          data: null,
-          render: (data, type, row) => {
-            const manageServiceDisabled   = this.canManageService ? '' : 'disabled';
-
-            return `
-              <span title="${!this.canManageService ? 'No permission' : 'Edit service'}">
-                <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${row.id}" style="padding:4px 8px; margin-right:3px;" ${manageServiceDisabled}>
-                  <i class="fas fa-pen"></i>
-                </button>
-              </span>
-              <span title="${!this.canManageService ? 'No permission' : 'Delete service'}">
-                <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;" ${manageServiceDisabled}>
-                  <i class="fas fa-trash"></i>
-                </button>
-              </span>
-
-            `
-          }
-        }
-      ]
     }
   },
   computed: {
@@ -255,6 +195,62 @@ export default {
 
     canManageService() {
       return this.hasAnyPermission(['MANAGE_SERVICES']);
+    },
+
+    columns() {
+      const cols = [
+        { title: this.$t('procedures.table.columns.id'), data: 'id', orderable: true },
+        { title: this.$t('procedures.table.columns.name'), data: 'name', orderable: true },
+        {
+          title: this.$t('procedures.table.columns.color'),
+          data: (row) => `<span class="badge" style="background-color: ${row.color};">&nbsp;</span>`,
+        },
+        {
+          title: this.$t('procedures.table.columns.status'),
+          data: (row) => row.status
+            ? `<span class="badge bg-success">${this.$t('procedures.table.status.active')}</span>`
+            : `<span class="badge bg-danger">${this.$t('procedures.table.status.inactive')}</span>`,
+        },
+        {
+          title: this.$t('procedures.table.columns.length'),
+          data: (row) => `${row.length} ${this.$t('procedures.lengthUnit')}`,
+        },
+        {
+          title: this.$t('procedures.table.columns.publicLink'),
+          data: (row) => {
+            const match = this.shareLinks.find(
+              (shareLink) => shareLink.name == row.name && shareLink.type == 'procedure'
+            );
+            if (match && match.hash) {
+              const link = `http://book.asyncz.com/?share=${match.hash}`;
+              return `<button class="btn btn-outline-success btn-sm copy-link-btn" data-link="${link}">
+              <i class="fas fa-link"></i>
+            </button>`;
+            }
+            return '';
+          },
+        },
+      ];
+
+      if (this.canManageService) {
+        cols.push({
+          title: this.$t('procedures.table.columns.actions'),
+          orderable: false,
+          data: null,
+          render: (data, type, row) => {
+            return `
+            <button class="btn btn-outline-warning btn-sm edit-btn" data-id="${row.id}" style="padding:4px 8px; margin-right:3px;">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm delete-btn" data-id="${row.id}" style="padding:4px 8px;">
+              <i class="fas fa-trash"></i>
+            </button>
+          `;
+          },
+        });
+      }
+
+      return cols;
     },
 
     dtOptions() {
