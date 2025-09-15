@@ -55,7 +55,7 @@
               <input v-model.trim="password" type="password" id="exampleInputPassword" required :disabled="isLoading" />
             </div>
 
-            <button type="submit" class="btn-primary-custom" :disabled="isLoading">
+            <button type="submit" class="btn-primary-custom form-group" :disabled="isLoading">
               <span v-if="isLoading && loginType === 'email'" class="loading-spinner"></span>
               {{ isLoading && loginType === 'email' ? $t('login.signingIn') : $t('login.login') }}
             </button>
