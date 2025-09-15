@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 
+import VueGtag from "vue-gtag";
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
@@ -82,6 +84,12 @@ app.use(VueSweetAlert)
 app.use(Vue3Toastify, {
   autoClose: 3000
 })
+
+app.use(VueGtag, {
+  config: {
+    id: "G-DMP345Q20V"
+  }
+}, router);
 
 app.use(VCalendar, {})
 
