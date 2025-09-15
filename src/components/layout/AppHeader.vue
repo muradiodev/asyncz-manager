@@ -1,5 +1,5 @@
 <template>
-  <CHeader position="sticky" :class="headerClassNames">
+  <CHeader position="sticky" :class="headerClassNames" id="header">
     <CContainer class="border-bottom px-2 px-md-4" fluid>
       <CHeaderToggler @click="sidebar.toggleVisible()" style="margin-inline-start: -14px">
         <CIcon icon="cil-menu" size="lg" />

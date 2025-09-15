@@ -12,7 +12,7 @@
         />
       </CNavGroup>
       <template v-else>
-        <div class="nav-item" :active="isActiveLink(item.to)">
+        <div class="nav-item" :id="item.ref" :active="isActiveLink(item.to)">
           <router-link class="nav-link" :to="item.to">
             <CIcon custom-class-name="nav-icon" :name="item.icon" />
             <span class="nav-link-text">{{ item.name }}</span>
@@ -36,21 +36,66 @@ export default {
   data() {
     return {
       simplebar: markRaw(simplebar),   // ← make it non-reactive
-      firstRender: true,
+      firstRender: true
     }
   },
   setup() {
     const { t } = useI18n()
     const nav = computed(() => [
-      { name: t('appSidebarNav.dashboard'), to: { name: 'dashboard-page' }, icon: 'cil-speedometer' },
-      { name: t('appSidebarNav.calendar'),  to: { name: 'calendar' },        icon: 'cil-calendar' },
-      { name: t('appSidebarNav.branches'),  to: { name: 'branches' },        icon: 'cil-factory' },
-      { name: t('appSidebarNav.users'),     to: { name: 'users' },           icon: 'cil-user' },
-      { name: t('appSidebarNav.services'),  to: { name: 'procedures' },      icon: 'cil-list-rich' },
-      { name: t('appSidebarNav.customerList'), to: { name: 'customers' },    icon: 'cil-user' },
-      { name: t('appSidebarNav.blacklist'), to: { name: 'blacklist' },       icon: 'cil-ban' },
-      { name: t('appSidebarNav.subscription'), to: { name: 'subscription' }, icon: 'cil-dollar' },
-      { name: t('appSidebarNav.feedback'),  to: { name: 'feedbacks' },       icon: 'cil-comment-square' },
+      {
+        name: t('appSidebarNav.dashboard'),
+        ref: 'menu_dashboard',
+        to: { name: 'dashboard-page' },
+        icon: 'cil-speedometer'
+      },
+      {
+        name: t('appSidebarNav.calendar'),
+        ref: 'menu_calendar',
+        to: { name: 'calendar' },
+        icon: 'cil-calendar'
+      },
+      {
+        name: t('appSidebarNav.branches'),
+        ref: 'menu_branches',
+        to: { name: 'branches' },
+        icon: 'cil-factory'
+      },
+      {
+        name: t('appSidebarNav.users'),
+        ref: 'menu_users',
+        to: { name: 'users' },
+        icon: 'cil-user'
+      },
+      {
+        name: t('appSidebarNav.services'),
+        ref: 'menu_services',
+        to: { name: 'procedures' },
+        icon: 'cil-list-rich'
+      },
+      {
+        name: t('appSidebarNav.customerList'),
+        ref: 'menu_customers',
+        to: { name: 'customers' },
+        icon: 'cil-user'
+      },
+      {
+        name: t('appSidebarNav.blacklist'),
+        ref: 'menu_blacklist',
+        to: { name: 'blacklist' },
+        icon: 'cil-ban'
+      },
+      {
+        name: t('appSidebarNav.subscription'),
+        ref: 'menu_subscription',
+        to: { name: 'subscription' },
+        icon: 'cil-dollar'
+      },
+      {
+        name: t('appSidebarNav.feedback'),
+        ref: 'menu_feedback',
+        to: { name: 'feedbacks' },
+        icon: 'cil-comment-square'
+      }
     ])
     return { nav }
   },
@@ -62,17 +107,17 @@ export default {
       if (link === undefined) return false
       if (this.$route.hash === link) return true
       const currentPath = this.normalizePath(this.$route.path)
-      const targetPath  = this.normalizePath(link)
+      const targetPath = this.normalizePath(link)
       return currentPath === targetPath
     },
     isActiveItem(item) {
       if (this.isActiveLink(item.to)) return true
       return item.items ? item.items.some((child) => this.isActiveItem(child)) : false
-    },
+    }
   },
   mounted() {
     this.firstRender = false
-  },
+  }
 }
 </script>
 

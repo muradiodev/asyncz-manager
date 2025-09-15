@@ -4,10 +4,11 @@ import AppSidebar from '@/components/layout/AppSidebar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import { useAuthStore } from '@/stores/auth.js'
 import { mapState } from 'pinia'
+import { getGuideData } from '@/repositories/GeneralDataRepository.js'
 
 export default {
   name: 'DashboardView',
-  components: { AppHeader, AppSidebar, AppFooter},
+  components: { AppHeader, AppSidebar, AppFooter },
   data() {
     return {}
   },
@@ -30,11 +31,69 @@ export default {
       return this.companyPackage || this.$route.name === 'subscription'
     }
   },
-  methods: {},
-  mounted() {
-    if(!this.companyPackage && this.$route.name !== 'subscription') {
-      this.$router.push({ name: 'subscription' })
+  methods: {
+    createTour(tourData) {
+      this.tour = this.$shepherd({
+        useModalOverlay: true
+      })
+
+
+      tourData.forEach((step, i) => {
+
+
+        let buttons = [];
+
+        if(i > 0){buttons.push( {
+          text: 'Back',
+          action: this.tour.back,
+          classes: 'shepherd-button-secondary'
+        });
+        }
+        buttons.push( {
+          text: 'Close',
+          action: this.tour.cancel,
+          classes: 'shepherd-button-secondary bg-danger text-white'
+        });
+
+        if (i < tourData.length - 1) {
+          buttons.push( {
+            text: 'Next',
+            action: this.tour.next,
+            classes: 'shepherd-button-primary'
+          });
+
+        }
+
+        this.tour.addStep({
+          attachTo: { element: step.element, on: step.placement },
+          title: step.title,
+          text: step.content,
+          buttons: buttons,
+          scrollTo: { behavior: 'smooth', block: 'center' },
+          when: {
+            show: () => {
+              //console.log('Showing step: ' + step.title);
+            },
+            hide: () => {
+              //console.log('Hiding step: ' + step.title);
+            }
+          }
+        });
+      });
     }
+  },
+  mounted() {
+    if (!this.companyPackage && this.$route.name !== 'subscription') {
+      this.$router.push({ name: 'subscription' })
+    } else {
+      getGuideData(this.token).then(res => {
+        console.log('res')
+        console.log(res)
+        this.createTour(res.tour)
+        //this.tour.start()
+      })
+    }
+
   }
 }
 </script>

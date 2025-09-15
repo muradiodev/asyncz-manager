@@ -1,5 +1,5 @@
 <template>
-  <CFooter class="px-4 py-3 bg-light border-top c-footer">
+  <CFooter class="px-4 py-3 bg-light border-top c-footer" id="footer">
     <div class="d-flex justify-content-between align-items-center w-100">
       <div class="text-muted">
         <span>&copy; {{ new Date().getFullYear() }}</span>

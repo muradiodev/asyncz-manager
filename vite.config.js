@@ -15,5 +15,8 @@ export default defineConfig({
   },
   server:{
     port: 5500,
-  }
+  },
+  define: {
+    'process.env.ES_BUILD': JSON.stringify('true'),
+  },
 })

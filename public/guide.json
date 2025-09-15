@@ -1,0 +1,70 @@
+{
+  "tour": [
+    {
+      "element": "#header",
+      "title": "Welcome to Our Website",
+      "content": "This is the header section where you can find the main navigation links.",
+      "placement": "bottom"
+    },
+    {
+      "element": "#menu_dashboard",
+      "title": "Dashboard Menu",
+      "content": "Access your dashboard and manage your settings here.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_calendar",
+      "title": "Calendar Menu",
+      "content": "View and manage your calendar events.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_branches",
+      "title": "Branches Menu",
+      "content": "Manage your branches and locations from this menu.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_users",
+      "title": "User",
+      "content": "Manage user accounts and permissions here. Experts are managed from the Users section.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_services",
+      "title": "Services",
+      "content": "Add and manage your services here.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_customers",
+      "title": "Customers",
+      "content": "View and manage your customer information.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_blacklist",
+      "title": "Blacklist",
+      "content": "Manage your blacklist to restrict certain users.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_subscription",
+      "title": "Subscription",
+      "content": "View and manage your subscription details.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_feedback",
+      "title": "Feedback",
+      "content": "Send support requests and feedback to help us improve.",
+      "placement": "right"
+    },
+    {
+      "element": "#footer",
+      "title": "Footer",
+      "content": "This is the footer section where you can find additional links and information.",
+      "placement": "top"
+    }
+  ]
+}

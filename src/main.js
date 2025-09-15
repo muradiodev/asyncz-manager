@@ -1,6 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 
+
+import VueShepherdPlugin from 'vue-shepherd';
+import 'shepherd.js/dist/css/shepherd.css';
+
 import VueGtag from "vue-gtag";
 
 import { createApp } from 'vue'
@@ -93,6 +97,7 @@ app.use(VueGtag, {
 
 app.use(VCalendar, {})
 
+app.use(VueShepherdPlugin)
 app.use(VResizable)
 
 app.use(CoreuiVue);
