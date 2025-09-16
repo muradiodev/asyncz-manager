@@ -2,74 +2,74 @@
   "tour": [
     {
       "element": "welcome",
-      "title": "Welcome to Our Website",
-      "content": "This tour will guide you through the main features of our website.",
+      "title": "Welcome to asyncz",
+      "content": "This quick tour will show you how to make the most of asyncz, your AI-powered scheduling platform.",
       "placement": "center"
     },
     {
       "element": "#header",
-      "title": "Header",
-      "content": "This is the header section where you can find the main navigation links.",
+      "title": "Main Navigation",
+      "content": "Use the header to access key areas of asyncz and explore its smart scheduling tools.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
-      "title": "Dashboard Menu",
-      "content": "Access your dashboard and manage your settings here.",
+      "title": "Dashboard",
+      "content": "Track activity, review insights, and manage your account from the asyncz dashboard.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
-      "title": "Calendar Menu",
-      "content": "View and manage your calendar events.",
+      "title": "Calendar",
+      "content": "Schedule, edit, and organize meetings or events with the AI-assisted calendar.",
       "placement": "right"
     },
     {
       "element": "#menu_branches",
-      "title": "Branches Menu",
-      "content": "Manage your branches and locations from this menu.",
+      "title": "Workspaces",
+      "content": "Manage your teams, branches, or different workspaces in one place.",
       "placement": "right"
     },
     {
       "element": "#menu_users",
-      "title": "User",
-      "content": "Manage user accounts and permissions here. Experts are managed from the Users section.",
+      "title": "Users",
+      "content": "Invite and manage users, assign roles, and give experts the right permissions.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Services",
-      "content": "Add and manage your services here.",
+      "content": "Define and organize the services you provide through asyncz for easier booking.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Customers",
-      "content": "View and manage your customer information.",
+      "content": "View, edit, and keep track of your customers and their bookings.",
       "placement": "right"
     },
     {
       "element": "#menu_blacklist",
       "title": "Blacklist",
-      "content": "Manage your blacklist to restrict certain users.",
+      "content": "Restrict unwanted users or block bookings from here.",
       "placement": "right"
     },
     {
       "element": "#menu_subscription",
       "title": "Subscription",
-      "content": "View and manage your subscription details.",
+      "content": "Review your subscription plan, billing, and upgrade whenever needed.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
-      "title": "Feedback",
-      "content": "Send support requests and feedback to help us improve.",
+      "title": "Feedback & Support",
+      "content": "Send feedback or contact support to help improve asyncz for everyone.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
-      "title": "Guide Button",
-      "content": "Click this button anytime to restart the tour.",
+      "title": "Replay Tour",
+      "content": "Click this button anytime to restart the asyncz walkthrough.",
       "placement": "top"
     }
   ]
