@@ -46,12 +46,12 @@ export async function getSchedules(token) {
 }
 
 
-export async function getGuideData(token) {
-   return  await fetch(`/guide.json?token=${token}`)
+export async function getGuideData( role, language) {
+   return  await fetch(`/${role}_${language}_guide.json`)
     .then(response=>response.json())
     .then(data=>{
       return data
     })
- 
+
 }
 

@@ -1,8 +1,14 @@
 {
   "tour": [
     {
-      "element": "#header",
+      "element": "welcome",
       "title": "Welcome to Our Website",
+      "content": "This tour will guide you through the main features of our website.",
+      "placement": "center"
+    },
+    {
+      "element": "#header",
+      "title": "Header",
       "content": "This is the header section where you can find the main navigation links.",
       "placement": "bottom"
     },
@@ -61,9 +67,9 @@
       "placement": "right"
     },
     {
-      "element": "#footer",
-      "title": "Footer",
-      "content": "This is the footer section where you can find additional links and information.",
+      "element": "#guide_button",
+      "title": "Guide Button",
+      "content": "Click this button anytime to restart the tour.",
       "placement": "top"
     }
   ]

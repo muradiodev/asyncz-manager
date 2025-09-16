@@ -20,7 +20,7 @@ export default {
   },
   computed: {
 
-    ...mapState(useAuthStore, ['token', 'companyPackage']),
+    ...mapState(useAuthStore, ['token', 'user', 'companyPackage']),
 
     fluid() {
       return this.$route.name === 'calendar'
@@ -41,26 +41,27 @@ export default {
       tourData.forEach((step, i) => {
 
 
-        let buttons = [];
+        let buttons = []
 
-        if(i > 0){buttons.push( {
-          text: 'Back',
-          action: this.tour.back,
-          classes: 'shepherd-button-secondary'
-        });
+        if (i > 0) {
+          buttons.push({
+            text: 'Back',
+            action: this.tour.back,
+            classes: 'shepherd-button-secondary'
+          })
         }
-        buttons.push( {
+        buttons.push({
           text: 'Close',
           action: this.tour.cancel,
           classes: 'shepherd-button-secondary bg-danger text-white'
-        });
+        })
 
         if (i < tourData.length - 1) {
-          buttons.push( {
+          buttons.push({
             text: 'Next',
             action: this.tour.next,
             classes: 'shepherd-button-primary'
-          });
+          })
 
         }
 
@@ -72,25 +73,31 @@ export default {
           scrollTo: { behavior: 'smooth', block: 'center' },
           when: {
             show: () => {
-              //console.log('Showing step: ' + step.title);
             },
             hide: () => {
               //console.log('Hiding step: ' + step.title);
             }
           }
-        });
-      });
+        })
+      })
     }
   },
   mounted() {
     if (!this.companyPackage && this.$route.name !== 'subscription') {
       this.$router.push({ name: 'subscription' })
     } else {
-      getGuideData(this.token).then(res => {
-        console.log('res')
-        console.log(res)
-        this.createTour(res.tour)
-        //this.tour.start()
+
+      const savedLanguage = localStorage.getItem('preferredLanguage') || 'en';
+
+      getGuideData(this.user.role, savedLanguage).then(res => {
+        if(res) {
+          this.createTour(res.tour)
+          let guideSeen = localStorage.getItem('guideSeen')
+          if (!guideSeen || guideSeen !== 'yes') {
+            this.tour.start()
+            localStorage.setItem('guideSeen', 'yes')
+          }
+        }
       })
     }
 
@@ -111,6 +118,13 @@ export default {
         </div>
       </div>
       <AppFooter />
+
+      <!-- guide tour start button on bottom right -->
+      <div class="position-fixed bottom-0 end-0 p-3" id="guide_button" style="z-index: 11">
+        <button class="btn btn-primary  " @click="tour.start()">
+          <i class="fas fa-question-circle fa-3"></i> Start a tour
+        </button>
+      </div>
     </div>
   </div>
 
