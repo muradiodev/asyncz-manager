@@ -1,0 +1,76 @@
+{
+  "tour": [
+    {
+      "element": "welcome",
+      "title": "asyncz-ə Xoş Gəldiniz",
+      "content": "Bu qısa tur sizə asyncz – süni intellekt dəstəyi ilə planlama platformasından necə səmərəli istifadə edəcəyinizi göstərəcək.",
+      "placement": "center"
+    },
+    {
+      "element": "#header",
+      "title": "Əsas Naviqasiya",
+      "content": "Başlıq panelindən istifadə edərək asyncz-in əsas bölmələrinə və ağıllı alətlərinə daxil olun.",
+      "placement": "bottom"
+    },
+    {
+      "element": "#menu_dashboard",
+      "title": "İdarə Paneli",
+      "content": "Fəaliyyətinizi izləyin və hesab parametrlərinizi idarə edin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_calendar",
+      "title": "Təqvim",
+      "content": "Görüş və tədbirlərinizi ağıllı təqvim vasitəsilə planlayın və idarə edin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_branches",
+      "title": "İş Sahələri",
+      "content": "Komandalarınızı, filiallarınızı və digər sahələri bir məkandan idarə edin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_users",
+      "title": "İstifadəçilər",
+      "content": "İstifadəçiləri dəvət edin, rollar təyin edin və ekspertlərə səlahiyyətlər verin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_services",
+      "title": "Xidmətlər",
+      "content": "Təklif etdiyiniz xidmətləri əlavə edin və sifarişləri asanlaşdırmaq üçün təşkil edin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_customers",
+      "title": "Müştərilər",
+      "content": "Müştəri məlumatlarını baxın, redaktə edin və sifarişləri izləyin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_blacklist",
+      "title": "Qara Siyahı",
+      "content": "Arzuolunmaz istifadəçiləri bloklamaq üçün qara siyahını idarə edin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_subscription",
+      "title": "Abunəlik",
+      "content": "Abunə planınızı, ödənişləri izləyin və lazım olduqda yüksəldin.",
+      "placement": "right"
+    },
+    {
+      "element": "#menu_feedback",
+      "title": "Rəy və Dəstək",
+      "content": "Rəy göndərin və ya dəstək komandası ilə əlaqə saxlayın ki, asyncz daha yaxşı olsun.",
+      "placement": "right"
+    },
+    {
+      "element": "#guide_button",
+      "title": "Turu Yenidən Başlat",
+      "content": "Asyncz turunu istənilən vaxt yenidən başlatmaq üçün buraya klikləyin.",
+      "placement": "top"
+    }
+  ]
+}
