@@ -3,73 +3,67 @@
     {
       "element": "welcome",
       "title": "asyncz-ə Xoş Gəldiniz",
-      "content": "Bu qısa tur sizə asyncz – süni intellekt dəstəyi ilə planlama platformasından necə səmərəli istifadə edəcəyinizi göstərəcək.",
+      "content": "Bu tur filial menecerlərinə və resepsion işçilərə asyncz-də sifarişləri, xidmətləri və müştəriləri necə idarə etməyi göstərəcək.",
       "placement": "center"
     },
     {
       "element": "#header",
       "title": "Əsas Naviqasiya",
-      "content": "Başlıq panelindən istifadə edərək asyncz-in əsas bölmələrinə və ağıllı alətlərinə daxil olun.",
+      "content": "Başlıq panelindən istifadə edərək filial üçün alətlərə və icazə verilən funksiyalara keçin.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
-      "title": "İdarə Paneli",
-      "content": "Fəaliyyətinizi izləyin və hesab parametrlərinizi idarə edin.",
+      "title": "Filial Paneli",
+      "content": "Bu bölmədə günün sifarişlərinə, işçi fəaliyyətinə və əsas filial göstəricilərinə baxa bilərsiniz.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
       "title": "Təqvim",
-      "content": "Görüş və tədbirlərinizi ağıllı təqvim vasitəsilə planlayın və idarə edin.",
+      "content": "Filial üzrə bütün görüşləri idarə edin, mütəxəssisləri təyin edin və cədvəli yeniləyin.",
       "placement": "right"
     },
     {
       "element": "#menu_branches",
-      "title": "İş Sahələri",
-      "content": "Komandalarınızı, filiallarınızı və digər sahələri bir məkandan idarə edin.",
+      "title": "Filial Parametrləri",
+      "content": "Filial məlumatlarını, iş saatlarını və mövcudluq parametrlərini redaktə edin.",
       "placement": "right"
     },
     {
       "element": "#menu_users",
-      "title": "İstifadəçilər",
-      "content": "İstifadəçiləri dəvət edin, rollar təyin edin və ekspertlərə səlahiyyətlər verin.",
+      "title": "Komanda üzvləri",
+      "content": "Bu filial üçün mütəxəssisləri idarə edin və onların mövcudluğunu tənzimləyin.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Xidmətlər",
-      "content": "Təklif etdiyiniz xidmətləri əlavə edin və sifarişləri asanlaşdırmaq üçün təşkil edin.",
+      "content": "Filialda təqdim olunan xidmətləri seçin, detalları və qiymətləri yeniləyin.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Müştərilər",
-      "content": "Müştəri məlumatlarını baxın, redaktə edin və sifarişləri izləyin.",
+      "content": "Filial üçün müştəri profillərinə, sifarişlərinə və əlaqə məlumatlarına baxın.",
       "placement": "right"
     },
     {
       "element": "#menu_blacklist",
       "title": "Qara Siyahı",
-      "content": "Arzuolunmaz istifadəçiləri bloklamaq üçün qara siyahını idarə edin.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_subscription",
-      "title": "Abunəlik",
-      "content": "Abunə planınızı, ödənişləri izləyin və lazım olduqda yüksəldin.",
+      "content": "Zəruri hallarda filial üzrə müştəriləri bloklayın və ya icazə verin.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
       "title": "Rəy və Dəstək",
-      "content": "Rəy göndərin və ya dəstək komandası ilə əlaqə saxlayın ki, asyncz daha yaxşı olsun.",
+      "content": "Filialla bağlı suallar üçün rəy göndərin və ya dəstək komandası ilə əlaqə saxlayın.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
       "title": "Turu Yenidən Başlat",
-      "content": "Asyncz turunu istənilən vaxt yenidən başlatmaq üçün buraya klikləyin.",
+      "content": "Filial menecerləri üçün turu istənilən vaxt yenidən başlatmaq üçün buraya klikləyin.",
       "placement": "top"
     }
   ]

@@ -3,73 +3,49 @@
     {
       "element": "welcome",
       "title": "asyncz'a Hoş Geldiniz",
-      "content": "Bu kısa tur, yapay zekâ destekli zamanlama platformu asyncz'i en iyi şekilde nasıl kullanacağınızı gösterir.",
+      "content": "Bu kısa tur, uzmanların asyncz içinde erişebileceği alanları gösterir.",
       "placement": "center"
     },
     {
       "element": "#header",
       "title": "Ana Navigasyon",
-      "content": "Üst menüyü kullanarak asyncz'in temel bölümlerine ve akıllı araçlarına erişin.",
+      "content": "Başlıktan, sizin için yetkilendirilmiş alanlara geçiş yapabilirsiniz.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
       "title": "Kontrol Paneli",
-      "content": "Aktivitelerinizi görüntüleyin ve ayarları panelden yönetin.",
+      "content": "Burada rezervasyonlarınızı ve temel hesap bilgilerinizi görebilirsiniz.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
       "title": "Takvim",
-      "content": "Toplantılarınızı yapay zekâ destekli takvimde planlayın ve düzenleyin.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_branches",
-      "title": "Çalışma Alanları",
-      "content": "Takımlarınızı, şubelerinizi veya farklı alanları tek bir yerden yönetin.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_users",
-      "title": "Kullanıcılar",
-      "content": "Kullanıcı davet edin, roller atayın ve uzmanlara erişim verin.",
+      "content": "Takvimde sadece size ait toplantıları görüntüleyip düzenleyin.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Hizmetler",
-      "content": "Sunulan hizmetleri ekleyin ve kolay rezervasyon için düzenleyin.",
+      "content": "Sunmanıza izin verilen hizmetleri görüntüleyin ve gerekiyorsa güncelleyin.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Müşteriler",
-      "content": "Müşteri bilgilerini görüntüleyin, düzenleyin ve rezervasyonları yönetin.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_blacklist",
-      "title": "Kara Liste",
-      "content": "İstenmeyen kullanıcıları engellemek için kara listeyi yönetin.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_subscription",
-      "title": "Abonelik",
-      "content": "Abonelik planınızı, faturalandırmayı inceleyin ve gerektiğinde yükseltin.",
+      "content": "Rezervasyonlarınızla ilişkili müşteri listesini görüntüleyin ve temel bilgileri inceleyin.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
       "title": "Geri Bildirim ve Destek",
-      "content": "Asyncz'i geliştirmemize yardımcı olmak için geri bildirim gönderin veya destek ekibiyle iletişime geçin.",
+      "content": "Sorunları bildirmek veya önerilerinizi iletmek için burada geri bildirim gönderin ya da destek ekibiyle iletişime geçin.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
       "title": "Turu Tekrar Et",
-      "content": "Asyncz turunu tekrar başlatmak için buraya tıklayın.",
+      "content": "Uzman turunu istediğiniz zaman yeniden başlatmak için buraya tıklayın.",
       "placement": "top"
     }
   ]

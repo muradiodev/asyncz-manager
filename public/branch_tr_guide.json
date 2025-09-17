@@ -3,73 +3,67 @@
     {
       "element": "welcome",
       "title": "asyncz'a Hoş Geldiniz",
-      "content": "Bu kısa tur, yapay zekâ destekli zamanlama platformu asyncz'i en iyi şekilde nasıl kullanacağınızı gösterir.",
+      "content": "Bu tur, şube yöneticilerine ve resepsiyon ekibine asyncz'de rezervasyonları, hizmetleri ve müşterileri nasıl yöneteceklerini gösterir.",
       "placement": "center"
     },
     {
       "element": "#header",
       "title": "Ana Navigasyon",
-      "content": "Üst menüyü kullanarak asyncz'in temel bölümlerine ve akıllı araçlarına erişin.",
+      "content": "Üst menüyü kullanarak şube araçlarına ve yetkili olduğunuz özelliklere ulaşın.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
-      "title": "Kontrol Paneli",
-      "content": "Aktivitelerinizi görüntüleyin ve ayarları panelden yönetin.",
+      "title": "Şube Paneli",
+      "content": "Bugünkü rezervasyonlara, personel aktivitelerine ve temel şube metriklerine genel bakış sağlayın.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
       "title": "Takvim",
-      "content": "Toplantılarınızı yapay zekâ destekli takvimde planlayın ve düzenleyin.",
+      "content": "Şubedeki tüm randevuları görüntüleyin, uzmanları atayın ve programı güncel tutun.",
       "placement": "right"
     },
     {
       "element": "#menu_branches",
-      "title": "Çalışma Alanları",
-      "content": "Takımlarınızı, şubelerinizi veya farklı alanları tek bir yerden yönetin.",
+      "title": "Şube Ayarları",
+      "content": "Şube bilgilerini, çalışma saatlerini ve uygunluk ayarlarını düzenleyin.",
       "placement": "right"
     },
     {
       "element": "#menu_users",
-      "title": "Kullanıcılar",
-      "content": "Kullanıcı davet edin, roller atayın ve uzmanlara erişim verin.",
+      "title": "Ekip Üyeleri",
+      "content": "Bu şubeye bağlı uzmanları yönetin ve uygunluklarını ayarlayın.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Hizmetler",
-      "content": "Sunulan hizmetleri ekleyin ve kolay rezervasyon için düzenleyin.",
+      "content": "Şubenizde sunulan hizmetleri kontrol edin, ayrıntıları veya fiyatları güncelleyin.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Müşteriler",
-      "content": "Müşteri bilgilerini görüntüleyin, düzenleyin ve rezervasyonları yönetin.",
+      "content": "Şubenize ait müşteri profillerini, rezervasyonlarını ve iletişim bilgilerini inceleyin.",
       "placement": "right"
     },
     {
       "element": "#menu_blacklist",
       "title": "Kara Liste",
-      "content": "İstenmeyen kullanıcıları engellemek için kara listeyi yönetin.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_subscription",
-      "title": "Abonelik",
-      "content": "Abonelik planınızı, faturalandırmayı inceleyin ve gerektiğinde yükseltin.",
+      "content": "Gerektiğinde şubenizdeki müşterileri engelleyin veya izin verin.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
       "title": "Geri Bildirim ve Destek",
-      "content": "Asyncz'i geliştirmemize yardımcı olmak için geri bildirim gönderin veya destek ekibiyle iletişime geçin.",
+      "content": "Şube ile ilgili sorularınız için geri bildirim gönderin veya destek ekibiyle iletişime geçin.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
       "title": "Turu Tekrar Et",
-      "content": "Asyncz turunu tekrar başlatmak için buraya tıklayın.",
+      "content": "Şube yöneticisi turunu istediğiniz zaman tekrar başlatmak için buraya tıklayın.",
       "placement": "top"
     }
   ]

@@ -3,73 +3,49 @@
     {
       "element": "welcome",
       "title": "Welcome to asyncz",
-      "content": "This quick tour will show you how to make the most of asyncz, your AI-powered scheduling platform.",
+      "content": "This quick tour helps experts understand the sections they can access on asyncz.",
       "placement": "center"
     },
     {
       "element": "#header",
       "title": "Main Navigation",
-      "content": "Use the header to access key areas of asyncz and explore its smart scheduling tools.",
+      "content": "Use the header to move between the areas available to you.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
       "title": "Dashboard",
-      "content": "Track activity, review insights, and manage your account from the asyncz dashboard.",
+      "content": "See an overview of your bookings and basic account details here.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
       "title": "Calendar",
-      "content": "Schedule, edit, and organize meetings or events with the AI-assisted calendar.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_branches",
-      "title": "Workspaces",
-      "content": "Manage your teams, branches, or different workspaces in one place.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_users",
-      "title": "Users",
-      "content": "Invite and manage users, assign roles, and give experts the right permissions.",
+      "content": "View and manage only the events assigned to you in the calendar.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Services",
-      "content": "Define and organize the services you provide through asyncz for easier booking.",
+      "content": "Check the services you are allowed to provide and keep them updated if needed.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Customers",
-      "content": "View, edit, and keep track of your customers and their bookings.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_blacklist",
-      "title": "Blacklist",
-      "content": "Restrict unwanted users or block bookings from here.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_subscription",
-      "title": "Subscription",
-      "content": "Review your subscription plan, billing, and upgrade whenever needed.",
+      "content": "Access the customer list related to your bookings and review basic details.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
       "title": "Feedback & Support",
-      "content": "Send feedback or contact support to help improve asyncz for everyone.",
+      "content": "If you notice issues or have ideas, send feedback or reach support here.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
       "title": "Replay Tour",
-      "content": "Click this button anytime to restart the asyncz walkthrough.",
+      "content": "Click this button anytime to restart the expert guide.",
       "placement": "top"
     }
   ]

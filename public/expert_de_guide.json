@@ -3,73 +3,49 @@
     {
       "element": "welcome",
       "title": "Willkommen bei asyncz",
-      "content": "Diese kurze Tour zeigt dir, wie du asyncz – deine KI-gestützte Terminplanung – optimal nutzt.",
+      "content": "Diese kurze Tour zeigt Experten die Bereiche, auf die sie in asyncz zugreifen können.",
       "placement": "center"
     },
     {
       "element": "#header",
       "title": "Hauptnavigation",
-      "content": "Nutze die Kopfzeile, um wichtige Bereiche von asyncz und smarte Planungstools aufzurufen.",
+      "content": "Nutze die Kopfzeile, um zwischen den für dich freigegebenen Bereichen zu wechseln.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
       "title": "Dashboard",
-      "content": "Behalte deine Aktivitäten im Blick und verwalte dein Konto im Dashboard.",
+      "content": "Hier siehst du deine Buchungen und grundlegende Kontoinformationen.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
       "title": "Kalender",
-      "content": "Plane, bearbeite und organisiere Termine mit dem KI-unterstützten Kalender.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_branches",
-      "title": "Arbeitsbereiche",
-      "content": "Verwalte Teams, Standorte oder verschiedene Arbeitsbereiche an einem Ort.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_users",
-      "title": "Benutzer",
-      "content": "Lade Benutzer ein, verwalte Rollen und weise Experten Berechtigungen zu.",
+      "content": "Verwalte im Kalender nur die Termine, die dir zugewiesen wurden.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Dienste",
-      "content": "Definiere und organisiere deine angebotenen Services für einfachere Buchungen.",
+      "content": "Prüfe die Services, die du anbieten darfst, und halte sie bei Bedarf aktuell.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Kunden",
-      "content": "Zeige Kundenprofile an, bearbeite sie und behalte ihre Buchungen im Blick.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_blacklist",
-      "title": "Sperrliste",
-      "content": "Blockiere unerwünschte Benutzer oder Buchungen über die Sperrliste.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_subscription",
-      "title": "Abonnement",
-      "content": "Prüfe deinen Tarif, Rechnungen und führe bei Bedarf ein Upgrade durch.",
+      "content": "Greife auf die Kundenliste zu, die mit deinen Buchungen verbunden ist, und sieh dir deren Basisdaten an.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
       "title": "Feedback & Support",
-      "content": "Sende uns Feedback oder kontaktiere den Support, um asyncz zu verbessern.",
+      "content": "Falls dir Probleme auffallen oder du Ideen hast, sende hier Feedback oder kontaktiere den Support.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
       "title": "Tour erneut starten",
-      "content": "Klicke hier, um die asyncz-Tour jederzeit neu zu starten.",
+      "content": "Klicke hier, um die Expertentour jederzeit neu zu starten.",
       "placement": "top"
     }
   ]

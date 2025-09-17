@@ -3,73 +3,67 @@
     {
       "element": "welcome",
       "title": "Welcome to asyncz",
-      "content": "This quick tour will show you how to make the most of asyncz, your AI-powered scheduling platform.",
+      "content": "This tour shows branch managers and reception staff how to manage bookings, services, and customers in asyncz.",
       "placement": "center"
     },
     {
       "element": "#header",
       "title": "Main Navigation",
-      "content": "Use the header to access key areas of asyncz and explore its smart scheduling tools.",
+      "content": "Use the header to reach the branch tools and other features you’re allowed to use.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
-      "title": "Dashboard",
-      "content": "Track activity, review insights, and manage your account from the asyncz dashboard.",
+      "title": "Branch Dashboard",
+      "content": "Get an overview of today’s bookings, staff activity, and key branch metrics.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
       "title": "Calendar",
-      "content": "Schedule, edit, and organize meetings or events with the AI-assisted calendar.",
+      "content": "View and manage all appointments for your branch, assign experts, and keep schedules up to date.",
       "placement": "right"
     },
     {
       "element": "#menu_branches",
-      "title": "Workspaces",
-      "content": "Manage your teams, branches, or different workspaces in one place.",
+      "title": "Branch Settings",
+      "content": "Edit your branch details, working hours, and availability settings.",
       "placement": "right"
     },
     {
       "element": "#menu_users",
-      "title": "Users",
-      "content": "Invite and manage users, assign roles, and give experts the right permissions.",
+      "title": "Team Members",
+      "content": "Manage experts assigned to this branch and adjust their availability.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Services",
-      "content": "Define and organize the services you provide through asyncz for easier booking.",
+      "content": "Control which services are offered in this branch and update their details or pricing.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Customers",
-      "content": "View, edit, and keep track of your customers and their bookings.",
+      "content": "Check customer profiles, bookings, and contact details relevant to your branch.",
       "placement": "right"
     },
     {
       "element": "#menu_blacklist",
       "title": "Blacklist",
-      "content": "Restrict unwanted users or block bookings from here.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_subscription",
-      "title": "Subscription",
-      "content": "Review your subscription plan, billing, and upgrade whenever needed.",
+      "content": "Block or allow customers for your branch if needed.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
       "title": "Feedback & Support",
-      "content": "Send feedback or contact support to help improve asyncz for everyone.",
+      "content": "Send suggestions or contact support for branch-related questions.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
       "title": "Replay Tour",
-      "content": "Click this button anytime to restart the asyncz walkthrough.",
+      "content": "Click here anytime to restart this branch manager guide.",
       "placement": "top"
     }
   ]

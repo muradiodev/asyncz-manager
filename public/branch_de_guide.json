@@ -3,73 +3,67 @@
     {
       "element": "welcome",
       "title": "Willkommen bei asyncz",
-      "content": "Diese kurze Tour zeigt dir, wie du asyncz – deine KI-gestützte Terminplanung – optimal nutzt.",
+      "content": "Diese Tour zeigt Filialleitern und Empfangspersonal, wie sie Buchungen, Services und Kunden in asyncz verwalten können.",
       "placement": "center"
     },
     {
       "element": "#header",
       "title": "Hauptnavigation",
-      "content": "Nutze die Kopfzeile, um wichtige Bereiche von asyncz und smarte Planungstools aufzurufen.",
+      "content": "Nutze die Kopfzeile, um zu den Filial-Tools und anderen verfügbaren Funktionen zu gelangen.",
       "placement": "bottom"
     },
     {
       "element": "#menu_dashboard",
-      "title": "Dashboard",
-      "content": "Behalte deine Aktivitäten im Blick und verwalte dein Konto im Dashboard.",
+      "title": "Filial-Dashboard",
+      "content": "Verschaffe dir einen Überblick über heutige Buchungen, Teamaktivitäten und wichtige Kennzahlen.",
       "placement": "right"
     },
     {
       "element": "#menu_calendar",
       "title": "Kalender",
-      "content": "Plane, bearbeite und organisiere Termine mit dem KI-unterstützten Kalender.",
+      "content": "Zeige und verwalte alle Termine deiner Filiale, weise Experten zu und halte den Zeitplan aktuell.",
       "placement": "right"
     },
     {
       "element": "#menu_branches",
-      "title": "Arbeitsbereiche",
-      "content": "Verwalte Teams, Standorte oder verschiedene Arbeitsbereiche an einem Ort.",
+      "title": "Filial-Einstellungen",
+      "content": "Bearbeite Details, Öffnungszeiten und Verfügbarkeiten deiner Filiale.",
       "placement": "right"
     },
     {
       "element": "#menu_users",
-      "title": "Benutzer",
-      "content": "Lade Benutzer ein, verwalte Rollen und weise Experten Berechtigungen zu.",
+      "title": "Teammitglieder",
+      "content": "Verwalte die Experten in dieser Filiale und passe ihre Verfügbarkeit an.",
       "placement": "right"
     },
     {
       "element": "#menu_services",
       "title": "Dienste",
-      "content": "Definiere und organisiere deine angebotenen Services für einfachere Buchungen.",
+      "content": "Lege fest, welche Services in deiner Filiale angeboten werden, und aktualisiere Details oder Preise.",
       "placement": "right"
     },
     {
       "element": "#menu_customers",
       "title": "Kunden",
-      "content": "Zeige Kundenprofile an, bearbeite sie und behalte ihre Buchungen im Blick.",
+      "content": "Prüfe Kundenprofile, Buchungen und Kontaktdaten, die für deine Filiale relevant sind.",
       "placement": "right"
     },
     {
       "element": "#menu_blacklist",
       "title": "Sperrliste",
-      "content": "Blockiere unerwünschte Benutzer oder Buchungen über die Sperrliste.",
-      "placement": "right"
-    },
-    {
-      "element": "#menu_subscription",
-      "title": "Abonnement",
-      "content": "Prüfe deinen Tarif, Rechnungen und führe bei Bedarf ein Upgrade durch.",
+      "content": "Sperre oder erlaube Kunden für deine Filiale, falls nötig.",
       "placement": "right"
     },
     {
       "element": "#menu_feedback",
       "title": "Feedback & Support",
-      "content": "Sende uns Feedback oder kontaktiere den Support, um asyncz zu verbessern.",
+      "content": "Sende Vorschläge oder kontaktiere den Support bei Fragen zu deiner Filiale.",
       "placement": "right"
     },
     {
       "element": "#guide_button",
       "title": "Tour erneut starten",
-      "content": "Klicke hier, um die asyncz-Tour jederzeit neu zu starten.",
+      "content": "Klicke hier, um die Filialleiter-Tour jederzeit neu zu starten.",
       "placement": "top"
     }
   ]
