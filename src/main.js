@@ -13,6 +13,8 @@ import { createPinia } from 'pinia'
 
 import dayjs from 'dayjs'
 import plugin from 'dayjs/plugin/customParseFormat'
+import Clarity from '@microsoft/clarity';
+
 
 dayjs.extend(plugin)
 
@@ -79,6 +81,9 @@ const i18n = createI18n({
     ru: localeRu
   }
 })
+
+const projectId = "tdp6bxyd7n";
+Clarity.init(projectId);
 
 const app = createApp(App)
 
